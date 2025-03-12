@@ -12,7 +12,7 @@ dependencies:
   cached_network_image: ^3.3.1
   flutter:
     sdk: flutter
-  flutter_html: 3.0.0-beta.2
+  flutter_html: 3.0.0
   google_mobile_ads: ^5.0.0
   news_blocks:
     path: ../../api/packages/news_blocks
