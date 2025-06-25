@@ -239,8 +239,8 @@ class AppTheme {
     );
   }
 
-  TabBarTheme get _tabBarTheme {
-    return TabBarTheme(
+  TabBarThemeData get _tabBarTheme {
+    return TabBarThemeData(
       labelStyle: UITextStyle.button,
       labelColor: AppColors.darkAqua,
       labelPadding: const EdgeInsets.symmetric(
