@@ -19,4 +19,4 @@ If you're just getting started with Flutter, we recommend first developing famil
 
 ## Get Started
 
-To get started, see the official documentation at [https://flutter.github.io/news_toolkit](https://vgventures.github.io/news_toolkit/).
+To get started, see the official documentation at https://vgventures.github.io/news_toolkit/.
