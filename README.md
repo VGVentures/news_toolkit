@@ -3,7 +3,7 @@
 
 <br/>
 
-Flutter and the [Google News Initiative](https://newsinitiative.withgoogle.com/) have co-sponsored the development of a news application template. The goal of this project is to help news publishers build mobile applications easily in order to make reliable information accessible to all.
+VGV, Flutter, and the [Google News Initiative](https://newsinitiative.withgoogle.com/) have co-sponsored the development of a news application template. The goal of this project is to help news publishers build mobile applications easily in order to make reliable information accessible to all.
 
 This template aims to **significantly reduce the development time for typical news applications** by giving developers a head start on core components and features.
 
@@ -19,4 +19,4 @@ If you're just getting started with Flutter, we recommend first developing famil
 
 ## Get Started
 
-To get started, see the official documentation at https://flutter.github.io/news_toolkit.
+To get started, see the official documentation at https://vgventures.github.io/news_toolkit/.
