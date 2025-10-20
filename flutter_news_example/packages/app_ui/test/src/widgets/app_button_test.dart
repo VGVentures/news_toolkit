@@ -604,7 +604,7 @@ void main() {
     });
 
     testWidgets(
-        'changes background color to AppColors.black.withOpacity(.12)  '
+        'changes background color to black with 0.12 alpha '
         'when `onPressed` is null', (tester) async {
       final buttonText = Text('buttonText');
 
@@ -618,10 +618,12 @@ void main() {
       final finder = find.byType(ElevatedButton);
       final widget = tester.widget(finder) as ElevatedButton;
 
-      expect(
-        widget.style?.backgroundColor?.resolve({}),
-        AppColors.black.withValues(alpha: .12),
-      );
+      final actual = widget.style?.backgroundColor?.resolve({});
+
+      expect(actual?.r, 0.0);
+      expect(actual?.g, 0.0);
+      expect(actual?.b, 0.0);
+      expect(actual?.a.toStringAsFixed(2), '0.12');
     });
   });
 }
