@@ -63,7 +63,11 @@ class MockUserRepository extends Mock implements UserRepository {
   Stream<User> get user => const Stream.empty();
 }
 
-class MockNewsRepository extends Mock implements NewsRepository {}
+class MockNewsRepository extends Mock implements NewsRepository {
+  @override
+  Future<CategoriesResponse> getCategories() async =>
+      const CategoriesResponse(categories: []);
+}
 
 class MockNotificationsRepository extends Mock
     implements NotificationsRepository {}
