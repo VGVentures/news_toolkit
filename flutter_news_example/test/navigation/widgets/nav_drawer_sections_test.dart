@@ -109,7 +109,7 @@ void main() {
 
         expect(
           tile.selectedTileColor,
-          equals(AppColors.white.withOpacity(0.08)),
+          equals(AppColors.white.withValues(alpha: 0.08)),
         );
 
         expect(

@@ -620,7 +620,7 @@ void main() {
 
       expect(
         widget.style?.backgroundColor?.resolve({}),
-        AppColors.black.withOpacity(.12),
+        AppColors.black.withValues(alpha: .12),
       );
     });
   });

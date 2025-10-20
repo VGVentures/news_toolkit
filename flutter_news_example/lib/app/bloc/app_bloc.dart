@@ -85,7 +85,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       // account is deleted.
       unawaited(_notificationsRepository.toggleNotifications(enable: false));
       await _userRepository.deleteAccount();
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       await _userRepository.logOut();
       addError(error, stackTrace);
     }

@@ -26,7 +26,7 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
     try {
       await _analyticsRepository
           .setUserId(user != User.anonymous ? user.id : null);
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       addError(error, stackTrace);
     }
   }
@@ -37,7 +37,7 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
   ) async {
     try {
       await _analyticsRepository.track(event.event);
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       addError(error, stackTrace);
     }
   }

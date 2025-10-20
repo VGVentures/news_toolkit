@@ -41,7 +41,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
     try {
       final subscriptions = await _inAppPurchaseRepository.fetchSubscriptions();
       emit(state.copyWith(subscriptions: subscriptions));
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       addError(error, stackTrace);
     }
   }
@@ -53,7 +53,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
     try {
       emit(state.copyWith(purchaseStatus: PurchaseStatus.pending));
       await _inAppPurchaseRepository.purchase(subscription: event.subscription);
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       addError(error, stackTrace);
     }
   }

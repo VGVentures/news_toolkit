@@ -78,7 +78,7 @@ class FlutterNewsExampleApiClient {
   final http.Client _httpClient;
   final TokenProvider _tokenProvider;
 
-  /// GET /api/v1/articles/<id>
+  /// GET /api/v1/articles/&lt;id&gt;
   /// Requests article content metadata.
   ///
   /// Supported parameters:
@@ -116,7 +116,7 @@ class FlutterNewsExampleApiClient {
     return ArticleResponse.fromJson(body);
   }
 
-  /// GET /api/v1/articles/<id>/related
+  /// GET /api/v1/articles/&lt;id&gt;/related
   /// Requests related articles.
   ///
   /// Supported parameters:

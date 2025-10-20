@@ -34,7 +34,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
           selectedCategory: response.categories.firstOrNull,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: CategoriesStatus.failure));
       addError(error, stackTrace);
     }

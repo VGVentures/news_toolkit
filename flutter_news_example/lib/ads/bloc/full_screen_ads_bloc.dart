@@ -90,7 +90,7 @@ class FullScreenAdsBloc extends Bloc<FullScreenAdsEvent, FullScreenAdsState> {
           status: FullScreenAdsStatus.loadingInterstitialAdSucceeded,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(
         state.copyWith(
           status: FullScreenAdsStatus.loadingInterstitialAdFailed,
@@ -138,7 +138,7 @@ class FullScreenAdsBloc extends Bloc<FullScreenAdsEvent, FullScreenAdsState> {
           status: FullScreenAdsStatus.loadingRewardedAdSucceeded,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(
         state.copyWith(
           status: FullScreenAdsStatus.loadingRewardedAdFailed,
@@ -184,7 +184,7 @@ class FullScreenAdsBloc extends Bloc<FullScreenAdsEvent, FullScreenAdsState> {
 
       // Load the next interstitial ad.
       add(const LoadInterstitialAdRequested());
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(
         state.copyWith(
           status: FullScreenAdsStatus.showingInterstitialAdFailed,
@@ -226,7 +226,7 @@ class FullScreenAdsBloc extends Bloc<FullScreenAdsEvent, FullScreenAdsState> {
 
       // Load the next rewarded ad.
       add(const LoadRewardedAdRequested());
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(
         state.copyWith(
           status: FullScreenAdsStatus.showingRewardedAdFailed,

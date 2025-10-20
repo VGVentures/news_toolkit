@@ -58,7 +58,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
           notificationsEnabled: notificationsEnabled,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(
         state.copyWith(
           status: UserProfileStatus.fetchingNotificationsEnabledFailed,
@@ -92,7 +92,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
           status: UserProfileStatus.togglingNotificationsSucceeded,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(
         state.copyWith(
           status: UserProfileStatus.togglingNotificationsFailed,

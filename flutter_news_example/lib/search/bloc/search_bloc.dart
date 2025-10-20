@@ -61,7 +61,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           status: SearchStatus.populated,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: SearchStatus.failure));
       addError(error, stackTrace);
     }
@@ -88,7 +88,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           status: SearchStatus.populated,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: SearchStatus.failure));
       addError(error, stackTrace);
     }

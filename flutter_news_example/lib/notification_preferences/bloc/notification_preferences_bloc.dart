@@ -51,7 +51,7 @@ class NotificationPreferencesBloc
           selectedCategories: updatedCategories,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(
         state.copyWith(status: NotificationPreferencesStatus.failure),
       );
@@ -86,7 +86,7 @@ class NotificationPreferencesBloc
           categories: categoriesResponse.categories.toSet(),
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(
         state.copyWith(status: NotificationPreferencesStatus.failure),
       );
