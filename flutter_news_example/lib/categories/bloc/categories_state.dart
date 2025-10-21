@@ -28,7 +28,7 @@ class CategoriesState extends Equatable {
       return categories
           ?.firstWhere((category) => category.id == categoryId)
           .name;
-    } on Exception catch (_) {
+    } on Object catch (_) {
       return null;
     }
   }
