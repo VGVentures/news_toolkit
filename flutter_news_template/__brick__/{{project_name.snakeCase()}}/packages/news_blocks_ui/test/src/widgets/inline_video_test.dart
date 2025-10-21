@@ -112,9 +112,7 @@ void main() {
         ),
       );
 
-      controller
-        ..textureId = 123
-        ..value = controller.value.copyWith(isPlaying: true);
+      controller.value = controller.value.copyWith(isPlaying: true);
 
       await tester.pump();
 
@@ -156,9 +154,6 @@ class FakeVideoPlayerController extends ValueNotifier<VideoPlayerValue>
   Future<void> dispose() async {
     super.dispose();
   }
-
-  @override
-  int textureId = VideoPlayerController.kUninitializedTextureId;
 
   @override
   String get dataSource => '';
@@ -212,6 +207,12 @@ class FakeVideoPlayerController extends ValueNotifier<VideoPlayerValue>
   Future<void> setClosedCaptionFile(
     Future<ClosedCaptionFile>? closedCaptionFile,
   ) async {}
+
+  @override
+  int get playerId => 1;
+
+  @override
+  VideoViewType get viewType => VideoViewType.textureView;
 }
 
 Future<ClosedCaptionFile> _loadClosedCaption() async =>

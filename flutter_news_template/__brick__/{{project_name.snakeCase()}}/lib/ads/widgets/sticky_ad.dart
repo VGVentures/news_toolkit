@@ -76,7 +76,7 @@ class StickyAdContainer extends StatelessWidget {
           boxShadow: [
             if (shadowEnabled)
               BoxShadow(
-                color: AppColors.black.withOpacity(0.3),
+                color: AppColors.black.withValues(alpha: 0.3),
                 blurRadius: 3,
                 spreadRadius: 1,
                 offset: const Offset(0, 1),
@@ -141,7 +141,7 @@ class StickyAdCloseIconBackground extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withOpacity(0.3),
+              color: AppColors.black.withValues(alpha: 0.3),
               blurRadius: 3,
               spreadRadius: 1,
               offset: const Offset(0, 1),

@@ -271,7 +271,7 @@ BottomNavigationBarThemeData get _bottomAppBarTheme {
   return BottomNavigationBarThemeData(
     backgroundColor: AppColors.darkBackground,
     selectedItemColor: AppColors.white,
-    unselectedItemColor: AppColors.white.withOpacity(0.74),
+    unselectedItemColor: AppColors.white.withValues(alpha: 0.74),
   );
 }
 

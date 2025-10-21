@@ -103,7 +103,7 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
           isPremium: response.isPremium,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: ArticleStatus.failure));
       addError(error, stackTrace);
     }
@@ -132,7 +132,7 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
           hasReachedArticleViewsLimit: hasReachedArticleViewsLimit,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: ArticleStatus.rewardedAdWatchedFailure));
       addError(error, stackTrace);
     }
@@ -152,7 +152,7 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
   ) async {
     try {
       await _shareLauncher.share(text: event.uri.toString());
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: ArticleStatus.shareFailure));
       addError(error, stackTrace);
     }

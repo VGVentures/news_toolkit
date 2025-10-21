@@ -45,7 +45,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         email: state.email.value,
       );
       emit(state.copyWith(status: FormzSubmissionStatus.success));
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }
@@ -61,7 +61,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on LogInWithGoogleCanceled {
       emit(state.copyWith(status: FormzSubmissionStatus.canceled));
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }
@@ -75,7 +75,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       await _userRepository.logInWithApple();
       emit(state.copyWith(status: FormzSubmissionStatus.success));
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }
@@ -91,7 +91,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on LogInWithTwitterCanceled {
       emit(state.copyWith(status: FormzSubmissionStatus.canceled));
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }
@@ -107,7 +107,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on LogInWithFacebookCanceled {
       emit(state.copyWith(status: FormzSubmissionStatus.canceled));
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }

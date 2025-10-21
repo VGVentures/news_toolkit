@@ -17,7 +17,10 @@ class MockNotificationPreferencesBloc extends Mock
     implements NotificationPreferencesBloc {}
 
 class MockNotificationPreferencesRepository extends Mock
-    implements NotificationsRepository {}
+    implements NotificationsRepository {
+  @override
+  Future<Set<Category>?> fetchCategoriesPreferences() async => {};
+}
 
 class MockCategoriesBloc extends Mock implements CategoriesBloc {}
 
@@ -27,10 +30,16 @@ void main() {
       MockNotificationPreferencesRepository();
   final CategoriesBloc categoryBloc = MockCategoriesBloc();
 
+  final entertainmentCategory = Category(
+    id: 'entertainment',
+    name: 'Entertainment',
+  );
+  final healthCategory = Category(id: 'health', name: 'Health');
+
   group('NotificationPreferencesPage', () {
-    const populatedState = CategoriesState(
+    final populatedState = CategoriesState(
       status: CategoriesStatus.populated,
-      categories: [Category.business, Category.entertainment],
+      categories: [entertainmentCategory, healthCategory],
     );
 
     test('has a route', () {
@@ -63,12 +72,12 @@ void main() {
 
   group('NotificationPreferencesView', () {
     testWidgets('renders AppSwitch with state value', (tester) async {
-      const notificationState = NotificationPreferencesState(
-        selectedCategories: {Category.business},
+      final notificationState = NotificationPreferencesState(
+        selectedCategories: {entertainmentCategory},
         status: NotificationPreferencesStatus.success,
         categories: {
-          Category.business,
-          Category.entertainment,
+          entertainmentCategory,
+          healthCategory,
         },
       );
 
@@ -99,10 +108,10 @@ void main() {
     testWidgets(
         'adds CategoriesPreferenceToggled to NotificationPreferencesBloc '
         'on AppSwitch toggled', (tester) async {
-      const notificationState = NotificationPreferencesState(
-        selectedCategories: {Category.business},
+      final notificationState = NotificationPreferencesState(
+        selectedCategories: {entertainmentCategory},
         status: NotificationPreferencesStatus.success,
-        categories: {Category.business},
+        categories: {entertainmentCategory},
       );
 
       whenListen(
@@ -122,7 +131,7 @@ void main() {
 
       verify(
         () => bloc.add(
-          CategoriesPreferenceToggled(category: Category.business),
+          CategoriesPreferenceToggled(category: entertainmentCategory),
         ),
       ).called(1);
     });

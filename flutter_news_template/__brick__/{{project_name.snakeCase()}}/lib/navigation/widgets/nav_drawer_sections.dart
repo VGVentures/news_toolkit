@@ -100,7 +100,7 @@ class NavDrawerSectionItem extends StatelessWidget {
       ),
       horizontalTitleGap: AppSpacing.md,
       minLeadingWidth: AppSpacing.xlg,
-      selectedTileColor: AppColors.white.withOpacity(0.08),
+      selectedTileColor: AppColors.white.withValues(alpha: 0.08),
       selected: selected,
       onTap: onTap,
       title: Text(

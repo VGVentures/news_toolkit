@@ -131,7 +131,8 @@
     "xcworkspace",
     "xxlg",
     "xxxlg",
-    "xxxs"
+    "xxxs",
+    "ARGB"
   ],
   "ignorePaths": [
     ".github/workflows/**",

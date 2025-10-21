@@ -32,6 +32,9 @@ void main() {
     setUp(() {
       articleRepository = MockArticleRepository();
 
+      when(articleRepository.fetchTotalArticleViews).thenAnswer((_) async => 1);
+      when(articleRepository.incrementTotalArticleViews)
+          .thenAnswer((_) async {});
       when(articleRepository.incrementArticleViews).thenAnswer((_) async {});
       when(articleRepository.resetArticleViews).thenAnswer((_) async {});
       when(articleRepository.fetchArticleViews)
@@ -115,9 +118,10 @@ void main() {
     testWidgets(
         'renders PostLarge '
         'for PostLargeBlock', (tester) async {
+      const category = Category(id: 'technology', name: 'Technology');
       final block = PostLargeBlock(
         id: 'id',
-        category: PostCategory.technology,
+        categoryId: category.id,
         author: 'author',
         publishedAt: DateTime(2022, 3, 9),
         imageUrl: 'imageUrl',
@@ -141,9 +145,10 @@ void main() {
     testWidgets(
         'renders PostMedium '
         'for PostMediumBlock', (tester) async {
+      const category = Category(id: 'sports', name: 'Sports');
       final block = PostMediumBlock(
         id: 'id',
-        category: PostCategory.sports,
+        categoryId: category.id,
         author: 'author',
         publishedAt: DateTime(2022, 3, 10),
         imageUrl: 'imageUrl',
@@ -165,9 +170,10 @@ void main() {
     testWidgets(
         'renders PostSmall '
         'for PostSmallBlock', (tester) async {
+      const category = Category(id: 'health', name: 'Health');
       final block = PostSmallBlock(
         id: 'id',
-        category: PostCategory.health,
+        categoryId: category.id,
         author: 'author',
         publishedAt: DateTime(2022, 3, 11),
         imageUrl: 'imageUrl',
@@ -189,12 +195,13 @@ void main() {
     testWidgets(
         'renders PostGrid '
         'for PostGridGroupBlock', (tester) async {
+      const category = Category(id: 'science', name: 'Science');
       final block = PostGridGroupBlock(
-        category: PostCategory.science,
+        categoryId: category.id,
         tiles: [
           PostGridTileBlock(
             id: 'id',
-            category: PostCategory.science,
+            categoryId: category.id,
             author: 'author',
             publishedAt: DateTime(2022, 3, 12),
             imageUrl: 'imageUrl',
@@ -255,9 +262,10 @@ void main() {
       const articleId = 'articleId';
 
       testWidgets('from PostLarge', (tester) async {
+        const category = Category(id: 'technology', name: 'Technology');
         final block = PostLargeBlock(
           id: articleId,
-          category: PostCategory.technology,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 9),
           imageUrl: 'imageUrl',
@@ -286,9 +294,10 @@ void main() {
       });
 
       testWidgets('from PostMedium', (tester) async {
+        const category = Category(id: 'sports', name: 'Sports');
         final block = PostMediumBlock(
           id: 'id',
-          category: PostCategory.sports,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 10),
           imageUrl: 'imageUrl',
@@ -319,9 +328,10 @@ void main() {
       });
 
       testWidgets('from PostSmall', (tester) async {
+        const category = Category(id: 'health', name: 'Health');
         final block = PostSmallBlock(
           id: 'id',
-          category: PostCategory.health,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 11),
           imageUrl: 'imageUrl',
@@ -350,12 +360,13 @@ void main() {
       });
 
       testWidgets('from PostGrid', (tester) async {
+        const category = Category(id: 'science', name: 'Science');
         final block = PostGridGroupBlock(
-          category: PostCategory.science,
+          categoryId: category.id,
           tiles: [
             PostGridTileBlock(
               id: 'id',
-              category: PostCategory.science,
+              categoryId: category.id,
               author: 'author',
               publishedAt: DateTime(2022, 3, 12),
               imageUrl: 'imageUrl',
@@ -395,9 +406,10 @@ void main() {
       const articleId = 'articleId';
 
       testWidgets('from PostLarge', (tester) async {
+        const category = Category(id: 'technology', name: 'Technology');
         final block = PostLargeBlock(
           id: articleId,
-          category: PostCategory.technology,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 9),
           imageUrl: 'imageUrl',
@@ -431,9 +443,10 @@ void main() {
       });
 
       testWidgets('from PostMedium', (tester) async {
+        const category = Category(id: 'sports', name: 'Sports');
         final block = PostMediumBlock(
           id: 'id',
-          category: PostCategory.sports,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 10),
           imageUrl: 'imageUrl',
@@ -467,9 +480,10 @@ void main() {
       });
 
       testWidgets('from PostSmall', (tester) async {
+        const category = Category(id: 'health', name: 'Health');
         final block = PostSmallBlock(
           id: 'id',
-          category: PostCategory.health,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 11),
           imageUrl: 'imageUrl',
@@ -502,12 +516,13 @@ void main() {
       });
 
       testWidgets('from PostGrid', (tester) async {
+        const category = Category(id: 'science', name: 'Science');
         final block = PostGridGroupBlock(
-          category: PostCategory.science,
+          categoryId: category.id,
           tiles: [
             PostGridTileBlock(
               id: 'id',
-              category: PostCategory.science,
+              categoryId: category.id,
               author: 'author',
               publishedAt: DateTime(2022, 3, 12),
               imageUrl: 'imageUrl',
@@ -521,6 +536,7 @@ void main() {
           CustomScrollView(
             slivers: [CategoryFeedItem(block: block)],
           ),
+          articleRepository: articleRepository,
         );
 
         // We're tapping on a PostLarge as the first post of the PostGrid
@@ -549,7 +565,7 @@ void main() {
         'on NavigateToFeedCategoryAction', (tester) async {
       final categoriesBloc = MockCategoriesBloc();
 
-      const category = Category.top;
+      const category = Category(id: 'top', name: 'Top');
       const block = SectionHeaderBlock(
         title: 'title',
         action: NavigateToFeedCategoryAction(category: category),

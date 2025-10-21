@@ -78,7 +78,7 @@ class {{project_name.pascalCase()}}ApiClient {
   final http.Client _httpClient;
   final TokenProvider _tokenProvider;
 
-  /// GET /api/v1/articles/<id>
+  /// GET /api/v1/articles/&lt;id&gt;
   /// Requests article content metadata.
   ///
   /// Supported parameters:
@@ -116,7 +116,7 @@ class {{project_name.pascalCase()}}ApiClient {
     return ArticleResponse.fromJson(body);
   }
 
-  /// GET /api/v1/articles/<id>/related
+  /// GET /api/v1/articles/&lt;id&gt;/related
   /// Requests related articles.
   ///
   /// Supported parameters:
@@ -155,18 +155,18 @@ class {{project_name.pascalCase()}}ApiClient {
   /// Requests news feed metadata.
   ///
   /// Supported parameters:
-  /// * [category] - The desired news [Category].
+  /// * [categoryId] - The desired id of news category.
   /// * [limit] - The number of results to return.
   /// * [offset] - The (zero-based) offset of the first item
   /// in the collection to return.
   Future<FeedResponse> getFeed({
-    Category? category,
+    String? categoryId,
     int? limit,
     int? offset,
   }) async {
     final uri = Uri.parse('$_baseUrl/api/v1/feed').replace(
       queryParameters: <String, String>{
-        if (category != null) 'category': category.name,
+        if (categoryId != null) 'category': categoryId,
         if (limit != null) 'limit': '$limit',
         if (offset != null) 'offset': '$offset',
       },

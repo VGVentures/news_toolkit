@@ -162,10 +162,11 @@ class _ColorSquare extends StatelessWidget {
   }
 
   String get hexCode {
-    if (color.value.toRadixString(16).length <= 2) {
+    if (color.toARGB32().toRadixString(16).length <= 2) {
       return '--';
     } else {
-      return '#${color.value.toRadixString(16).substring(2).toUpperCase()}';
+      final c = color.toARGB32().toRadixString(16).substring(2).toUpperCase();
+      return '#$c';
     }
   }
 
@@ -192,5 +193,19 @@ class _ColorSquare extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+extension on Color {
+  /// Returns true if the color is considered dark.
+  int toARGB32() {
+    return _floatToInt8(a) << 24 |
+        _floatToInt8(r) << 16 |
+        _floatToInt8(g) << 8 |
+        _floatToInt8(b) << 0;
+  }
+
+  int _floatToInt8(double x) {
+    return (x * 255.0).round() & 0xff;
   }
 }

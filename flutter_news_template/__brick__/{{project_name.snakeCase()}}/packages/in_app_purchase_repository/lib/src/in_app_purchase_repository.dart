@@ -246,7 +246,7 @@ class InAppPurchaseRepository {
           PurchaseDelivered(subscription: purchasedProduct),
         );
       }
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       _purchaseUpdateStreamController.addError(
         PurchaseFailed(
           failure: DeliverInAppPurchaseFailure(
@@ -271,7 +271,7 @@ class InAppPurchaseRepository {
           ),
         );
       }
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       _purchaseUpdateStreamController.addError(
         PurchaseFailed(
           failure: CompleteInAppPurchaseFailure(
