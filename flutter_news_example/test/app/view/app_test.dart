@@ -76,6 +76,8 @@ void main() {
           .thenAnswer((_) async => 2);
       when(() => userRepository.incrementAppOpenedCount())
           .thenAnswer((_) async {});
+      when(() => newsRepository.getCategories())
+          .thenAnswer((_) async => const CategoriesResponse(categories: []));
     });
 
     testWidgets('renders AppView', (tester) async {

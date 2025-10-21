@@ -42,7 +42,7 @@ class OverlaidImage extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [
                   AppColors.transparent,
-                  gradientColor.withOpacity(0.7),
+                  gradientColor.withValues(alpha: 0.7),
                 ],
               ),
             ),

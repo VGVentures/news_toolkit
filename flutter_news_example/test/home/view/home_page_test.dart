@@ -26,6 +26,18 @@ void main() {
         categories: [healthCategory],
       ),
     );
+    when(
+      () => newsRepository.getFeed(
+        categoryId: any(named: 'categoryId'),
+        limit: any(named: 'limit'),
+        offset: any(named: 'offset'),
+      ),
+    ).thenAnswer(
+      (_) async => FeedResponse(
+        feed: [],
+        totalCount: 0,
+      ),
+    );
   });
 
   test('has a page', () {
@@ -33,7 +45,7 @@ void main() {
   });
 
   testWidgets('renders a HomeView', (tester) async {
-    await tester.pumpApp(const HomePage());
+    await tester.pumpApp(const HomePage(), newsRepository: newsRepository);
 
     expect(find.byType(HomeView), findsOneWidget);
   });

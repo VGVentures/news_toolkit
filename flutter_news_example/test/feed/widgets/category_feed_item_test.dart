@@ -32,6 +32,9 @@ void main() {
     setUp(() {
       articleRepository = MockArticleRepository();
 
+      when(articleRepository.fetchTotalArticleViews).thenAnswer((_) async => 1);
+      when(articleRepository.incrementTotalArticleViews)
+          .thenAnswer((_) async {});
       when(articleRepository.incrementArticleViews).thenAnswer((_) async {});
       when(articleRepository.resetArticleViews).thenAnswer((_) async {});
       when(articleRepository.fetchArticleViews)
@@ -533,6 +536,7 @@ void main() {
           CustomScrollView(
             slivers: [CategoryFeedItem(block: block)],
           ),
+          articleRepository: articleRepository,
         );
 
         // We're tapping on a PostLarge as the first post of the PostGrid

@@ -37,8 +37,9 @@ Future<void> bootstrap(AppBuilder builder) async {
         analyticsRepository: analyticsRepository,
       );
       Bloc.observer = blocObserver;
+      final storageDirectory = await getApplicationSupportDirectory();
       HydratedBloc.storage = await HydratedStorage.build(
-        storageDirectory: await getApplicationSupportDirectory(),
+        storageDirectory: HydratedStorageDirectory(storageDirectory.path),
       );
 
       if (kDebugMode) {

@@ -27,7 +27,7 @@ class PostMediumOverlaidLayout extends StatelessWidget {
       children: [
         OverlaidImage(
           imageUrl: imageUrl,
-          gradientColor: AppColors.black.withOpacity(0.7),
+          gradientColor: AppColors.black.withValues(alpha: 0.7),
         ),
         Padding(
           padding: const EdgeInsets.all(AppSpacing.sm),

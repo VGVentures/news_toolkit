@@ -71,7 +71,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
             ..addAll({categoryId: hasMoreNewsForCategory}),
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: FeedStatus.failure));
       addError(error, stackTrace);
     }
@@ -110,7 +110,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
             ..addAll({category.id: hasMoreNewsForCategory}),
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: FeedStatus.failure));
       addError(error, stackTrace);
     }

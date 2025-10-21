@@ -67,7 +67,7 @@ class LoginWithEmailLinkBloc
       );
 
       emit(state.copyWith(status: LoginWithEmailLinkStatus.success));
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: LoginWithEmailLinkStatus.failure));
       addError(error, stackTrace);
     }
