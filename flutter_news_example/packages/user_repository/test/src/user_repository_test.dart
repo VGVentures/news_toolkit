@@ -18,8 +18,6 @@ class MockDeepLinkService extends Mock implements DeepLinkService {}
 
 class MockUserStorage extends Mock implements UserStorage {}
 
-class MockUser extends Mock implements AuthenticationUser {}
-
 class MockFlutterNewsExampleApiClient extends Mock
     implements api.FlutterNewsExampleApiClient {}
 

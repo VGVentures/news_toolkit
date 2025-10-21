@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:authentication_client/authentication_client.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_news_example/user_profile/user_profile.dart';
 import 'package:flutter_news_example_api/client.dart' hide User;
@@ -15,8 +14,6 @@ class MockUserRepository extends Mock implements UserRepository {}
 
 class MockNotificationsRepository extends Mock
     implements NotificationsRepository {}
-
-class MockAuthenticationClient extends Mock implements AuthenticationClient {}
 
 void main() {
   group('UserProfileBloc', () {

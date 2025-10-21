@@ -17,8 +17,6 @@ class MockBannerAd extends Mock implements BannerAd {}
 
 class MockPlatform extends Mock implements Platform {}
 
-class MockLoadAdError extends Mock implements LoadAdError {}
-
 void main() {
   group('BannerAdContent', () {
     late AdSize capturedSize;
