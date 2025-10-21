@@ -176,8 +176,8 @@ class _UserProfileViewState extends State<UserProfileView>
                     Align(
                       child: AppButton.smallTransparent(
                         key: const Key('userProfilePage_deleteAccountButton'),
-                        onPressed: () {
-                          showDialog<void>(
+                        onPressed: () async {
+                          await showDialog<void>(
                             context: context,
                             builder: (_) =>
                                 const UserProfileDeleteAccountDialog(),

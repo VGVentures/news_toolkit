@@ -31,13 +31,13 @@ void main() {
     });
 
     group('track', () {
-      test('tracks event successfully', () {
+      test('tracks event successfully', () async {
         const event = AnalyticsEvent(
           'TestEvent',
           properties: <String, String>{'test-key': 'mock-id'},
         );
 
-        analyticsRepository.track(event);
+        await analyticsRepository.track(event);
 
         verify(
           () => firebaseAnalytics.logEvent(
@@ -72,10 +72,10 @@ void main() {
     });
 
     group('setUserId', () {
-      test('sets user identifier successfully', () {
+      test('sets user identifier successfully', () async {
         const userId = 'userId';
 
-        analyticsRepository.setUserId(userId);
+        await analyticsRepository.setUserId(userId);
 
         verify(() => firebaseAnalytics.setUserId(id: userId)).called(1);
       });

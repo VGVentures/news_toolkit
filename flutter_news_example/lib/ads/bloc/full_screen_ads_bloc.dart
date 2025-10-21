@@ -165,8 +165,8 @@ class FullScreenAdsBloc extends Bloc<FullScreenAdsEvent, FullScreenAdsState> {
       state.interstitialAd?.fullScreenContentCallback =
           ads.FullScreenContentCallback(
             onAdDismissedFullScreenContent: (ad) => ad.dispose(),
-            onAdFailedToShowFullScreenContent: (ad, error) {
-              ad.dispose();
+            onAdFailedToShowFullScreenContent: (ad, error) async {
+              await ad.dispose();
               addError(error);
             },
           );
@@ -201,8 +201,8 @@ class FullScreenAdsBloc extends Bloc<FullScreenAdsEvent, FullScreenAdsState> {
       state.rewardedAd?.fullScreenContentCallback =
           ads.FullScreenContentCallback(
             onAdDismissedFullScreenContent: (ad) => ad.dispose(),
-            onAdFailedToShowFullScreenContent: (ad, error) {
-              ad.dispose();
+            onAdFailedToShowFullScreenContent: (ad, error) async {
+              await ad.dispose();
               addError(error);
             },
           );

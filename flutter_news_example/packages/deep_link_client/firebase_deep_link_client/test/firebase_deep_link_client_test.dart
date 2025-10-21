@@ -20,8 +20,8 @@ void main() {
     ).thenAnswer((_) => onLinkStreamController.stream);
   });
 
-  tearDown(() {
-    onLinkStreamController.close();
+  tearDown(() async {
+    await onLinkStreamController.close();
   });
 
   group('FirebaseDeepLinkClient', () {
