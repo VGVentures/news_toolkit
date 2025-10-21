@@ -52,11 +52,10 @@ class _InlineVideoState extends State<InlineVideo> {
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     super.dispose();
-    _controller
-      ..removeListener(_onVideoUpdated)
-      ..dispose();
+    _controller.removeListener(_onVideoUpdated);
+    await _controller.dispose();
   }
 
   void _onVideoUpdated() {

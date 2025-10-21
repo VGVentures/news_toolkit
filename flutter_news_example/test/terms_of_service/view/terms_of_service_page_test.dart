@@ -22,8 +22,8 @@ void main() {
             body: Builder(
               builder: (context) {
                 return ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(
+                  onPressed: () async {
+                    await Navigator.of(
                       context,
                     ).push<void>(TermsOfServicePage.route());
                   },
