@@ -246,7 +246,7 @@ class UserProfileItem extends StatelessWidget {
     super.key,
   });
 
-  static const _leadingWidth = AppSpacing.xxxlg + AppSpacing.sm;
+  static const double _leadingWidth = AppSpacing.xxxlg + AppSpacing.sm;
 
   final String title;
   final Widget? leading;

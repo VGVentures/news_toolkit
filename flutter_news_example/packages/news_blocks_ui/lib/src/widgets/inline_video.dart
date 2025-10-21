@@ -19,7 +19,7 @@ class InlineVideo extends StatefulWidget {
   });
 
   /// The aspect ratio of this video.
-  static const _aspectRatio = 3 / 2;
+  static const double _aspectRatio = 3 / 2;
 
   /// The url of this video.
   final String videoUrl;

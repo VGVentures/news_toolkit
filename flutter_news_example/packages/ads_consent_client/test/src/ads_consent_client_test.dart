@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_dynamic_calls
+// ignore_for_file: avoid_dynamic_calls
 
 import 'package:ads_consent_client/ads_consent_client.dart';
 import 'package:flutter_test/flutter_test.dart';

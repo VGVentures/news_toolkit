@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-// ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';

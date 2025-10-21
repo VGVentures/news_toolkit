@@ -410,7 +410,7 @@ void main() {
             (widget) =>
                 widget is ArticlePage &&
                 widget.id == articleId &&
-                widget.isVideoArticle == true,
+                widget.isVideoArticle,
           ),
           findsOneWidget,
         );
@@ -445,7 +445,7 @@ void main() {
             (widget) =>
                 widget is ArticlePage &&
                 widget.id == articleId &&
-                widget.isVideoArticle == true,
+                widget.isVideoArticle,
           ),
           findsOneWidget,
         );
@@ -479,7 +479,7 @@ void main() {
             (widget) =>
                 widget is ArticlePage &&
                 widget.id == articleId &&
-                widget.isVideoArticle == true,
+                widget.isVideoArticle,
           ),
           findsOneWidget,
         );
@@ -521,7 +521,7 @@ void main() {
             (widget) =>
                 widget is ArticlePage &&
                 widget.id == articleId &&
-                widget.isVideoArticle == true,
+                widget.isVideoArticle,
           ),
           findsOneWidget,
         );

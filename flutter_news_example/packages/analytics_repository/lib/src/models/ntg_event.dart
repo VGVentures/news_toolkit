@@ -20,9 +20,9 @@ abstract class NTGEvent extends AnalyticsEvent {
            'eventCategory': category,
            'eventAction': action,
            'nonInteraction': '$nonInteraction',
-           if (label != null) 'eventLabel': label,
-           if (value != null) 'eventValue': value,
-           if (hitType != null) 'hitType': hitType,
+           'eventLabel': ?label,
+           'eventValue': ?value,
+           'hitType': ?hitType,
          },
        );
 }

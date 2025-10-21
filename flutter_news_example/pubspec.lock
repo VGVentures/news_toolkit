@@ -660,10 +660,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_svg
-      sha256: cd57f7969b4679317c17af6fd16ee233c1e60a82ed209d8a475c54fd6fd6f845
+      sha256: b9c2ad5872518a27507ab432d1fb97e8813b05f0fc693f9d40fad06d073e0678
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -678,10 +678,10 @@ packages:
     dependency: "direct main"
     description:
       name: font_awesome_flutter
-      sha256: b738e35f8bb4957896c34957baf922f99c5d415b38ddc8b070d14b7fa95715d4
+      sha256: ef8e9591f6de2bf671c3b6f506f5ff85f03d34403084fccced62d3628fb086b9
       url: "https://pub.dev"
     source: hosted
-    version: "10.9.1"
+    version: "10.11.0"
   form_inputs:
     dependency: "direct main"
     description:
@@ -884,10 +884,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
+      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
       url: "https://pub.dev"
     source: hosted
-    version: "0.19.0"
+    version: "0.20.2"
   io:
     dependency: transitive
     description:
@@ -1740,10 +1740,10 @@ packages:
     dependency: "direct main"
     description:
       name: very_good_analysis
-      sha256: "62d2b86d183fb81b2edc22913d9f155d26eb5cf3855173adb1f59fac85035c63"
+      sha256: "96245839dbcc45dfab1af5fa551603b5c7a282028a64746c19c547d21a7f1e3a"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "10.0.0"
   video_player:
     dependency: transitive
     description:
@@ -1772,10 +1772,10 @@ packages:
     dependency: "direct main"
     description:
       name: video_player_platform_interface
-      sha256: cf2a1d29a284db648fd66cbd18aacc157f9862d77d2cc790f6f9678a46c1db5a
+      sha256: "9e372520573311055cb353b9a0da1c9d72b094b7ba01b8ecc66f28473553793b"
       url: "https://pub.dev"
     source: hosted
-    version: "6.4.0"
+    version: "6.5.0"
   video_player_web:
     dependency: transitive
     description:
