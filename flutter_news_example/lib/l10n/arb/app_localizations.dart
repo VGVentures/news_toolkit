@@ -703,7 +703,7 @@ abstract class AppLocalizations {
   /// Text displayed when a network error occurs.
   ///
   /// In en, this message translates to:
-  /// **'A network error has occured.\nCheck your connection and try again.'**
+  /// **'A network error has occurred.\nCheck your connection and try again.'**
   String get networkError;
 
   /// Text displayed on the refresh button when a network error occurs.

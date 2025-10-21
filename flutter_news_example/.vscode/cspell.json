@@ -132,7 +132,8 @@
     "xxlg",
     "xxxlg",
     "xxxs",
-    "ARGB"
+    "ARGB",
+    "canonicalized"
   ],
   "ignorePaths": [
     ".github/workflows/**",

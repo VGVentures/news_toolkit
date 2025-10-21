@@ -336,7 +336,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get networkError =>
-      'A network error has occured.\nCheck your connection and try again.';
+      'A network error has occurred.\nCheck your connection and try again.';
 
   @override
   String get networkErrorButton => 'Try Again';
