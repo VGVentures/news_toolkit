@@ -37,10 +37,7 @@ void main() {
       final tabController = TabController(length: tabs.length, vsync: tester);
 
       await tester.pumpApp(
-        CategoriesTabBar(
-          controller: tabController,
-          tabs: tabs,
-        ),
+        CategoriesTabBar(controller: tabController, tabs: tabs),
       );
 
       expect(
@@ -63,11 +60,7 @@ void main() {
     testWidgets('renders category name uppercased', (tester) async {
       final sportsCategory = Category(id: 'sports', name: 'Sports');
 
-      await tester.pumpApp(
-        CategoryTab(
-          categoryName: sportsCategory.name,
-        ),
-      );
+      await tester.pumpApp(CategoryTab(categoryName: sportsCategory.name));
 
       expect(find.text(sportsCategory.name.toUpperCase()), findsOneWidget);
     });

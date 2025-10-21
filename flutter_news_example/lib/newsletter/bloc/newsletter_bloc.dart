@@ -9,9 +9,8 @@ part 'newsletter_event.dart';
 part 'newsletter_state.dart';
 
 class NewsletterBloc extends Bloc<NewsletterEvent, NewsletterState> {
-  NewsletterBloc({
-    required this.newsRepository,
-  }) : super(const NewsletterState()) {
+  NewsletterBloc({required this.newsRepository})
+    : super(const NewsletterState()) {
     on<NewsletterSubscribed>(_onNewsletterSubscribed);
     on<EmailChanged>(_onEmailChanged);
   }
@@ -38,11 +37,6 @@ class NewsletterBloc extends Bloc<NewsletterEvent, NewsletterState> {
     Emitter<NewsletterState> emit,
   ) async {
     final email = Email.dirty(event.email);
-    emit(
-      state.copyWith(
-        email: email,
-        isValid: Formz.validate([email]),
-      ),
-    );
+    emit(state.copyWith(email: email, isValid: Formz.validate([email])));
   }
 }

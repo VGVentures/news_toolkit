@@ -14,10 +14,7 @@ void main() {
     });
 
     test('supports value comparisons', () {
-      expect(
-        CategoriesState.initial(),
-        equals(CategoriesState.initial()),
-      );
+      expect(CategoriesState.initial(), equals(CategoriesState.initial()));
     });
 
     test('getCategoryName returns null when not found', () {
@@ -26,8 +23,7 @@ void main() {
     });
 
     group('copyWith', () {
-      test(
-          'returns same object '
+      test('returns same object '
           'when no properties are passed', () {
         expect(
           CategoriesState.initial().copyWith(),
@@ -35,23 +31,15 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated status '
+      test('returns object with updated status '
           'when status is passed', () {
         expect(
-          CategoriesState.initial().copyWith(
-            status: CategoriesStatus.loading,
-          ),
-          equals(
-            CategoriesState(
-              status: CategoriesStatus.loading,
-            ),
-          ),
+          CategoriesState.initial().copyWith(status: CategoriesStatus.loading),
+          equals(CategoriesState(status: CategoriesStatus.loading)),
         );
       });
 
-      test(
-          'returns object with updated categories '
+      test('returns object with updated categories '
           'when categories is passed', () {
         final sportsCategory = Category(id: 'sports', name: 'Sports');
         final healthCategory = Category(id: 'health', name: 'Health');
@@ -59,8 +47,9 @@ void main() {
         final categories = [sportsCategory, healthCategory];
 
         expect(
-          CategoriesState(status: CategoriesStatus.populated)
-              .copyWith(categories: categories),
+          CategoriesState(
+            status: CategoriesStatus.populated,
+          ).copyWith(categories: categories),
           equals(
             CategoriesState(
               status: CategoriesStatus.populated,
@@ -70,14 +59,14 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated selectedCategory '
+      test('returns object with updated selectedCategory '
           'when selectedCategory is passed', () {
         final selectedCategory = Category(id: 'sports', name: 'Sports');
 
         expect(
-          CategoriesState(status: CategoriesStatus.populated)
-              .copyWith(selectedCategory: selectedCategory),
+          CategoriesState(
+            status: CategoriesStatus.populated,
+          ).copyWith(selectedCategory: selectedCategory),
           equals(
             CategoriesState(
               status: CategoriesStatus.populated,

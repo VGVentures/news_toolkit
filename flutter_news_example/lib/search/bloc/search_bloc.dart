@@ -23,10 +23,9 @@ EventTransformer<Event> restartableDebounce<Event>(
 }
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  SearchBloc({
-    required NewsRepository newsRepository,
-  })  : _newsRepository = newsRepository,
-        super(const SearchState.initial()) {
+  SearchBloc({required NewsRepository newsRepository})
+    : _newsRepository = newsRepository,
+      super(const SearchState.initial()) {
     on<SearchTermChanged>(
       (event, emit) async {
         event.searchTerm.isEmpty

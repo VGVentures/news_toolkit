@@ -44,15 +44,15 @@ class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
     implements CategoriesBloc {
   @override
   CategoriesState get state => const CategoriesState(
-        status: CategoriesStatus.populated,
-        categories: [
-          Category(id: 'sports', name: 'Sports'),
-          Category(id: 'health', name: 'Health'),
-          Category(id: 'technology', name: 'Technology'),
-          Category(id: 'science', name: 'Science'),
-        ],
-        selectedCategory: Category(id: 'sports', name: 'Sports'),
-      );
+    status: CategoriesStatus.populated,
+    categories: [
+      Category(id: 'sports', name: 'Sports'),
+      Category(id: 'health', name: 'Health'),
+      Category(id: 'technology', name: 'Technology'),
+      Category(id: 'science', name: 'Science'),
+    ],
+    selectedCategory: Category(id: 'sports', name: 'Sports'),
+  );
 }
 
 class MockUserRepository extends Mock implements UserRepository {
@@ -74,10 +74,7 @@ class MockNewsRepository extends Mock implements NewsRepository {
     int? limit,
     int? offset,
   }) async {
-    return const FeedResponse(
-      feed: [],
-      totalCount: 0,
-    );
+    return const FeedResponse(feed: [], totalCount: 0);
   }
 }
 

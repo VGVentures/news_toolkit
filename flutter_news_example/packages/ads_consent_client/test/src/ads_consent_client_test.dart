@@ -26,8 +26,7 @@ void main() {
     });
 
     group('requestConsent', () {
-      group(
-          'when ConsentInformation.requestConsentInfoUpdate succeeds '
+      group('when ConsentInformation.requestConsentInfoUpdate succeeds '
           'and ConsentInformation.isConsentFormAvailable returns true', () {
         setUp(() {
           when(
@@ -36,24 +35,23 @@ void main() {
               any(),
               any(),
             ),
-          ).thenAnswer(
-            (invocation) {
-              final successListener = invocation.positionalArguments[1];
-              successListener();
-            },
-          );
+          ).thenAnswer((invocation) {
+            final successListener = invocation.positionalArguments[1];
+            successListener();
+          });
 
-          when(adsConsentInformation.isConsentFormAvailable)
-              .thenAnswer((_) async => true);
+          when(
+            adsConsentInformation.isConsentFormAvailable,
+          ).thenAnswer((_) async => true);
         });
 
-        group(
-            'and ConsentInformation.getConsentStatus returns required '
+        group('and ConsentInformation.getConsentStatus returns required '
             'and ConsentForm.show succeeds', () {
           setUp(() {
             adsConsentFormProvider = (successListener, failureListener) async {
-              when(adsConsentInformation.getConsentStatus)
-                  .thenAnswer((_) async => ConsentStatus.required);
+              when(
+                adsConsentInformation.getConsentStatus,
+              ).thenAnswer((_) async => ConsentStatus.required);
               successListener(adsConsentForm);
             };
           });
@@ -64,8 +62,9 @@ void main() {
             when(() => adsConsentForm.show(any())).thenAnswer((invocation) {
               // Update consent status to obtained
               // when the consent form is dismissed.
-              when(adsConsentInformation.getConsentStatus)
-                  .thenAnswer((_) async => updatedConsentStatus);
+              when(
+                adsConsentInformation.getConsentStatus,
+              ).thenAnswer((_) async => updatedConsentStatus);
 
               final dismissedListener = invocation.positionalArguments.first;
               dismissedListener(null);
@@ -96,8 +95,9 @@ void main() {
             when(() => adsConsentForm.show(any())).thenAnswer((invocation) {
               // Update consent status to unknown
               // when the consent form is dismissed.
-              when(adsConsentInformation.getConsentStatus)
-                  .thenAnswer((_) async => updatedConsentStatus);
+              when(
+                adsConsentInformation.getConsentStatus,
+              ).thenAnswer((_) async => updatedConsentStatus);
 
               final dismissedListener = invocation.positionalArguments.first;
               dismissedListener(null);
@@ -123,13 +123,13 @@ void main() {
           });
         });
 
-        group(
-            'and ConsentInformation.getConsentStatus returns required '
+        group('and ConsentInformation.getConsentStatus returns required '
             'and ConsentForm.show fails', () {
           setUp(() {
             adsConsentFormProvider = (successListener, failureListener) async {
-              when(adsConsentInformation.getConsentStatus)
-                  .thenAnswer((_) async => ConsentStatus.required);
+              when(
+                adsConsentInformation.getConsentStatus,
+              ).thenAnswer((_) async => ConsentStatus.required);
               successListener(adsConsentForm);
             };
 
@@ -150,8 +150,7 @@ void main() {
           });
         });
 
-        group(
-            'and ConsentInformation.getConsentStatus returns required '
+        group('and ConsentInformation.getConsentStatus returns required '
             'and ConsentFormProvider fails', () {
           setUp(() {
             adsConsentFormProvider = (successListener, failureListener) async {
@@ -171,92 +170,97 @@ void main() {
         });
 
         test(
-            'returns true '
-            'when ConsentInformation.getConsentStatus returns notRequired',
-            () async {
-          adsConsentFormProvider = (successListener, failureListener) async {
-            when(adsConsentInformation.getConsentStatus)
-                .thenAnswer((_) async => ConsentStatus.notRequired);
-            successListener(adsConsentForm);
-          };
+          'returns true '
+          'when ConsentInformation.getConsentStatus returns notRequired',
+          () async {
+            adsConsentFormProvider = (successListener, failureListener) async {
+              when(
+                adsConsentInformation.getConsentStatus,
+              ).thenAnswer((_) async => ConsentStatus.notRequired);
+              successListener(adsConsentForm);
+            };
 
-          final adsConsentDetermined = await AdsConsentClient(
-            adsConsentInformation: adsConsentInformation,
-            adsConsentFormProvider: adsConsentFormProvider,
-          ).requestConsent();
+            final adsConsentDetermined = await AdsConsentClient(
+              adsConsentInformation: adsConsentInformation,
+              adsConsentFormProvider: adsConsentFormProvider,
+            ).requestConsent();
 
-          verify(
-            () => adsConsentInformation.requestConsentInfoUpdate(
-              ConsentRequestParameters(),
-              any(),
-              any(),
-            ),
-          ).called(1);
-          verify(adsConsentInformation.isConsentFormAvailable).called(1);
-          verify(adsConsentInformation.getConsentStatus).called(1);
+            verify(
+              () => adsConsentInformation.requestConsentInfoUpdate(
+                ConsentRequestParameters(),
+                any(),
+                any(),
+              ),
+            ).called(1);
+            verify(adsConsentInformation.isConsentFormAvailable).called(1);
+            verify(adsConsentInformation.getConsentStatus).called(1);
 
-          expect(adsConsentDetermined, isTrue);
-        });
-
-        test(
-            'returns true '
-            'when ConsentInformation.getConsentStatus returns obtained',
-            () async {
-          adsConsentFormProvider = (successListener, failureListener) async {
-            when(adsConsentInformation.getConsentStatus)
-                .thenAnswer((_) async => ConsentStatus.obtained);
-            successListener(adsConsentForm);
-          };
-
-          final adsConsentDetermined = await AdsConsentClient(
-            adsConsentInformation: adsConsentInformation,
-            adsConsentFormProvider: adsConsentFormProvider,
-          ).requestConsent();
-
-          verify(
-            () => adsConsentInformation.requestConsentInfoUpdate(
-              ConsentRequestParameters(),
-              any(),
-              any(),
-            ),
-          ).called(1);
-          verify(adsConsentInformation.isConsentFormAvailable).called(1);
-          verify(adsConsentInformation.getConsentStatus).called(1);
-
-          expect(adsConsentDetermined, isTrue);
-        });
+            expect(adsConsentDetermined, isTrue);
+          },
+        );
 
         test(
-            'returns false '
-            'when ConsentInformation.getConsentStatus returns unknown',
-            () async {
-          adsConsentFormProvider = (successListener, failureListener) async {
-            when(adsConsentInformation.getConsentStatus)
-                .thenAnswer((_) async => ConsentStatus.unknown);
-            successListener(adsConsentForm);
-          };
+          'returns true '
+          'when ConsentInformation.getConsentStatus returns obtained',
+          () async {
+            adsConsentFormProvider = (successListener, failureListener) async {
+              when(
+                adsConsentInformation.getConsentStatus,
+              ).thenAnswer((_) async => ConsentStatus.obtained);
+              successListener(adsConsentForm);
+            };
 
-          final adsConsentDetermined = await AdsConsentClient(
-            adsConsentInformation: adsConsentInformation,
-            adsConsentFormProvider: adsConsentFormProvider,
-          ).requestConsent();
+            final adsConsentDetermined = await AdsConsentClient(
+              adsConsentInformation: adsConsentInformation,
+              adsConsentFormProvider: adsConsentFormProvider,
+            ).requestConsent();
 
-          verify(
-            () => adsConsentInformation.requestConsentInfoUpdate(
-              ConsentRequestParameters(),
-              any(),
-              any(),
-            ),
-          ).called(1);
-          verify(adsConsentInformation.isConsentFormAvailable).called(1);
-          verify(adsConsentInformation.getConsentStatus).called(1);
+            verify(
+              () => adsConsentInformation.requestConsentInfoUpdate(
+                ConsentRequestParameters(),
+                any(),
+                any(),
+              ),
+            ).called(1);
+            verify(adsConsentInformation.isConsentFormAvailable).called(1);
+            verify(adsConsentInformation.getConsentStatus).called(1);
 
-          expect(adsConsentDetermined, isFalse);
-        });
+            expect(adsConsentDetermined, isTrue);
+          },
+        );
+
+        test(
+          'returns false '
+          'when ConsentInformation.getConsentStatus returns unknown',
+          () async {
+            adsConsentFormProvider = (successListener, failureListener) async {
+              when(
+                adsConsentInformation.getConsentStatus,
+              ).thenAnswer((_) async => ConsentStatus.unknown);
+              successListener(adsConsentForm);
+            };
+
+            final adsConsentDetermined = await AdsConsentClient(
+              adsConsentInformation: adsConsentInformation,
+              adsConsentFormProvider: adsConsentFormProvider,
+            ).requestConsent();
+
+            verify(
+              () => adsConsentInformation.requestConsentInfoUpdate(
+                ConsentRequestParameters(),
+                any(),
+                any(),
+              ),
+            ).called(1);
+            verify(adsConsentInformation.isConsentFormAvailable).called(1);
+            verify(adsConsentInformation.getConsentStatus).called(1);
+
+            expect(adsConsentDetermined, isFalse);
+          },
+        );
       });
 
-      group(
-          'when ConsentInformation.requestConsentInfoUpdate succeeds '
+      group('when ConsentInformation.requestConsentInfoUpdate succeeds '
           'and ConsentInformation.isConsentFormAvailable returns false', () {
         setUp(() {
           when(
@@ -265,91 +269,96 @@ void main() {
               any(),
               any(),
             ),
-          ).thenAnswer(
-            (invocation) {
-              final successListener = invocation.positionalArguments[1];
-              successListener();
-            },
-          );
+          ).thenAnswer((invocation) {
+            final successListener = invocation.positionalArguments[1];
+            successListener();
+          });
 
-          when(adsConsentInformation.isConsentFormAvailable)
-              .thenAnswer((_) async => false);
+          when(
+            adsConsentInformation.isConsentFormAvailable,
+          ).thenAnswer((_) async => false);
         });
 
         test(
-            'returns true '
-            'when ConsentInformation.getConsentStatus returns notRequired',
-            () async {
-          when(adsConsentInformation.getConsentStatus)
-              .thenAnswer((_) async => ConsentStatus.notRequired);
+          'returns true '
+          'when ConsentInformation.getConsentStatus returns notRequired',
+          () async {
+            when(
+              adsConsentInformation.getConsentStatus,
+            ).thenAnswer((_) async => ConsentStatus.notRequired);
 
-          final adsConsentDetermined = await AdsConsentClient(
-            adsConsentInformation: adsConsentInformation,
-            adsConsentFormProvider: adsConsentFormProvider,
-          ).requestConsent();
+            final adsConsentDetermined = await AdsConsentClient(
+              adsConsentInformation: adsConsentInformation,
+              adsConsentFormProvider: adsConsentFormProvider,
+            ).requestConsent();
 
-          verify(
-            () => adsConsentInformation.requestConsentInfoUpdate(
-              ConsentRequestParameters(),
-              any(),
-              any(),
-            ),
-          ).called(1);
-          verify(adsConsentInformation.isConsentFormAvailable).called(1);
-          verify(adsConsentInformation.getConsentStatus).called(1);
+            verify(
+              () => adsConsentInformation.requestConsentInfoUpdate(
+                ConsentRequestParameters(),
+                any(),
+                any(),
+              ),
+            ).called(1);
+            verify(adsConsentInformation.isConsentFormAvailable).called(1);
+            verify(adsConsentInformation.getConsentStatus).called(1);
 
-          expect(adsConsentDetermined, isTrue);
-        });
-
-        test(
-            'returns true '
-            'when ConsentInformation.getConsentStatus returns obtained',
-            () async {
-          when(adsConsentInformation.getConsentStatus)
-              .thenAnswer((_) async => ConsentStatus.obtained);
-
-          final adsConsentDetermined = await AdsConsentClient(
-            adsConsentInformation: adsConsentInformation,
-            adsConsentFormProvider: adsConsentFormProvider,
-          ).requestConsent();
-
-          verify(
-            () => adsConsentInformation.requestConsentInfoUpdate(
-              ConsentRequestParameters(),
-              any(),
-              any(),
-            ),
-          ).called(1);
-          verify(adsConsentInformation.isConsentFormAvailable).called(1);
-          verify(adsConsentInformation.getConsentStatus).called(1);
-
-          expect(adsConsentDetermined, isTrue);
-        });
+            expect(adsConsentDetermined, isTrue);
+          },
+        );
 
         test(
-            'returns false '
-            'when ConsentInformation.getConsentStatus returns unknown',
-            () async {
-          when(adsConsentInformation.getConsentStatus)
-              .thenAnswer((_) async => ConsentStatus.unknown);
+          'returns true '
+          'when ConsentInformation.getConsentStatus returns obtained',
+          () async {
+            when(
+              adsConsentInformation.getConsentStatus,
+            ).thenAnswer((_) async => ConsentStatus.obtained);
 
-          final adsConsentDetermined = await AdsConsentClient(
-            adsConsentInformation: adsConsentInformation,
-            adsConsentFormProvider: adsConsentFormProvider,
-          ).requestConsent();
+            final adsConsentDetermined = await AdsConsentClient(
+              adsConsentInformation: adsConsentInformation,
+              adsConsentFormProvider: adsConsentFormProvider,
+            ).requestConsent();
 
-          verify(
-            () => adsConsentInformation.requestConsentInfoUpdate(
-              ConsentRequestParameters(),
-              any(),
-              any(),
-            ),
-          ).called(1);
-          verify(adsConsentInformation.isConsentFormAvailable).called(1);
-          verify(adsConsentInformation.getConsentStatus).called(1);
+            verify(
+              () => adsConsentInformation.requestConsentInfoUpdate(
+                ConsentRequestParameters(),
+                any(),
+                any(),
+              ),
+            ).called(1);
+            verify(adsConsentInformation.isConsentFormAvailable).called(1);
+            verify(adsConsentInformation.getConsentStatus).called(1);
 
-          expect(adsConsentDetermined, isFalse);
-        });
+            expect(adsConsentDetermined, isTrue);
+          },
+        );
+
+        test(
+          'returns false '
+          'when ConsentInformation.getConsentStatus returns unknown',
+          () async {
+            when(
+              adsConsentInformation.getConsentStatus,
+            ).thenAnswer((_) async => ConsentStatus.unknown);
+
+            final adsConsentDetermined = await AdsConsentClient(
+              adsConsentInformation: adsConsentInformation,
+              adsConsentFormProvider: adsConsentFormProvider,
+            ).requestConsent();
+
+            verify(
+              () => adsConsentInformation.requestConsentInfoUpdate(
+                ConsentRequestParameters(),
+                any(),
+                any(),
+              ),
+            ).called(1);
+            verify(adsConsentInformation.isConsentFormAvailable).called(1);
+            verify(adsConsentInformation.getConsentStatus).called(1);
+
+            expect(adsConsentDetermined, isFalse);
+          },
+        );
       });
 
       group('when ConsentInformation.requestConsentInfoUpdate fails', () {
@@ -360,12 +369,10 @@ void main() {
               any(),
               any(),
             ),
-          ).thenAnswer(
-            (invocation) {
-              final failureListener = invocation.positionalArguments.last;
-              failureListener(FormError(errorCode: 1, message: 'message'));
-            },
-          );
+          ).thenAnswer((invocation) {
+            final failureListener = invocation.positionalArguments.last;
+            failureListener(FormError(errorCode: 1, message: 'message'));
+          });
         });
 
         test('throws a RequestConsentFailure', () async {

@@ -34,8 +34,9 @@ void main() {
       blocTest<CategoriesBloc, CategoriesState>(
         'emits [loading, populated] '
         'when getCategories succeeds',
-        setUp: () => when(newsRepository.getCategories)
-            .thenAnswer((_) async => categoriesResponse),
+        setUp: () => when(
+          newsRepository.getCategories,
+        ).thenAnswer((_) async => categoriesResponse),
         build: () => categoriesBloc,
         act: (bloc) => bloc.add(CategoriesRequested()),
         expect: () => <CategoriesState>[
@@ -67,9 +68,7 @@ void main() {
         build: () => categoriesBloc,
         act: (bloc) => bloc.add(CategorySelected(category: sportsCategory)),
         expect: () => <CategoriesState>[
-          CategoriesState.initial().copyWith(
-            selectedCategory: sportsCategory,
-          ),
+          CategoriesState.initial().copyWith(selectedCategory: sportsCategory),
         ],
       );
     });

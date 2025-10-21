@@ -42,9 +42,7 @@ void main() {
           ..add(CategoriesPreferenceToggled(category: entertainmentCategory))
           ..add(CategoriesPreferenceToggled(category: entertainmentCategory)),
         expect: () => <NotificationPreferencesState>[
-          initialState.copyWith(
-            status: NotificationPreferencesStatus.loading,
-          ),
+          initialState.copyWith(status: NotificationPreferencesStatus.loading),
           initialState.copyWith(
             selectedCategories: {entertainmentCategory},
             status: NotificationPreferencesStatus.success,
@@ -75,12 +73,8 @@ void main() {
         act: (bloc) => bloc
           ..add(CategoriesPreferenceToggled(category: entertainmentCategory)),
         expect: () => <NotificationPreferencesState>[
-          initialState.copyWith(
-            status: NotificationPreferencesStatus.loading,
-          ),
-          initialState.copyWith(
-            status: NotificationPreferencesStatus.failure,
-          ),
+          initialState.copyWith(status: NotificationPreferencesStatus.loading),
+          initialState.copyWith(status: NotificationPreferencesStatus.failure),
         ],
       );
     });
@@ -95,10 +89,7 @@ void main() {
           ).thenAnswer((_) async => {entertainmentCategory});
           when(newsRepository.getCategories).thenAnswer(
             (_) async => CategoriesResponse(
-              categories: [
-                entertainmentCategory,
-                healthCategory,
-              ],
+              categories: [entertainmentCategory, healthCategory],
             ),
           );
         },
@@ -109,14 +100,9 @@ void main() {
         seed: () => initialState,
         act: (bloc) => bloc..add(InitialCategoriesPreferencesRequested()),
         expect: () => <NotificationPreferencesState>[
-          initialState.copyWith(
-            status: NotificationPreferencesStatus.loading,
-          ),
+          initialState.copyWith(status: NotificationPreferencesStatus.loading),
           NotificationPreferencesState(
-            categories: {
-              entertainmentCategory,
-              healthCategory,
-            },
+            categories: {entertainmentCategory, healthCategory},
             selectedCategories: {entertainmentCategory},
             status: NotificationPreferencesStatus.success,
           ),
@@ -136,12 +122,8 @@ void main() {
         seed: () => initialState,
         act: (bloc) => bloc..add(InitialCategoriesPreferencesRequested()),
         expect: () => <NotificationPreferencesState>[
-          initialState.copyWith(
-            status: NotificationPreferencesStatus.loading,
-          ),
-          initialState.copyWith(
-            status: NotificationPreferencesStatus.failure,
-          ),
+          initialState.copyWith(status: NotificationPreferencesStatus.loading),
+          initialState.copyWith(status: NotificationPreferencesStatus.failure),
         ],
       );
     });

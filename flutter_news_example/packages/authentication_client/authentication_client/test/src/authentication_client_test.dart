@@ -16,86 +16,50 @@ void main() {
   });
 
   test('exports SendLoginEmailLinkFailure', () {
-    expect(
-      () => SendLoginEmailLinkFailure('oops'),
-      returnsNormally,
-    );
+    expect(() => SendLoginEmailLinkFailure('oops'), returnsNormally);
   });
 
   test('exports IsLogInWithEmailLinkFailure', () {
-    expect(
-      () => IsLogInWithEmailLinkFailure('oops'),
-      returnsNormally,
-    );
+    expect(() => IsLogInWithEmailLinkFailure('oops'), returnsNormally);
   });
 
   test('exports LogInWithEmailLinkFailure', () {
-    expect(
-      () => LogInWithEmailLinkFailure('oops'),
-      returnsNormally,
-    );
+    expect(() => LogInWithEmailLinkFailure('oops'), returnsNormally);
   });
 
   test('exports LogInWithAppleFailure', () {
-    expect(
-      () => LogInWithAppleFailure('oops'),
-      returnsNormally,
-    );
+    expect(() => LogInWithAppleFailure('oops'), returnsNormally);
   });
 
   test('exports LogInWithGoogleFailure', () {
-    expect(
-      () => LogInWithGoogleFailure('oops'),
-      returnsNormally,
-    );
+    expect(() => LogInWithGoogleFailure('oops'), returnsNormally);
   });
 
   test('exports LogInWithGoogleCanceled', () {
-    expect(
-      () => LogInWithGoogleCanceled('oops'),
-      returnsNormally,
-    );
+    expect(() => LogInWithGoogleCanceled('oops'), returnsNormally);
   });
 
   test('exports LogInWithFacebookFailure', () {
-    expect(
-      () => LogInWithFacebookFailure('oops'),
-      returnsNormally,
-    );
+    expect(() => LogInWithFacebookFailure('oops'), returnsNormally);
   });
 
   test('exports LogInWithFacebookCanceled', () {
-    expect(
-      () => LogInWithFacebookCanceled('oops'),
-      returnsNormally,
-    );
+    expect(() => LogInWithFacebookCanceled('oops'), returnsNormally);
   });
 
   test('exports LogInWithTwitterFailure', () {
-    expect(
-      () => LogInWithTwitterFailure('oops'),
-      returnsNormally,
-    );
+    expect(() => LogInWithTwitterFailure('oops'), returnsNormally);
   });
 
   test('exports LogInWithTwitterCanceled', () {
-    expect(
-      () => LogInWithTwitterCanceled('oops'),
-      returnsNormally,
-    );
+    expect(() => LogInWithTwitterCanceled('oops'), returnsNormally);
   });
 
   test('exports LogOutFailure', () {
-    expect(
-      () => LogOutFailure('oops'),
-      returnsNormally,
-    );
+    expect(() => LogOutFailure('oops'), returnsNormally);
   });
 
   test('exports DeleteAccountFailure', () {
-    expect(
-      () => DeleteAccountFailure('oops'),
-      returnsNormally,
-    );
+    expect(() => DeleteAccountFailure('oops'), returnsNormally);
   });
 }

@@ -1,11 +1,6 @@
 part of 'login_with_email_link_bloc.dart';
 
-enum LoginWithEmailLinkStatus {
-  initial,
-  loading,
-  success,
-  failure,
-}
+enum LoginWithEmailLinkStatus { initial, loading, success, failure }
 
 class LoginWithEmailLinkState extends Equatable {
   const LoginWithEmailLinkState({
@@ -17,11 +12,7 @@ class LoginWithEmailLinkState extends Equatable {
   @override
   List<Object> get props => [status];
 
-  LoginWithEmailLinkState copyWith({
-    LoginWithEmailLinkStatus? status,
-  }) {
-    return LoginWithEmailLinkState(
-      status: status ?? this.status,
-    );
+  LoginWithEmailLinkState copyWith({LoginWithEmailLinkStatus? status}) {
+    return LoginWithEmailLinkState(status: status ?? this.status);
   }
 }

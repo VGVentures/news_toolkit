@@ -24,9 +24,8 @@ void main() {
         'emits [loading, success] '
         'when subscribeToNewsletter succeeds',
         setUp: () => when(
-          () => newsRepository.subscribeToNewsletter(
-            email: any(named: 'email'),
-          ),
+          () =>
+              newsRepository.subscribeToNewsletter(email: any(named: 'email')),
         ).thenAnswer(Future.value),
         seed: () => NewsletterState(email: Email.dirty('test'), isValid: true),
         build: () => NewsletterBloc(newsRepository: newsRepository),
@@ -49,22 +48,15 @@ void main() {
         'emits [loading, failed] '
         'when subscribeToNewsletter throws',
         setUp: () => when(
-          () => newsRepository.subscribeToNewsletter(
-            email: any(named: 'email'),
-          ),
+          () =>
+              newsRepository.subscribeToNewsletter(email: any(named: 'email')),
         ).thenThrow(Error.new),
         seed: () => NewsletterState(email: Email.dirty('test')),
         build: () => NewsletterBloc(newsRepository: newsRepository),
         act: (bloc) => bloc.add(NewsletterSubscribed()),
         expect: () => <NewsletterState>[
-          NewsletterState(
-            status: NewsletterStatus.loading,
-            email: emailValid,
-          ),
-          NewsletterState(
-            status: NewsletterStatus.failure,
-            email: emailValid,
-          ),
+          NewsletterState(status: NewsletterStatus.loading, email: emailValid),
+          NewsletterState(status: NewsletterStatus.failure, email: emailValid),
         ],
       );
 

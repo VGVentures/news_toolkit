@@ -13,18 +13,23 @@ class ArticleTrailingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final relatedArticles =
-        context.select((ArticleBloc bloc) => bloc.state.relatedArticles);
-    final isArticlePreview =
-        context.select((ArticleBloc bloc) => bloc.state.isPreview);
+    final relatedArticles = context.select(
+      (ArticleBloc bloc) => bloc.state.relatedArticles,
+    );
+    final isArticlePreview = context.select(
+      (ArticleBloc bloc) => bloc.state.isPreview,
+    );
 
-    final hasReachedArticleViewsLimit = context
-        .select((ArticleBloc bloc) => bloc.state.hasReachedArticleViewsLimit);
-    final isUserSubscribed =
-        context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
+    final hasReachedArticleViewsLimit = context.select(
+      (ArticleBloc bloc) => bloc.state.hasReachedArticleViewsLimit,
+    );
+    final isUserSubscribed = context.select(
+      (AppBloc bloc) => bloc.state.isUserSubscribed,
+    );
 
-    final isArticlePremium =
-        context.select((ArticleBloc bloc) => bloc.state.isPremium);
+    final isArticlePremium = context.select(
+      (ArticleBloc bloc) => bloc.state.isPremium,
+    );
 
     final showSubscribeWithArticleLimitModal =
         hasReachedArticleViewsLimit && !isUserSubscribed;
@@ -60,15 +65,13 @@ class ArticleTrailingContent extends StatelessWidget {
         ],
         if (isArticlePreview) ...[
           SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                const SizedBox(height: AppSpacing.xlg),
-                if (showSubscribeModal)
-                  const SubscribeModal()
-                else if (showSubscribeWithArticleLimitModal)
-                  const SubscribeWithArticleLimitModal(),
-              ],
-            ),
+            delegate: SliverChildListDelegate([
+              const SizedBox(height: AppSpacing.xlg),
+              if (showSubscribeModal)
+                const SubscribeModal()
+              else if (showSubscribeWithArticleLimitModal)
+                const SubscribeWithArticleLimitModal(),
+            ]),
           ),
         ],
       ],

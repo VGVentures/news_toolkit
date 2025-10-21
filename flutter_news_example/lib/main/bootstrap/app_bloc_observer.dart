@@ -4,9 +4,8 @@ import 'package:analytics_repository/analytics_repository.dart';
 import 'package:bloc/bloc.dart';
 
 class AppBlocObserver extends BlocObserver {
-  AppBlocObserver({
-    required AnalyticsRepository analyticsRepository,
-  }) : _analyticsRepository = analyticsRepository;
+  AppBlocObserver({required AnalyticsRepository analyticsRepository})
+    : _analyticsRepository = analyticsRepository;
 
   final AnalyticsRepository _analyticsRepository;
 

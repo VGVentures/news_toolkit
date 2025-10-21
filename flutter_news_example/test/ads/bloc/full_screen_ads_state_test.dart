@@ -36,8 +36,7 @@ void main() {
     });
 
     group('copyWith', () {
-      test(
-          'returns same object '
+      test('returns same object '
           'when no properties are passed', () {
         expect(
           FullScreenAdsState.initial().copyWith(),
@@ -45,8 +44,7 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated interstitialAd '
+      test('returns object with updated interstitialAd '
           'when interstitialAd is passed', () {
         final interstitialAd = FakeInterstitialAd();
         expect(
@@ -60,8 +58,7 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated rewardedAd '
+      test('returns object with updated rewardedAd '
           'when rewardedAd is passed', () {
         final rewardedAd = FakeRewardedAd();
         expect(
@@ -75,8 +72,7 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated earnedReward '
+      test('returns object with updated earnedReward '
           'when earnedReward is passed', () {
         final earnedReward = FakeRewardItem();
         expect(
@@ -90,15 +86,12 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated status '
+      test('returns object with updated status '
           'when status is passed', () {
         const status = FullScreenAdsStatus.showingInterstitialAd;
         expect(
           FullScreenAdsState.initial().copyWith(status: status),
-          equals(
-            FullScreenAdsState(status: status),
-          ),
+          equals(FullScreenAdsState(status: status)),
         );
       });
     });
