@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
+import 'package:{{project_name.snakeCase()}}/categories/categories.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 import 'package:{{project_name.snakeCase()}}/theme_selector/theme_selector.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -39,6 +40,21 @@ class MockFullScreenAdsBloc
   FullScreenAdsState get state => const FullScreenAdsState.initial();
 }
 
+class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
+    implements CategoriesBloc {
+  @override
+  CategoriesState get state => const CategoriesState(
+    status: CategoriesStatus.populated,
+    categories: [
+      Category(id: 'sports', name: 'Sports'),
+      Category(id: 'health', name: 'Health'),
+      Category(id: 'technology', name: 'Technology'),
+      Category(id: 'science', name: 'Science'),
+    ],
+    selectedCategory: Category(id: 'sports', name: 'Sports'),
+  );
+}
+
 class MockUserRepository extends Mock implements UserRepository {
   @override
   Stream<Uri> get incomingEmailLinks => const Stream.empty();
@@ -47,10 +63,29 @@ class MockUserRepository extends Mock implements UserRepository {
   Stream<User> get user => const Stream.empty();
 }
 
-class MockNewsRepository extends Mock implements NewsRepository {}
+class MockNewsRepository extends Mock implements NewsRepository {
+  @override
+  Future<CategoriesResponse> getCategories() async =>
+      const CategoriesResponse(categories: []);
+
+  @override
+  Future<FeedResponse> getFeed({
+    String? categoryId,
+    int? limit,
+    int? offset,
+  }) async {
+    return const FeedResponse(feed: [], totalCount: 0);
+  }
+}
 
 class MockNotificationsRepository extends Mock
-    implements NotificationsRepository {}
+    implements NotificationsRepository {
+  @override
+  Future<Set<Category>?> fetchCategoriesPreferences() async => {};
+
+  @override
+  Future<bool> fetchNotificationsEnabled() async => false;
+}
 
 class MockArticleRepository extends Mock implements ArticleRepository {
   @override
@@ -61,6 +96,29 @@ class MockArticleRepository extends Mock implements ArticleRepository {
 
   @override
   Future<void> resetArticleViews() async {}
+
+  @override
+  Future<void> incrementTotalArticleViews() async {}
+
+  @override
+  Future<int> fetchTotalArticleViews() async => 0;
+
+  @override
+  Future<ArticleResponse> getArticle({
+    required String id,
+    int? limit,
+    int? offset,
+    bool preview = false,
+  }) async {
+    return ArticleResponse(
+      title: 'Test Article',
+      content: const [],
+      totalCount: 1,
+      url: Uri.https('example.org'),
+      isPremium: false,
+      isPreview: false,
+    );
+  }
 }
 
 class MockInAppPurchaseRepository extends Mock
@@ -74,6 +132,7 @@ extension AppTester on WidgetTester {
     AppBloc? appBloc,
     AnalyticsBloc? analyticsBloc,
     FullScreenAdsBloc? fullScreenAdsBloc,
+    CategoriesBloc? categoriesBloc,
     UserRepository? userRepository,
     NewsRepository? newsRepository,
     NotificationsRepository? notificationRepository,
@@ -115,6 +174,7 @@ extension AppTester on WidgetTester {
             BlocProvider.value(
               value: fullScreenAdsBloc ?? MockFullScreenAdsBloc(),
             ),
+            BlocProvider.value(value: categoriesBloc ?? MockCategoriesBloc()),
           ],
           child: MaterialApp(
             title: '{{app_name}}',

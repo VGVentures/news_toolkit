@@ -20,9 +20,7 @@ void main() {
     });
 
     testWidgets('renders a MagicLinkPromptView', (tester) async {
-      await tester.pumpApp(
-        const MagicLinkPromptPage(email: testEmail),
-      );
+      await tester.pumpApp(const MagicLinkPromptPage(email: testEmail));
       expect(find.byType(MagicLinkPromptView), findsOneWidget);
     });
 
@@ -33,8 +31,9 @@ void main() {
             builder: (context) {
               return ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .push<void>(MagicLinkPromptPage.route(email: testEmail));
+                  Navigator.of(
+                    context,
+                  ).push<void>(MagicLinkPromptPage.route(email: testEmail));
                 },
                 child: const Text('Tap me'),
               );

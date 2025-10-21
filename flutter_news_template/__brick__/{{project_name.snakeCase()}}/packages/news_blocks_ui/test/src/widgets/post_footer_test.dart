@@ -13,9 +13,7 @@ void main() {
     );
 
     testWidgets('renders correctly', (tester) async {
-      await tester.pumpApp(
-        PostFooter(),
-      );
+      await tester.pumpApp(PostFooter());
 
       await expectLater(
         find.byType(PostFooter),
@@ -24,9 +22,7 @@ void main() {
     });
 
     testWidgets('renders correctly with author', (tester) async {
-      await tester.pumpApp(
-        PostFooter(author: 'Author'),
-      );
+      await tester.pumpApp(PostFooter(author: 'Author'));
 
       await expectLater(
         find.byType(PostFooter),
@@ -35,9 +31,7 @@ void main() {
     });
 
     testWidgets('renders correctly with publishedAt date', (tester) async {
-      await tester.pumpApp(
-        PostFooter(publishedAt: DateTime(2022, 5, 9)),
-      );
+      await tester.pumpApp(PostFooter(publishedAt: DateTime(2022, 5, 9)));
 
       await expectLater(
         find.byType(PostFooter),
@@ -45,8 +39,9 @@ void main() {
       );
     });
 
-    testWidgets('renders correctly with author and publishedAt date',
-        (tester) async {
+    testWidgets('renders correctly with author and publishedAt date', (
+      tester,
+    ) async {
       await tester.pumpApp(
         PostFooter(author: 'Author', publishedAt: DateTime(2022, 5, 9)),
       );

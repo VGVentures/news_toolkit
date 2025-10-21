@@ -16,18 +16,11 @@ class AppState extends Equatable {
     this.showLoginOverlay = false,
   });
 
-  const AppState.authenticated(
-    User user,
-  ) : this(
-          status: AppStatus.authenticated,
-          user: user,
-        );
+  const AppState.authenticated(User user)
+    : this(status: AppStatus.authenticated, user: user);
 
   const AppState.onboardingRequired(User user)
-      : this(
-          status: AppStatus.onboardingRequired,
-          user: user,
-        );
+    : this(status: AppStatus.onboardingRequired, user: user);
 
   const AppState.unauthenticated() : this(status: AppStatus.unauthenticated);
 
@@ -37,18 +30,9 @@ class AppState extends Equatable {
   bool get isUserSubscribed => user.subscriptionPlan != SubscriptionPlan.none;
 
   @override
-  List<Object?> get props => [
-        status,
-        user,
-        showLoginOverlay,
-        isUserSubscribed,
-      ];
+  List<Object?> get props => [status, user, showLoginOverlay, isUserSubscribed];
 
-  AppState copyWith({
-    AppStatus? status,
-    User? user,
-    bool? showLoginOverlay,
-  }) {
+  AppState copyWith({AppStatus? status, User? user, bool? showLoginOverlay}) {
     return AppState(
       status: status ?? this.status,
       user: user ?? this.user,

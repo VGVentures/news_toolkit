@@ -46,32 +46,16 @@ void main() {
     });
 
     Matcher permissionWasRequested(Permission permission) => contains(
-          isA<MethodCall>()
-              .having(
-                (c) => c.method,
-                'method',
-                'requestPermissions',
-              )
-              .having(
-                (c) => c.arguments,
-                'arguments',
-                contains(permission.value),
-              ),
-        );
+      isA<MethodCall>()
+          .having((c) => c.method, 'method', 'requestPermissions')
+          .having((c) => c.arguments, 'arguments', contains(permission.value)),
+    );
 
     Matcher permissionWasChecked(Permission permission) => contains(
-          isA<MethodCall>()
-              .having(
-                (c) => c.method,
-                'method',
-                'checkPermissionStatus',
-              )
-              .having(
-                (c) => c.arguments,
-                'arguments',
-                equals(permission.value),
-              ),
-        );
+      isA<MethodCall>()
+          .having((c) => c.method, 'method', 'checkPermissionStatus')
+          .having((c) => c.arguments, 'arguments', equals(permission.value)),
+    );
 
     group('requestNotifications', () {
       test('calls correct method', () async {

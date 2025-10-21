@@ -19,7 +19,7 @@ import 'package:storage/storage.dart';
 class SecureStorage implements Storage {
   /// {@macro secure_storage}
   const SecureStorage([FlutterSecureStorage? secureStorage])
-      : _secureStorage = secureStorage ?? const FlutterSecureStorage();
+    : _secureStorage = secureStorage ?? const FlutterSecureStorage();
 
   final FlutterSecureStorage _secureStorage;
 

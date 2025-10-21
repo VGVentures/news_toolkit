@@ -6,16 +6,13 @@ import 'package:{{project_name.snakeCase()}}/terms_of_service/terms_of_service.d
 class TermsOfServicePage extends StatelessWidget {
   const TermsOfServicePage({super.key});
 
-  static Route<void> route() => MaterialPageRoute<void>(
-        builder: (_) => const TermsOfServicePage(),
-      );
+  static Route<void> route() =>
+      MaterialPageRoute<void>(builder: (_) => const TermsOfServicePage());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const AppBackButton(),
-      ),
+      appBar: AppBar(leading: const AppBackButton()),
       body: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

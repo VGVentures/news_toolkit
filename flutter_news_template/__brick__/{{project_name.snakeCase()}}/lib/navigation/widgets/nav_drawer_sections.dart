@@ -14,8 +14,9 @@ class NavDrawerSections extends StatelessWidget {
     final categories =
         context.select((CategoriesBloc bloc) => bloc.state.categories) ?? [];
 
-    final selectedCategory =
-        context.select((CategoriesBloc bloc) => bloc.state.selectedCategory);
+    final selectedCategory = context.select(
+      (CategoriesBloc bloc) => bloc.state.selectedCategory,
+    );
 
     return Column(
       children: [
@@ -29,9 +30,9 @@ class NavDrawerSections extends StatelessWidget {
               onTap: () {
                 Scaffold.of(context).closeDrawer();
                 context.read<HomeCubit>().setTab(0);
-                context
-                    .read<CategoriesBloc>()
-                    .add(CategorySelected(category: category));
+                context.read<CategoriesBloc>().add(
+                  CategorySelected(category: category),
+                );
               },
             ),
         ],
@@ -55,9 +56,9 @@ class NavDrawerSectionsTitle extends StatelessWidget {
         ),
         child: Text(
           context.l10n.navigationDrawerSectionsTitle,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: AppColors.primaryContainer,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(color: AppColors.primaryContainer),
         ),
       ),
     );
@@ -94,22 +95,20 @@ class NavDrawerSectionItem extends StatelessWidget {
         vertical: AppSpacing.lg + AppSpacing.xxs,
       ),
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(_borderRadius),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
       ),
       horizontalTitleGap: AppSpacing.md,
       minLeadingWidth: AppSpacing.xlg,
-      selectedTileColor: AppColors.white.withOpacity(0.08),
+      selectedTileColor: AppColors.white.withValues(alpha: 0.08),
       selected: selected,
       onTap: onTap,
       title: Text(
         title,
         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: selected
-                  ? AppColors.highEmphasisPrimary
-                  : AppColors.mediumEmphasisPrimary,
-            ),
+          color: selected
+              ? AppColors.highEmphasisPrimary
+              : AppColors.mediumEmphasisPrimary,
+        ),
       ),
     );
   }

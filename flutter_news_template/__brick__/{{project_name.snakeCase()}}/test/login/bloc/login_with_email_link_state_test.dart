@@ -15,11 +15,10 @@ void main() {
 
     test('returns object with updated status when status is passed', () {
       expect(
-        LoginWithEmailLinkState()
-            .copyWith(status: LoginWithEmailLinkStatus.success),
-        LoginWithEmailLinkState(
+        LoginWithEmailLinkState().copyWith(
           status: LoginWithEmailLinkStatus.success,
         ),
+        LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.success),
       );
     });
   });

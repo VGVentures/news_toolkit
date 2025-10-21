@@ -41,15 +41,17 @@ class NewsletterSignUp extends StatelessWidget {
           Text(
             headerText,
             textAlign: TextAlign.center,
-            style: theme.textTheme.headlineMedium
-                ?.copyWith(color: AppColors.highEmphasisPrimary),
+            style: theme.textTheme.headlineMedium?.copyWith(
+              color: AppColors.highEmphasisPrimary,
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           Text(
             bodyText,
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyLarge
-                ?.copyWith(color: AppColors.mediumEmphasisPrimary),
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: AppColors.mediumEmphasisPrimary,
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           email,
@@ -58,9 +60,7 @@ class NewsletterSignUp extends StatelessWidget {
             textStyle: theme.textTheme.labelLarge?.copyWith(
               color: AppColors.white,
             ),
-            child: Text(
-              buttonText,
-            ),
+            child: Text(buttonText),
           ),
         ],
       ),

@@ -10,18 +10,12 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('BottomNavBar', () {
-    testWidgets(
-      'renders with currentIndex to 0 by default.',
-      (tester) async {
-        await tester.pumpApp(
-          BottomNavBar(
-            currentIndex: 0,
-            onTap: (selectedIndex) {},
-          ),
-        );
-        expect(find.byType(BottomNavBar), findsOneWidget);
-      },
-    );
+    testWidgets('renders with currentIndex to 0 by default.', (tester) async {
+      await tester.pumpApp(
+        BottomNavBar(currentIndex: 0, onTap: (selectedIndex) {}),
+      );
+      expect(find.byType(BottomNavBar), findsOneWidget);
+    });
   });
 
   testWidgets('calls onTap when navigation bar item is tapped', (tester) async {
@@ -41,20 +35,12 @@ void main() {
     expect(completer.isCompleted, isTrue);
   });
 
-  testWidgets(
-    'renders BottomNavigationBar with currentIndex',
-    (tester) async {
-      const currentIndex = 1;
-      await tester.pumpApp(
-        BottomNavBar(
-          currentIndex: currentIndex,
-          onTap: (selectedIndex) {},
-        ),
-      );
-      final bottomNavBar = tester.widget<BottomNavBar>(
-        find.byType(BottomNavBar),
-      );
-      expect(bottomNavBar.currentIndex, equals(currentIndex));
-    },
-  );
+  testWidgets('renders BottomNavigationBar with currentIndex', (tester) async {
+    const currentIndex = 1;
+    await tester.pumpApp(
+      BottomNavBar(currentIndex: currentIndex, onTap: (selectedIndex) {}),
+    );
+    final bottomNavBar = tester.widget<BottomNavBar>(find.byType(BottomNavBar));
+    expect(bottomNavBar.currentIndex, equals(currentIndex));
+  });
 }

@@ -29,27 +29,19 @@ class Html extends StatelessWidget {
         },
         data: block.content,
         style: {
-          'p': flutter_html.Style.fromTextStyle(
-            theme.textTheme.bodyLarge!,
-          ),
-          'h1': flutter_html.Style.fromTextStyle(
-            theme.textTheme.displayLarge!,
-          ),
+          'p': flutter_html.Style.fromTextStyle(theme.textTheme.bodyLarge!),
+          'h1': flutter_html.Style.fromTextStyle(theme.textTheme.displayLarge!),
           'h2': flutter_html.Style.fromTextStyle(
             theme.textTheme.displayMedium!,
           ),
-          'h3': flutter_html.Style.fromTextStyle(
-            theme.textTheme.displaySmall!,
-          ),
+          'h3': flutter_html.Style.fromTextStyle(theme.textTheme.displaySmall!),
           'h4': flutter_html.Style.fromTextStyle(
             theme.textTheme.headlineMedium!,
           ),
           'h5': flutter_html.Style.fromTextStyle(
             theme.textTheme.headlineSmall!,
           ),
-          'h6': flutter_html.Style.fromTextStyle(
-            theme.textTheme.titleLarge!,
-          ),
+          'h6': flutter_html.Style.fromTextStyle(theme.textTheme.titleLarge!),
         },
       ),
     );

@@ -18,8 +18,11 @@ void main() {
     late NewsRepository newsRepository;
     late CategoriesBloc categoriesBloc;
 
+    final sportsCategory = Category(id: 'sports', name: 'Sports');
+    final healthCategory = Category(id: 'health', name: 'Health');
+
     final categoriesResponse = CategoriesResponse(
-      categories: [Category.top, Category.health],
+      categories: [sportsCategory, healthCategory],
     );
 
     setUp(() async {
@@ -27,25 +30,13 @@ void main() {
       categoriesBloc = CategoriesBloc(newsRepository: newsRepository);
     });
 
-    test('can be (de)serialized', () {
-      final categoriesState = CategoriesState(
-        status: CategoriesStatus.populated,
-        categories: categoriesResponse.categories,
-        selectedCategory: categoriesResponse.categories.first,
-      );
-
-      final serialized = categoriesBloc.toJson(categoriesState);
-      final deserialized = categoriesBloc.fromJson(serialized!);
-
-      expect(deserialized, categoriesState);
-    });
-
     group('CategoriesRequested', () {
       blocTest<CategoriesBloc, CategoriesState>(
         'emits [loading, populated] '
         'when getCategories succeeds',
-        setUp: () => when(newsRepository.getCategories)
-            .thenAnswer((_) async => categoriesResponse),
+        setUp: () => when(
+          newsRepository.getCategories,
+        ).thenAnswer((_) async => categoriesResponse),
         build: () => categoriesBloc,
         act: (bloc) => bloc.add(CategoriesRequested()),
         expect: () => <CategoriesState>[
@@ -75,11 +66,9 @@ void main() {
       blocTest<CategoriesBloc, CategoriesState>(
         'emits selectedCategory',
         build: () => categoriesBloc,
-        act: (bloc) => bloc.add(CategorySelected(category: Category.top)),
+        act: (bloc) => bloc.add(CategorySelected(category: sportsCategory)),
         expect: () => <CategoriesState>[
-          CategoriesState.initial().copyWith(
-            selectedCategory: Category.top,
-          ),
+          CategoriesState.initial().copyWith(selectedCategory: sportsCategory),
         ],
       );
     });

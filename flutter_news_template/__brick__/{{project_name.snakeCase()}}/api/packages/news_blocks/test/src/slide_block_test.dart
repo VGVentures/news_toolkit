@@ -12,10 +12,7 @@ void main() {
         imageUrl: 'imageUrl',
       );
 
-      expect(
-        SlideBlock.fromJson(block.toJson()),
-        equals(block),
-      );
+      expect(SlideBlock.fromJson(block.toJson()), equals(block));
     });
   });
 }

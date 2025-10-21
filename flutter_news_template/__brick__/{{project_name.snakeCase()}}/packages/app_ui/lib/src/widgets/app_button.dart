@@ -20,17 +20,17 @@ class AppButton extends StatelessWidget {
     Size? minimumSize,
     EdgeInsets? padding,
     super.key,
-  })  : _buttonColor = buttonColor ?? Colors.white,
-        _disabledButtonColor = disabledButtonColor ?? AppColors.disabledButton,
-        _borderSide = borderSide,
-        _foregroundColor = foregroundColor ?? AppColors.black,
-        _disabledForegroundColor =
-            disabledForegroundColor ?? AppColors.disabledForeground,
-        _elevation = elevation ?? 0,
-        _textStyle = textStyle,
-        _maximumSize = maximumSize ?? _defaultMaximumSize,
-        _minimumSize = minimumSize ?? _defaultMinimumSize,
-        _padding = padding ?? _defaultPadding;
+  }) : _buttonColor = buttonColor ?? Colors.white,
+       _disabledButtonColor = disabledButtonColor ?? AppColors.disabledButton,
+       _borderSide = borderSide,
+       _foregroundColor = foregroundColor ?? AppColors.black,
+       _disabledForegroundColor =
+           disabledForegroundColor ?? AppColors.disabledForeground,
+       _elevation = elevation ?? 0,
+       _textStyle = textStyle,
+       _maximumSize = maximumSize ?? _defaultMaximumSize,
+       _minimumSize = minimumSize ?? _defaultMinimumSize,
+       _padding = padding ?? _defaultPadding;
 
   /// Filled black button.
   const AppButton.black({
@@ -40,14 +40,14 @@ class AppButton extends StatelessWidget {
     double? elevation,
     TextStyle? textStyle,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          buttonColor: AppColors.black,
-          child: child,
-          foregroundColor: AppColors.white,
-          elevation: elevation,
-          textStyle: textStyle,
-        );
+         key: key,
+         onPressed: onPressed,
+         buttonColor: AppColors.black,
+         child: child,
+         foregroundColor: AppColors.white,
+         elevation: elevation,
+         textStyle: textStyle,
+       );
 
   /// Filled blue dress button.
   const AppButton.blueDress({
@@ -57,14 +57,14 @@ class AppButton extends StatelessWidget {
     double? elevation,
     TextStyle? textStyle,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          buttonColor: AppColors.blueDress,
-          child: child,
-          foregroundColor: AppColors.white,
-          elevation: elevation,
-          textStyle: textStyle,
-        );
+         key: key,
+         onPressed: onPressed,
+         buttonColor: AppColors.blueDress,
+         child: child,
+         foregroundColor: AppColors.white,
+         elevation: elevation,
+         textStyle: textStyle,
+       );
 
   /// Filled crystal blue button.
   const AppButton.crystalBlue({
@@ -74,14 +74,14 @@ class AppButton extends StatelessWidget {
     double? elevation,
     TextStyle? textStyle,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          buttonColor: AppColors.crystalBlue,
-          child: child,
-          foregroundColor: AppColors.white,
-          elevation: elevation,
-          textStyle: textStyle,
-        );
+         key: key,
+         onPressed: onPressed,
+         buttonColor: AppColors.crystalBlue,
+         child: child,
+         foregroundColor: AppColors.white,
+         elevation: elevation,
+         textStyle: textStyle,
+       );
 
   /// Filled red wine button.
   const AppButton.redWine({
@@ -91,14 +91,14 @@ class AppButton extends StatelessWidget {
     double? elevation,
     TextStyle? textStyle,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          buttonColor: AppColors.redWine,
-          child: child,
-          foregroundColor: AppColors.white,
-          elevation: elevation,
-          textStyle: textStyle,
-        );
+         key: key,
+         onPressed: onPressed,
+         buttonColor: AppColors.redWine,
+         child: child,
+         foregroundColor: AppColors.white,
+         elevation: elevation,
+         textStyle: textStyle,
+       );
 
   /// Filled secondary button.
   const AppButton.secondary({
@@ -109,18 +109,18 @@ class AppButton extends StatelessWidget {
     TextStyle? textStyle,
     Color? disabledButtonColor,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          buttonColor: AppColors.secondary,
-          child: child,
-          foregroundColor: AppColors.white,
-          disabledButtonColor: disabledButtonColor ?? AppColors.disabledSurface,
-          elevation: elevation,
-          textStyle: textStyle,
-          padding: _smallPadding,
-          maximumSize: _smallMaximumSize,
-          minimumSize: _smallMinimumSize,
-        );
+         key: key,
+         onPressed: onPressed,
+         buttonColor: AppColors.secondary,
+         child: child,
+         foregroundColor: AppColors.white,
+         disabledButtonColor: disabledButtonColor ?? AppColors.disabledSurface,
+         elevation: elevation,
+         textStyle: textStyle,
+         padding: _smallPadding,
+         maximumSize: _smallMaximumSize,
+         minimumSize: _smallMinimumSize,
+       );
 
   /// Filled dark aqua button.
   const AppButton.darkAqua({
@@ -130,14 +130,14 @@ class AppButton extends StatelessWidget {
     double? elevation,
     TextStyle? textStyle,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          buttonColor: AppColors.darkAqua,
-          child: child,
-          foregroundColor: AppColors.white,
-          elevation: elevation,
-          textStyle: textStyle,
-        );
+         key: key,
+         onPressed: onPressed,
+         buttonColor: AppColors.darkAqua,
+         child: child,
+         foregroundColor: AppColors.white,
+         elevation: elevation,
+         textStyle: textStyle,
+       );
 
   /// Outlined white button.
   const AppButton.outlinedWhite({
@@ -147,17 +147,15 @@ class AppButton extends StatelessWidget {
     double? elevation,
     TextStyle? textStyle,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          child: child,
-          buttonColor: AppColors.white,
-          borderSide: const BorderSide(
-            color: AppColors.pastelGrey,
-          ),
-          elevation: elevation,
-          foregroundColor: AppColors.lightBlack,
-          textStyle: textStyle,
-        );
+         key: key,
+         onPressed: onPressed,
+         child: child,
+         buttonColor: AppColors.white,
+         borderSide: const BorderSide(color: AppColors.pastelGrey),
+         elevation: elevation,
+         foregroundColor: AppColors.lightBlack,
+         textStyle: textStyle,
+       );
 
   /// Outlined transparent dark aqua button.
   const AppButton.outlinedTransparentDarkAqua({
@@ -167,17 +165,15 @@ class AppButton extends StatelessWidget {
     double? elevation,
     TextStyle? textStyle,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          child: child,
-          buttonColor: AppColors.transparent,
-          borderSide: const BorderSide(
-            color: AppColors.paleSky,
-          ),
-          elevation: elevation,
-          foregroundColor: AppColors.darkAqua,
-          textStyle: textStyle,
-        );
+         key: key,
+         onPressed: onPressed,
+         child: child,
+         buttonColor: AppColors.transparent,
+         borderSide: const BorderSide(color: AppColors.paleSky),
+         elevation: elevation,
+         foregroundColor: AppColors.darkAqua,
+         textStyle: textStyle,
+       );
 
   /// Outlined transparent white button.
   const AppButton.outlinedTransparentWhite({
@@ -187,17 +183,15 @@ class AppButton extends StatelessWidget {
     double? elevation,
     TextStyle? textStyle,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          child: child,
-          buttonColor: AppColors.transparent,
-          borderSide: const BorderSide(
-            color: AppColors.white,
-          ),
-          elevation: elevation,
-          foregroundColor: AppColors.white,
-          textStyle: textStyle,
-        );
+         key: key,
+         onPressed: onPressed,
+         child: child,
+         buttonColor: AppColors.transparent,
+         borderSide: const BorderSide(color: AppColors.white),
+         elevation: elevation,
+         foregroundColor: AppColors.white,
+         textStyle: textStyle,
+       );
 
   /// Filled transparent dark aqua button.
   const AppButton.transparentDarkAqua({
@@ -207,14 +201,14 @@ class AppButton extends StatelessWidget {
     double? elevation,
     TextStyle? textStyle,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          child: child,
-          buttonColor: AppColors.transparent,
-          elevation: elevation,
-          foregroundColor: AppColors.darkAqua,
-          textStyle: textStyle,
-        );
+         key: key,
+         onPressed: onPressed,
+         child: child,
+         buttonColor: AppColors.transparent,
+         elevation: elevation,
+         foregroundColor: AppColors.darkAqua,
+         textStyle: textStyle,
+       );
 
   /// Filled transparent white button.
   const AppButton.transparentWhite({
@@ -224,16 +218,16 @@ class AppButton extends StatelessWidget {
     double? elevation,
     TextStyle? textStyle,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          child: child,
-          disabledButtonColor: AppColors.transparent,
-          buttonColor: AppColors.transparent,
-          elevation: elevation,
-          foregroundColor: AppColors.white,
-          disabledForegroundColor: AppColors.white,
-          textStyle: textStyle,
-        );
+         key: key,
+         onPressed: onPressed,
+         child: child,
+         disabledButtonColor: AppColors.transparent,
+         buttonColor: AppColors.transparent,
+         elevation: elevation,
+         foregroundColor: AppColors.white,
+         disabledForegroundColor: AppColors.white,
+         textStyle: textStyle,
+       );
 
   /// Filled small red wine blue button.
   const AppButton.smallRedWine({
@@ -242,16 +236,16 @@ class AppButton extends StatelessWidget {
     VoidCallback? onPressed,
     double? elevation,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          buttonColor: AppColors.redWine,
-          child: child,
-          foregroundColor: AppColors.white,
-          elevation: elevation,
-          maximumSize: _smallMaximumSize,
-          minimumSize: _smallMinimumSize,
-          padding: _smallPadding,
-        );
+         key: key,
+         onPressed: onPressed,
+         buttonColor: AppColors.redWine,
+         child: child,
+         foregroundColor: AppColors.white,
+         elevation: elevation,
+         maximumSize: _smallMaximumSize,
+         minimumSize: _smallMinimumSize,
+         padding: _smallPadding,
+       );
 
   /// Filled small transparent button.
   const AppButton.smallDarkAqua({
@@ -260,16 +254,16 @@ class AppButton extends StatelessWidget {
     VoidCallback? onPressed,
     double? elevation,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          buttonColor: AppColors.darkAqua,
-          child: child,
-          foregroundColor: AppColors.white,
-          elevation: elevation,
-          maximumSize: _smallMaximumSize,
-          minimumSize: _smallMinimumSize,
-          padding: _smallPadding,
-        );
+         key: key,
+         onPressed: onPressed,
+         buttonColor: AppColors.darkAqua,
+         child: child,
+         foregroundColor: AppColors.white,
+         elevation: elevation,
+         maximumSize: _smallMaximumSize,
+         minimumSize: _smallMinimumSize,
+         padding: _smallPadding,
+       );
 
   /// Filled small transparent button.
   const AppButton.smallTransparent({
@@ -278,16 +272,16 @@ class AppButton extends StatelessWidget {
     VoidCallback? onPressed,
     double? elevation,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          buttonColor: AppColors.transparent,
-          child: child,
-          foregroundColor: AppColors.darkAqua,
-          elevation: elevation,
-          maximumSize: _smallMaximumSize,
-          minimumSize: _smallMinimumSize,
-          padding: _smallPadding,
-        );
+         key: key,
+         onPressed: onPressed,
+         buttonColor: AppColors.transparent,
+         child: child,
+         foregroundColor: AppColors.darkAqua,
+         elevation: elevation,
+         maximumSize: _smallMaximumSize,
+         minimumSize: _smallMinimumSize,
+         padding: _smallPadding,
+       );
 
   /// Filled small transparent button.
   const AppButton.smallOutlineTransparent({
@@ -296,19 +290,17 @@ class AppButton extends StatelessWidget {
     VoidCallback? onPressed,
     double? elevation,
   }) : this._(
-          key: key,
-          onPressed: onPressed,
-          buttonColor: AppColors.transparent,
-          child: child,
-          borderSide: const BorderSide(
-            color: AppColors.paleSky,
-          ),
-          foregroundColor: AppColors.darkAqua,
-          elevation: elevation,
-          maximumSize: _smallMaximumSize,
-          minimumSize: _smallMinimumSize,
-          padding: _smallPadding,
-        );
+         key: key,
+         onPressed: onPressed,
+         buttonColor: AppColors.transparent,
+         child: child,
+         borderSide: const BorderSide(color: AppColors.paleSky),
+         foregroundColor: AppColors.darkAqua,
+         elevation: elevation,
+         maximumSize: _smallMaximumSize,
+         minimumSize: _smallMinimumSize,
+         padding: _smallPadding,
+       );
 
   /// The maximum size of the small variant of the button.
   static const _smallMaximumSize = Size(double.infinity, 40);
@@ -401,9 +393,7 @@ class AppButton extends StatelessWidget {
             : WidgetStateProperty.all(_foregroundColor),
         side: WidgetStateProperty.all(_borderSide),
         shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100),
-          ),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         ),
       ),
       child: child,

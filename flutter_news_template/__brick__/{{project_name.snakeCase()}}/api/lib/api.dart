@@ -1,6 +1,3 @@
-/// {{app_name}} API Server-Side Library
-library api;
-
 export 'src/data/in_memory_news_data_source.dart' show InMemoryNewsDataSource;
 export 'src/data/models/models.dart'
     show

@@ -14,9 +14,7 @@ void main() {
     );
     testWidgets('renders correctly', (tester) async {
       final widget = Center(
-        child: TextParagraph(
-          block: TextParagraphBlock(text: 'text Paragraph'),
-        ),
+        child: TextParagraph(block: TextParagraphBlock(text: 'text Paragraph')),
       );
 
       await tester.pumpApp(widget);
