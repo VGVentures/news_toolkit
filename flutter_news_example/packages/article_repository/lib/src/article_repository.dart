@@ -106,8 +106,8 @@ class ArticleRepository {
   const ArticleRepository({
     required FlutterNewsExampleApiClient apiClient,
     required ArticleStorage storage,
-  })  : _apiClient = apiClient,
-        _storage = storage;
+  }) : _apiClient = apiClient,
+       _storage = storage;
 
   final FlutterNewsExampleApiClient _apiClient;
   final ArticleStorage _storage;
@@ -195,10 +195,7 @@ class ArticleRepository {
         _storage.setArticleViewsResetDate(clock.now()),
       ]);
     } catch (error, stackTrace) {
-      Error.throwWithStackTrace(
-        ResetArticleViewsFailure(error),
-        stackTrace,
-      );
+      Error.throwWithStackTrace(ResetArticleViewsFailure(error), stackTrace);
     }
   }
 
@@ -213,10 +210,7 @@ class ArticleRepository {
       ]);
       return ArticleViews(views, resetAt);
     } catch (error, stackTrace) {
-      Error.throwWithStackTrace(
-        FetchArticleViewsFailure(error),
-        stackTrace,
-      );
+      Error.throwWithStackTrace(FetchArticleViewsFailure(error), stackTrace);
     }
   }
 

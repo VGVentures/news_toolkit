@@ -21,8 +21,9 @@ void main() {
   setUp(() {
     dynamicLinks = MockFirebaseDynamicLinks();
     onLinkStreamController = StreamController<PendingDynamicLinkData>();
-    when(() => dynamicLinks.onLink)
-        .thenAnswer((_) => onLinkStreamController.stream);
+    when(
+      () => dynamicLinks.onLink,
+    ).thenAnswer((_) => onLinkStreamController.stream);
   });
 
   tearDown(() {
@@ -37,8 +38,9 @@ void main() {
           (_) => Future.value(PendingDynamicLinkData(link: expectedUri)),
         );
 
-        final client =
-            FirebaseDeepLinkClient(firebaseDynamicLinks: dynamicLinks);
+        final client = FirebaseDeepLinkClient(
+          firebaseDynamicLinks: dynamicLinks,
+        );
         final link = await client.getInitialLink();
         expect(link, expectedUri);
       });
@@ -49,8 +51,9 @@ void main() {
         final expectedUri1 = Uri.https('news.app.test', '/test/1');
         final expectedUri2 = Uri.https('news.app.test', '/test/2');
 
-        final client =
-            FirebaseDeepLinkClient(firebaseDynamicLinks: dynamicLinks);
+        final client = FirebaseDeepLinkClient(
+          firebaseDynamicLinks: dynamicLinks,
+        );
 
         onLinkStreamController
           ..add(PendingDynamicLinkData(link: expectedUri1))
@@ -60,9 +63,12 @@ void main() {
 
         expect(
           client.deepLinkStream,
-          emitsInOrder(
-            <Uri>[expectedUri1, expectedUri1, expectedUri2, expectedUri1],
-          ),
+          emitsInOrder(<Uri>[
+            expectedUri1,
+            expectedUri1,
+            expectedUri2,
+            expectedUri1,
+          ]),
         );
       });
     });
