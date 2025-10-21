@@ -20,6 +20,11 @@ void main() {
       );
     });
 
+    test('getCategoryName returns null when not found', () {
+      final state = CategoriesState.initial();
+      expect(state.getCategoryName('unknown'), isNull);
+    });
+
     group('copyWith', () {
       test(
           'returns same object '
