@@ -17,7 +17,10 @@ class MockNotificationPreferencesBloc extends Mock
     implements NotificationPreferencesBloc {}
 
 class MockNotificationPreferencesRepository extends Mock
-    implements NotificationsRepository {}
+    implements NotificationsRepository {
+  @override
+  Future<Set<Category>?> fetchCategoriesPreferences() async => {};
+}
 
 class MockCategoriesBloc extends Mock implements CategoriesBloc {}
 
