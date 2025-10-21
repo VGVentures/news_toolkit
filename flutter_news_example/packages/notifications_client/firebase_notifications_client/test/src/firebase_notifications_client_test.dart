@@ -32,8 +32,7 @@ void main() {
         verify(() => firebaseMessaging.subscribeToTopic(category)).called(1);
       });
 
-      test(
-          'throws SubscribeToCategoryFailure '
+      test('throws SubscribeToCategoryFailure '
           'when FirebaseMessaging.subscribeToTopic fails', () async {
         when(
           () => firebaseMessaging.subscribeToTopic(category),
@@ -54,12 +53,12 @@ void main() {
 
         await firebaseNotificationsClient.unsubscribeFromCategory(category);
 
-        verify(() => firebaseMessaging.unsubscribeFromTopic(category))
-            .called(1);
+        verify(
+          () => firebaseMessaging.unsubscribeFromTopic(category),
+        ).called(1);
       });
 
-      test(
-          'throws UnsubscribeFromCategoryFailure '
+      test('throws UnsubscribeFromCategoryFailure '
           'when FirebaseMessaging.unsubscribeFromTopic fails', () async {
         when(
           () => firebaseMessaging.unsubscribeFromTopic(category),

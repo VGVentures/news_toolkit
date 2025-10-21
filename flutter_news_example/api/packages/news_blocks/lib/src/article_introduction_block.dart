@@ -57,12 +57,12 @@ class ArticleIntroductionBlock with EquatableMixin implements NewsBlock {
 
   @override
   List<Object?> get props => [
-        type,
-        categoryId,
-        author,
-        publishedAt,
-        imageUrl,
-        title,
-        isPremium,
-      ];
+    type,
+    categoryId,
+    author,
+    publishedAt,
+    imageUrl,
+    title,
+    isPremium,
+  ];
 }

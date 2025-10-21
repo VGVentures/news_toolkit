@@ -11,9 +11,7 @@ part 'newsletter_block.g.dart';
 @JsonSerializable()
 class NewsletterBlock with EquatableMixin implements NewsBlock {
   /// {@macro newsletter_block}
-  const NewsletterBlock({
-    this.type = NewsletterBlock.identifier,
-  });
+  const NewsletterBlock({this.type = NewsletterBlock.identifier});
 
   /// Converts a `Map<String, dynamic>` into
   /// a [NewsletterBlock] instance.

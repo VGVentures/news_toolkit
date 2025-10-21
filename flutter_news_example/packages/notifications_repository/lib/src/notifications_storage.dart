@@ -14,9 +14,7 @@ abstract class NotificationsStorageKeys {
 /// {@endtemplate}
 class NotificationsStorage {
   /// {@macro notifications_storage}
-  const NotificationsStorage({
-    required Storage storage,
-  }) : _storage = storage;
+  const NotificationsStorage({required Storage storage}) : _storage = storage;
 
   final Storage _storage;
 
@@ -29,8 +27,9 @@ class NotificationsStorage {
 
   /// Fetches the notifications enabled value from Storage.
   Future<bool> fetchNotificationsEnabled() async =>
-      (await _storage.read(key: NotificationsStorageKeys.notificationsEnabled))
-          ?.parseBool() ??
+      (await _storage.read(
+        key: NotificationsStorageKeys.notificationsEnabled,
+      ))?.parseBool() ??
       false;
 
   /// Sets the categories preferences to [categories] in Storage.
@@ -55,8 +54,9 @@ class NotificationsStorage {
       return null;
     }
 
-    return List<dynamic>.from(json.decode(categories) as List<dynamic>)
-        .map((value) {
+    return List<dynamic>.from(json.decode(categories) as List<dynamic>).map((
+      value,
+    ) {
       return Category.fromJson(value as Map<String, dynamic>);
     }).toSet();
   }

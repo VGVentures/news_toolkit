@@ -15,9 +15,7 @@ void main() {
 
     testWidgets('renders correctly', (tester) async {
       final widget = Center(
-        child: DividerHorizontal(
-          block: DividerHorizontalBlock(),
-        ),
+        child: DividerHorizontal(block: DividerHorizontalBlock()),
       );
 
       await tester.pumpApp(widget);

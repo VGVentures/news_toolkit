@@ -25,7 +25,7 @@ class ShareLauncher {
   /// {@macro share_launcher}
 
   const ShareLauncher({ShareProvider? shareProvider})
-      : _shareProvider = shareProvider ?? Share.share;
+    : _shareProvider = shareProvider ?? Share.share;
 
   final ShareProvider _shareProvider;
 

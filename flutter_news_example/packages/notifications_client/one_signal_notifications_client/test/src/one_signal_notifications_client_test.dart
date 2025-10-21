@@ -32,8 +32,7 @@ void main() {
         verify(() => oneSignal.sendTag(category, true)).called(1);
       });
 
-      test(
-          'throws SubscribeToCategoryFailure '
+      test('throws SubscribeToCategoryFailure '
           'when OneSignal.deleteTag fails', () async {
         when(
           () => oneSignal.sendTag(category, true),
@@ -46,28 +45,30 @@ void main() {
       });
     });
 
-    group('when OneSignalNotificationsClient.unsubscribeFromCategory called',
-        () {
-      test('calls OneSignal.deleteTag', () async {
-        when(() => oneSignal.deleteTag(category)).thenAnswer((_) async => {});
+    group(
+      'when OneSignalNotificationsClient.unsubscribeFromCategory called',
+      () {
+        test('calls OneSignal.deleteTag', () async {
+          when(() => oneSignal.deleteTag(category)).thenAnswer((_) async => {});
 
-        await oneSignalNotificationsClient.unsubscribeFromCategory(category);
+          await oneSignalNotificationsClient.unsubscribeFromCategory(category);
 
-        verify(() => oneSignal.deleteTag(category)).called(1);
-      });
+          verify(() => oneSignal.deleteTag(category)).called(1);
+        });
 
-      test(
-          'throws UnsubscribeFromCategoryFailure '
-          'when OneSignal.deleteTag fails', () async {
-        when(
-          () => oneSignal.deleteTag(category),
-        ).thenAnswer((_) async => throw Exception());
+        test('throws UnsubscribeFromCategoryFailure '
+            'when OneSignal.deleteTag fails', () async {
+          when(
+            () => oneSignal.deleteTag(category),
+          ).thenAnswer((_) async => throw Exception());
 
-        expect(
-          () => oneSignalNotificationsClient.unsubscribeFromCategory(category),
-          throwsA(isA<UnsubscribeFromCategoryFailure>()),
-        );
-      });
-    });
+          expect(
+            () =>
+                oneSignalNotificationsClient.unsubscribeFromCategory(category),
+            throwsA(isA<UnsubscribeFromCategoryFailure>()),
+          );
+        });
+      },
+    );
   });
 }
