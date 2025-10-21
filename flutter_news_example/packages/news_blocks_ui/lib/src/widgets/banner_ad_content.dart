@@ -207,7 +207,7 @@ class _BannerAdContentState extends State<BannerAdContent>
       );
 
       _onAdLoaded(await adCompleter.future);
-    } on Exception catch (error, stackTrace) {
+    } on Object catch (error, stackTrace) {
       _reportError(BannerAdFailedToLoadException(error), stackTrace);
 
       if (retry < widget.adsRetryPolicy.maxRetryCount) {
