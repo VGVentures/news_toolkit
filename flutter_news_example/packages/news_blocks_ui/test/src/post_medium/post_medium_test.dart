@@ -16,9 +16,7 @@ void main() {
     // Change the default factory
     databaseFactory = databaseFactoryFfi;
 
-    setUpTolerantComparator(
-      'test/src/post_medium/post_medium_test.dart',
-    );
+    setUpTolerantComparator('test/src/post_medium/post_medium_test.dart');
     setUpMockPathProvider();
   });
 
@@ -29,7 +27,8 @@ void main() {
     final publishedAt = DateTime(2022, 3, 10);
     const imageUrl =
         'https://www.nbcsports.com/sites/rsnunited/files/styles/metatags_opengraph/public/article/hero/pat-bev-ja-morant-USA.jpg';
-    const title = 'No Man’s Sky’s new Outlaws update '
+    const title =
+        'No Man’s Sky’s new Outlaws update '
         'lets players go full space pirate';
     const description =
         'No Man’s Sky’s newest update, Outlaws, is now live, and it lets '
@@ -99,10 +98,7 @@ void main() {
 
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(
-          PostMedium(
-            block: postMediumBlock,
-            onPressed: actions.add,
-          ),
+          PostMedium(block: postMediumBlock, onPressed: actions.add),
         ),
       );
 

@@ -40,14 +40,9 @@ void main() {
           SpacerBlock(spacing: Spacing.medium),
           DividerHorizontalBlock(),
         ],
-        healthCategory.id: [
-          DividerHorizontalBlock(),
-        ],
+        healthCategory.id: [DividerHorizontalBlock()],
       },
-      hasMoreNews: {
-        entertainmentCategory.id: true,
-        healthCategory.id: false,
-      },
+      hasMoreNews: {entertainmentCategory.id: true, healthCategory.id: false},
     );
 
     setUp(() async {
@@ -75,19 +70,13 @@ void main() {
           ),
         ).thenAnswer((_) async => feedResponse),
         build: () => feedBloc,
-        act: (bloc) => bloc.add(
-          FeedRequested(category: entertainmentCategory),
-        ),
+        act: (bloc) => bloc.add(FeedRequested(category: entertainmentCategory)),
         expect: () => <FeedState>[
           FeedState(status: FeedStatus.loading),
           FeedState(
             status: FeedStatus.populated,
-            feed: {
-              entertainmentCategory.id: feedResponse.feed,
-            },
-            hasMoreNews: {
-              entertainmentCategory.id: true,
-            },
+            feed: {entertainmentCategory.id: feedResponse.feed},
+            hasMoreNews: {entertainmentCategory.id: true},
           ),
         ],
       );
@@ -106,9 +95,7 @@ void main() {
           ),
         ).thenAnswer((_) async => feedResponse),
         build: () => feedBloc,
-        act: (bloc) => bloc.add(
-          FeedRequested(category: entertainmentCategory),
-        ),
+        act: (bloc) => bloc.add(FeedRequested(category: entertainmentCategory)),
         expect: () => <FeedState>[
           feedStatePopulated.copyWith(status: FeedStatus.loading),
           feedStatePopulated.copyWith(
@@ -121,9 +108,7 @@ void main() {
                 ],
               }),
             hasMoreNews: feedStatePopulated.hasMoreNews
-              ..addAll({
-                entertainmentCategory.id: false,
-              }),
+              ..addAll({entertainmentCategory.id: false}),
           ),
         ],
       );
@@ -139,9 +124,7 @@ void main() {
           ),
         ).thenThrow(Exception()),
         build: () => feedBloc,
-        act: (bloc) => bloc.add(
-          FeedRequested(category: entertainmentCategory),
-        ),
+        act: (bloc) => bloc.add(FeedRequested(category: entertainmentCategory)),
         expect: () => <FeedState>[
           FeedState(status: FeedStatus.loading),
           FeedState(status: FeedStatus.failure),
@@ -161,19 +144,14 @@ void main() {
           ),
         ).thenAnswer((_) async => feedResponse),
         build: () => feedBloc,
-        act: (bloc) => bloc.add(
-          FeedRefreshRequested(category: entertainmentCategory),
-        ),
+        act: (bloc) =>
+            bloc.add(FeedRefreshRequested(category: entertainmentCategory)),
         expect: () => <FeedState>[
           FeedState(status: FeedStatus.loading),
           FeedState(
             status: FeedStatus.populated,
-            feed: {
-              entertainmentCategory.id: feedResponse.feed,
-            },
-            hasMoreNews: {
-              entertainmentCategory.id: true,
-            },
+            feed: {entertainmentCategory.id: feedResponse.feed},
+            hasMoreNews: {entertainmentCategory.id: true},
           ),
         ],
       );
@@ -188,9 +166,8 @@ void main() {
           ),
         ).thenThrow(Exception()),
         build: () => feedBloc,
-        act: (bloc) => bloc.add(
-          FeedRefreshRequested(category: entertainmentCategory),
-        ),
+        act: (bloc) =>
+            bloc.add(FeedRefreshRequested(category: entertainmentCategory)),
         expect: () => <FeedState>[
           FeedState(status: FeedStatus.loading),
           FeedState(status: FeedStatus.failure),
@@ -219,12 +196,8 @@ void main() {
         expect: () => <FeedState>[
           FeedState(
             status: FeedStatus.populated,
-            feed: {
-              entertainmentCategory.id: feedResponse.feed,
-            },
-            hasMoreNews: {
-              entertainmentCategory.id: true,
-            },
+            feed: {entertainmentCategory.id: feedResponse.feed},
+            hasMoreNews: {entertainmentCategory.id: true},
           ),
         ],
         verify: (_) {
@@ -261,9 +234,7 @@ void main() {
               entertainmentCategory.id: feedResponse.feed,
               healthCategory.id: [],
             },
-            hasMoreNews: {
-              entertainmentCategory.id: true,
-            },
+            hasMoreNews: {entertainmentCategory.id: true},
           ),
           FeedState(
             status: FeedStatus.populated,

@@ -11,18 +11,19 @@ import 'package:user_repository/user_repository.dart';
 
 Future<void> showPurchaseSubscriptionDialog({
   required BuildContext context,
-}) async =>
-    showGeneralDialog(
-      context: context,
-      pageBuilder: (_, __, ___) => const PurchaseSubscriptionDialog(),
-      transitionBuilder: (context, anim1, anim2, child) {
-        return SlideTransition(
-          position:
-              Tween(begin: const Offset(0, 1), end: Offset.zero).animate(anim1),
-          child: child,
-        );
-      },
+}) async => showGeneralDialog(
+  context: context,
+  pageBuilder: (_, __, ___) => const PurchaseSubscriptionDialog(),
+  transitionBuilder: (context, anim1, anim2, child) {
+    return SlideTransition(
+      position: Tween(
+        begin: const Offset(0, 1),
+        end: Offset.zero,
+      ).animate(anim1),
+      child: child,
     );
+  },
+);
 
 class PurchaseSubscriptionDialog extends StatelessWidget {
   const PurchaseSubscriptionDialog({super.key});
@@ -82,50 +83,51 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
                     Expanded(
                       child:
                           BlocConsumer<SubscriptionsBloc, SubscriptionsState>(
-                        listener: (context, state) {
-                          if (state.purchaseStatus ==
-                              PurchaseStatus.completed) {
-                            context.read<AnalyticsBloc>().add(
+                            listener: (context, state) {
+                              if (state.purchaseStatus ==
+                                  PurchaseStatus.completed) {
+                                context.read<AnalyticsBloc>().add(
                                   TrackAnalyticsEvent(
                                     UserSubscriptionConversionEvent(),
                                   ),
                                 );
-                            showDialog<void>(
-                              context: context,
-                              builder: (context) =>
-                                  const PurchaseCompletedDialog(),
-                            ).then(
-                              (_) {
-                                if (context.mounted) {
-                                  Navigator.maybePop<void>(context);
-                                }
-                              },
-                            );
-                          }
-                        },
-                        builder: (context, state) {
-                          if (state.subscriptions.isEmpty) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else {
-                            return CustomScrollView(
-                              slivers: <SliverList>[
-                                SliverList(
-                                  delegate: SliverChildBuilderDelegate(
-                                    (context, index) => SubscriptionCard(
-                                      key: ValueKey(state.subscriptions[index]),
-                                      subscription: state.subscriptions[index],
-                                      isExpanded: index == 0,
+                                showDialog<void>(
+                                  context: context,
+                                  builder: (context) =>
+                                      const PurchaseCompletedDialog(),
+                                ).then((_) {
+                                  if (context.mounted) {
+                                    Navigator.maybePop<void>(context);
+                                  }
+                                });
+                              }
+                            },
+                            builder: (context, state) {
+                              if (state.subscriptions.isEmpty) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                return CustomScrollView(
+                                  slivers: <SliverList>[
+                                    SliverList(
+                                      delegate: SliverChildBuilderDelegate(
+                                        (context, index) => SubscriptionCard(
+                                          key: ValueKey(
+                                            state.subscriptions[index],
+                                          ),
+                                          subscription:
+                                              state.subscriptions[index],
+                                          isExpanded: index == 0,
+                                        ),
+                                        childCount: state.subscriptions.length,
+                                      ),
                                     ),
-                                    childCount: state.subscriptions.length,
-                                  ),
-                                ),
-                              ],
-                            );
-                          }
-                        },
-                      ),
+                                  ],
+                                );
+                              }
+                            },
+                          ),
                     ),
                   ],
                 ),

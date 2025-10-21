@@ -63,18 +63,18 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
 
   @override
   List<Object?> get props => [
-        id,
-        categoryId,
-        author,
-        publishedAt,
-        imageUrl,
-        title,
-        description,
-        action,
-        isPremium,
-        isContentOverlaid,
-        type,
-      ];
+    id,
+    categoryId,
+    author,
+    publishedAt,
+    imageUrl,
+    title,
+    description,
+    action,
+    isPremium,
+    isContentOverlaid,
+    type,
+  ];
 }
 
 /// The extension on [PostBlock] that provides information about actions.

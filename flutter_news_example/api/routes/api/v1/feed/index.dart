@@ -14,10 +14,10 @@ Future<Response> onRequest(RequestContext context) async {
   final limit = int.tryParse(queryParams['limit'] ?? '') ?? 20;
   final offset = int.tryParse(queryParams['offset'] ?? '') ?? 0;
   final feed = await context.read<NewsDataSource>().getFeed(
-        categoryId: categoryQueryParam ?? '',
-        limit: limit,
-        offset: offset,
-      );
+    categoryId: categoryQueryParam ?? '',
+    limit: limit,
+    offset: offset,
+  );
   final response = FeedResponse(
     feed: feed.blocks,
     totalCount: feed.totalBlocks,

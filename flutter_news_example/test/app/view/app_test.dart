@@ -70,14 +70,18 @@ void main() {
       adsConsentClient = MockAdsConsentClient();
 
       when(() => userRepository.user).thenAnswer((_) => const Stream.empty());
-      when(() => userRepository.incomingEmailLinks)
-          .thenAnswer((_) => const Stream.empty());
-      when(() => userRepository.fetchAppOpenedCount())
-          .thenAnswer((_) async => 2);
-      when(() => userRepository.incrementAppOpenedCount())
-          .thenAnswer((_) async {});
-      when(() => newsRepository.getCategories())
-          .thenAnswer((_) async => const CategoriesResponse(categories: []));
+      when(
+        () => userRepository.incomingEmailLinks,
+      ).thenAnswer((_) => const Stream.empty());
+      when(
+        () => userRepository.fetchAppOpenedCount(),
+      ).thenAnswer((_) async => 2);
+      when(
+        () => userRepository.incrementAppOpenedCount(),
+      ).thenAnswer((_) async {});
+      when(
+        () => newsRepository.getCategories(),
+      ).thenAnswer((_) async => const CategoriesResponse(categories: []));
     });
 
     testWidgets('renders AppView', (tester) async {
@@ -109,8 +113,9 @@ void main() {
       userRepository = MockUserRepository();
     });
 
-    testWidgets('navigates to OnboardingPage when onboardingRequired',
-        (tester) async {
+    testWidgets('navigates to OnboardingPage when onboardingRequired', (
+      tester,
+    ) async {
       final user = MockUser();
       when(() => appBloc.state).thenReturn(AppState.onboardingRequired(user));
       await tester.pumpApp(
@@ -125,8 +130,9 @@ void main() {
     testWidgets('navigates to HomePage when unauthenticated', (tester) async {
       final categoriesBloc = MockCategoriesBloc();
       when(() => appBloc.state).thenReturn(AppState.unauthenticated());
-      when(() => categoriesBloc.state)
-          .thenReturn(const CategoriesState(status: CategoriesStatus.initial));
+      when(
+        () => categoriesBloc.state,
+      ).thenReturn(const CategoriesState(status: CategoriesStatus.initial));
       await tester.pumpApp(
         const AppView(),
         appBloc: appBloc,
@@ -142,8 +148,9 @@ void main() {
       final categoriesBloc = MockCategoriesBloc();
       when(() => user.isAnonymous).thenReturn(false);
       when(() => appBloc.state).thenReturn(AppState.authenticated(user));
-      when(() => categoriesBloc.state)
-          .thenReturn(const CategoriesState(status: CategoriesStatus.initial));
+      when(
+        () => categoriesBloc.state,
+      ).thenReturn(const CategoriesState(status: CategoriesStatus.initial));
       await tester.pumpApp(
         const AppView(),
         appBloc: appBloc,
@@ -155,8 +162,7 @@ void main() {
     });
 
     group('adds TrackAnalyticsEvent to AnalyticsBloc', () {
-      testWidgets(
-          'with RegistrationEvent '
+      testWidgets('with RegistrationEvent '
           'when user is authenticated and new', (tester) async {
         final user = MockUser();
         when(() => user.isAnonymous).thenReturn(false);
@@ -164,12 +170,10 @@ void main() {
 
         whenListen(
           appBloc,
-          Stream.fromIterable(
-            [
-              AppState.unauthenticated(),
-              AppState.authenticated(user),
-            ],
-          ),
+          Stream.fromIterable([
+            AppState.unauthenticated(),
+            AppState.authenticated(user),
+          ]),
           initialState: AppState.unauthenticated(),
         );
 
@@ -187,8 +191,7 @@ void main() {
         ).called(1);
       });
 
-      testWidgets(
-          'with LoginEvent '
+      testWidgets('with LoginEvent '
           'when user is authenticated and not new', (tester) async {
         final user = MockUser();
         when(() => user.isAnonymous).thenReturn(false);
@@ -196,12 +199,10 @@ void main() {
 
         whenListen(
           appBloc,
-          Stream.fromIterable(
-            [
-              AppState.unauthenticated(),
-              AppState.authenticated(user),
-            ],
-          ),
+          Stream.fromIterable([
+            AppState.unauthenticated(),
+            AppState.authenticated(user),
+          ]),
           initialState: AppState.unauthenticated(),
         );
 

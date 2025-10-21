@@ -1,11 +1,6 @@
 part of 'feed_bloc.dart';
 
-enum FeedStatus {
-  initial,
-  loading,
-  populated,
-  failure,
-}
+enum FeedStatus { initial, loading, populated, failure }
 
 /// A map of category id to news blocks.
 typedef Feed = Map<String, List<NewsBlock>>;
@@ -22,10 +17,7 @@ class FeedState extends Equatable {
     this.hasMoreNews = const {},
   });
 
-  const FeedState.initial()
-      : this(
-          status: FeedStatus.initial,
-        );
+  const FeedState.initial() : this(status: FeedStatus.initial);
 
   factory FeedState.fromJson(Map<String, dynamic> json) =>
       _$FeedStateFromJson(json);
@@ -35,11 +27,7 @@ class FeedState extends Equatable {
   final HasMoreNews hasMoreNews;
 
   @override
-  List<Object> get props => [
-        status,
-        feed,
-        hasMoreNews,
-      ];
+  List<Object> get props => [status, feed, hasMoreNews];
 
   FeedState copyWith({
     FeedStatus? status,

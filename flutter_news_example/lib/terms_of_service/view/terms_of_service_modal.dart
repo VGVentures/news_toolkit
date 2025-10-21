@@ -13,9 +13,7 @@ class TermsOfServiceModal extends StatelessWidget {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppSpacing.lg,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -41,10 +39,7 @@ class TermsOfServiceModalHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.only(
-        top: AppSpacing.lg,
-        bottom: AppSpacing.sm,
-      ),
+      padding: const EdgeInsets.only(top: AppSpacing.lg, bottom: AppSpacing.sm),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -75,10 +75,7 @@ void main() {
       final notificationState = NotificationPreferencesState(
         selectedCategories: {entertainmentCategory},
         status: NotificationPreferencesStatus.success,
-        categories: {
-          entertainmentCategory,
-          healthCategory,
-        },
+        categories: {entertainmentCategory, healthCategory},
       );
 
       whenListen(
@@ -106,34 +103,36 @@ void main() {
     });
 
     testWidgets(
-        'adds CategoriesPreferenceToggled to NotificationPreferencesBloc '
-        'on AppSwitch toggled', (tester) async {
-      final notificationState = NotificationPreferencesState(
-        selectedCategories: {entertainmentCategory},
-        status: NotificationPreferencesStatus.success,
-        categories: {entertainmentCategory},
-      );
+      'adds CategoriesPreferenceToggled to NotificationPreferencesBloc '
+      'on AppSwitch toggled',
+      (tester) async {
+        final notificationState = NotificationPreferencesState(
+          selectedCategories: {entertainmentCategory},
+          status: NotificationPreferencesStatus.success,
+          categories: {entertainmentCategory},
+        );
 
-      whenListen(
-        bloc,
-        Stream.value(notificationState),
-        initialState: notificationState,
-      );
+        whenListen(
+          bloc,
+          Stream.value(notificationState),
+          initialState: notificationState,
+        );
 
-      await tester.pumpApp(
-        BlocProvider.value(
-          value: bloc,
-          child: const NotificationPreferencesView(),
-        ),
-      );
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: bloc,
+            child: const NotificationPreferencesView(),
+          ),
+        );
 
-      await tester.tap(find.byType(AppSwitch));
+        await tester.tap(find.byType(AppSwitch));
 
-      verify(
-        () => bloc.add(
-          CategoriesPreferenceToggled(category: entertainmentCategory),
-        ),
-      ).called(1);
-    });
+        verify(
+          () => bloc.add(
+            CategoriesPreferenceToggled(category: entertainmentCategory),
+          ),
+        ).called(1);
+      },
+    );
   });
 }

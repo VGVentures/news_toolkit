@@ -19,10 +19,10 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
     required String articleId,
     required ArticleRepository articleRepository,
     required ShareLauncher shareLauncher,
-  })  : _articleId = articleId,
-        _articleRepository = articleRepository,
-        _shareLauncher = shareLauncher,
-        super(const ArticleState.initial()) {
+  }) : _articleId = articleId,
+       _articleRepository = articleRepository,
+       _shareLauncher = shareLauncher,
+       super(const ArticleState.initial()) {
     on<ArticleRequested>(_onArticleRequested, transformer: sequential());
     on<ArticleContentSeen>(_onArticleContentSeen);
     on<ArticleRewardedAdWatched>(_onArticleRewardedAdWatched);
@@ -143,8 +143,7 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
   FutureOr<void> _onArticleCommented(
     ArticleCommented event,
     Emitter<ArticleState> emit,
-  ) =>
-      Future.value();
+  ) => Future.value();
 
   FutureOr<void> _onShareRequested(
     ShareRequested event,
@@ -168,7 +167,8 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
     final resetAt = currentArticleViews.resetAt;
 
     final now = clock.now();
-    final shouldResetArticleViews = resetAt == null ||
+    final shouldResetArticleViews =
+        resetAt == null ||
         now.isAfter(resetAt.add(_resetArticleViewsAfterDuration));
 
     if (shouldResetArticleViews) {

@@ -25,16 +25,17 @@ class PostContentCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Category label hierarchy
-    final backgroundColor =
-        isContentOverlaid ? AppColors.secondary : AppColors.transparent;
+    final backgroundColor = isContentOverlaid
+        ? AppColors.secondary
+        : AppColors.transparent;
 
     final isCategoryBackgroundDark = isContentOverlaid;
 
     final textColor = isVideoContent
         ? AppColors.orange
         : isCategoryBackgroundDark
-            ? AppColors.white
-            : AppColors.secondary;
+        ? AppColors.white
+        : AppColors.secondary;
 
     final horizontalSpacing = isCategoryBackgroundDark ? AppSpacing.xs : 0.0;
 
@@ -53,10 +54,9 @@ class PostContentCategory extends StatelessWidget {
               ),
               child: Text(
                 categoryName.toUpperCase(),
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall
-                    ?.copyWith(color: textColor),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelSmall?.copyWith(color: textColor),
               ),
             ),
           ),

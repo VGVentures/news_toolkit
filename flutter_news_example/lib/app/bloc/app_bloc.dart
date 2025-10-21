@@ -14,13 +14,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     required UserRepository userRepository,
     required NotificationsRepository notificationsRepository,
     required User user,
-  })  : _userRepository = userRepository,
-        _notificationsRepository = notificationsRepository,
-        super(
-          user == User.anonymous
-              ? const AppState.unauthenticated()
-              : AppState.authenticated(user),
-        ) {
+  }) : _userRepository = userRepository,
+       _notificationsRepository = notificationsRepository,
+       super(
+         user == User.anonymous
+             ? const AppState.unauthenticated()
+             : AppState.authenticated(user),
+       ) {
     on<AppUserChanged>(_onUserChanged);
     on<AppOnboardingCompleted>(_onOnboardingCompleted);
     on<AppLogoutRequested>(_onLogoutRequested);
@@ -51,8 +51,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         return user != User.anonymous && user.isNewUser
             ? emit(AppState.onboardingRequired(user))
             : user == User.anonymous
-                ? emit(const AppState.unauthenticated())
-                : emit(AppState.authenticated(user));
+            ? emit(const AppState.unauthenticated())
+            : emit(AppState.authenticated(user));
     }
   }
 

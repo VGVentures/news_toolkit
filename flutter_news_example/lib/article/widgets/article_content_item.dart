@@ -34,8 +34,9 @@ class ArticleContentItem extends StatelessWidget {
     } else if (newsBlock is VideoBlock) {
       return Video(block: newsBlock);
     } else if (newsBlock is TextCaptionBlock) {
-      final articleThemeColors =
-          Theme.of(context).extension<ArticleThemeColors>()!;
+      final articleThemeColors = Theme.of(
+        context,
+      ).extension<ArticleThemeColors>()!;
       return TextCaption(
         block: newsBlock,
         colorValues: {
@@ -50,24 +51,19 @@ class ArticleContentItem extends StatelessWidget {
     } else if (newsBlock is TextParagraphBlock) {
       return TextParagraph(block: newsBlock);
     } else if (newsBlock is ArticleIntroductionBlock) {
-      final categoryName = context
-          .read<CategoriesBloc>()
-          .state
-          .getCategoryName(newsBlock.categoryId);
+      final categoryName = context.read<CategoriesBloc>().state.getCategoryName(
+        newsBlock.categoryId,
+      );
       return ArticleIntroduction(
         block: newsBlock,
         categoryName: categoryName,
         premiumText: context.l10n.newsBlockPremiumText,
       );
     } else if (newsBlock is VideoIntroductionBlock) {
-      final categoryName = context
-          .read<CategoriesBloc>()
-          .state
-          .getCategoryName(newsBlock.categoryId);
-      return VideoIntroduction(
-        block: newsBlock,
-        categoryName: categoryName,
+      final categoryName = context.read<CategoriesBloc>().state.getCategoryName(
+        newsBlock.categoryId,
       );
+      return VideoIntroduction(block: newsBlock, categoryName: categoryName);
     } else if (newsBlock is BannerAdBlock) {
       return BannerAd(
         block: newsBlock,

@@ -97,7 +97,8 @@ class HeaderGridTileLayout extends SliverGridRegularTileLayout {
       );
     } else {
       return SliverGridGeometry(
-        scrollOffset: (((index + 1) ~/ crossAxisCount) * mainAxisStride) +
+        scrollOffset:
+            (((index + 1) ~/ crossAxisCount) * mainAxisStride) +
             childMainAxisExtent,
         crossAxisOffset: ((index + 1) % crossAxisCount) * crossAxisStride,
         mainAxisExtent: mainAxisStride,

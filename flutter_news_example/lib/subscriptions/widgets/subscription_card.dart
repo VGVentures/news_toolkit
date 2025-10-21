@@ -31,9 +31,7 @@ class SubscriptionCard extends StatelessWidget {
     final annualCost = NumberFormat.currency(
       decimalDigits: subscription.cost.annual % 100 == 0 ? 0 : 2,
       symbol: r'$',
-    ).format(
-      subscription.cost.annual / 100,
-    );
+    ).format(subscription.cost.annual / 100);
     final isLoggedIn = context.select<AppBloc, bool>(
       (AppBloc bloc) => bloc.state.status.isLoggedIn,
     );
@@ -41,9 +39,7 @@ class SubscriptionCard extends StatelessWidget {
     return Card(
       shadowColor: AppColors.black,
       shape: RoundedRectangleBorder(
-        side: const BorderSide(
-          color: AppColors.borderOutline,
-        ),
+        side: const BorderSide(color: AppColors.borderOutline),
         borderRadius: BorderRadius.circular(AppSpacing.lg),
       ),
       child: Padding(
@@ -54,21 +50,21 @@ class SubscriptionCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const SizedBox(
-              height: AppSpacing.xlg + AppSpacing.sm,
-            ),
+            const SizedBox(height: AppSpacing.xlg + AppSpacing.sm),
             Text(
               subscription.name.name.toUpperCase(),
-              style: theme.textTheme.titleLarge
-                  ?.copyWith(color: AppColors.secondary),
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: AppColors.secondary,
+              ),
             ),
             Text(
               '$monthlyCost/${l10n.monthAbbreviation} | $annualCost/${l10n.yearAbbreviation}',
               style: theme.textTheme.headlineSmall,
             ),
             if (isBestValue) ...[
-              Assets.icons.bestValue
-                  .svg(key: const Key('subscriptionCard_bestValueSvg')),
+              Assets.icons.bestValue.svg(
+                key: const Key('subscriptionCard_bestValueSvg'),
+              ),
               const SizedBox(height: AppSpacing.md),
             ],
             if (isExpanded) ...[
@@ -76,8 +72,9 @@ class SubscriptionCard extends StatelessWidget {
               const SizedBox(height: AppSpacing.md),
               Text(
                 l10n.subscriptionPurchaseBenefits.toUpperCase(),
-                style: theme.textTheme.titleSmall
-                    ?.copyWith(fontWeight: FontWeight.w600),
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ],
             for (final paragraph in subscription.benefits)
@@ -115,16 +112,17 @@ class SubscriptionCard extends StatelessWidget {
                 key: const Key('subscriptionCard_subscribe_appButton'),
                 onPressed: isLoggedIn
                     ? () => context.read<SubscriptionsBloc>().add(
-                          SubscriptionPurchaseRequested(
-                            subscription: subscription,
-                          ),
-                        )
-                    : () => showAppModal<void>(
-                          context: context,
-                          builder: (_) => const LoginModal(),
-                          routeSettings:
-                              const RouteSettings(name: LoginModal.name),
+                        SubscriptionPurchaseRequested(
+                          subscription: subscription,
                         ),
+                      )
+                    : () => showAppModal<void>(
+                        context: context,
+                        builder: (_) => const LoginModal(),
+                        routeSettings: const RouteSettings(
+                          name: LoginModal.name,
+                        ),
+                      ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -142,12 +140,8 @@ class SubscriptionCard extends StatelessWidget {
                   ..hideCurrentSnackBar()
                   ..showSnackBar(
                     SnackBar(
-                      key: const Key(
-                        'subscriptionCard_unimplemented_snackBar',
-                      ),
-                      content: Text(
-                        l10n.subscriptionViewDetailsButtonSnackBar,
-                      ),
+                      key: const Key('subscriptionCard_unimplemented_snackBar'),
+                      content: Text(l10n.subscriptionViewDetailsButtonSnackBar),
                     ),
                   ),
                 child: Row(

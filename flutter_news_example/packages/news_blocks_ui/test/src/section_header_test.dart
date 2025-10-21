@@ -13,9 +13,7 @@ void main() {
 
     testWidgets('renders correctly without action', (tester) async {
       const widget = Center(
-        child: SectionHeader(
-          block: SectionHeaderBlock(title: 'example'),
-        ),
+        child: SectionHeader(block: SectionHeaderBlock(title: 'example')),
       );
 
       await tester.pumpApp(widget);
@@ -52,10 +50,7 @@ void main() {
 
       final widget = Center(
         child: SectionHeader(
-          block: const SectionHeaderBlock(
-            title: 'example',
-            action: action,
-          ),
+          block: const SectionHeaderBlock(title: 'example', action: action),
           onPressed: actions.add,
         ),
       );

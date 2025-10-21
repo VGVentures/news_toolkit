@@ -19,10 +19,7 @@ class UserProfileState extends Equatable {
   });
 
   const UserProfileState.initial()
-      : this(
-          status: UserProfileStatus.initial,
-          user: User.anonymous,
-        );
+    : this(status: UserProfileStatus.initial, user: User.anonymous);
 
   final UserProfileStatus status;
   final bool notificationsEnabled;
@@ -35,10 +32,9 @@ class UserProfileState extends Equatable {
     UserProfileStatus? status,
     bool? notificationsEnabled,
     User? user,
-  }) =>
-      UserProfileState(
-        status: status ?? this.status,
-        notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
-        user: user ?? this.user,
-      );
+  }) => UserProfileState(
+    status: status ?? this.status,
+    notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
+    user: user ?? this.user,
+  );
 }

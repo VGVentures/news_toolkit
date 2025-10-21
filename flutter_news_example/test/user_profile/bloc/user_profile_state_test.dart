@@ -14,15 +14,11 @@ void main() {
     });
 
     test('supports value comparisons', () {
-      expect(
-        UserProfileState.initial(),
-        equals(UserProfileState.initial()),
-      );
+      expect(UserProfileState.initial(), equals(UserProfileState.initial()));
     });
 
     group('copyWith', () {
-      test(
-          'returns same object '
+      test('returns same object '
           'when no properties are passed', () {
         expect(
           UserProfileState.initial().copyWith(),
@@ -30,8 +26,7 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated status '
+      test('returns object with updated status '
           'when status is passed', () {
         expect(
           UserProfileState.initial().copyWith(
@@ -46,13 +41,10 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated notificationsEnabled '
+      test('returns object with updated notificationsEnabled '
           'when notificationsEnabled is passed', () {
         expect(
-          UserProfileState.initial().copyWith(
-            notificationsEnabled: true,
-          ),
+          UserProfileState.initial().copyWith(notificationsEnabled: true),
           equals(
             UserProfileState(
               user: User.anonymous,
@@ -63,13 +55,10 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated user '
+      test('returns object with updated user '
           'when user is passed', () {
         expect(
-          UserProfileState.initial().copyWith(
-            user: User.anonymous,
-          ),
+          UserProfileState.initial().copyWith(user: User.anonymous),
           equals(
             UserProfileState(
               status: UserProfileStatus.initial,

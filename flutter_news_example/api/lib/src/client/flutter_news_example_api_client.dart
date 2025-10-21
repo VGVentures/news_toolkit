@@ -47,10 +47,10 @@ class FlutterNewsExampleApiClient {
     required TokenProvider tokenProvider,
     http.Client? httpClient,
   }) : this._(
-          baseUrl: 'https://example-api.a.run.app',
-          httpClient: httpClient,
-          tokenProvider: tokenProvider,
-        );
+         baseUrl: 'https://example-api.a.run.app',
+         httpClient: httpClient,
+         tokenProvider: tokenProvider,
+       );
 
   /// Create an instance of [FlutterNewsExampleApiClient] that integrates
   /// with a local instance of the API (http://localhost:8080).
@@ -60,19 +60,19 @@ class FlutterNewsExampleApiClient {
     required TokenProvider tokenProvider,
     http.Client? httpClient,
   }) : this._(
-          baseUrl: 'http://localhost:8080',
-          httpClient: httpClient,
-          tokenProvider: tokenProvider,
-        );
+         baseUrl: 'http://localhost:8080',
+         httpClient: httpClient,
+         tokenProvider: tokenProvider,
+       );
 
   /// {@macro flutter_news_example_api_client}
   FlutterNewsExampleApiClient._({
     required String baseUrl,
     required TokenProvider tokenProvider,
     http.Client? httpClient,
-  })  : _baseUrl = baseUrl,
-        _httpClient = httpClient ?? http.Client(),
-        _tokenProvider = tokenProvider;
+  }) : _baseUrl = baseUrl,
+       _httpClient = httpClient ?? http.Client(),
+       _tokenProvider = tokenProvider;
 
   final String _baseUrl;
   final http.Client _httpClient;
@@ -250,9 +250,9 @@ class FlutterNewsExampleApiClient {
   /// GET /api/v1/search/relevant?q=term
   /// Requests relevant content based on the provided search [term].
   Future<RelevantSearchResponse> relevantSearch({required String term}) async {
-    final uri = Uri.parse('$_baseUrl/api/v1/search/relevant').replace(
-      queryParameters: <String, String>{'q': term},
-    );
+    final uri = Uri.parse(
+      '$_baseUrl/api/v1/search/relevant',
+    ).replace(queryParameters: <String, String>{'q': term});
     final response = await _httpClient.get(
       uri,
       headers: await _getRequestHeaders(),
@@ -289,9 +289,7 @@ class FlutterNewsExampleApiClient {
 
   /// POST /api/v1/subscriptions
   /// Creates a new subscription for the associated user.
-  Future<void> createSubscription({
-    required String subscriptionId,
-  }) async {
+  Future<void> createSubscription({required String subscriptionId}) async {
     final uri = Uri.parse('$_baseUrl/api/v1/subscriptions').replace(
       queryParameters: <String, String>{'subscriptionId': subscriptionId},
     );

@@ -21,10 +21,7 @@ void main() {
     group('getIntervalForRetry', () {
       test('returns correct values', () {
         final adsRetryPolicy = AdsRetryPolicy();
-        expect(
-          adsRetryPolicy.getIntervalForRetry(0),
-          equals(Duration.zero),
-        );
+        expect(adsRetryPolicy.getIntervalForRetry(0), equals(Duration.zero));
         for (var i = 1; i <= adsRetryPolicy.maxRetryCount; i++) {
           expect(
             adsRetryPolicy.getIntervalForRetry(i),

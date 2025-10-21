@@ -1,11 +1,6 @@
 part of 'categories_bloc.dart';
 
-enum CategoriesStatus {
-  initial,
-  loading,
-  populated,
-  failure,
-}
+enum CategoriesStatus { initial, loading, populated, failure }
 
 class CategoriesState extends Equatable {
   const CategoriesState({
@@ -14,10 +9,7 @@ class CategoriesState extends Equatable {
     this.selectedCategory,
   });
 
-  const CategoriesState.initial()
-      : this(
-          status: CategoriesStatus.initial,
-        );
+  const CategoriesState.initial() : this(status: CategoriesStatus.initial);
 
   final CategoriesStatus status;
   final List<Category>? categories;
@@ -34,11 +26,7 @@ class CategoriesState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        status,
-        categories,
-        selectedCategory,
-      ];
+  List<Object?> get props => [status, categories, selectedCategory];
 
   CategoriesState copyWith({
     CategoriesStatus? status,

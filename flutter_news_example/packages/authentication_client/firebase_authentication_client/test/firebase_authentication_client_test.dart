@@ -120,22 +120,24 @@ void main() {
       googleSignIn = MockGoogleSignIn();
       authorizationCredentialAppleID = MockAuthorizationCredentialAppleID();
       getAppleCredentialsCalls = <List<AppleIDAuthorizationScopes>>[];
-      getAppleCredentials = ({
-        List<AppleIDAuthorizationScopes> scopes = const [],
-        WebAuthenticationOptions? webAuthenticationOptions,
-        String? nonce,
-        String? state,
-      }) async {
-        getAppleCredentialsCalls.add(scopes);
-        return authorizationCredentialAppleID;
-      };
+      getAppleCredentials =
+          ({
+            List<AppleIDAuthorizationScopes> scopes = const [],
+            WebAuthenticationOptions? webAuthenticationOptions,
+            String? nonce,
+            String? state,
+          }) async {
+            getAppleCredentialsCalls.add(scopes);
+            return authorizationCredentialAppleID;
+          };
       facebookAuth = MockFacebookAuth();
       twitterLogin = MockTwitterLogin();
 
       authStateChangesController =
           StreamController<firebase_auth.User?>.broadcast();
-      when(firebaseAuth.authStateChanges)
-          .thenAnswer((_) => authStateChangesController.stream);
+      when(
+        firebaseAuth.authStateChanges,
+      ).thenAnswer((_) => authStateChangesController.stream);
 
       when(() => tokenStorage.saveToken(any())).thenAnswer((_) async {});
       when(tokenStorage.clearToken).thenAnswer((_) async {});
@@ -150,34 +152,35 @@ void main() {
       );
     });
 
-    testWidgets(
-      'creates FirebaseAuth instance internally when not injected',
-      (tester) async {
-        tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
-          MethodChannelFirebaseAuth.channel,
-          (call) async {
-            if (call.method == 'Auth#registerIdTokenListener' ||
-                call.method == 'Auth#registerAuthStateListener') {
-              return 'mockAuthChannel';
-            }
-            return null;
-          },
-        );
+    testWidgets('creates FirebaseAuth instance internally when not injected', (
+      tester,
+    ) async {
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        MethodChannelFirebaseAuth.channel,
+        (call) async {
+          if (call.method == 'Auth#registerIdTokenListener' ||
+              call.method == 'Auth#registerAuthStateListener') {
+            return 'mockAuthChannel';
+          }
+          return null;
+        },
+      );
 
-        expect(
-          () => FirebaseAuthenticationClient(tokenStorage: tokenStorage),
-          isNot(throwsException),
-        );
-      },
-    );
+      expect(
+        () => FirebaseAuthenticationClient(tokenStorage: tokenStorage),
+        isNot(throwsException),
+      );
+    });
 
     group('logInWithApple', () {
       setUp(() {
-        when(() => firebaseAuth.signInWithCredential(any()))
-            .thenAnswer((_) => Future.value(MockUserCredential()));
+        when(
+          () => firebaseAuth.signInWithCredential(any()),
+        ).thenAnswer((_) => Future.value(MockUserCredential()));
         when(() => authorizationCredentialAppleID.identityToken).thenReturn('');
-        when(() => authorizationCredentialAppleID.authorizationCode)
-            .thenReturn('');
+        when(
+          () => authorizationCredentialAppleID.authorizationCode,
+        ).thenReturn('');
       });
 
       test('calls getAppleCredentials with correct scopes', () async {
@@ -186,24 +189,27 @@ void main() {
           [
             AppleIDAuthorizationScopes.email,
             AppleIDAuthorizationScopes.fullName,
-          ]
+          ],
         ]);
       });
 
       test('calls signInWithCredential with correct credential', () async {
         const identityToken = 'identity-token';
         const accessToken = 'access-token';
-        when(() => authorizationCredentialAppleID.identityToken)
-            .thenReturn(identityToken);
-        when(() => authorizationCredentialAppleID.authorizationCode)
-            .thenReturn(accessToken);
+        when(
+          () => authorizationCredentialAppleID.identityToken,
+        ).thenReturn(identityToken);
+        when(
+          () => authorizationCredentialAppleID.authorizationCode,
+        ).thenReturn(accessToken);
         await firebaseAuthenticationClient.logInWithApple();
         verify(() => firebaseAuth.signInWithCredential(any())).called(1);
       });
 
       test('throws LogInWithAppleFailure when exception occurs', () async {
-        when(() => firebaseAuth.signInWithCredential(any()))
-            .thenThrow(Exception());
+        when(
+          () => firebaseAuth.signInWithCredential(any()),
+        ).thenThrow(Exception());
         expect(
           () => firebaseAuthenticationClient.logInWithApple(),
           throwsA(isA<LogInWithAppleFailure>()),
@@ -218,15 +224,19 @@ void main() {
       setUp(() {
         final googleSignInAuthentication = MockGoogleSignInAuthentication();
         final googleSignInAccount = MockGoogleSignInAccount();
-        when(() => googleSignInAuthentication.accessToken)
-            .thenReturn(accessToken);
+        when(
+          () => googleSignInAuthentication.accessToken,
+        ).thenReturn(accessToken);
         when(() => googleSignInAuthentication.idToken).thenReturn(idToken);
-        when(() => googleSignInAccount.authentication)
-            .thenAnswer((_) async => googleSignInAuthentication);
-        when(() => googleSignIn.signIn())
-            .thenAnswer((_) async => googleSignInAccount);
-        when(() => firebaseAuth.signInWithCredential(any()))
-            .thenAnswer((_) => Future.value(MockUserCredential()));
+        when(
+          () => googleSignInAccount.authentication,
+        ).thenAnswer((_) async => googleSignInAuthentication);
+        when(
+          () => googleSignIn.signIn(),
+        ).thenAnswer((_) async => googleSignInAccount);
+        when(
+          () => firebaseAuth.signInWithCredential(any()),
+        ).thenAnswer((_) => Future.value(MockUserCredential()));
       });
 
       test('calls signIn authentication, and signInWithCredential', () async {
@@ -240,8 +250,9 @@ void main() {
       });
 
       test('throws LogInWithGoogleFailure when exception occurs', () async {
-        when(() => firebaseAuth.signInWithCredential(any()))
-            .thenThrow(Exception());
+        when(
+          () => firebaseAuth.signInWithCredential(any()),
+        ).thenThrow(Exception());
         expect(
           firebaseAuthenticationClient.logInWithGoogle(),
           throwsA(isA<LogInWithGoogleFailure>()),
@@ -268,11 +279,13 @@ void main() {
 
         when(() => accessTokenResult.tokenString).thenReturn(accessToken);
         when(() => loginResult.accessToken).thenReturn(accessTokenResult);
-        when(() => loginResult.status)
-            .thenReturn(facebook_auth.LoginStatus.success);
+        when(
+          () => loginResult.status,
+        ).thenReturn(facebook_auth.LoginStatus.success);
         when(() => facebookAuth.login()).thenAnswer((_) async => loginResult);
-        when(() => firebaseAuth.signInWithCredential(any()))
-            .thenAnswer((_) => Future.value(MockUserCredential()));
+        when(
+          () => firebaseAuth.signInWithCredential(any()),
+        ).thenAnswer((_) => Future.value(MockUserCredential()));
       });
 
       test('calls login authentication and signInWithCredential', () async {
@@ -285,30 +298,29 @@ void main() {
         expect(firebaseAuthenticationClient.logInWithFacebook(), completes);
       });
 
-      test(
-          'throws LogInWithFacebookFailure '
+      test('throws LogInWithFacebookFailure '
           'when signInWithCredential throws', () async {
-        when(() => firebaseAuth.signInWithCredential(any()))
-            .thenThrow(Exception());
+        when(
+          () => firebaseAuth.signInWithCredential(any()),
+        ).thenThrow(Exception());
         expect(
           firebaseAuthenticationClient.logInWithFacebook(),
           throwsA(isA<LogInWithFacebookFailure>()),
         );
       });
 
-      test(
-          'throws LogInWithFacebookFailure '
+      test('throws LogInWithFacebookFailure '
           'when login result status is failed', () async {
-        when(() => loginResult.status)
-            .thenReturn(facebook_auth.LoginStatus.failed);
+        when(
+          () => loginResult.status,
+        ).thenReturn(facebook_auth.LoginStatus.failed);
         expect(
           firebaseAuthenticationClient.logInWithFacebook(),
           throwsA(isA<LogInWithFacebookFailure>()),
         );
       });
 
-      test(
-          'throws LogInWithFacebookFailure '
+      test('throws LogInWithFacebookFailure '
           'when login result access token is empty', () async {
         when(() => loginResult.accessToken).thenReturn(null);
         expect(
@@ -317,11 +329,11 @@ void main() {
         );
       });
 
-      test(
-          'throws LogInWithFacebookCanceled '
+      test('throws LogInWithFacebookCanceled '
           'when login result status is cancelled', () async {
-        when(() => loginResult.status)
-            .thenReturn(facebook_auth.LoginStatus.cancelled);
+        when(
+          () => loginResult.status,
+        ).thenReturn(facebook_auth.LoginStatus.cancelled);
         expect(
           firebaseAuthenticationClient.logInWithFacebook(),
           throwsA(isA<LogInWithFacebookCanceled>()),
@@ -339,11 +351,13 @@ void main() {
 
         when(() => loginResult.authToken).thenReturn(accessToken);
         when(() => loginResult.authTokenSecret).thenReturn(secret);
-        when(() => loginResult.status)
-            .thenReturn(twitter_auth.TwitterLoginStatus.loggedIn);
+        when(
+          () => loginResult.status,
+        ).thenReturn(twitter_auth.TwitterLoginStatus.loggedIn);
         when(() => twitterLogin.loginV2()).thenAnswer((_) async => loginResult);
-        when(() => firebaseAuth.signInWithCredential(any()))
-            .thenAnswer((_) => Future.value(MockUserCredential()));
+        when(
+          () => firebaseAuth.signInWithCredential(any()),
+        ).thenAnswer((_) => Future.value(MockUserCredential()));
       });
 
       test('calls loginV2 authentication and signInWithCredential', () async {
@@ -356,30 +370,29 @@ void main() {
         expect(firebaseAuthenticationClient.logInWithTwitter(), completes);
       });
 
-      test(
-          'throws LogInWithTwitterFailure '
+      test('throws LogInWithTwitterFailure '
           'when signInWithCredential throws', () async {
-        when(() => firebaseAuth.signInWithCredential(any()))
-            .thenThrow(Exception());
+        when(
+          () => firebaseAuth.signInWithCredential(any()),
+        ).thenThrow(Exception());
         expect(
           firebaseAuthenticationClient.logInWithTwitter(),
           throwsA(isA<LogInWithTwitterFailure>()),
         );
       });
 
-      test(
-          'throws LogInWithTwitterFailure '
+      test('throws LogInWithTwitterFailure '
           'when login result status is error', () async {
-        when(() => loginResult.status)
-            .thenReturn(twitter_auth.TwitterLoginStatus.error);
+        when(
+          () => loginResult.status,
+        ).thenReturn(twitter_auth.TwitterLoginStatus.error);
         expect(
           firebaseAuthenticationClient.logInWithTwitter(),
           throwsA(isA<LogInWithTwitterFailure>()),
         );
       });
 
-      test(
-          'throws LogInWithTwitterFailure '
+      test('throws LogInWithTwitterFailure '
           'when login result auth token is empty', () async {
         when(() => loginResult.authToken).thenReturn(null);
         expect(
@@ -388,8 +401,7 @@ void main() {
         );
       });
 
-      test(
-          'throws LogInWithTwitterFailure '
+      test('throws LogInWithTwitterFailure '
           'when login result auth token secret is empty', () async {
         when(() => loginResult.authTokenSecret).thenReturn(null);
         expect(
@@ -398,11 +410,11 @@ void main() {
         );
       });
 
-      test(
-          'throws LogInWithTwitterCanceled '
+      test('throws LogInWithTwitterCanceled '
           'when login result status is cancelledByUser', () async {
-        when(() => loginResult.status)
-            .thenReturn(twitter_auth.TwitterLoginStatus.cancelledByUser);
+        when(
+          () => loginResult.status,
+        ).thenReturn(twitter_auth.TwitterLoginStatus.cancelledByUser);
         expect(
           firebaseAuthenticationClient.logInWithTwitter(),
           throwsA(isA<LogInWithTwitterCanceled>()),
@@ -467,8 +479,7 @@ void main() {
         );
       });
 
-      test(
-          'throws SendLoginEmailLinkFailure '
+      test('throws SendLoginEmailLinkFailure '
           'when sendSignInLinkToEmail throws', () async {
         when(
           () => firebaseAuth.sendSignInLinkToEmail(
@@ -494,12 +505,8 @@ void main() {
       });
 
       test('calls isSignInWithEmailLink', () {
-        firebaseAuthenticationClient.isLogInWithEmailLink(
-          emailLink: emailLink,
-        );
-        verify(
-          () => firebaseAuth.isSignInWithEmailLink(emailLink),
-        ).called(1);
+        firebaseAuthenticationClient.isLogInWithEmailLink(emailLink: emailLink);
+        verify(() => firebaseAuth.isSignInWithEmailLink(emailLink)).called(1);
       });
 
       test('succeeds when isSignInWithEmailLink succeeds', () async {
@@ -511,8 +518,7 @@ void main() {
         );
       });
 
-      test(
-          'throws IsLogInWithEmailLinkFailure '
+      test('throws IsLogInWithEmailLinkFailure '
           'when isSignInWithEmailLink throws', () async {
         when(
           () => firebaseAuth.isSignInWithEmailLink(any()),
@@ -559,8 +565,7 @@ void main() {
         );
       });
 
-      test(
-          'throws LogInWithEmailLinkFailure '
+      test('throws LogInWithEmailLinkFailure '
           'when signInWithEmailLink throws', () async {
         when(
           () => firebaseAuth.signInWithEmailLink(
@@ -632,17 +637,21 @@ void main() {
       const userId = 'mock-uid';
       const email = 'mock-email';
       const newUser = AuthenticationUser(id: userId, email: email);
-      const returningUser =
-          AuthenticationUser(id: userId, email: email, isNewUser: false);
+      const returningUser = AuthenticationUser(
+        id: userId,
+        email: email,
+        isNewUser: false,
+      );
 
       test('emits anonymous user when firebase user is null', () async {
-        when(firebaseAuth.authStateChanges)
-            .thenAnswer((_) => Stream.value(null));
+        when(
+          firebaseAuth.authStateChanges,
+        ).thenAnswer((_) => Stream.value(null));
         await expectLater(
           firebaseAuthenticationClient.user,
-          emitsInOrder(
-            const <AuthenticationUser>[AuthenticationUser.anonymous],
-          ),
+          emitsInOrder(const <AuthenticationUser>[
+            AuthenticationUser.anonymous,
+          ]),
         );
       });
 
@@ -656,8 +665,9 @@ void main() {
         when(() => userMetadata.lastSignInTime).thenReturn(creationTime);
         when(() => firebaseUser.photoURL).thenReturn(null);
         when(() => firebaseUser.metadata).thenReturn(userMetadata);
-        when(firebaseAuth.authStateChanges)
-            .thenAnswer((_) => Stream.value(firebaseUser));
+        when(
+          firebaseAuth.authStateChanges,
+        ).thenAnswer((_) => Stream.value(firebaseUser));
         await expectLater(
           firebaseAuthenticationClient.user,
           emitsInOrder(const <AuthenticationUser>[newUser]),
@@ -675,16 +685,16 @@ void main() {
         when(() => userMetadata.lastSignInTime).thenReturn(lastSignInTime);
         when(() => firebaseUser.photoURL).thenReturn(null);
         when(() => firebaseUser.metadata).thenReturn(userMetadata);
-        when(firebaseAuth.authStateChanges)
-            .thenAnswer((_) => Stream.value(firebaseUser));
+        when(
+          firebaseAuth.authStateChanges,
+        ).thenAnswer((_) => Stream.value(firebaseUser));
         await expectLater(
           firebaseAuthenticationClient.user,
           emitsInOrder(const <AuthenticationUser>[returningUser]),
         );
       });
 
-      test(
-          'calls saveToken on TokenStorage '
+      test('calls saveToken on TokenStorage '
           'when user changes to authenticated', () async {
         final firebaseUser = MockFirebaseUser();
         final userMetadata = MockUserMetadata();
@@ -703,8 +713,7 @@ void main() {
         verifyNever(tokenStorage.clearToken);
       });
 
-      test(
-          'calls clearToken on TokenStorage '
+      test('calls clearToken on TokenStorage '
           'when user changes to unauthenticated', () async {
         authStateChangesController.add(null);
         await Future.microtask(() {});

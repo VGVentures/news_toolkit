@@ -35,8 +35,9 @@ class PostMediumOverlaidLayout extends StatelessWidget {
             title,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: textTheme.titleSmall
-                ?.copyWith(color: AppColors.highEmphasisPrimary),
+            style: textTheme.titleSmall?.copyWith(
+              color: AppColors.highEmphasisPrimary,
+            ),
           ),
         ),
       ],

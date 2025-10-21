@@ -10,12 +10,10 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('InlineVideo', () {
-    setUp(
-      () {
-        final fakeVideoPlayerPlatform = FakeVideoPlayerPlatform();
-        VideoPlayerPlatform.instance = fakeVideoPlayerPlatform;
-      },
-    );
+    setUp(() {
+      final fakeVideoPlayerPlatform = FakeVideoPlayerPlatform();
+      VideoPlayerPlatform.instance = fakeVideoPlayerPlatform;
+    });
 
     testWidgets('renders progressIndicator when loading', (tester) async {
       const progressIndicatorKey = Key('__progress_indicator__');
@@ -70,8 +68,7 @@ void main() {
       expect(find.byType(VideoPlayer), findsOneWidget);
     });
 
-    testWidgets(
-        'plays video when tapped '
+    testWidgets('plays video when tapped '
         'and video is not playing', (tester) async {
       final controller = FakeVideoPlayerController();
 
@@ -94,8 +91,7 @@ void main() {
       expect(controller.pauseCalled, equals(0));
     });
 
-    testWidgets(
-        'pauses video when tapped '
+    testWidgets('pauses video when tapped '
         'and video is playing', (tester) async {
       final controller = FakeVideoPlayerController();
 
@@ -145,7 +141,7 @@ void main() {
 class FakeVideoPlayerController extends ValueNotifier<VideoPlayerValue>
     implements VideoPlayerController {
   FakeVideoPlayerController()
-      : super(VideoPlayerValue(duration: Duration.zero));
+    : super(VideoPlayerValue(duration: Duration.zero));
 
   int playCalled = 0;
   int pauseCalled = 0;

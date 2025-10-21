@@ -38,9 +38,11 @@ void main() {
       imageUrl:
           'https://assets.reedpopcdn.com/stray_XlfRQmc.jpg/BROK/thumbnail/'
           '1600x900/format/jpg/quality/80/stray_XlfRQmc.jpg',
-      title: 'Stray launches next month, included in pricier PlayStation '
+      title:
+          'Stray launches next month, included in pricier PlayStation '
           'Plus tiers on day one',
-      description: "Stray, everyone's favorite upcoming cyberpunk cat game, "
+      description:
+          "Stray, everyone's favorite upcoming cyberpunk cat game, "
           'launches for PC, PlayStation 4 and PS5 on 19th July.',
       action: const NavigateToArticleAction(
         articleId: '36f4a017-d099-4fce-8727-1d9ca6a0398c',
@@ -57,8 +59,7 @@ void main() {
       appBloc = MockAppBloc();
     });
 
-    testWidgets(
-        'renders relatedArticles '
+    testWidgets('renders relatedArticles '
         'when article is not preview', (tester) async {
       final user = MockUser();
       when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
@@ -75,9 +76,7 @@ void main() {
         ),
       );
 
-      when(() => appBloc.state).thenReturn(
-        AppState.authenticated(user),
-      );
+      when(() => appBloc.state).thenReturn(AppState.authenticated(user));
 
       await tester.pumpApp(
         MultiBlocProvider(
@@ -85,9 +84,7 @@ void main() {
             BlocProvider.value(value: articleBloc),
             BlocProvider.value(value: appBloc),
           ],
-          child: CustomScrollView(
-            slivers: [ArticleTrailingContent()],
-          ),
+          child: CustomScrollView(slivers: [ArticleTrailingContent()]),
         ),
       );
 
@@ -101,8 +98,7 @@ void main() {
       }
     });
 
-    testWidgets(
-        'renders only ArticleComments when '
+    testWidgets('renders only ArticleComments when '
         'relatedArticles is empty', (tester) async {
       when(() => articleBloc.state).thenAnswer(
         (invocation) => ArticleState(
@@ -155,9 +151,7 @@ void main() {
               BlocProvider.value(value: articleBloc),
               BlocProvider.value(value: appBloc),
             ],
-            child: CustomScrollView(
-              slivers: [ArticleTrailingContent()],
-            ),
+            child: CustomScrollView(slivers: [ArticleTrailingContent()]),
           ),
         );
 
@@ -171,19 +165,17 @@ void main() {
               BlocProvider.value(value: articleBloc),
               BlocProvider.value(value: appBloc),
             ],
-            child: CustomScrollView(
-              slivers: [ArticleTrailingContent()],
-            ),
+            child: CustomScrollView(slivers: [ArticleTrailingContent()]),
           ),
         );
 
         expect(find.byType(ArticleComments), findsNothing);
       });
 
-      testWidgets(
-          'renders SubscribeModal '
-          'when article is premium and user is not a subscriber',
-          (tester) async {
+      testWidgets('renders SubscribeModal '
+          'when article is premium and user is not a subscriber', (
+        tester,
+      ) async {
         when(() => articleBloc.state).thenReturn(
           ArticleState(
             content: const [
@@ -205,9 +197,7 @@ void main() {
               BlocProvider.value(value: articleBloc),
               BlocProvider.value(value: appBloc),
             ],
-            child: CustomScrollView(
-              slivers: [ArticleTrailingContent()],
-            ),
+            child: CustomScrollView(slivers: [ArticleTrailingContent()]),
           ),
         );
 
@@ -215,8 +205,7 @@ void main() {
         expect(find.byType(SubscribeWithArticleLimitModal), findsNothing);
       });
 
-      testWidgets(
-          'does not render SubscribeModal '
+      testWidgets('does not render SubscribeModal '
           'when article is premium and user is a subscriber', (tester) async {
         final user = MockUser();
         when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
@@ -234,11 +223,7 @@ void main() {
           ),
         );
 
-        when(() => appBloc.state).thenReturn(
-          AppState.authenticated(
-            user,
-          ),
-        );
+        when(() => appBloc.state).thenReturn(AppState.authenticated(user));
 
         await tester.pumpApp(
           MultiBlocProvider(
@@ -246,9 +231,7 @@ void main() {
               BlocProvider.value(value: articleBloc),
               BlocProvider.value(value: appBloc),
             ],
-            child: CustomScrollView(
-              slivers: [ArticleTrailingContent()],
-            ),
+            child: CustomScrollView(slivers: [ArticleTrailingContent()]),
           ),
         );
 
@@ -256,8 +239,7 @@ void main() {
         expect(find.byType(SubscribeWithArticleLimitModal), findsNothing);
       });
 
-      testWidgets(
-          'renders SubscribeWithArticleLimitModal '
+      testWidgets('renders SubscribeWithArticleLimitModal '
           'when article is not premium '
           'and user has reached article views limit '
           'and user is not a subscriber', (tester) async {
@@ -282,9 +264,7 @@ void main() {
                 BlocProvider.value(value: articleBloc),
                 BlocProvider.value(value: appBloc),
               ],
-              child: CustomScrollView(
-                slivers: [ArticleTrailingContent()],
-              ),
+              child: CustomScrollView(slivers: [ArticleTrailingContent()]),
             ),
           );
         });
@@ -293,8 +273,7 @@ void main() {
         expect(find.byType(SubscribeModal), findsNothing);
       });
 
-      testWidgets(
-          'does not render SubscribeWithArticleLimitModal '
+      testWidgets('does not render SubscribeWithArticleLimitModal '
           'when article is not premium '
           'and user has reached article views limit '
           'and user is a subscriber', (tester) async {
@@ -314,9 +293,7 @@ void main() {
           ),
         );
 
-        when(() => appBloc.state).thenReturn(
-          AppState.authenticated(user),
-        );
+        when(() => appBloc.state).thenReturn(AppState.authenticated(user));
 
         await tester.pumpApp(
           MultiBlocProvider(
@@ -324,9 +301,7 @@ void main() {
               BlocProvider.value(value: articleBloc),
               BlocProvider.value(value: appBloc),
             ],
-            child: CustomScrollView(
-              slivers: [ArticleTrailingContent()],
-            ),
+            child: CustomScrollView(slivers: [ArticleTrailingContent()]),
           ),
         );
 

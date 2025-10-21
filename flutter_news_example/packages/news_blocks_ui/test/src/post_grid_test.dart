@@ -18,7 +18,8 @@ void main() {
       publishedAt: DateTime(2022, 5, 5),
       imageUrl:
           'https://scitechdaily.com/images/Qubit-Platform-Single-Electron-on-Solid-Neon.jpg',
-      title: 'The Quest for an Ideal Quantum Bit: New Qubit Breakthrough Could '
+      title:
+          'The Quest for an Ideal Quantum Bit: New Qubit Breakthrough Could '
           'Revolutionize Quantum Computing',
       action: NavigateToArticleAction(
         articleId: '842e3193-86d2-4069-a7e6-f769faa6f970',

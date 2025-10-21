@@ -10,10 +10,9 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc({
-    required UserRepository userRepository,
-  })  : _userRepository = userRepository,
-        super(const LoginState()) {
+  LoginBloc({required UserRepository userRepository})
+    : _userRepository = userRepository,
+      super(const LoginState()) {
     on<LoginEmailChanged>(_onEmailChanged);
     on<SendEmailLinkSubmitted>(_onSendEmailLinkSubmitted);
     on<LoginGoogleSubmitted>(_onGoogleSubmitted);
@@ -26,12 +25,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   void _onEmailChanged(LoginEmailChanged event, Emitter<LoginState> emit) {
     final email = Email.dirty(event.email);
-    emit(
-      state.copyWith(
-        email: email,
-        valid: Formz.validate([email]),
-      ),
-    );
+    emit(state.copyWith(email: email, valid: Formz.validate([email])));
   }
 
   Future<void> _onSendEmailLinkSubmitted(
@@ -41,9 +35,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (!state.valid) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
-      await _userRepository.sendLoginEmailLink(
-        email: state.email.value,
-      );
+      await _userRepository.sendLoginEmailLink(email: state.email.value);
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));

@@ -3,9 +3,8 @@ import 'package:news_blocks_ui/src/generated/generated.dart';
 import 'package:video_player/video_player.dart';
 
 /// Signature for [VideoPlayerController] builder.
-typedef VideoPlayerControllerBuilder = VideoPlayerController Function(
-  Uri videoUrl,
-);
+typedef VideoPlayerControllerBuilder =
+    VideoPlayerController Function(Uri videoUrl);
 
 /// {@template inline_video}
 /// A reusable video widget displayed inline with the content.
@@ -42,15 +41,14 @@ class _InlineVideoState extends State<InlineVideo> {
   @override
   void initState() {
     super.initState();
-    _controller = widget.videoPlayerControllerBuilder(
-      Uri.parse(widget.videoUrl),
-    )
-      ..addListener(_onVideoUpdated)
-      ..initialize().then((_) {
-        // Ensure the first frame of the video is shown
-        // after the video is initialized.
-        if (mounted) setState(() {});
-      });
+    _controller =
+        widget.videoPlayerControllerBuilder(Uri.parse(widget.videoUrl))
+          ..addListener(_onVideoUpdated)
+          ..initialize().then((_) {
+            // Ensure the first frame of the video is shown
+            // after the video is initialized.
+            if (mounted) setState(() {});
+          });
   }
 
   @override
