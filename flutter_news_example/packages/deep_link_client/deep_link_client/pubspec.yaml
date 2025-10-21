@@ -3,7 +3,7 @@ description: A deep link client interface
 publish_to: none
 
 environment:
-  sdk: ">=3.6.0 <4.0.0"
+  sdk: ">=3.9.2 <4.0.0"
 
 dependencies:
   equatable: ^2.0.5
