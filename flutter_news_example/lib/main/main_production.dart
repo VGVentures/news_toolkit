@@ -18,8 +18,8 @@ import 'package:purchase_client/purchase_client.dart';
 import 'package:token_storage/token_storage.dart';
 import 'package:user_repository/user_repository.dart';
 
-void main() {
-  bootstrap((
+void main() async {
+  await bootstrap((
     firebaseDynamicLinks,
     firebaseMessaging,
     sharedPreferences,

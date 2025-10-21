@@ -91,15 +91,19 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
                                     UserSubscriptionConversionEvent(),
                                   ),
                                 );
-                                showDialog<void>(
-                                  context: context,
-                                  builder: (context) =>
-                                      const PurchaseCompletedDialog(),
-                                ).then((_) {
-                                  if (context.mounted) {
-                                    Navigator.maybePop<void>(context);
-                                  }
-                                });
+                                unawaited(
+                                  showDialog<void>(
+                                    context: context,
+                                    builder: (context) =>
+                                        const PurchaseCompletedDialog(),
+                                  ).then((_) {
+                                    if (context.mounted) {
+                                      unawaited(
+                                        Navigator.maybePop<void>(context),
+                                      );
+                                    }
+                                  }),
+                                );
                               }
                             },
                             builder: (context, state) {
