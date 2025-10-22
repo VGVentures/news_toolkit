@@ -20,7 +20,7 @@ void main() {
             (widget) =>
                 widget is BannerAdContent &&
                 widget.size == BannerAdSize.anchoredAdaptive &&
-                widget.showProgressIndicator == false,
+                !widget.showProgressIndicator,
           ),
         ),
         findsOneWidget,

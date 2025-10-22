@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_const, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
 

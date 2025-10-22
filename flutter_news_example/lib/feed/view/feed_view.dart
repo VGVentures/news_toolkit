@@ -100,8 +100,8 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
                 .map(
                   (category) => CategoryTab(
                     categoryName: category.name,
-                    onDoubleTap: () {
-                      _controllers[category]?.animateTo(
+                    onDoubleTap: () async {
+                      await _controllers[category]?.animateTo(
                         0,
                         duration: _categoryScrollToTopDuration,
                         curve: Curves.ease,

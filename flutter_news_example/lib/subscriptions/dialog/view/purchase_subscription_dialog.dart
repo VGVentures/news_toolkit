@@ -13,7 +13,7 @@ Future<void> showPurchaseSubscriptionDialog({
   required BuildContext context,
 }) async => showGeneralDialog(
   context: context,
-  pageBuilder: (_, __, ___) => const PurchaseSubscriptionDialog(),
+  pageBuilder: (_, _, _) => const PurchaseSubscriptionDialog(),
   transitionBuilder: (context, anim1, anim2, child) {
     return SlideTransition(
       position: Tween(
@@ -91,15 +91,19 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
                                     UserSubscriptionConversionEvent(),
                                   ),
                                 );
-                                showDialog<void>(
-                                  context: context,
-                                  builder: (context) =>
-                                      const PurchaseCompletedDialog(),
-                                ).then((_) {
-                                  if (context.mounted) {
-                                    Navigator.maybePop<void>(context);
-                                  }
-                                });
+                                unawaited(
+                                  showDialog<void>(
+                                    context: context,
+                                    builder: (context) =>
+                                        const PurchaseCompletedDialog(),
+                                  ).then((_) {
+                                    if (context.mounted) {
+                                      unawaited(
+                                        Navigator.maybePop<void>(context),
+                                      );
+                                    }
+                                  }),
+                                );
                               }
                             },
                             builder: (context, state) {

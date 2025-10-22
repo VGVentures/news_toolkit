@@ -60,5 +60,5 @@ Future<void> bootstrap(AppBuilder builder) async {
         analyticsRepository,
       ),
     );
-  }, (_, __) {});
+  }, (_, _) {});
 }

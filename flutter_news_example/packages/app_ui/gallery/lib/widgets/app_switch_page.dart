@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_field_initializers_in_const_classes
-
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 

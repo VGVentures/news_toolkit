@@ -166,7 +166,7 @@ class FlutterNewsExampleApiClient {
   }) async {
     final uri = Uri.parse('$_baseUrl/api/v1/feed').replace(
       queryParameters: <String, String>{
-        if (categoryId != null) 'category': categoryId,
+        'category': ?categoryId,
         if (limit != null) 'limit': '$limit',
         if (offset != null) 'offset': '$offset',
       },

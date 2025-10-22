@@ -1,18 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:async';
-import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:firebase_deep_link_client/firebase_deep_link_client.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockFirebaseDynamicLinks extends Mock implements FirebaseDynamicLinks {}
-
-class MockFirebaseCore extends Mock
-    with MockPlatformInterfaceMixin
-    implements FirebasePlatform {}
 
 void main() {
   late MockFirebaseDynamicLinks dynamicLinks;
@@ -27,7 +21,7 @@ void main() {
   });
 
   tearDown(() {
-    onLinkStreamController.close();
+    unawaited(onLinkStreamController.close());
   });
 
   group('FirebaseDeepLinkClient', () {
