@@ -276,10 +276,12 @@ void main() {
             required BannerAdListener listener,
             required AdRequest request,
           }) {
-            Future.microtask(
-              () => listener.onAdFailedToLoad!(
-                ad,
-                LoadAdError(0, 'domain', 'message', null),
+            unawaited(
+              Future.microtask(
+                () => listener.onAdFailedToLoad!(
+                  ad,
+                  LoadAdError(0, 'domain', 'message', null),
+                ),
               ),
             );
             return ad;

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:news_blocks_ui/src/generated/generated.dart';
 import 'package:video_player/video_player.dart';
@@ -41,14 +43,17 @@ class _InlineVideoState extends State<InlineVideo> {
   @override
   void initState() {
     super.initState();
-    _controller =
-        widget.videoPlayerControllerBuilder(Uri.parse(widget.videoUrl))
-          ..addListener(_onVideoUpdated)
-          ..initialize().then((_) {
-            // Ensure the first frame of the video is shown
-            // after the video is initialized.
-            if (mounted) setState(() {});
-          });
+    _controller = widget.videoPlayerControllerBuilder(
+      Uri.parse(widget.videoUrl),
+    );
+    _controller.addListener(_onVideoUpdated);
+    unawaited(
+      _controller.initialize().then((_) {
+        // Ensure the first frame of the video is shown
+        // after the video is initialized.
+        if (mounted) setState(() {});
+      }),
+    );
   }
 
   @override

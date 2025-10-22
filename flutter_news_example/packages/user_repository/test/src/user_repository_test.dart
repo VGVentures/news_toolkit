@@ -129,9 +129,11 @@ void main() {
           ),
         ).thenReturn(false);
 
-        expectLater(
-          userRepository.incomingEmailLinks,
-          emitsInOrder(<Uri>[validEmailLink, validEmailLink2]),
+        unawaited(
+          expectLater(
+            userRepository.incomingEmailLinks,
+            emitsInOrder(<Uri>[validEmailLink, validEmailLink2]),
+          ),
         );
 
         deepLinkClientController
