@@ -63,8 +63,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) =>
-              widget is SlideshowCategory && widget.isIntroduction,
+          (widget) => widget is SlideshowCategory && widget.isIntroduction,
         ),
         findsOneWidget,
       );
