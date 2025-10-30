@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, lines_longer_than_80_chars, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors
 
 import 'package:news_blocks/news_blocks.dart';
 import 'package:test/test.dart';

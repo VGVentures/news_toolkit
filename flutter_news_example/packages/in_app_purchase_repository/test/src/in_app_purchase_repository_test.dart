@@ -336,7 +336,7 @@ void main() {
       });
 
       test('adds PurchaseCanceled event '
-          'when PurchaseDetails status is canceled', () {
+          'when PurchaseDetails status is canceled', () async {
         when(() => inAppPurchase.purchaseStream).thenAnswer(
           (_) => Stream.fromIterable([
             [purchaseDetails.copyWith(status: PurchaseStatus.canceled)],
@@ -349,11 +349,14 @@ void main() {
           inAppPurchase: inAppPurchase,
         );
 
-        expectLater(repository.purchaseUpdate, emits(isA<PurchaseCanceled>()));
+        await expectLater(
+          repository.purchaseUpdate,
+          emits(isA<PurchaseCanceled>()),
+        );
       });
 
       test('adds PurchaseFailed event '
-          'when PurchaseDetails status is error', () {
+          'when PurchaseDetails status is error', () async {
         when(() => inAppPurchase.purchaseStream).thenAnswer(
           (_) => Stream.fromIterable([
             [purchaseDetails.copyWith(status: PurchaseStatus.error)],
@@ -366,7 +369,10 @@ void main() {
           inAppPurchase: inAppPurchase,
         );
 
-        expectLater(repository.purchaseUpdate, emits(isA<PurchaseFailed>()));
+        await expectLater(
+          repository.purchaseUpdate,
+          emits(isA<PurchaseFailed>()),
+        );
       });
 
       group('when PurchaseDetails status is purchased', () {

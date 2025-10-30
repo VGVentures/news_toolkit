@@ -9,8 +9,6 @@ import 'package:user_repository/user_repository.dart';
 
 class MockUserRepository extends Mock implements UserRepository {}
 
-class MockUser extends Mock implements User {}
-
 void main() {
   const invalidEmailString = 'invalid';
   const invalidEmail = Email.dirty(invalidEmailString);

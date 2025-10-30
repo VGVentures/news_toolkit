@@ -5,7 +5,6 @@ import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_example/app/app.dart';
 import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_news_example/slideshow/slideshow.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -18,8 +17,6 @@ import '../../helpers/helpers.dart';
 
 class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
     implements ArticleBloc {}
-
-class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
   late ArticleBloc articleBloc;

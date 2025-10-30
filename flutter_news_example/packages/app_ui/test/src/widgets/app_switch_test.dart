@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -31,7 +29,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) => widget is Switch && widget.value == true,
+          (widget) => widget is Switch && widget.value,
         ),
         findsOneWidget,
       );

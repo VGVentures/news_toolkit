@@ -228,9 +228,9 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
         children: [
           IconButton(
             key: const Key('slideshow_slideshowButtonsLeft'),
-            onPressed: () {
+            onPressed: () async {
               if (_currentPage >= 1) {
-                widget.controller.previousPage(
+                await widget.controller.previousPage(
                   duration: _pageAnimationDuration,
                   curve: Curves.easeInOut,
                 );
@@ -246,9 +246,9 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
           ),
           IconButton(
             key: const Key('slideshow_slideshowButtonsRight'),
-            onPressed: () {
+            onPressed: () async {
               if (_currentPage < widget.totalPages - 1) {
-                widget.controller.nextPage(
+                await widget.controller.nextPage(
                   duration: _pageAnimationDuration,
                   curve: Curves.easeInOut,
                 );

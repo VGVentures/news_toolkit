@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,14 +36,16 @@ class CategoryFeed extends StatelessWidget {
     return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
         if (state.status == FeedStatus.failure && state.feed.isEmpty) {
-          Navigator.of(context).push<void>(
-            NetworkError.route(
-              onRetry: () {
-                context.read<FeedBloc>().add(
-                  FeedRefreshRequested(category: category),
-                );
-                Navigator.of(context).pop();
-              },
+          unawaited(
+            Navigator.of(context).push<void>(
+              NetworkError.route(
+                onRetry: () {
+                  context.read<FeedBloc>().add(
+                    FeedRefreshRequested(category: category),
+                  );
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
           );
         }

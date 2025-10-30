@@ -1,24 +1,9 @@
 import 'package:analytics_repository/analytics_repository.dart';
-import 'package:equatable/equatable.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockFirebaseAnalytics extends Mock implements FirebaseAnalytics {}
-
-class TestEvent extends Equatable with AnalyticsEventMixin {
-  const TestEvent({required this.id});
-
-  final String id;
-
-  @override
-  AnalyticsEvent get event {
-    return AnalyticsEvent(
-      'TestEvent',
-      properties: <String, String>{'test-key': id},
-    );
-  }
-}
 
 void main() {
   group('AnalyticsRepository', () {
@@ -46,13 +31,13 @@ void main() {
     });
 
     group('track', () {
-      test('tracks event successfully', () {
+      test('tracks event successfully', () async {
         const event = AnalyticsEvent(
           'TestEvent',
           properties: <String, String>{'test-key': 'mock-id'},
         );
 
-        analyticsRepository.track(event);
+        await analyticsRepository.track(event);
 
         verify(
           () => firebaseAnalytics.logEvent(
@@ -87,10 +72,10 @@ void main() {
     });
 
     group('setUserId', () {
-      test('sets user identifier successfully', () {
+      test('sets user identifier successfully', () async {
         const userId = 'userId';
 
-        analyticsRepository.setUserId(userId);
+        await analyticsRepository.setUserId(userId);
 
         verify(() => firebaseAnalytics.setUserId(id: userId)).called(1);
       });
