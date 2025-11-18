@@ -8,20 +8,19 @@ part of 'html_block.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-HtmlBlock _$HtmlBlockFromJson(Map<String, dynamic> json) => $checkedCreate(
-      'HtmlBlock',
-      json,
-      ($checkedConvert) {
-        final val = HtmlBlock(
-          content: $checkedConvert('content', (v) => v as String),
-          type: $checkedConvert(
-              'type', (v) => v as String? ?? HtmlBlock.identifier),
-        );
-        return val;
-      },
-    );
+HtmlBlock _$HtmlBlockFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('HtmlBlock', json, ($checkedConvert) {
+      final val = HtmlBlock(
+        content: $checkedConvert('content', (v) => v as String),
+        type: $checkedConvert(
+          'type',
+          (v) => v as String? ?? HtmlBlock.identifier,
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$HtmlBlockToJson(HtmlBlock instance) => <String, dynamic>{
-      'content': instance.content,
-      'type': instance.type,
-    };
+  'content': instance.content,
+  'type': instance.type,
+};

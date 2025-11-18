@@ -8,41 +8,26 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('AppSwitch', () {
-    testWidgets(
-        'renders onText '
+    testWidgets('renders onText '
         'when enabled', (tester) async {
       await tester.pumpApp(
-        AppSwitch(
-          value: true,
-          onText: 'On',
-          onChanged: (_) {},
-        ),
+        AppSwitch(value: true, onText: 'On', onChanged: (_) {}),
       );
 
       expect(find.text('On'), findsOneWidget);
     });
 
-    testWidgets(
-        'renders offText '
+    testWidgets('renders offText '
         'when disabled', (tester) async {
       await tester.pumpApp(
-        AppSwitch(
-          value: false,
-          offText: 'Off',
-          onChanged: (_) {},
-        ),
+        AppSwitch(value: false, offText: 'Off', onChanged: (_) {}),
       );
 
       expect(find.text('Off'), findsOneWidget);
     });
 
     testWidgets('renders Switch', (tester) async {
-      await tester.pumpApp(
-        AppSwitch(
-          value: true,
-          onChanged: (_) {},
-        ),
-      );
+      await tester.pumpApp(AppSwitch(value: true, onChanged: (_) {}));
 
       expect(
         find.byWidgetPredicate(
@@ -55,10 +40,7 @@ void main() {
     testWidgets('calls onChanged when tapped', (tester) async {
       var tapped = false;
       await tester.pumpApp(
-        AppSwitch(
-          value: true,
-          onChanged: (_) => tapped = true,
-        ),
+        AppSwitch(value: true, onChanged: (_) => tapped = true),
       );
 
       await tester.tap(find.byType(Switch));

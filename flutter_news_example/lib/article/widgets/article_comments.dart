@@ -19,9 +19,7 @@ class ArticleComments extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.lg),
         ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxHeight: 148,
-          ),
+          constraints: const BoxConstraints(maxHeight: 148),
           child: AppTextField(
             hintText: context.l10n.commentEntryHint,
             onSubmitted: (_) {

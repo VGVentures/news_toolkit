@@ -8,16 +8,12 @@ void main() {
   group('newsDataSourceProvider', () {
     test('provides a NewsDataSource instance', () async {
       NewsDataSource? value;
-      final context = TestRequestContext(
-        path: 'http://localhost/',
-      );
+      final context = TestRequestContext(path: 'http://localhost/');
 
-      final handler = newsDataSourceProvider()(
-        (_) {
-          value = context.read<NewsDataSource>();
-          return Response(body: '');
-        },
-      );
+      final handler = newsDataSourceProvider()((_) {
+        value = context.read<NewsDataSource>();
+        return Response(body: '');
+      });
 
       context.mockProvide<NewsDataSource>(InMemoryNewsDataSource());
 

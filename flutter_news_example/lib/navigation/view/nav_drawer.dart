@@ -11,8 +11,9 @@ class NavDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isUserSubscribed =
-        context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
+    final isUserSubscribed = context.select(
+      (AppBloc bloc) => bloc.state.isUserSubscribed,
+    );
 
     return ClipRRect(
       borderRadius: const BorderRadius.only(

@@ -19,8 +19,9 @@ void main() {
       apiClient = MockFlutterNewsExampleApiClient();
       storage = MockArticleStorage();
       when(() => storage.setArticleViews(any())).thenAnswer((_) async {});
-      when(() => storage.setArticleViewsResetDate(any()))
-          .thenAnswer((_) async {});
+      when(
+        () => storage.setArticleViewsResetDate(any()),
+      ).thenAnswer((_) async {});
 
       articleRepository = ArticleRepository(
         apiClient: apiClient,
@@ -29,8 +30,7 @@ void main() {
     });
 
     group('getArticle', () {
-      test(
-          'returns ArticleResponse '
+      test('returns ArticleResponse '
           'from ApiClient.getArticle', () {
         const content = <NewsBlock>[
           TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
@@ -56,25 +56,16 @@ void main() {
         ).thenAnswer((_) async => articleResponse);
 
         expect(
-          articleRepository.getArticle(
-            id: 'id',
-            offset: 10,
-            limit: 20,
-          ),
+          articleRepository.getArticle(id: 'id', offset: 10, limit: 20),
           completion(equals(articleResponse)),
         );
 
         verify(
-          () => apiClient.getArticle(
-            id: 'id',
-            offset: 10,
-            limit: 20,
-          ),
+          () => apiClient.getArticle(id: 'id', offset: 10, limit: 20),
         ).called(1);
       });
 
-      test(
-          'throws GetArticleFailure '
+      test('throws GetArticleFailure '
           'if ApiClient.getArticle fails', () async {
         when(
           () => apiClient.getArticle(
@@ -92,8 +83,7 @@ void main() {
     });
 
     group('getRelatedArticles', () {
-      test(
-          'returns RelatedArticlesResponse '
+      test('returns RelatedArticlesResponse '
           'from ApiClient.getRelatedArticles', () async {
         const relatedArticlesResponse = RelatedArticlesResponse(
           relatedArticles: [
@@ -104,9 +94,7 @@ void main() {
         );
 
         when(
-          () => apiClient.getRelatedArticles(
-            id: any(named: 'id'),
-          ),
+          () => apiClient.getRelatedArticles(id: any(named: 'id')),
         ).thenAnswer((_) async => relatedArticlesResponse);
 
         final response = await articleRepository.getRelatedArticles(id: 'id');
@@ -114,13 +102,10 @@ void main() {
         expect(response, equals(relatedArticlesResponse));
       });
 
-      test(
-          'throws GetRelatedArticlesFailure '
+      test('throws GetRelatedArticlesFailure '
           'if ApiClient.getRelatedArticles fails', () async {
         when(
-          () => apiClient.getRelatedArticles(
-            id: any(named: 'id'),
-          ),
+          () => apiClient.getRelatedArticles(id: any(named: 'id')),
         ).thenThrow(Exception());
 
         expect(
@@ -131,22 +116,22 @@ void main() {
     });
 
     group('incrementArticleViews', () {
-      test(
-          'calls ArticleStorage.setArticleViews '
+      test('calls ArticleStorage.setArticleViews '
           'with current article views increased by 1', () async {
         const currentArticleViews = 3;
-        when(storage.fetchArticleViews)
-            .thenAnswer((_) async => currentArticleViews);
+        when(
+          storage.fetchArticleViews,
+        ).thenAnswer((_) async => currentArticleViews);
 
         await articleRepository.incrementArticleViews();
 
         verify(storage.fetchArticleViews).called(1);
-        verify(() => storage.setArticleViews(currentArticleViews + 1))
-            .called(1);
+        verify(
+          () => storage.setArticleViews(currentArticleViews + 1),
+        ).called(1);
       });
 
-      test(
-          'throws an IncrementArticleViewsFailure '
+      test('throws an IncrementArticleViewsFailure '
           'when incrementing article views fails', () async {
         when(() => storage.setArticleViews(any())).thenThrow(Exception());
 
@@ -158,22 +143,22 @@ void main() {
     });
 
     group('decrementArticleViews', () {
-      test(
-          'calls ArticleStorage.setArticleViews '
+      test('calls ArticleStorage.setArticleViews '
           'with current article views decreased by 1', () async {
         const currentArticleViews = 3;
-        when(storage.fetchArticleViews)
-            .thenAnswer((_) async => currentArticleViews);
+        when(
+          storage.fetchArticleViews,
+        ).thenAnswer((_) async => currentArticleViews);
 
         await articleRepository.decrementArticleViews();
 
         verify(storage.fetchArticleViews).called(1);
-        verify(() => storage.setArticleViews(currentArticleViews - 1))
-            .called(1);
+        verify(
+          () => storage.setArticleViews(currentArticleViews - 1),
+        ).called(1);
       });
 
-      test(
-          'throws a DecrementArticleViewsFailure '
+      test('throws a DecrementArticleViewsFailure '
           'when decrementing article views fails', () async {
         when(() => storage.setArticleViews(any())).thenThrow(Exception());
 
@@ -185,15 +170,13 @@ void main() {
     });
 
     group('resetArticleViews', () {
-      test(
-          'calls ArticleStorage.setArticleViews '
+      test('calls ArticleStorage.setArticleViews '
           'with 0 article views', () async {
         await articleRepository.resetArticleViews();
         verify(() => storage.setArticleViews(0)).called(1);
       });
 
-      test(
-          'calls ArticleStorage.setArticleViewsResetDate '
+      test('calls ArticleStorage.setArticleViewsResetDate '
           'with current date', () async {
         final now = DateTime(2022, 6, 7);
         await withClock(Clock.fixed(now), () async {
@@ -202,8 +185,7 @@ void main() {
         });
       });
 
-      test(
-          'throws a ResetArticleViewsFailure '
+      test('throws a ResetArticleViewsFailure '
           'when resetting article views fails', () async {
         when(() => storage.setArticleViews(any())).thenThrow(Exception());
 
@@ -215,30 +197,29 @@ void main() {
     });
 
     group('fetchArticleViews', () {
-      test(
-          'returns the number of article views '
+      test('returns the number of article views '
           'from ArticleStorage.fetchArticleViews', () async {
         const currentArticleViews = 3;
-        when(storage.fetchArticleViews)
-            .thenAnswer((_) async => currentArticleViews);
+        when(
+          storage.fetchArticleViews,
+        ).thenAnswer((_) async => currentArticleViews);
         when(storage.fetchArticleViewsResetDate).thenAnswer((_) async => null);
         final result = await articleRepository.fetchArticleViews();
         expect(result.views, equals(currentArticleViews));
       });
 
-      test(
-          'returns the reset date of the number of article views '
+      test('returns the reset date of the number of article views '
           'from ArticleStorage.fetchArticleViewsResetDate', () async {
         final resetDate = DateTime(2022, 6, 7);
         when(storage.fetchArticleViews).thenAnswer((_) async => 0);
-        when(storage.fetchArticleViewsResetDate)
-            .thenAnswer((_) async => resetDate);
+        when(
+          storage.fetchArticleViewsResetDate,
+        ).thenAnswer((_) async => resetDate);
         final result = await articleRepository.fetchArticleViews();
         expect(result.resetAt, equals(resetDate));
       });
 
-      test(
-          'throws a FetchArticleViewsFailure '
+      test('throws a FetchArticleViewsFailure '
           'when fetching article views fails', () async {
         when(storage.fetchArticleViews).thenThrow(Exception());
 
@@ -290,14 +271,15 @@ void main() {
     });
 
     group('incrementTotalArticleViews', () {
-      test(
-          'calls UserStorage.setTotalArticleViews '
+      test('calls UserStorage.setTotalArticleViews '
           'with current total article views increased by 1', () async {
         const totalArticleViews = 3;
-        when(storage.fetchTotalArticleViews)
-            .thenAnswer((_) async => totalArticleViews);
-        when(() => storage.setTotalArticleViews(any()))
-            .thenAnswer((_) async {});
+        when(
+          storage.fetchTotalArticleViews,
+        ).thenAnswer((_) async => totalArticleViews);
+        when(
+          () => storage.setTotalArticleViews(any()),
+        ).thenAnswer((_) async {});
 
         await articleRepository.incrementTotalArticleViews();
 
@@ -307,8 +289,7 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws an IncrementTotalArticleViewsFailure '
+      test('throws an IncrementTotalArticleViewsFailure '
           'when incrementing total article views fails', () async {
         when(() => storage.setTotalArticleViews(any())).thenThrow(Exception());
 
@@ -320,18 +301,17 @@ void main() {
     });
 
     group('fetchTotalArticleViews', () {
-      test(
-          'returns the number of total article views '
+      test('returns the number of total article views '
           'from UserStorage.fetchTotalArticleViews', () async {
         const currentArticleViews = 3;
-        when(storage.fetchTotalArticleViews)
-            .thenAnswer((_) async => currentArticleViews);
+        when(
+          storage.fetchTotalArticleViews,
+        ).thenAnswer((_) async => currentArticleViews);
         final result = await articleRepository.fetchTotalArticleViews();
         expect(result, equals(currentArticleViews));
       });
 
-      test(
-          'throws a FetchTotalArticleViewsFailure '
+      test('throws a FetchTotalArticleViewsFailure '
           'when fetching total article views fails', () async {
         when(storage.fetchTotalArticleViews).thenThrow(Exception());
 

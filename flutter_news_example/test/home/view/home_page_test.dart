@@ -21,11 +21,16 @@ void main() {
     newsRepository = MockNewsRepository();
     final healthCategory = Category(id: 'health', name: 'Health');
 
-    when(newsRepository.getCategories).thenAnswer(
-      (_) async => CategoriesResponse(
-        categories: [healthCategory],
+    when(
+      newsRepository.getCategories,
+    ).thenAnswer((_) async => CategoriesResponse(categories: [healthCategory]));
+    when(
+      () => newsRepository.getFeed(
+        categoryId: any(named: 'categoryId'),
+        limit: any(named: 'limit'),
+        offset: any(named: 'offset'),
       ),
-    );
+    ).thenAnswer((_) async => FeedResponse(feed: [], totalCount: 0));
   });
 
   test('has a page', () {
@@ -33,16 +38,13 @@ void main() {
   });
 
   testWidgets('renders a HomeView', (tester) async {
-    await tester.pumpApp(const HomePage());
+    await tester.pumpApp(const HomePage(), newsRepository: newsRepository);
 
     expect(find.byType(HomeView), findsOneWidget);
   });
 
   testWidgets('renders FeedView', (tester) async {
-    await tester.pumpApp(
-      const HomePage(),
-      newsRepository: newsRepository,
-    );
+    await tester.pumpApp(const HomePage(), newsRepository: newsRepository);
 
     expect(find.byType(FeedView), findsOneWidget);
   });

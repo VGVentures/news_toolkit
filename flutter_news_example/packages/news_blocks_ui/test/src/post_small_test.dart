@@ -32,7 +32,8 @@ void main() {
                   id: 'id',
                   categoryId: category.id,
                   publishedAt: DateTime(2022, 03, 12),
-                  title: 'Nvidia and AMD GPUs are '
+                  title:
+                      'Nvidia and AMD GPUs are '
                       'returning to shelves and prices '
                       'are finally falling',
                   author: 'Sean Hollister',
@@ -59,7 +60,8 @@ void main() {
                   id: 'id',
                   categoryId: category.id,
                   publishedAt: DateTime(2022, 03, 12),
-                  title: 'Nvidia and AMD GPUs are '
+                  title:
+                      'Nvidia and AMD GPUs are '
                       'returning to shelves and prices '
                       'are finally falling',
                   author: 'Sean Hollister',

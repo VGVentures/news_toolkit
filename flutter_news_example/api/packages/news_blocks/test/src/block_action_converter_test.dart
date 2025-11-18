@@ -15,10 +15,7 @@ void main() {
       ];
 
       for (final action in actions) {
-        expect(
-          converter.fromJson(converter.toJson(action)),
-          equals(action),
-        );
+        expect(converter.fromJson(converter.toJson(action)), equals(action));
       }
     });
   });

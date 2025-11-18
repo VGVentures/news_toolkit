@@ -14,9 +14,8 @@ class HomePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => FeedBloc(
-            newsRepository: context.read<NewsRepository>(),
-          ),
+          create: (context) =>
+              FeedBloc(newsRepository: context.read<NewsRepository>()),
         ),
         BlocProvider(create: (_) => HomeCubit()),
       ],

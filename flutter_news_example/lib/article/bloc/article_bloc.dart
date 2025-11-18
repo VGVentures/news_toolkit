@@ -19,10 +19,10 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
     required String articleId,
     required ArticleRepository articleRepository,
     required ShareLauncher shareLauncher,
-  })  : _articleId = articleId,
-        _articleRepository = articleRepository,
-        _shareLauncher = shareLauncher,
-        super(const ArticleState.initial()) {
+  }) : _articleId = articleId,
+       _articleRepository = articleRepository,
+       _shareLauncher = shareLauncher,
+       super(const ArticleState.initial()) {
     on<ArticleRequested>(_onArticleRequested, transformer: sequential());
     on<ArticleContentSeen>(_onArticleContentSeen);
     on<ArticleRewardedAdWatched>(_onArticleRewardedAdWatched);
@@ -103,7 +103,7 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
           isPremium: response.isPremium,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: ArticleStatus.failure));
       addError(error, stackTrace);
     }
@@ -132,7 +132,7 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
           hasReachedArticleViewsLimit: hasReachedArticleViewsLimit,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: ArticleStatus.rewardedAdWatchedFailure));
       addError(error, stackTrace);
     }
@@ -143,8 +143,7 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
   FutureOr<void> _onArticleCommented(
     ArticleCommented event,
     Emitter<ArticleState> emit,
-  ) =>
-      Future.value();
+  ) => Future.value();
 
   FutureOr<void> _onShareRequested(
     ShareRequested event,
@@ -152,7 +151,7 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
   ) async {
     try {
       await _shareLauncher.share(text: event.uri.toString());
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: ArticleStatus.shareFailure));
       addError(error, stackTrace);
     }
@@ -168,7 +167,8 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
     final resetAt = currentArticleViews.resetAt;
 
     final now = clock.now();
-    final shouldResetArticleViews = resetAt == null ||
+    final shouldResetArticleViews =
+        resetAt == null ||
         now.isAfter(resetAt.add(_resetArticleViewsAfterDuration));
 
     if (shouldResetArticleViews) {

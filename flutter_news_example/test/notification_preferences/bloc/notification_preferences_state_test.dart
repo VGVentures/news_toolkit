@@ -27,15 +27,12 @@ void main() {
     test('supports value comparison', () {
       expect(
         NotificationPreferencesState.initial(),
-        equals(
-          NotificationPreferencesState.initial(),
-        ),
+        equals(NotificationPreferencesState.initial()),
       );
     });
 
     group('copyWith ', () {
-      test(
-          'returns same object '
+      test('returns same object '
           'when no parameters changed', () {
         expect(
           NotificationPreferencesState.initial().copyWith(),
@@ -43,8 +40,7 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated categories '
+      test('returns object with updated categories '
           'when categories changed', () {
         expect(
           NotificationPreferencesState.initial().copyWith(
@@ -59,8 +55,7 @@ void main() {
           ),
         );
       });
-      test(
-          'returns object with updated status '
+      test('returns object with updated status '
           'when status changed', () {
         expect(
           NotificationPreferencesState.initial().copyWith(
@@ -76,8 +71,7 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated selectedCategories '
+      test('returns object with updated selectedCategories '
           'when selectedCategories changed', () {
         expect(
           NotificationPreferencesState.initial().copyWith(

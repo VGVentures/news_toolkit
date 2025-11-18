@@ -23,17 +23,11 @@ void main() {
     });
 
     test('returns object with updated email when email is passed', () {
-      expect(
-        LoginState().copyWith(email: email),
-        LoginState(email: email),
-      );
+      expect(LoginState().copyWith(email: email), LoginState(email: email));
     });
 
     test('returns object with updated valid when valid is passed', () {
-      expect(
-        LoginState().copyWith(valid: true),
-        LoginState(valid: true),
-      );
+      expect(LoginState().copyWith(valid: true), LoginState(valid: true));
     });
   });
 }

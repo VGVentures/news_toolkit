@@ -44,15 +44,13 @@ void main() {
       expect(shareLauncher.share(text: 'text'), throwsA(isA<ShareFailure>()));
     });
 
-    test(
-        'calls default ShareProvider with text '
+    test('calls default ShareProvider with text '
         'when shareProvider not provided ', () async {
       final mock = MockSharePlatform();
       SharePlatform.instance = mock;
-      when(() => SharePlatform.instance.share(any(that: isA<String>())))
-          .thenAnswer(
-        (_) async => ShareResult('raw', ShareResultStatus.success),
-      );
+      when(
+        () => SharePlatform.instance.share(any(that: isA<String>())),
+      ).thenAnswer((_) async => ShareResult('raw', ShareResultStatus.success));
 
       await ShareLauncher().share(text: 'text');
 

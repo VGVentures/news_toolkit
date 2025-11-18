@@ -32,9 +32,7 @@ void main() {
 
   group('Newsletter', () {
     testWidgets('renders NewsletterView', (tester) async {
-      await tester.pumpApp(
-        Newsletter(),
-      );
+      await tester.pumpApp(Newsletter());
 
       await tester.pump();
 
@@ -60,8 +58,9 @@ void main() {
       expect(find.byType(NewsletterSignUp), findsOneWidget);
     });
 
-    testWidgets('renders disabled button when status is not valid',
-        (tester) async {
+    testWidgets('renders disabled button when status is not valid', (
+      tester,
+    ) async {
       whenListen(
         newsletterBloc,
         Stream.fromIterable([initialState]),
@@ -102,8 +101,7 @@ void main() {
       verify(() => newsletterBloc.add(NewsletterSubscribed())).called(1);
     });
 
-    testWidgets(
-        'adds EmailChanged to NewsletterBloc '
+    testWidgets('adds EmailChanged to NewsletterBloc '
         'on email text field filled', (tester) async {
       whenListen(
         newsletterBloc,
@@ -121,12 +119,12 @@ void main() {
       const changedEmail = 'test@test.com';
       await tester.enterText(find.byType(AppEmailTextField), changedEmail);
 
-      verify(() => newsletterBloc.add(EmailChanged(email: changedEmail)))
-          .called(1);
+      verify(
+        () => newsletterBloc.add(EmailChanged(email: changedEmail)),
+      ).called(1);
     });
 
-    testWidgets(
-        'adds TrackAnalyticsEvent to AnalyticsBloc '
+    testWidgets('adds TrackAnalyticsEvent to AnalyticsBloc '
         'with NewsletterEvent.impression '
         'when shown', (tester) async {
       final AnalyticsBloc analyticsBloc = MockAnalyticsBloc();
@@ -154,20 +152,17 @@ void main() {
       ).called(1);
     });
 
-    testWidgets(
-        'adds TrackAnalyticsEvent to AnalyticsBloc '
+    testWidgets('adds TrackAnalyticsEvent to AnalyticsBloc '
         'with NewsletterEvent.signUp '
         'when status is success', (tester) async {
       final AnalyticsBloc analyticsBloc = MockAnalyticsBloc();
 
       whenListen(
         newsletterBloc,
-        Stream.fromIterable(
-          [
-            NewsletterState(),
-            NewsletterState(status: NewsletterStatus.success),
-          ],
-        ),
+        Stream.fromIterable([
+          NewsletterState(),
+          NewsletterState(status: NewsletterStatus.success),
+        ]),
         initialState: initialState,
       );
 
@@ -182,19 +177,18 @@ void main() {
       );
 
       verify(
-        () => analyticsBloc.add(
-          TrackAnalyticsEvent(NewsletterEvent.signUp()),
-        ),
+        () => analyticsBloc.add(TrackAnalyticsEvent(NewsletterEvent.signUp())),
       ).called(1);
     });
 
-    testWidgets('renders NewsletterSuccess when NewsletterStatus is success',
-        (tester) async {
+    testWidgets('renders NewsletterSuccess when NewsletterStatus is success', (
+      tester,
+    ) async {
       whenListen(
         newsletterBloc,
-        Stream.fromIterable(
-          [NewsletterState(status: NewsletterStatus.success)],
-        ),
+        Stream.fromIterable([
+          NewsletterState(status: NewsletterStatus.success),
+        ]),
         initialState: initialState,
       );
 
@@ -208,13 +202,14 @@ void main() {
       expect(find.byType(NewsletterSucceeded), findsOneWidget);
     });
 
-    testWidgets('shows SnackBar when NewsletterStatus is failure',
-        (tester) async {
+    testWidgets('shows SnackBar when NewsletterStatus is failure', (
+      tester,
+    ) async {
       whenListen(
         newsletterBloc,
-        Stream.fromIterable(
-          [NewsletterState(status: NewsletterStatus.failure)],
-        ),
+        Stream.fromIterable([
+          NewsletterState(status: NewsletterStatus.failure),
+        ]),
         initialState: initialState,
       );
 

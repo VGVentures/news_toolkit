@@ -19,89 +19,85 @@ import 'package:token_storage/token_storage.dart';
 import 'package:user_repository/user_repository.dart';
 
 void main() {
-  bootstrap(
-    (
-      firebaseDynamicLinks,
-      firebaseMessaging,
-      sharedPreferences,
-      analyticsRepository,
-    ) async {
-      final tokenStorage = InMemoryTokenStorage();
+  bootstrap((
+    firebaseDynamicLinks,
+    firebaseMessaging,
+    sharedPreferences,
+    analyticsRepository,
+  ) async {
+    final tokenStorage = InMemoryTokenStorage();
 
-      final apiClient = FlutterNewsExampleApiClient.localhost(
-        tokenProvider: tokenStorage.readToken,
-      );
+    final apiClient = FlutterNewsExampleApiClient.localhost(
+      tokenProvider: tokenStorage.readToken,
+    );
 
-      const permissionClient = PermissionClient();
+    const permissionClient = PermissionClient();
 
-      final persistentStorage = PersistentStorage(
-        sharedPreferences: sharedPreferences,
-      );
+    final persistentStorage = PersistentStorage(
+      sharedPreferences: sharedPreferences,
+    );
 
-      final packageInfoClient = PackageInfoClient(
-        appName: 'Flutter News Example',
-        packageName: 'com.flutter.news.example',
-        packageVersion: packageVersion,
-      );
+    final packageInfoClient = PackageInfoClient(
+      appName: 'Flutter News Example',
+      packageName: 'com.flutter.news.example',
+      packageVersion: packageVersion,
+    );
 
-      final deepLinkService = DeepLinkService(
-        deepLinkClient: FirebaseDeepLinkClient(
-          firebaseDynamicLinks: firebaseDynamicLinks,
-        ),
-      );
+    final deepLinkService = DeepLinkService(
+      deepLinkClient: FirebaseDeepLinkClient(
+        firebaseDynamicLinks: firebaseDynamicLinks,
+      ),
+    );
 
-      final userStorage = UserStorage(storage: persistentStorage);
+    final userStorage = UserStorage(storage: persistentStorage);
 
-      final authenticationClient = FirebaseAuthenticationClient(
-        tokenStorage: tokenStorage,
-      );
+    final authenticationClient = FirebaseAuthenticationClient(
+      tokenStorage: tokenStorage,
+    );
 
-      final notificationsClient = FirebaseNotificationsClient(
-        firebaseMessaging: firebaseMessaging,
-      );
+    final notificationsClient = FirebaseNotificationsClient(
+      firebaseMessaging: firebaseMessaging,
+    );
 
-      final userRepository = UserRepository(
-        apiClient: apiClient,
-        authenticationClient: authenticationClient,
-        packageInfoClient: packageInfoClient,
-        deepLinkService: deepLinkService,
-        storage: userStorage,
-      );
+    final userRepository = UserRepository(
+      apiClient: apiClient,
+      authenticationClient: authenticationClient,
+      packageInfoClient: packageInfoClient,
+      deepLinkService: deepLinkService,
+      storage: userStorage,
+    );
 
-      final newsRepository = NewsRepository(
-        apiClient: apiClient,
-      );
+    final newsRepository = NewsRepository(apiClient: apiClient);
 
-      final notificationsRepository = NotificationsRepository(
-        permissionClient: permissionClient,
-        storage: NotificationsStorage(storage: persistentStorage),
-        notificationsClient: notificationsClient,
-        apiClient: apiClient,
-      );
+    final notificationsRepository = NotificationsRepository(
+      permissionClient: permissionClient,
+      storage: NotificationsStorage(storage: persistentStorage),
+      notificationsClient: notificationsClient,
+      apiClient: apiClient,
+    );
 
-      final articleRepository = ArticleRepository(
-        storage: ArticleStorage(storage: persistentStorage),
-        apiClient: apiClient,
-      );
+    final articleRepository = ArticleRepository(
+      storage: ArticleStorage(storage: persistentStorage),
+      apiClient: apiClient,
+    );
 
-      final inAppPurchaseRepository = InAppPurchaseRepository(
-        authenticationClient: authenticationClient,
-        apiClient: apiClient,
-        inAppPurchase: PurchaseClient(),
-      );
+    final inAppPurchaseRepository = InAppPurchaseRepository(
+      authenticationClient: authenticationClient,
+      apiClient: apiClient,
+      inAppPurchase: PurchaseClient(),
+    );
 
-      final adsConsentClient = AdsConsentClient();
+    final adsConsentClient = AdsConsentClient();
 
-      return App(
-        userRepository: userRepository,
-        newsRepository: newsRepository,
-        notificationsRepository: notificationsRepository,
-        articleRepository: articleRepository,
-        analyticsRepository: analyticsRepository,
-        inAppPurchaseRepository: inAppPurchaseRepository,
-        adsConsentClient: adsConsentClient,
-        user: await userRepository.user.first,
-      );
-    },
-  );
+    return App(
+      userRepository: userRepository,
+      newsRepository: newsRepository,
+      notificationsRepository: notificationsRepository,
+      articleRepository: articleRepository,
+      analyticsRepository: analyticsRepository,
+      inAppPurchaseRepository: inAppPurchaseRepository,
+      adsConsentClient: adsConsentClient,
+      user: await userRepository.user.first,
+    );
+  });
 }

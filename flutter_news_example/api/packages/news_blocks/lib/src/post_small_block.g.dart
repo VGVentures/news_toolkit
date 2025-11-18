@@ -18,16 +18,22 @@ PostSmallBlock _$PostSmallBlockFromJson(Map<String, dynamic> json) =>
           categoryId: $checkedConvert('category_id', (v) => v as String),
           author: $checkedConvert('author', (v) => v as String),
           publishedAt: $checkedConvert(
-              'published_at', (v) => DateTime.parse(v as String)),
+            'published_at',
+            (v) => DateTime.parse(v as String),
+          ),
           title: $checkedConvert('title', (v) => v as String),
           imageUrl: $checkedConvert('image_url', (v) => v as String?),
           description: $checkedConvert('description', (v) => v as String?),
           action: $checkedConvert(
-              'action',
-              (v) => const BlockActionConverter()
-                  .fromJson(v as Map<String, dynamic>?)),
+            'action',
+            (v) => const BlockActionConverter().fromJson(
+              v as Map<String, dynamic>?,
+            ),
+          ),
           type: $checkedConvert(
-              'type', (v) => v as String? ?? PostSmallBlock.identifier),
+            'type',
+            (v) => v as String? ?? PostSmallBlock.identifier,
+          ),
           isPremium: $checkedConvert('is_premium', (v) => v as bool? ?? false),
         );
         return val;
@@ -36,7 +42,7 @@ PostSmallBlock _$PostSmallBlockFromJson(Map<String, dynamic> json) =>
         'categoryId': 'category_id',
         'publishedAt': 'published_at',
         'imageUrl': 'image_url',
-        'isPremium': 'is_premium'
+        'isPremium': 'is_premium',
       },
     );
 

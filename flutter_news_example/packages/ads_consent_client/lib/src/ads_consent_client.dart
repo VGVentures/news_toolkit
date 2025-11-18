@@ -22,10 +22,11 @@ class RequestConsentFailure extends AdsContentFailure {
 }
 
 /// Signature for the content form provider.
-typedef ConsentFormProvider = void Function(
-  OnConsentFormLoadSuccessListener successListener,
-  OnConsentFormLoadFailureListener failureListener,
-);
+typedef ConsentFormProvider =
+    void Function(
+      OnConsentFormLoadSuccessListener successListener,
+      OnConsentFormLoadFailureListener failureListener,
+    );
 
 /// {@template ads_consent_client}
 /// A client that handles requesting ads consent on a device.
@@ -35,10 +36,10 @@ class AdsConsentClient {
   AdsConsentClient({
     ConsentInformation? adsConsentInformation,
     ConsentFormProvider? adsConsentFormProvider,
-  })  : _adsConsentInformation =
-            adsConsentInformation ?? ConsentInformation.instance,
-        _adsConsentFormProvider =
-            adsConsentFormProvider ?? ConsentForm.loadConsentForm;
+  }) : _adsConsentInformation =
+           adsConsentInformation ?? ConsentInformation.instance,
+       _adsConsentFormProvider =
+           adsConsentFormProvider ?? ConsentForm.loadConsentForm;
 
   final ConsentInformation _adsConsentInformation;
   final ConsentFormProvider _adsConsentFormProvider;
@@ -82,27 +83,22 @@ class AdsConsentClient {
   Future<bool> _loadConsentForm() async {
     final completer = Completer<bool>();
 
-    _adsConsentFormProvider(
-      (consentForm) async {
-        final status = await _adsConsentInformation.getConsentStatus();
-        if (status.isRequired) {
-          consentForm.show(
-            (error) async {
-              if (error != null) {
-                completer.completeError(error, StackTrace.current);
-              } else {
-                final updatedStatus =
-                    await _adsConsentInformation.getConsentStatus();
-                completer.complete(updatedStatus.isDetermined);
-              }
-            },
-          );
-        } else {
-          completer.complete(status.isDetermined);
-        }
-      },
-      (error) => completer.completeError(error, StackTrace.current),
-    );
+    _adsConsentFormProvider((consentForm) async {
+      final status = await _adsConsentInformation.getConsentStatus();
+      if (status.isRequired) {
+        consentForm.show((error) async {
+          if (error != null) {
+            completer.completeError(error, StackTrace.current);
+          } else {
+            final updatedStatus = await _adsConsentInformation
+                .getConsentStatus();
+            completer.complete(updatedStatus.isDetermined);
+          }
+        });
+      } else {
+        completer.complete(status.isDetermined);
+      }
+    }, (error) => completer.completeError(error, StackTrace.current));
 
     return completer.future;
   }
@@ -111,11 +107,10 @@ class AdsConsentClient {
     FormError error, {
     required Completer<bool> completer,
     StackTrace? stackTrace,
-  }) =>
-      completer.completeError(
-        RequestConsentFailure(error),
-        stackTrace ?? StackTrace.current,
-      );
+  }) => completer.completeError(
+    RequestConsentFailure(error),
+    stackTrace ?? StackTrace.current,
+  );
 }
 
 extension on ConsentStatus {

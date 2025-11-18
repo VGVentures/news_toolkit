@@ -42,11 +42,13 @@ void main() {
   late AnalyticsBloc analyticsBloc;
   late ArticleBloc articleBloc;
 
-  const subscribeButtonKey =
-      Key('subscribeWithArticleLimitModal_subscribeButton');
+  const subscribeButtonKey = Key(
+    'subscribeWithArticleLimitModal_subscribeButton',
+  );
   const logInButtonKey = Key('subscribeWithArticleLimitModal_logInButton');
-  const watchVideoButton =
-      Key('subscribeWithArticleLimitModal_watchVideoButton');
+  const watchVideoButton = Key(
+    'subscribeWithArticleLimitModal_watchVideoButton',
+  );
 
   setUp(() {
     user = MockUser();
@@ -56,17 +58,16 @@ void main() {
 
     when(() => appBloc.state).thenReturn(AppState.unauthenticated());
 
-    when(() => articleBloc.state).thenReturn(
-      ArticleState(status: ArticleStatus.initial, title: 'title'),
-    );
+    when(
+      () => articleBloc.state,
+    ).thenReturn(ArticleState(status: ArticleStatus.initial, title: 'title'));
 
     VisibilityDetectorController.instance.updateInterval = Duration.zero;
   });
 
   group('SubscribeWithArticleLimitModal', () {
     group('renders', () {
-      testWidgets(
-          'subscribe and watch video buttons '
+      testWidgets('subscribe and watch video buttons '
           'when user is authenticated', (tester) async {
         when(() => appBloc.state).thenReturn(AppState.authenticated(user));
         await tester.pumpApp(
@@ -82,8 +83,7 @@ void main() {
         expect(find.byKey(logInButtonKey), findsNothing);
       });
 
-      testWidgets(
-          'subscribe log in and watch video buttons '
+      testWidgets('subscribe log in and watch video buttons '
           'when user is unauthenticated', (tester) async {
         when(() => appBloc.state).thenReturn(AppState.unauthenticated());
         await tester.pumpApp(
@@ -108,21 +108,20 @@ void main() {
         inAppPurchaseRepository = MockInAppPurchaseRepository();
         analyticsBloc = MockAnalyticsBloc();
 
-        when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
-          (_) => const Stream.empty(),
-        );
+        when(
+          () => inAppPurchaseRepository.purchaseUpdate,
+        ).thenAnswer((_) => const Stream.empty());
 
-        when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
-          (_) async => [],
-        );
+        when(
+          inAppPurchaseRepository.fetchSubscriptions,
+        ).thenAnswer((_) async => []);
 
         when(() => articleBloc.state).thenReturn(
           ArticleState(status: ArticleStatus.initial, title: 'title'),
         );
       });
 
-      testWidgets(
-          'when tapped on subscribe button '
+      testWidgets('when tapped on subscribe button '
           'adding PaywallPromptEvent.click to AnalyticsBloc', (tester) async {
         await tester.pumpApp(
           analyticsBloc: analyticsBloc,
@@ -140,17 +139,14 @@ void main() {
         verify(
           () => analyticsBloc.add(
             TrackAnalyticsEvent(
-              PaywallPromptEvent.click(
-                articleTitle: 'title',
-              ),
+              PaywallPromptEvent.click(articleTitle: 'title'),
             ),
           ),
         ).called(1);
       });
     });
 
-    testWidgets(
-        'shows LoginModal '
+    testWidgets('shows LoginModal '
         'when tapped on log in button', (tester) async {
       whenListen(
         appBloc,
@@ -173,8 +169,7 @@ void main() {
       expect(find.byType(LoginModal), findsOneWidget);
     });
 
-    testWidgets(
-        'adds ShowRewardedAdRequested to FullScreenAdsBloc '
+    testWidgets('adds ShowRewardedAdRequested to FullScreenAdsBloc '
         'when tapped on watch video button', (tester) async {
       final fullScreenAdsBloc = MockFullScreenAdsBloc();
 
@@ -193,8 +188,7 @@ void main() {
       verify(() => fullScreenAdsBloc.add(ShowRewardedAdRequested())).called(1);
     });
 
-    testWidgets(
-        'adds TrackAnalyticsEvent to AnalyticsBloc '
+    testWidgets('adds TrackAnalyticsEvent to AnalyticsBloc '
         'with PaywallPromptEvent.impression rewarded '
         'when shown', (tester) async {
       await tester.pumpApp(

@@ -8,19 +8,16 @@ part of 'category.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Category _$CategoryFromJson(Map<String, dynamic> json) => $checkedCreate(
-      'Category',
-      json,
-      ($checkedConvert) {
-        final val = Category(
-          id: $checkedConvert('id', (v) => v as String),
-          name: $checkedConvert('name', (v) => v as String),
-        );
-        return val;
-      },
-    );
+Category _$CategoryFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('Category', json, ($checkedConvert) {
+      final val = Category(
+        id: $checkedConvert('id', (v) => v as String),
+        name: $checkedConvert('name', (v) => v as String),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-    };
+  'id': instance.id,
+  'name': instance.name,
+};

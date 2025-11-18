@@ -31,9 +31,9 @@ void main() {
 
   setUp(() {
     feedBloc = MockFeedBloc();
-    when(() => feedBloc.state).thenReturn(
-      FeedState(feed: feed, status: FeedStatus.populated),
-    );
+    when(
+      () => feedBloc.state,
+    ).thenReturn(FeedState(feed: feed, status: FeedStatus.populated));
     registerFallbackValue(FeedRefreshRequested(category: category));
   });
 
@@ -61,14 +61,12 @@ void main() {
           ),
         );
 
-        expect(
-          find.byType(NetworkError),
-          findsOneWidget,
-        );
+        expect(find.byType(NetworkError), findsOneWidget);
       });
 
-      testWidgets('requests feed refresh on NetworkErrorAlert press',
-          (tester) async {
+      testWidgets('requests feed refresh on NetworkErrorAlert press', (
+        tester,
+      ) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: feedBloc,
@@ -80,8 +78,9 @@ void main() {
 
         await tester.tap(find.textContaining(networkErrorButtonText));
 
-        verify(() => feedBloc.add(any(that: isA<FeedRefreshRequested>())))
-            .called(1);
+        verify(
+          () => feedBloc.add(any(that: isA<FeedRefreshRequested>())),
+        ).called(1);
       });
 
       testWidgets('renders a SelectionArea', (tester) async {
@@ -159,8 +158,9 @@ void main() {
         );
       });
 
-      testWidgets('requests feed refresh on NetworkErrorAlert press',
-          (tester) async {
+      testWidgets('requests feed refresh on NetworkErrorAlert press', (
+        tester,
+      ) async {
         final navigatorObserver = MockNavigatorObserver();
 
         await tester.pumpApp(
@@ -178,8 +178,9 @@ void main() {
         await tester.pump(Duration(seconds: 1));
         await tester.tap(find.textContaining(networkErrorButtonText));
 
-        verify(() => feedBloc.add(any(that: isA<FeedRefreshRequested>())))
-            .called(1);
+        verify(
+          () => feedBloc.add(any(that: isA<FeedRefreshRequested>())),
+        ).called(1);
         verify(() => navigatorObserver.didPop(any(), any()));
       });
     });
@@ -247,18 +248,11 @@ void main() {
     });
 
     group('CategoryFeedLoaderItem', () {
-      final hasMoreNews = <String, bool>{
-        category.id: true,
-      };
+      final hasMoreNews = <String, bool>{category.id: true};
 
       group('is shown', () {
         testWidgets('when FeedStatus is initial', (tester) async {
-          whenListen(
-            feedBloc,
-            Stream.fromIterable([
-              FeedState.initial(),
-            ]),
-          );
+          whenListen(feedBloc, Stream.fromIterable([FeedState.initial()]));
 
           await tester.pumpApp(
             BlocProvider.value(
@@ -273,9 +267,7 @@ void main() {
         testWidgets('when FeedStatus is loading', (tester) async {
           whenListen(
             feedBloc,
-            Stream.fromIterable([
-              FeedState(status: FeedStatus.loading),
-            ]),
+            Stream.fromIterable([FeedState(status: FeedStatus.loading)]),
           );
 
           await tester.pumpApp(
@@ -288,8 +280,7 @@ void main() {
           expect(find.byType(CategoryFeedLoaderItem), findsOneWidget);
         });
 
-        testWidgets(
-            'when FeedStatus is populated and '
+        testWidgets('when FeedStatus is populated and '
             'hasMoreNews is true', (tester) async {
           whenListen(
             feedBloc,
@@ -314,8 +305,7 @@ void main() {
         });
       });
 
-      testWidgets(
-          'is not shown '
+      testWidgets('is not shown '
           'when FeedStatus is populated and '
           'hasMoreNews is false', (tester) async {
         whenListen(
@@ -325,9 +315,7 @@ void main() {
             FeedState(
               status: FeedStatus.populated,
               feed: feed,
-              hasMoreNews: {
-                category.id: false,
-              },
+              hasMoreNews: {category.id: false},
             ),
           ]),
         );
@@ -362,9 +350,7 @@ void main() {
           ),
         );
 
-        verify(
-          () => feedBloc.add(FeedRequested(category: category)),
-        ).called(1);
+        verify(() => feedBloc.add(FeedRequested(category: category))).called(1);
       });
     });
   });

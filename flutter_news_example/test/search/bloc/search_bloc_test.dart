@@ -32,9 +32,9 @@ void main() {
         'emits [loading, populated] '
         'with articles and topics '
         'when popularSearch succeeds.',
-        setUp: () => when(() => newsRepository.popularSearch()).thenAnswer(
-          (_) async => popularResponseSuccess,
-        ),
+        setUp: () => when(
+          () => newsRepository.popularSearch(),
+        ).thenAnswer((_) async => popularResponseSuccess),
         build: () => SearchBloc(newsRepository: newsRepository),
         act: (bloc) => bloc.add(SearchTermChanged()),
         expect: () => <SearchState>[
@@ -50,8 +50,9 @@ void main() {
       blocTest<SearchBloc, SearchState>(
         'emits [loading, failure] '
         'when popularSearch throws.',
-        setUp: () => when(() => newsRepository.popularSearch())
-            .thenThrow(PopularSearchFailure),
+        setUp: () => when(
+          () => newsRepository.popularSearch(),
+        ).thenThrow(PopularSearchFailure),
         build: () => SearchBloc(newsRepository: newsRepository),
         act: (bloc) => bloc.add(SearchTermChanged()),
         expect: () => <SearchState>[
@@ -74,12 +75,8 @@ void main() {
         'and awaited debounce time '
         'when relevantSearch succeeds',
         setUp: () => when(
-          () => newsRepository.relevantSearch(
-            term: any(named: 'term'),
-          ),
-        ).thenAnswer(
-          (_) async => relevantResponseSuccess,
-        ),
+          () => newsRepository.relevantSearch(term: any(named: 'term')),
+        ).thenAnswer((_) async => relevantResponseSuccess),
         build: () => SearchBloc(newsRepository: newsRepository),
         act: (bloc) {
           bloc.add(SearchTermChanged(searchTerm: 'term'));
@@ -105,9 +102,7 @@ void main() {
         'emits [loading, failure] '
         'when relevantSearch throws.',
         setUp: () => when(
-          () => newsRepository.relevantSearch(
-            term: any(named: 'term'),
-          ),
+          () => newsRepository.relevantSearch(term: any(named: 'term')),
         ).thenThrow(RelevantSearchFailure),
         build: () => SearchBloc(newsRepository: newsRepository),
         act: (bloc) => bloc.add(SearchTermChanged(searchTerm: 'term')),

@@ -27,19 +27,20 @@ class BannerAdFailedToGetSizeException implements Exception {
 }
 
 /// Signature for [BannerAd] builder.
-typedef BannerAdBuilder = BannerAd Function({
-  required AdSize size,
-  required String adUnitId,
-  required BannerAdListener listener,
-  required AdRequest request,
-});
+typedef BannerAdBuilder =
+    BannerAd Function({
+      required AdSize size,
+      required String adUnitId,
+      required BannerAdListener listener,
+      required AdRequest request,
+    });
 
 /// Signature for [AnchoredAdaptiveBannerAdSize] provider.
-typedef AnchoredAdaptiveAdSizeProvider = Future<AnchoredAdaptiveBannerAdSize?>
-    Function(
-  Orientation orientation,
-  int width,
-);
+typedef AnchoredAdaptiveAdSizeProvider =
+    Future<AnchoredAdaptiveBannerAdSize?> Function(
+      Orientation orientation,
+      int width,
+    );
 
 /// {@template banner_ad_content}
 /// A reusable content of a banner ad.
@@ -153,10 +154,10 @@ class _BannerAdContentState extends State<BannerAdContent>
         child: _adLoaded
             ? AdWidget(ad: _ad!)
             : _adFailedToLoad && adFailedToLoadTitle != null
-                ? Text(adFailedToLoadTitle)
-                : widget.showProgressIndicator
-                    ? const ProgressIndicator(color: AppColors.transparent)
-                    : const SizedBox(),
+            ? Text(adFailedToLoadTitle)
+            : widget.showProgressIndicator
+            ? const ProgressIndicator(color: AppColors.transparent)
+            : const SizedBox(),
       ),
     );
   }
@@ -191,7 +192,8 @@ class _BannerAdContentState extends State<BannerAdContent>
 
       setState(
         () => _ad = widget.adBuilder(
-          adUnitId: widget.adUnitId ??
+          adUnitId:
+              widget.adUnitId ??
               (widget.currentPlatform.isAndroid
                   ? BannerAdContent.androidTestUnitId
                   : BannerAdContent.iosTestUnitAd),
@@ -207,7 +209,7 @@ class _BannerAdContentState extends State<BannerAdContent>
       );
 
       _onAdLoaded(await adCompleter.future);
-    } catch (error, stackTrace) {
+    } on Object catch (error, stackTrace) {
       _reportError(BannerAdFailedToLoadException(error), stackTrace);
 
       if (retry < widget.adsRetryPolicy.maxRetryCount) {
@@ -236,19 +238,14 @@ class _BannerAdContentState extends State<BannerAdContent>
   ///
   /// Only supports the portrait mode.
   Future<AnchoredAdaptiveBannerAdSize?> _getAnchoredAdaptiveAdSize() async {
-    final adWidth = widget.anchoredAdaptiveWidth ??
+    final adWidth =
+        widget.anchoredAdaptiveWidth ??
         MediaQuery.of(context).size.width.truncate();
-    return widget.anchoredAdaptiveAdSizeProvider(
-      Orientation.portrait,
-      adWidth,
-    );
+    return widget.anchoredAdaptiveAdSizeProvider(Orientation.portrait, adWidth);
   }
 
   void _reportError(Object exception, StackTrace stackTrace) =>
       FlutterError.reportError(
-        FlutterErrorDetails(
-          exception: exception,
-          stack: stackTrace,
-        ),
+        FlutterErrorDetails(exception: exception, stack: stackTrace),
       );
 }

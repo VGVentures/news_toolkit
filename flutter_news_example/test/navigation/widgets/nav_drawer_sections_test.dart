@@ -40,22 +40,15 @@ void main() {
 
     testWidgets('renders NavDrawerSectionsTitle', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: categoriesBloc,
-          child: NavDrawerSections(),
-        ),
+        BlocProvider.value(value: categoriesBloc, child: NavDrawerSections()),
       );
       expect(find.byType(NavDrawerSectionsTitle), findsOneWidget);
     });
 
-    testWidgets(
-        'renders NavDrawerSectionItem '
+    testWidgets('renders NavDrawerSectionItem '
         'for each category', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: categoriesBloc,
-          child: NavDrawerSections(),
-        ),
+        BlocProvider.value(value: categoriesBloc, child: NavDrawerSections()),
       );
 
       for (final category in categories) {
@@ -74,21 +67,14 @@ void main() {
     group('NavDrawerSectionItem', () {
       testWidgets('renders ListTile with title', (tester) async {
         const title = 'title';
-        await tester.pumpApp(
-          NavDrawerSectionItem(
-            title: title,
-          ),
-        );
+        await tester.pumpApp(NavDrawerSectionItem(title: title));
         expect(find.widgetWithText(ListTile, title), findsOneWidget);
       });
 
       testWidgets('calls onTap when tapped', (tester) async {
         var tapped = false;
         await tester.pumpApp(
-          NavDrawerSectionItem(
-            title: 'title',
-            onTap: () => tapped = true,
-          ),
+          NavDrawerSectionItem(title: 'title', onTap: () => tapped = true),
         );
 
         await tester.tap(find.byType(NavDrawerSectionItem));
@@ -98,18 +84,14 @@ void main() {
 
       testWidgets('has correct selected color', (tester) async {
         await tester.pumpApp(
-          NavDrawerSectionItem(
-            title: 'title',
-            selected: true,
-            onTap: () {},
-          ),
+          NavDrawerSectionItem(title: 'title', selected: true, onTap: () {}),
         );
 
         final tile = tester.widget<ListTile>(find.byType(ListTile));
 
         expect(
           tile.selectedTileColor,
-          equals(AppColors.white.withOpacity(0.08)),
+          equals(AppColors.white.withValues(alpha: 0.08)),
         );
 
         expect(

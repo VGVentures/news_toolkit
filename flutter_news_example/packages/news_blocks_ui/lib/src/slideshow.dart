@@ -39,9 +39,7 @@ class _SlideshowState extends State<Slideshow> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _SlideshowCategoryTitle(
-            categoryTitle: widget.categoryTitle,
-          ),
+          _SlideshowCategoryTitle(categoryTitle: widget.categoryTitle),
           _SlideshowHeaderTitle(title: widget.block.title),
           _SlideshowPageView(
             slides: widget.block.slides,
@@ -66,9 +64,7 @@ class _SlideshowState extends State<Slideshow> {
 }
 
 class _SlideshowCategoryTitle extends StatelessWidget {
-  const _SlideshowCategoryTitle({
-    required this.categoryTitle,
-  });
+  const _SlideshowCategoryTitle({required this.categoryTitle});
 
   final String categoryTitle;
 
@@ -86,9 +82,7 @@ class _SlideshowCategoryTitle extends StatelessWidget {
 }
 
 class _SlideshowHeaderTitle extends StatelessWidget {
-  const _SlideshowHeaderTitle({
-    required this.title,
-  });
+  const _SlideshowHeaderTitle({required this.title});
   final String title;
   @override
   Widget build(BuildContext context) {
@@ -111,10 +105,7 @@ class _SlideshowHeaderTitle extends StatelessWidget {
 }
 
 class _SlideshowPageView extends StatelessWidget {
-  const _SlideshowPageView({
-    required this.slides,
-    required this.controller,
-  });
+  const _SlideshowPageView({required this.slides, required this.controller});
 
   final List<SlideBlock> slides;
 
@@ -128,9 +119,7 @@ class _SlideshowPageView extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         controller: controller,
         itemCount: slides.length,
-        itemBuilder: (context, index) => SlideshowItem(
-          slide: slides[index],
-        ),
+        itemBuilder: (context, index) => SlideshowItem(slide: slides[index]),
       ),
     );
   }
@@ -166,9 +155,7 @@ class SlideshowItem extends StatelessWidget {
           ),
           child: Text(
             slide.caption,
-            style: theme.titleLarge?.apply(
-              color: AppColors.white,
-            ),
+            style: theme.titleLarge?.apply(color: AppColors.white),
           ),
         ),
         Padding(
@@ -235,9 +222,7 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
         '${_currentPage + 1} ${widget.navigationLabel} ${widget.totalPages}';
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

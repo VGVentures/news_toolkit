@@ -32,10 +32,15 @@ void main() {
     setUp(() {
       articleRepository = MockArticleRepository();
 
+      when(articleRepository.fetchTotalArticleViews).thenAnswer((_) async => 1);
+      when(
+        articleRepository.incrementTotalArticleViews,
+      ).thenAnswer((_) async {});
       when(articleRepository.incrementArticleViews).thenAnswer((_) async {});
       when(articleRepository.resetArticleViews).thenAnswer((_) async {});
-      when(articleRepository.fetchArticleViews)
-          .thenAnswer((_) async => ArticleViews(0, null));
+      when(
+        articleRepository.fetchArticleViews,
+      ).thenAnswer((_) async => ArticleViews(0, null));
 
       when(
         () => articleRepository.getArticle(
@@ -60,15 +65,12 @@ void main() {
           offset: any(named: 'offset'),
         ),
       ).thenAnswer(
-        (_) async => RelatedArticlesResponse(
-          relatedArticles: [],
-          totalCount: 0,
-        ),
+        (_) async =>
+            RelatedArticlesResponse(relatedArticles: [], totalCount: 0),
       );
     });
 
-    testWidgets(
-        'renders DividerHorizontal '
+    testWidgets('renders DividerHorizontal '
         'for DividerHorizontalBlock', (tester) async {
       const block = DividerHorizontalBlock();
       await tester.pumpApp(
@@ -82,8 +84,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders Spacer '
+    testWidgets('renders Spacer '
         'for SpacerBlock', (tester) async {
       const block = SpacerBlock(spacing: Spacing.large);
       await tester.pumpApp(
@@ -97,8 +98,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders SectionHeader '
+    testWidgets('renders SectionHeader '
         'for SectionHeaderBlock', (tester) async {
       const block = SectionHeaderBlock(title: 'title');
       await tester.pumpApp(
@@ -112,8 +112,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders PostLarge '
+    testWidgets('renders PostLarge '
         'for PostLargeBlock', (tester) async {
       const category = Category(id: 'technology', name: 'Technology');
       final block = PostLargeBlock(
@@ -126,9 +125,7 @@ void main() {
       );
       await mockNetworkImages(() async {
         await tester.pumpApp(
-          CustomScrollView(
-            slivers: [CategoryFeedItem(block: block)],
-          ),
+          CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
         );
       });
       expect(
@@ -139,8 +136,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders PostMedium '
+    testWidgets('renders PostMedium '
         'for PostMediumBlock', (tester) async {
       const category = Category(id: 'sports', name: 'Sports');
       final block = PostMediumBlock(
@@ -164,8 +160,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders PostSmall '
+    testWidgets('renders PostSmall '
         'for PostSmallBlock', (tester) async {
       const category = Category(id: 'health', name: 'Health');
       final block = PostSmallBlock(
@@ -189,8 +184,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders PostGrid '
+    testWidgets('renders PostGrid '
         'for PostGridGroupBlock', (tester) async {
       const category = Category(id: 'science', name: 'Science');
       final block = PostGridGroupBlock(
@@ -208,9 +202,7 @@ void main() {
       );
       await mockNetworkImages(() async {
         await tester.pumpApp(
-          CustomScrollView(
-            slivers: [CategoryFeedItem(block: block)],
-          ),
+          CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
         );
       });
       expect(
@@ -221,8 +213,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders Newsletter '
+    testWidgets('renders Newsletter '
         'for NewsletterBlock', (tester) async {
       VisibilityDetectorController.instance.updateInterval = Duration.zero;
       final block = NewsletterBlock();
@@ -232,8 +223,7 @@ void main() {
       expect(find.byType(Newsletter), findsOneWidget);
     });
 
-    testWidgets(
-        'renders BannerAd '
+    testWidgets('renders BannerAd '
         'for BannerAdBlock', (tester) async {
       final block = BannerAdBlock(size: BannerAdSize.normal);
       await tester.pumpApp(
@@ -242,8 +232,7 @@ void main() {
       expect(find.byType(BannerAd), findsOneWidget);
     });
 
-    testWidgets(
-        'renders SizedBox '
+    testWidgets('renders SizedBox '
         'for unsupported block', (tester) async {
       final block = UnknownBlock();
       await tester.pumpApp(
@@ -253,8 +242,7 @@ void main() {
       expect(find.byType(SizedBox), findsNothing);
     });
 
-    group(
-        'navigates to ArticlePage '
+    group('navigates to ArticlePage '
         'on NavigateToArticleAction', () {
       const articleId = 'articleId';
 
@@ -272,9 +260,7 @@ void main() {
         );
 
         await tester.pumpApp(
-          CustomScrollView(
-            slivers: [CategoryFeedItem(block: block)],
-          ),
+          CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
           articleRepository: articleRepository,
         );
 
@@ -305,9 +291,7 @@ void main() {
 
         await mockNetworkImages(() async {
           await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
             articleRepository: articleRepository,
           );
         });
@@ -337,9 +321,7 @@ void main() {
         );
         await mockNetworkImages(() async {
           await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
             articleRepository: articleRepository,
           );
         });
@@ -375,9 +357,7 @@ void main() {
 
         await mockNetworkImages(() async {
           await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
             articleRepository: articleRepository,
           );
         });
@@ -397,8 +377,7 @@ void main() {
       });
     });
 
-    group(
-        'navigates to video ArticlePage '
+    group('navigates to video ArticlePage '
         'on NavigateToVideoArticleAction', () {
       const articleId = 'articleId';
 
@@ -417,9 +396,7 @@ void main() {
 
         await mockNetworkImages(() async {
           await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
             articleRepository: articleRepository,
           );
         });
@@ -454,9 +431,7 @@ void main() {
 
         await mockNetworkImages(() async {
           await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
             articleRepository: articleRepository,
           );
         });
@@ -490,9 +465,7 @@ void main() {
 
         await mockNetworkImages(() async {
           await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
             articleRepository: articleRepository,
           );
         });
@@ -530,9 +503,8 @@ void main() {
         );
 
         await tester.pumpApp(
-          CustomScrollView(
-            slivers: [CategoryFeedItem(block: block)],
-          ),
+          CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
+          articleRepository: articleRepository,
         );
 
         // We're tapping on a PostLarge as the first post of the PostGrid
@@ -556,8 +528,7 @@ void main() {
       });
     });
 
-    testWidgets(
-        'adds CategorySelected to CategoriesBloc '
+    testWidgets('adds CategorySelected to CategoriesBloc '
         'on NavigateToFeedCategoryAction', (tester) async {
       final categoriesBloc = MockCategoriesBloc();
 
@@ -578,8 +549,9 @@ void main() {
       await tester.tap(find.byType(IconButton));
       await tester.pumpAndSettle();
 
-      verify(() => categoriesBloc.add(CategorySelected(category: category)))
-          .called(1);
+      verify(
+        () => categoriesBloc.add(CategorySelected(category: category)),
+      ).called(1);
     });
   });
 }

@@ -34,8 +34,7 @@ void main() {
       registerFallbackValue(MockRoute());
     });
 
-    testWidgets(
-        'renders LoginButton '
+    testWidgets('renders LoginButton '
         'when user is unauthenticated', (tester) async {
       whenListen(
         appBloc,
@@ -43,17 +42,13 @@ void main() {
         initialState: AppState.unauthenticated(),
       );
 
-      await tester.pumpApp(
-        UserProfileButton(),
-        appBloc: appBloc,
-      );
+      await tester.pumpApp(UserProfileButton(), appBloc: appBloc);
 
       expect(find.byType(LoginButton), findsOneWidget);
       expect(find.byType(OpenProfileButton), findsNothing);
     });
 
-    testWidgets(
-        'renders OpenProfileButton '
+    testWidgets('renders OpenProfileButton '
         'when user is authenticated', (tester) async {
       whenListen(
         appBloc,
@@ -61,17 +56,13 @@ void main() {
         initialState: AppState.authenticated(user),
       );
 
-      await tester.pumpApp(
-        UserProfileButton(),
-        appBloc: appBloc,
-      );
+      await tester.pumpApp(UserProfileButton(), appBloc: appBloc);
 
       expect(find.byType(OpenProfileButton), findsOneWidget);
       expect(find.byType(LoginButton), findsNothing);
     });
 
-    testWidgets(
-        'navigates to UserProfilePage '
+    testWidgets('navigates to UserProfilePage '
         'when tapped on OpenProfileButton', (tester) async {
       whenListen(
         appBloc,
@@ -79,10 +70,7 @@ void main() {
         initialState: AppState.authenticated(user),
       );
 
-      await tester.pumpApp(
-        UserProfileButton(),
-        appBloc: appBloc,
-      );
+      await tester.pumpApp(UserProfileButton(), appBloc: appBloc);
 
       await tester.tap(find.byType(OpenProfileButton));
       await tester.pumpAndSettle();
@@ -90,8 +78,7 @@ void main() {
       expect(find.byType(UserProfilePage), findsOneWidget);
     });
 
-    testWidgets(
-        'renders LoginButton '
+    testWidgets('renders LoginButton '
         'when user is unauthenticated', (tester) async {
       whenListen(
         appBloc,
@@ -99,17 +86,13 @@ void main() {
         initialState: AppState.unauthenticated(),
       );
 
-      await tester.pumpApp(
-        UserProfileButton(),
-        appBloc: appBloc,
-      );
+      await tester.pumpApp(UserProfileButton(), appBloc: appBloc);
 
       expect(find.byType(LoginButton), findsOneWidget);
       expect(find.byType(OpenProfileButton), findsNothing);
     });
 
-    testWidgets(
-        'shows LoginModal '
+    testWidgets('shows LoginModal '
         'when tapped on LoginButton', (tester) async {
       whenListen(
         appBloc,
@@ -117,10 +100,7 @@ void main() {
         initialState: AppState.unauthenticated(),
       );
 
-      await tester.pumpApp(
-        UserProfileButton(),
-        appBloc: appBloc,
-      );
+      await tester.pumpApp(UserProfileButton(), appBloc: appBloc);
 
       await tester.tap(find.byType(LoginButton));
       await tester.pumpAndSettle();

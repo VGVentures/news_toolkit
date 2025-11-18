@@ -1,11 +1,6 @@
 part of 'subscriptions_bloc.dart';
 
-enum PurchaseStatus {
-  none,
-  pending,
-  completed,
-  failed,
-}
+enum PurchaseStatus { none, pending, completed, failed }
 
 class SubscriptionsState extends Equatable {
   const SubscriptionsState({
@@ -14,10 +9,7 @@ class SubscriptionsState extends Equatable {
   });
 
   SubscriptionsState.initial()
-      : this(
-          subscriptions: [],
-          purchaseStatus: PurchaseStatus.none,
-        );
+    : this(subscriptions: [], purchaseStatus: PurchaseStatus.none);
 
   final List<Subscription> subscriptions;
   final PurchaseStatus purchaseStatus;
@@ -28,9 +20,8 @@ class SubscriptionsState extends Equatable {
   SubscriptionsState copyWith({
     List<Subscription>? subscriptions,
     PurchaseStatus? purchaseStatus,
-  }) =>
-      SubscriptionsState(
-        subscriptions: subscriptions ?? this.subscriptions,
-        purchaseStatus: purchaseStatus ?? this.purchaseStatus,
-      );
+  }) => SubscriptionsState(
+    subscriptions: subscriptions ?? this.subscriptions,
+    purchaseStatus: purchaseStatus ?? this.purchaseStatus,
+  );
 }

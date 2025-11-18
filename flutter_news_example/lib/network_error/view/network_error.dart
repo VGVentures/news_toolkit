@@ -17,12 +17,8 @@ class NetworkError extends StatelessWidget {
     return PageRouteBuilder<void>(
       pageBuilder: (_, __, ___) => Scaffold(
         backgroundColor: AppColors.background,
-        appBar: AppBar(
-          leading: const AppBackButton(),
-        ),
-        body: Center(
-          child: NetworkError(onRetry: onRetry),
-        ),
+        appBar: AppBar(leading: const AppBackButton()),
+        body: Center(child: NetworkError(onRetry: onRetry)),
       ),
     );
   }

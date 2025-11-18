@@ -10,7 +10,7 @@ enum BlockActionType {
   navigation,
 
   /// An unknown action type.
-  unknown
+  unknown,
 }
 
 /// {@template block_action}
@@ -19,10 +19,7 @@ enum BlockActionType {
 /// {@endtemplate}
 abstract class BlockAction {
   /// {@macro block_action}
-  const BlockAction({
-    required this.type,
-    required this.actionType,
-  });
+  const BlockAction({required this.type, required this.actionType});
 
   /// The type key used to identify the type of this action.
   final String type;
@@ -202,9 +199,7 @@ class NavigateToSlideshowAction with EquatableMixin implements BlockAction {
 @JsonSerializable()
 class UnknownBlockAction with EquatableMixin implements BlockAction {
   /// {@macro unknown_block_action}
-  const UnknownBlockAction({
-    this.type = UnknownBlockAction.identifier,
-  });
+  const UnknownBlockAction({this.type = UnknownBlockAction.identifier});
 
   /// Converts a `Map<String, dynamic>` into a [UnknownBlock] instance.
   factory UnknownBlockAction.fromJson(Map<String, dynamic> json) =>

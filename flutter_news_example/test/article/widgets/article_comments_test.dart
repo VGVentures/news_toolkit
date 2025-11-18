@@ -23,24 +23,17 @@ void main() {
         find.byKey(Key('articleComments_discussionTitle')),
         findsOneWidget,
       );
-      expect(
-        find.byType(AppTextField),
-        findsOneWidget,
-      );
+      expect(find.byType(AppTextField), findsOneWidget);
     });
 
-    testWidgets(
-        'adds ArticleCommented with article title to ArticleBloc '
+    testWidgets('adds ArticleCommented with article title to ArticleBloc '
         'when comment is submitted', (tester) async {
       final ArticleBloc articleBloc = MockArticleBloc();
       final articleState = ArticleState.initial().copyWith(title: 'title');
       when(() => articleBloc.state).thenReturn(articleState);
 
       await tester.pumpApp(
-        BlocProvider.value(
-          value: articleBloc,
-          child: ArticleComments(),
-        ),
+        BlocProvider.value(value: articleBloc, child: ArticleComments()),
       );
 
       final textField = tester.widget<AppTextField>(find.byType(AppTextField));

@@ -42,27 +42,27 @@ class PostGridTileBlock extends PostBlock {
 extension PostGridTileBlockExt on PostGridTileBlock {
   /// Converts [PostGridTileBlock] into a [PostLargeBlock] instance.
   PostLargeBlock toPostLargeBlock() => PostLargeBlock(
-        id: id,
-        categoryId: categoryId,
-        author: author,
-        publishedAt: publishedAt,
-        imageUrl: imageUrl!,
-        title: title,
-        isContentOverlaid: true,
-        description: description,
-        action: action,
-      );
+    id: id,
+    categoryId: categoryId,
+    author: author,
+    publishedAt: publishedAt,
+    imageUrl: imageUrl!,
+    title: title,
+    isContentOverlaid: true,
+    description: description,
+    action: action,
+  );
 
   /// Converts [PostGridTileBlock] into a [PostMediumBlock] instance.
   PostMediumBlock toPostMediumBlock() => PostMediumBlock(
-        id: id,
-        categoryId: categoryId,
-        author: author,
-        publishedAt: publishedAt,
-        imageUrl: imageUrl!,
-        title: title,
-        isContentOverlaid: true,
-        description: description,
-        action: action,
-      );
+    id: id,
+    categoryId: categoryId,
+    author: author,
+    publishedAt: publishedAt,
+    imageUrl: imageUrl!,
+    title: title,
+    isContentOverlaid: true,
+    description: description,
+    action: action,
+  );
 }
