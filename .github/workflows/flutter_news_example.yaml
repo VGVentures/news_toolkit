@@ -73,7 +73,7 @@ jobs:
           pubviz print -d > pubviz.html
 
       - name: Upload Visual Architecture Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: visual-architecture-report
           path: ./flutter_news_example/pubviz.html
