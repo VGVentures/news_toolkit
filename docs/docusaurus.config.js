@@ -8,8 +8,12 @@ const config = {
   url: 'https://flutter.github.io',
   baseUrl: '/news_toolkit/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
   organizationName: 'flutter',
   projectName: 'flutter-news-toolkit-docs',
 
@@ -23,7 +27,7 @@ const config = {
 
   presets: [
     [
-      'classic',
+      '@docusaurus/preset-classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
@@ -31,6 +35,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/flutter/news_toolkit/tree/main/docs/',
         },
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -38,15 +43,13 @@ const config = {
     ],
   ],
 
-  themeConfig:
+    themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      themeConfig: {
-        colorMode: {
-          defaultMode: 'light',
-          disableSwitch: false,
-          respectPrefersColorScheme: false,
-        },
+      colorMode: {
+        defaultMode: 'light',
+        disableSwitch: false,
+        respectPrefersColorScheme: false,
       },
       navbar: {
         title: 'Flutter News Toolkit',
@@ -101,4 +104,4 @@ const config = {
     }),
 };
 
-module.exports = config;
+export default config;
