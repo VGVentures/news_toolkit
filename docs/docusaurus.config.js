@@ -43,7 +43,7 @@ const config = {
     ],
   ],
 
-    themeConfig:
+  themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       colorMode: {
