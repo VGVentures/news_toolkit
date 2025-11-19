@@ -15,8 +15,9 @@ class SlideshowView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final isSubscriber =
-        context.select<AppBloc, bool>((bloc) => bloc.state.isUserSubscribed);
+    final isSubscriber = context.select<AppBloc, bool>(
+      (bloc) => bloc.state.isUserSubscribed,
+    );
 
     final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
     return Scaffold(

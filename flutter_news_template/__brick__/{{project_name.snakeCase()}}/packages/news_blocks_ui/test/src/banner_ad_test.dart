@@ -13,10 +13,7 @@ void main() {
       const block = BannerAdBlock(size: BannerAdSize.normal);
 
       await tester.pumpApp(
-        BannerAd(
-          block: block,
-          adFailedToLoadTitle: 'adFailedToLoadTitle',
-        ),
+        BannerAd(block: block, adFailedToLoadTitle: 'adFailedToLoadTitle'),
       );
 
       expect(
@@ -31,10 +28,7 @@ void main() {
       const block = BannerAdBlock(size: BannerAdSize.normal);
 
       await tester.pumpApp(
-        BannerAd(
-          block: block,
-          adFailedToLoadTitle: 'adFailedToLoadTitle',
-        ),
+        BannerAd(block: block, adFailedToLoadTitle: 'adFailedToLoadTitle'),
       );
 
       expect(

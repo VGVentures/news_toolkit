@@ -80,9 +80,7 @@ class _ListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: IconTheme(
-        data: IconThemeData(
-          color: Theme.of(context).iconTheme.color,
-        ),
+        data: IconThemeData(color: Theme.of(context).iconTheme.color),
         child: icon,
       ),
       title: title,

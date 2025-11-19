@@ -9,23 +9,18 @@ part of 'text_lead_paragraph_block.dart';
 // **************************************************************************
 
 TextLeadParagraphBlock _$TextLeadParagraphBlockFromJson(
-        Map<String, dynamic> json) =>
-    $checkedCreate(
-      'TextLeadParagraphBlock',
-      json,
-      ($checkedConvert) {
-        final val = TextLeadParagraphBlock(
-          text: $checkedConvert('text', (v) => v as String),
-          type: $checkedConvert(
-              'type', (v) => v as String? ?? TextLeadParagraphBlock.identifier),
-        );
-        return val;
-      },
-    );
+  Map<String, dynamic> json,
+) => $checkedCreate('TextLeadParagraphBlock', json, ($checkedConvert) {
+  final val = TextLeadParagraphBlock(
+    text: $checkedConvert('text', (v) => v as String),
+    type: $checkedConvert(
+      'type',
+      (v) => v as String? ?? TextLeadParagraphBlock.identifier,
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$TextLeadParagraphBlockToJson(
-        TextLeadParagraphBlock instance) =>
-    <String, dynamic>{
-      'text': instance.text,
-      'type': instance.type,
-    };
+  TextLeadParagraphBlock instance,
+) => <String, dynamic>{'text': instance.text, 'type': instance.type};

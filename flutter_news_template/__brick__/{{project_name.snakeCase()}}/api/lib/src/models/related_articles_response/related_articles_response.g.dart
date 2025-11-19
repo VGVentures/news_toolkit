@@ -7,17 +7,19 @@ part of 'related_articles_response.dart';
 // **************************************************************************
 
 RelatedArticlesResponse _$RelatedArticlesResponseFromJson(
-        Map<String, dynamic> json) =>
-    RelatedArticlesResponse(
-      relatedArticles:
-          const NewsBlocksConverter().fromJson(json['relatedArticles'] as List),
-      totalCount: (json['totalCount'] as num).toInt(),
-    );
+  Map<String, dynamic> json,
+) => RelatedArticlesResponse(
+  relatedArticles: const NewsBlocksConverter().fromJson(
+    json['relatedArticles'] as List,
+  ),
+  totalCount: (json['totalCount'] as num).toInt(),
+);
 
 Map<String, dynamic> _$RelatedArticlesResponseToJson(
-        RelatedArticlesResponse instance) =>
-    <String, dynamic>{
-      'relatedArticles':
-          const NewsBlocksConverter().toJson(instance.relatedArticles),
-      'totalCount': instance.totalCount,
-    };
+  RelatedArticlesResponse instance,
+) => <String, dynamic>{
+  'relatedArticles': const NewsBlocksConverter().toJson(
+    instance.relatedArticles,
+  ),
+  'totalCount': instance.totalCount,
+};

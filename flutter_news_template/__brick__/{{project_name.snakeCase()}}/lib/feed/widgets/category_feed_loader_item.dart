@@ -24,9 +24,7 @@ class _CategoryFeedLoaderItemState extends State<CategoryFeedLoaderItem> {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
+      child: Center(child: CircularProgressIndicator()),
     );
   }
 }

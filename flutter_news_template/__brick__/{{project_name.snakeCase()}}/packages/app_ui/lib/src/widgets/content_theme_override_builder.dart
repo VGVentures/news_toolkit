@@ -19,9 +19,7 @@ class ContentThemeOverrideBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Theme(
-      data: theme.copyWith(
-        textTheme: AppTheme.contentTextTheme,
-      ),
+      data: theme.copyWith(textTheme: AppTheme.contentTextTheme),
       child: Builder(builder: builder),
     );
   }

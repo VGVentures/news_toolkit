@@ -14,8 +14,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedTab =
-        context.select((HomeCubit cubit) => cubit.state.tabIndex);
+    final selectedTab = context.select(
+      (HomeCubit cubit) => cubit.state.tabIndex,
+    );
     return MultiBlocListener(
       listeners: [
         BlocListener<AppBloc, AppState>(
@@ -46,10 +47,7 @@ class HomeView extends StatelessWidget {
         drawer: const NavDrawer(),
         body: IndexedStack(
           index: selectedTab,
-          children: const [
-            FeedView(),
-            SearchPage(),
-          ],
+          children: const [FeedView(), SearchPage()],
         ),
         bottomNavigationBar: BottomNavBar(
           currentIndex: selectedTab,

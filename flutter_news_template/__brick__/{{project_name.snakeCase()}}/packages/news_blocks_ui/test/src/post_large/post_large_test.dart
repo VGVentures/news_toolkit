@@ -11,14 +11,15 @@ import '../../helpers/helpers.dart';
 
 void main() {
   const id = '499305f6-5096-4051-afda-824dcfc7df23';
-  const category = PostCategory.technology;
+  const category = Category(id: 'technology', name: 'Technology');
   const author = 'Sean Hollister';
   final publishedAt = DateTime(2022, 3, 9);
   const imageUrl =
       'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg='
       '/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset'
       '/file/22049166/shollister_201117_4303_0003.0.jpg';
-  const title = 'Nvidia and AMD GPUs are returning to shelves '
+  const title =
+      'Nvidia and AMD GPUs are returning to shelves '
       'and prices are finally falling';
 
   group('PostLarge', () {
@@ -27,12 +28,11 @@ void main() {
     );
 
     group('renders correctly overlaid ', () {
-      testWidgets(
-          'showing LockIcon '
+      testWidgets('showing LockIcon '
           'when isLocked is true', (tester) async {
         final technologyPostLarge = PostLargeBlock(
           id: id,
-          category: category,
+          categoryId: category.id,
           author: author,
           publishedAt: publishedAt,
           imageUrl: imageUrl,
@@ -46,6 +46,7 @@ void main() {
                 children: [
                   PostLarge(
                     block: technologyPostLarge,
+                    categoryName: category.name,
                     premiumText: 'Premium',
                     isLocked: true,
                   ),
@@ -59,12 +60,11 @@ void main() {
         expect(find.byType(LockIcon), findsOneWidget);
       });
 
-      testWidgets(
-          'not showing LockIcon '
+      testWidgets('not showing LockIcon '
           'when isLocked is false', (tester) async {
         final technologyPostLarge = PostLargeBlock(
           id: id,
-          category: category,
+          categoryId: category.id,
           author: author,
           publishedAt: publishedAt,
           imageUrl: imageUrl,
@@ -78,6 +78,7 @@ void main() {
                 children: [
                   PostLarge(
                     block: technologyPostLarge,
+                    categoryName: category.name,
                     premiumText: 'Premium',
                     isLocked: false,
                   ),
@@ -93,12 +94,11 @@ void main() {
     });
 
     group('renders correctly in column ', () {
-      testWidgets(
-          'showing LockIcon '
+      testWidgets('showing LockIcon '
           'when isLocked is true', (tester) async {
         final technologyPostLarge = PostLargeBlock(
           id: id,
-          category: category,
+          categoryId: category.id,
           author: author,
           publishedAt: publishedAt,
           imageUrl: imageUrl,
@@ -112,6 +112,7 @@ void main() {
                 children: [
                   PostLarge(
                     block: technologyPostLarge,
+                    categoryName: category.name,
                     premiumText: 'Premium',
                     isLocked: true,
                   ),
@@ -125,12 +126,11 @@ void main() {
         expect(find.byType(LockIcon), findsOneWidget);
       });
 
-      testWidgets(
-          'not showing LockIcon '
+      testWidgets('not showing LockIcon '
           'when isLocked is false', (tester) async {
         final technologyPostLarge = PostLargeBlock(
           id: id,
-          category: category,
+          categoryId: category.id,
           author: author,
           publishedAt: publishedAt,
           imageUrl: imageUrl,
@@ -144,6 +144,7 @@ void main() {
                 children: [
                   PostLarge(
                     block: technologyPostLarge,
+                    categoryName: category.name,
                     premiumText: 'Premium',
                     isLocked: false,
                   ),
@@ -165,7 +166,7 @@ void main() {
 
     final technologyPostLarge = PostLargeBlock(
       id: id,
-      category: category,
+      categoryId: category.id,
       author: author,
       publishedAt: publishedAt,
       imageUrl: imageUrl,
@@ -180,6 +181,7 @@ void main() {
           children: [
             PostLarge(
               block: technologyPostLarge,
+              categoryName: category.name,
               premiumText: 'Premium',
               onPressed: actions.add,
               isLocked: false,

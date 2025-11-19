@@ -44,9 +44,9 @@ void main() {
       ).thenAnswer((_) async => expected.topics);
       final request = Request(
         'GET',
-        Uri.parse('http://127.0.0.1/').replace(
-          queryParameters: <String, String>{'q': term},
-        ),
+        Uri.parse(
+          'http://127.0.0.1/',
+        ).replace(queryParameters: <String, String>{'q': term}),
       );
       final context = _MockRequestContext();
       when(() => context.request).thenReturn(request);

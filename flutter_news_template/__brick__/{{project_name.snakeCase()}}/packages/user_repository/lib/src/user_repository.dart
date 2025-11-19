@@ -60,11 +60,11 @@ class UserRepository {
     required PackageInfoClient packageInfoClient,
     required DeepLinkService deepLinkService,
     required UserStorage storage,
-  })  : _apiClient = apiClient,
-        _authenticationClient = authenticationClient,
-        _packageInfoClient = packageInfoClient,
-        _deepLinkService = deepLinkService,
-        _storage = storage;
+  }) : _apiClient = apiClient,
+       _authenticationClient = authenticationClient,
+       _packageInfoClient = packageInfoClient,
+       _deepLinkService = deepLinkService,
+       _storage = storage;
 
   final {{project_name.pascalCase()}}ApiClient _apiClient;
   final AuthenticationClient _authenticationClient;
@@ -95,10 +95,10 @@ class UserRepository {
   /// Emits when a new email link is emitted on [DeepLinkClient.deepLinkStream],
   /// which is validated using [AuthenticationClient.isLogInWithEmailLink].
   Stream<Uri> get incomingEmailLinks => _deepLinkService.deepLinkStream.where(
-        (deepLink) => _authenticationClient.isLogInWithEmailLink(
-          emailLink: deepLink.toString(),
-        ),
-      );
+    (deepLink) => _authenticationClient.isLogInWithEmailLink(
+      emailLink: deepLink.toString(),
+    ),
+  );
 
   /// Starts the Sign In with Apple Flow.
   ///
@@ -164,9 +164,7 @@ class UserRepository {
   /// Sends an authentication link to the provided [email].
   ///
   /// Throws a [SendLoginEmailLinkFailure] if an exception occurs.
-  Future<void> sendLoginEmailLink({
-    required String email,
-  }) async {
+  Future<void> sendLoginEmailLink({required String email}) async {
     try {
       await _authenticationClient.sendLoginEmailLink(
         email: email,
@@ -228,10 +226,7 @@ class UserRepository {
     try {
       return await _storage.fetchAppOpenedCount();
     } catch (error, stackTrace) {
-      Error.throwWithStackTrace(
-        FetchAppOpenedCountFailure(error),
-        stackTrace,
-      );
+      Error.throwWithStackTrace(FetchAppOpenedCountFailure(error), stackTrace);
     }
   }
 
