@@ -1,13 +1,13 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import { configs } from '@docusaurus/eslint-plugin';
-import babelParser from '@babel/eslint-parser';
+const { FlatCompat } = require('@eslint/eslintrc');
+const { configs } = require('@docusaurus/eslint-plugin');
+const babelParser = require('@babel/eslint-parser');
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: configs.recommended,
 });
 
-export default [
+module.exports = [
   ...compat.extends('plugin:@docusaurus/recommended'),
   {
     languageOptions: {
