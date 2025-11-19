@@ -1,1 +1,1 @@
-export const presets = [require.resolve('@docusaurus/core/lib/babel/preset')];
+export const presets = ['@docusaurus/core/lib/babel/preset'];

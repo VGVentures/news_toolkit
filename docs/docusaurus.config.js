@@ -8,12 +8,12 @@ const config = {
   url: 'https://flutter.github.io',
   baseUrl: '/news_toolkit/',
   onBrokenLinks: 'throw',
-  favicon: 'img/favicon.ico',
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },
   },
+  favicon: 'img/favicon.ico',
   organizationName: 'flutter',
   projectName: 'flutter-news-toolkit-docs',
 
@@ -32,12 +32,12 @@ const config = {
       ({
         docs: {
           routeBasePath: '/',
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: './sidebars.js',
           editUrl: 'https://github.com/flutter/news_toolkit/tree/main/docs/',
         },
         blog: false,
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: './src/css/custom.css',
         },
       }),
     ],
