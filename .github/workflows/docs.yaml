@@ -33,7 +33,7 @@ jobs:
       - name: ⚙️ Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 18.x
+          node-version: 20.x
           cache: npm
           cache-dependency-path: docs/package-lock.json
 
@@ -70,7 +70,7 @@ jobs:
       - name: ⚙️ Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 18.x
+          node-version: 20.x
           cache: npm
           cache-dependency-path: docs/package-lock.json
 
