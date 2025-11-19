@@ -1,1 +1,3 @@
-export const presets = ['@docusaurus/core/lib/babel/preset'];
+module.exports = {
+  presets: ['@docusaurus/core/lib/babel/preset'],
+};
