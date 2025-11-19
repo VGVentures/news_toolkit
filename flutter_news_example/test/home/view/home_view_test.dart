@@ -71,10 +71,7 @@ void main() {
     appBloc = MockAppBloc();
 
     when(() => appBloc.state).thenReturn(
-      AppState(
-        showLoginOverlay: false,
-        status: AppStatus.unauthenticated,
-      ),
+      AppState(showLoginOverlay: false, status: AppStatus.unauthenticated),
     );
 
     when(() => categoriesBloc.state).thenReturn(
@@ -84,18 +81,13 @@ void main() {
       ),
     );
 
-    when(() => feedBloc.state).thenReturn(
-      FeedState(
-        feed: feed,
-        status: FeedStatus.populated,
-      ),
-    );
+    when(
+      () => feedBloc.state,
+    ).thenReturn(FeedState(feed: feed, status: FeedStatus.populated));
 
-    when(newsRepository.getCategories).thenAnswer(
-      (_) async => CategoriesResponse(
-        categories: [healthCategory],
-      ),
-    );
+    when(
+      newsRepository.getCategories,
+    ).thenAnswer((_) async => CategoriesResponse(categories: [healthCategory]));
 
     when(() => cubit.state).thenReturn(HomeState.topStories);
   });
@@ -133,8 +125,7 @@ void main() {
       expect(find.byType(UserProfileButton), findsOneWidget);
     });
 
-    testWidgets(
-        'renders NavDrawer '
+    testWidgets('renders NavDrawer '
         'when menu icon is tapped', (tester) async {
       when(() => cubit.state).thenReturn(HomeState.topStories);
 
@@ -165,8 +156,9 @@ void main() {
       expect(find.byType(FeedView), findsOneWidget);
     });
 
-    testWidgets('shows LoginOverlay when showLoginOverlay is true',
-        (tester) async {
+    testWidgets('shows LoginOverlay when showLoginOverlay is true', (
+      tester,
+    ) async {
       whenListen(
         appBloc,
         Stream.fromIterable([
@@ -189,92 +181,80 @@ void main() {
   });
 
   group('BottomNavigationBar', () {
-    testWidgets(
-      'has selected index to 0 by default.',
-      (tester) async {
-        when(() => cubit.state).thenReturn(HomeState.topStories);
+    testWidgets('has selected index to 0 by default.', (tester) async {
+      when(() => cubit.state).thenReturn(HomeState.topStories);
 
-        await pumpHomeView(
-          tester: tester,
-          cubit: cubit,
-          categoriesBloc: categoriesBloc,
-          feedBloc: feedBloc,
-          newsRepository: newsRepository,
-        );
+      await pumpHomeView(
+        tester: tester,
+        cubit: cubit,
+        categoriesBloc: categoriesBloc,
+        feedBloc: feedBloc,
+        newsRepository: newsRepository,
+      );
 
-        expect(find.byType(FeedView), findsOneWidget);
-      },
-    );
+      expect(find.byType(FeedView), findsOneWidget);
+    });
 
-    testWidgets(
-      'set tab to selected index 0 when top stories is tapped.',
-      (tester) async {
-        await pumpHomeView(
-          tester: tester,
-          cubit: cubit,
-          categoriesBloc: categoriesBloc,
-          feedBloc: feedBloc,
-          newsRepository: newsRepository,
-        );
-        await tester.ensureVisible(find.byType(BottomNavBar));
-        await tester.tap(find.byIcon(Icons.home_outlined));
-        verify(() => cubit.setTab(0)).called(1);
-      },
-    );
+    testWidgets('set tab to selected index 0 when top stories is tapped.', (
+      tester,
+    ) async {
+      await pumpHomeView(
+        tester: tester,
+        cubit: cubit,
+        categoriesBloc: categoriesBloc,
+        feedBloc: feedBloc,
+        newsRepository: newsRepository,
+      );
+      await tester.ensureVisible(find.byType(BottomNavBar));
+      await tester.tap(find.byIcon(Icons.home_outlined));
+      verify(() => cubit.setTab(0)).called(1);
+    });
 
-    testWidgets(
-      'set tab to selected index 1 when search is tapped.',
-      (tester) async {
-        await pumpHomeView(
-          tester: tester,
-          cubit: cubit,
-          categoriesBloc: categoriesBloc,
-          feedBloc: feedBloc,
-          newsRepository: newsRepository,
-        );
-        await tester.ensureVisible(find.byType(BottomNavBar));
-        await tester.tap(find.byKey(Key('bottomNavBar_search')));
-        verify(() => cubit.setTab(1)).called(1);
-      },
-    );
+    testWidgets('set tab to selected index 1 when search is tapped.', (
+      tester,
+    ) async {
+      await pumpHomeView(
+        tester: tester,
+        cubit: cubit,
+        categoriesBloc: categoriesBloc,
+        feedBloc: feedBloc,
+        newsRepository: newsRepository,
+      );
+      await tester.ensureVisible(find.byType(BottomNavBar));
+      await tester.tap(find.byKey(Key('bottomNavBar_search')));
+      verify(() => cubit.setTab(1)).called(1);
+    });
 
-    testWidgets(
-      'unfocuses keyboard when tab is changed.',
-      (tester) async {
-        final controller = StreamController<HomeState>();
-        whenListen(
-          cubit,
-          controller.stream,
-          initialState: HomeState.topStories,
-        );
-        await pumpHomeView(
-          tester: tester,
-          cubit: cubit,
-          categoriesBloc: categoriesBloc,
-          feedBloc: feedBloc,
-          newsRepository: newsRepository,
-        );
+    testWidgets('unfocuses keyboard when tab is changed.', (tester) async {
+      final controller = StreamController<HomeState>();
+      whenListen(cubit, controller.stream, initialState: HomeState.topStories);
+      await pumpHomeView(
+        tester: tester,
+        cubit: cubit,
+        categoriesBloc: categoriesBloc,
+        feedBloc: feedBloc,
+        newsRepository: newsRepository,
+      );
 
-        await tester.ensureVisible(find.byType(BottomNavBar));
-        await tester.tap(find.byKey(Key('bottomNavBar_search')));
-        verify(() => cubit.setTab(1)).called(1);
+      await tester.ensureVisible(find.byType(BottomNavBar));
+      await tester.tap(find.byKey(Key('bottomNavBar_search')));
+      verify(() => cubit.setTab(1)).called(1);
 
-        controller.add(HomeState.search);
+      controller.add(HomeState.search);
 
-        await tester.pump(kThemeAnimationDuration);
-        await tester.showKeyboard(find.byType(SearchTextField));
+      await tester.pump(kThemeAnimationDuration);
+      await tester.showKeyboard(find.byType(SearchTextField));
 
-        final initialFocus = tester.binding.focusManager.primaryFocus;
+      final initialFocus = tester.binding.focusManager.primaryFocus;
 
-        controller.add(HomeState.topStories);
-        await tester.pump();
+      controller.add(HomeState.topStories);
+      await tester.pump();
 
-        expect(
-          tester.binding.focusManager.primaryFocus,
-          isNot(equals(initialFocus)),
-        );
-      },
-    );
+      expect(
+        tester.binding.focusManager.primaryFocus,
+        isNot(equals(initialFocus)),
+      );
+    });
   });
 }
 
@@ -289,15 +269,9 @@ Future<void> pumpHomeView({
   await tester.pumpApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider.value(
-          value: categoriesBloc,
-        ),
-        BlocProvider.value(
-          value: feedBloc,
-        ),
-        BlocProvider.value(
-          value: cubit,
-        ),
+        BlocProvider.value(value: categoriesBloc),
+        BlocProvider.value(value: feedBloc),
+        BlocProvider.value(value: cubit),
       ],
       child: HomeView(),
     ),

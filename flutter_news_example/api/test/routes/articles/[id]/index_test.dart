@@ -49,8 +49,7 @@ void main() {
       expect(response.statusCode, equals(HttpStatus.notFound));
     });
 
-    test(
-        'responds with a 200 and full article '
+    test('responds with a 200 and full article '
         'when article is not premium', () async {
       final url = Uri.parse('https://dailyglobe.com');
       final article = Article(
@@ -82,8 +81,7 @@ void main() {
       expect(await response.json(), equals(expected.toJson()));
     });
 
-    test(
-        'responds with a 200 and article preview '
+    test('responds with a 200 and article preview '
         'when article preview is requested', () async {
       final url = Uri.parse('https://dailyglobe.com');
       final article = Article(
@@ -108,9 +106,9 @@ void main() {
       );
       final request = Request(
         'GET',
-        Uri.parse('http://127.0.0.1/').replace(
-          queryParameters: {'preview': 'true'},
-        ),
+        Uri.parse(
+          'http://127.0.0.1/',
+        ).replace(queryParameters: {'preview': 'true'}),
       );
       final context = _MockRequestContext();
       when(() => context.request).thenReturn(request);
@@ -121,8 +119,7 @@ void main() {
       expect(await response.json(), equals(expected.toJson()));
     });
 
-    test(
-        'responds with a 200 and article preview '
+    test('responds with a 200 and article preview '
         'when article is premium and user is anonymous', () async {
       final url = Uri.parse('https://dailyglobe.com');
       final article = Article(
@@ -155,8 +152,7 @@ void main() {
       expect(await response.json(), equals(expected.toJson()));
     });
 
-    test(
-        'responds with a 200 and article preview '
+    test('responds with a 200 and article preview '
         'when article is premium and user is not found', () async {
       const userId = '__test_user_id__';
       final url = Uri.parse('https://dailyglobe.com');
@@ -196,8 +192,7 @@ void main() {
       expect(await response.json(), equals(expected.toJson()));
     });
 
-    test(
-        'responds with a 200 and article preview '
+    test('responds with a 200 and article preview '
         'when article is premium and user has no subscription plan', () async {
       const userId = '__test_user_id__';
       const user = User(id: userId, subscription: SubscriptionPlan.none);
@@ -238,8 +233,7 @@ void main() {
       expect(await response.json(), equals(expected.toJson()));
     });
 
-    test(
-        'responds with a 200 and full article '
+    test('responds with a 200 and full article '
         'when article is premium and user has a subscription plan', () async {
       const userId = '__test_user_id__';
       const user = User(id: userId, subscription: SubscriptionPlan.basic);

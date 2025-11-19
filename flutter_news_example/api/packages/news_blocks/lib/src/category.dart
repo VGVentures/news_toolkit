@@ -9,10 +9,7 @@ part 'category.g.dart';
 @JsonSerializable()
 class Category extends Equatable {
   /// {@macro category}
-  const Category({
-    required this.id,
-    required this.name,
-  });
+  const Category({required this.id, required this.name});
 
   /// Converts a `Map<String, dynamic>` into
   /// a [Category] instance.

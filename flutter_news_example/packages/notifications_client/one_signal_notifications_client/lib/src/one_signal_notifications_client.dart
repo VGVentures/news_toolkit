@@ -6,9 +6,8 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 /// {@endtemplate}
 class OneSignalNotificationsClient implements NotificationsClient {
   /// {@macro one_signal_notifications_client}
-  const OneSignalNotificationsClient({
-    required OneSignal oneSignal,
-  }) : _oneSignal = oneSignal;
+  const OneSignalNotificationsClient({required OneSignal oneSignal})
+    : _oneSignal = oneSignal;
 
   /// OneSignal instance.
   final OneSignal _oneSignal;
@@ -18,10 +17,7 @@ class OneSignalNotificationsClient implements NotificationsClient {
     try {
       await _oneSignal.sendTag(category, true);
     } catch (error, stackTrace) {
-      Error.throwWithStackTrace(
-        SubscribeToCategoryFailure(error),
-        stackTrace,
-      );
+      Error.throwWithStackTrace(SubscribeToCategoryFailure(error), stackTrace);
     }
   }
 

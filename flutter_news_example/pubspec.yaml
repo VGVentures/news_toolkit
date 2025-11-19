@@ -3,8 +3,8 @@ version: 0.0.1+1
 publish_to: none
 
 environment:
-  sdk: ">=3.5.0 <4.0.0"
-  flutter: ">=3.24.0"
+  sdk: ">=3.9.2 <4.0.0"
+  flutter: ">=3.35.5"
 
 dependencies:
   ads_consent_client:
@@ -17,41 +17,41 @@ dependencies:
     path: packages/article_repository
   authentication_client:
     path: packages/authentication_client/authentication_client
-  bloc: ^8.1.0
-  bloc_concurrency: ^0.2.0
-  clock: ^1.1.0
-  collection: ^1.16.0
+  bloc: ^9.1.0
+  bloc_concurrency: ^0.3.0
+  clock: ^1.1.1
+  collection: ^1.19.0
   deep_link_client:
     path: packages/deep_link_client/deep_link_client
   email_launcher:
     path: packages/email_launcher
   equatable: ^2.0.3
   firebase_analytics: ^11.3.6
-  firebase_auth_platform_interface: ^7.4.10
+  firebase_auth_platform_interface: ^7.7.1
   firebase_authentication_client:
     path: packages/authentication_client/firebase_authentication_client
-  firebase_core: ^3.8.1
-  firebase_crashlytics: ^4.2.0
+  firebase_core: ^3.15.0
+  firebase_crashlytics: ^4.3.8
   firebase_deep_link_client:
     path: packages/deep_link_client/firebase_deep_link_client
-  firebase_dynamic_links: ^6.0.10
-  firebase_messaging: ^15.1.6
+  firebase_dynamic_links: ^6.1.8
+  firebase_messaging: ^15.2.8
   firebase_notifications_client:
     path: packages/notifications_client/firebase_notifications_client
-  flow_builder: ^0.0.7
+  flow_builder: ^0.1.0
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.0.1
+  flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
   flutter_news_example_api:
     path: api
-  flutter_svg: ^2.0.5
-  font_awesome_flutter: ^10.1.0
+  flutter_svg: ^2.2.0
+  font_awesome_flutter: ^10.9.1
   form_inputs:
     path: packages/form_inputs
-  google_mobile_ads: ^5.2.0
-  hydrated_bloc: ^9.0.0
+  google_mobile_ads: ^5.3.1
+  hydrated_bloc: ^10.1.1
   in_app_purchase_repository:
     path: packages/in_app_purchase_repository
   intl: ^0.19.0
@@ -67,40 +67,40 @@ dependencies:
     path: packages/notifications_repository
   package_info_client:
     path: packages/package_info_client
-  path_provider: ^2.1.4
+  path_provider: ^2.1.5
   permission_client:
     path: packages/permission_client
   persistent_storage:
     path: packages/storage/persistent_storage
-  platform: ^3.0.2
+  platform: ^3.1.6
   purchase_client:
     path: packages/purchase_client
   share_launcher:
     path: packages/share_launcher
-  shared_preferences: ^2.0.15
+  shared_preferences: ^2.5.3
   sliver_tools: ^0.2.9
-  stream_transform: ^2.0.0
+  stream_transform: ^2.1.1
   test: ^1.21.4
   token_storage:
     path: packages/authentication_client/token_storage
-  url_launcher: ^6.0.9
+  url_launcher: ^6.3.2
   user_repository:
     path: packages/user_repository
-  very_good_analysis: ^6.0.0
-  video_player_platform_interface: ^6.0.1
+  very_good_analysis: ^7.0.0
+  video_player_platform_interface: ^6.4.0
   visibility_detector: ^0.4.0+2
 
 dev_dependencies:
-  bloc_test: ^9.0.3
-  build_runner: ^2.0.3
-  build_verify: ^3.0.0
-  build_version: ^2.0.3
+  bloc_test: ^10.0.0
+  build_runner: ^2.4.15
+  build_verify: ^3.1.1
+  build_version: ^2.1.1
   fake_async: ^1.3.0
   flutter_test:
     sdk: flutter
-  json_serializable: ^6.8.0
+  json_serializable: ^6.9.5
   mocktail: ^1.0.2
-  mocktail_image_network: ^1.0.0
+  mocktail_image_network: ^1.2.0
 
 dependency_overrides:
   intl: ^0.19.0

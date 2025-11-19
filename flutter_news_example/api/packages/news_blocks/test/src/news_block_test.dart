@@ -180,9 +180,7 @@ void main() {
       });
 
       test('returns BannerAdBlock', () {
-        final block = BannerAdBlock(
-          size: BannerAdSize.normal,
-        );
+        final block = BannerAdBlock(size: BannerAdSize.normal);
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
 

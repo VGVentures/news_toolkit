@@ -7,14 +7,8 @@ void main() {
     const testEmail = 'test@test.com';
     group('EmailChanged', () {
       test('supports value comparisons', () {
-        expect(
-          EmailChanged(email: testEmail),
-          EmailChanged(email: testEmail),
-        );
-        expect(
-          EmailChanged(email: ''),
-          isNot(EmailChanged(email: testEmail)),
-        );
+        expect(EmailChanged(email: testEmail), EmailChanged(email: testEmail));
+        expect(EmailChanged(email: ''), isNot(EmailChanged(email: testEmail)));
       });
     });
 

@@ -44,8 +44,7 @@ void main() {
     });
 
     group('adds', () {
-      testWidgets(
-          'LoginGoogleSubmitted to LoginBloc '
+      testWidgets('LoginGoogleSubmitted to LoginBloc '
           'when sign in with google button is pressed', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
@@ -55,8 +54,7 @@ void main() {
         verify(() => loginBloc.add(LoginGoogleSubmitted())).called(1);
       });
 
-      testWidgets(
-          'LoginTwitterSubmitted to LoginBloc '
+      testWidgets('LoginTwitterSubmitted to LoginBloc '
           'when sign in with Twitter button is pressed', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
@@ -66,8 +64,7 @@ void main() {
         verify(() => loginBloc.add(LoginTwitterSubmitted())).called(1);
       });
 
-      testWidgets(
-          'LoginFacebookSubmitted to LoginBloc '
+      testWidgets('LoginFacebookSubmitted to LoginBloc '
           'when sign in with Facebook button is pressed', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
@@ -77,8 +74,7 @@ void main() {
         verify(() => loginBloc.add(LoginFacebookSubmitted())).called(1);
       });
 
-      testWidgets(
-          'LoginAppleSubmitted to LoginBloc '
+      testWidgets('LoginAppleSubmitted to LoginBloc '
           'when sign in with apple button is pressed', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
@@ -89,8 +85,9 @@ void main() {
         verify(() => loginBloc.add(LoginAppleSubmitted())).called(1);
       });
 
-      testWidgets('AuthenticationFailure SnackBar when submission fails',
-          (tester) async {
+      testWidgets('AuthenticationFailure SnackBar when submission fails', (
+        tester,
+      ) async {
         whenListen(
           loginBloc,
           Stream.fromIterable(const <LoginState>[
@@ -151,8 +148,9 @@ void main() {
     });
 
     group('navigates', () {
-      testWidgets('to LoginWithEmailPage when Continue with email is pressed',
-          (tester) async {
+      testWidgets('to LoginWithEmailPage when Continue with email is pressed', (
+        tester,
+      ) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
         );
@@ -209,10 +207,8 @@ void main() {
                 child: Text(buttonText),
                 onPressed: () => showAppModal<void>(
                   context: context,
-                  builder: (context) => BlocProvider.value(
-                    value: appBloc,
-                    child: LoginModal(),
-                  ),
+                  builder: (context) =>
+                      BlocProvider.value(value: appBloc, child: LoginModal()),
                   routeSettings: const RouteSettings(name: LoginModal.name),
                 ),
               );
@@ -235,8 +231,9 @@ void main() {
         expect(find.byType(LoginForm), findsNothing);
       });
 
-      testWidgets('when user is authenticated and onboarding is required',
-          (tester) async {
+      testWidgets('when user is authenticated and onboarding is required', (
+        tester,
+      ) async {
         final appStateController = StreamController<AppState>();
 
         whenListen(
@@ -252,10 +249,8 @@ void main() {
                 child: Text(buttonText),
                 onPressed: () => showAppModal<void>(
                   context: context,
-                  builder: (context) => BlocProvider.value(
-                    value: appBloc,
-                    child: LoginModal(),
-                  ),
+                  builder: (context) =>
+                      BlocProvider.value(value: appBloc, child: LoginModal()),
                   routeSettings: const RouteSettings(name: LoginModal.name),
                 ),
               );

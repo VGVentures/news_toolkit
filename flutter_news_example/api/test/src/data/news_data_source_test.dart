@@ -83,48 +83,42 @@ class MyNewsDataSource extends NewsDataSource {
 
 void main() {
   Matcher articleHaving({required List<NewsBlock> blocks, int? totalBlocks}) {
-    return predicate<Article>(
-      (article) {
-        totalBlocks ??= article.totalBlocks;
-        if (blocks.length != article.blocks.length) return false;
-        if (totalBlocks != article.totalBlocks) return false;
-        for (var i = 0; i < blocks.length; i++) {
-          if (blocks[i] != article.blocks[i]) return false;
-        }
-        return true;
-      },
-    );
+    return predicate<Article>((article) {
+      totalBlocks ??= article.totalBlocks;
+      if (blocks.length != article.blocks.length) return false;
+      if (totalBlocks != article.totalBlocks) return false;
+      for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i] != article.blocks[i]) return false;
+      }
+      return true;
+    });
   }
 
   Matcher relatedArticlesHaving({
     required List<NewsBlock> blocks,
     int? totalBlocks,
   }) {
-    return predicate<RelatedArticles>(
-      (relatedArticles) {
-        totalBlocks ??= relatedArticles.totalBlocks;
-        if (blocks.length != relatedArticles.blocks.length) return false;
-        if (totalBlocks != relatedArticles.totalBlocks) return false;
-        for (var i = 0; i < blocks.length; i++) {
-          if (blocks[i] != relatedArticles.blocks[i]) return false;
-        }
-        return true;
-      },
-    );
+    return predicate<RelatedArticles>((relatedArticles) {
+      totalBlocks ??= relatedArticles.totalBlocks;
+      if (blocks.length != relatedArticles.blocks.length) return false;
+      if (totalBlocks != relatedArticles.totalBlocks) return false;
+      for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i] != relatedArticles.blocks[i]) return false;
+      }
+      return true;
+    });
   }
 
   Matcher feedHaving({required List<NewsBlock> blocks, int? totalBlocks}) {
-    return predicate<Feed>(
-      (feed) {
-        totalBlocks ??= feed.totalBlocks;
-        if (blocks.length != feed.blocks.length) return false;
-        if (totalBlocks != feed.totalBlocks) return false;
-        for (var i = 0; i < blocks.length; i++) {
-          if (blocks[i] != feed.blocks[i]) return false;
-        }
-        return true;
-      },
-    );
+    return predicate<Feed>((feed) {
+      totalBlocks ??= feed.totalBlocks;
+      if (blocks.length != feed.blocks.length) return false;
+      if (totalBlocks != feed.totalBlocks) return false;
+      for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i] != feed.blocks[i]) return false;
+      }
+      return true;
+    });
   }
 
   Matcher isAnEmptyFeed() {
@@ -168,8 +162,7 @@ void main() {
     });
 
     group('getUser', () {
-      test(
-          'completes with empty user '
+      test('completes with empty user '
           'when subscription does not exist', () async {
         const userId = 'userId';
         expect(
@@ -187,19 +180,17 @@ void main() {
         );
         expect(
           newsDataSource.getUser(userId: userId),
-          completion(
-            equals(
-              User(id: userId, subscription: subscription.name),
-            ),
-          ),
+          completion(equals(User(id: userId, subscription: subscription.name))),
         );
       });
     });
 
     group('getFeed', () {
       test('returns stubbed feed (Category.technology)', () {
-        final technologyCategory =
-            Category(id: 'technology', name: 'Technology');
+        final technologyCategory = Category(
+          id: 'technology',
+          name: 'Technology',
+        );
 
         expect(
           newsDataSource.getFeed(categoryId: technologyCategory.id),
@@ -292,10 +283,7 @@ void main() {
             limit: 100,
           ),
           completion(
-            feedHaving(
-              blocks: [],
-              totalBlocks: topNewsFeedBlocks.length,
-            ),
+            feedHaving(blocks: [], totalBlocks: topNewsFeedBlocks.length),
           ),
         );
       });
@@ -324,8 +312,7 @@ void main() {
         );
       });
 
-      test(
-          'returns content when article exists '
+      test('returns content when article exists '
           'and preview is false', () {
         final item = healthItems.first;
         expect(
@@ -339,8 +326,7 @@ void main() {
         );
       });
 
-      test(
-          'returns content preview when article exists '
+      test('returns content preview when article exists '
           'and preview is true', () {
         final item = healthItems.first;
         expect(
@@ -389,8 +375,7 @@ void main() {
         );
       });
 
-      test(
-          'returns true when article exists '
+      test('returns true when article exists '
           'and isPremium is true', () {
         final item = technologySmallItems.last;
         expect(
@@ -399,8 +384,7 @@ void main() {
         );
       });
 
-      test(
-          'returns false when article exists '
+      test('returns false when article exists '
           'and isPremium is false', () {
         final item = healthItems.last;
         expect(

@@ -89,9 +89,7 @@ class PostSmallContent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSpacing.xs),
-        PostFooter(
-          publishedAt: publishedAt,
-        ),
+        PostFooter(publishedAt: publishedAt),
       ],
     );
   }

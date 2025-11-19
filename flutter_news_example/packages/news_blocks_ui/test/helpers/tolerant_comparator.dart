@@ -2,9 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _TolerantGoldenFileComparator extends LocalFileComparator {
-  _TolerantGoldenFileComparator(
-    super.testFile,
-  );
+  _TolerantGoldenFileComparator(super.testFile);
 
   /// How much the golden image can differ from the test image.
   ///

@@ -12,16 +12,10 @@ void main() {
   });
 
   test('exports SubscribeToCategoryFailure', () {
-    expect(
-      () => SubscribeToCategoryFailure('oops'),
-      returnsNormally,
-    );
+    expect(() => SubscribeToCategoryFailure('oops'), returnsNormally);
   });
 
   test('exports UnsubscribeFromCategoryFailure', () {
-    expect(
-      () => UnsubscribeFromCategoryFailure('oops'),
-      returnsNormally,
-    );
+    expect(() => UnsubscribeFromCategoryFailure('oops'), returnsNormally);
   });
 }

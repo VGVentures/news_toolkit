@@ -5,10 +5,7 @@ import 'package:test/test.dart';
 
 class CustomBlockAction extends BlockAction {
   CustomBlockAction()
-      : super(
-          type: '__custom_block__',
-          actionType: BlockActionType.navigation,
-        );
+    : super(type: '__custom_block__', actionType: BlockActionType.navigation);
 
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{'type': type};
@@ -64,10 +61,7 @@ void main() {
     group('UnknownBlockAction', () {
       test('can be (de)serialized', () {
         final action = UnknownBlockAction();
-        expect(
-          UnknownBlockAction.fromJson(action.toJson()),
-          equals(action),
-        );
+        expect(UnknownBlockAction.fromJson(action.toJson()), equals(action));
       });
     });
 

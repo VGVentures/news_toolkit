@@ -52,9 +52,8 @@ class RelevantSearchFailure extends NewsFailure {
 /// {@endtemplate}
 class NewsRepository {
   /// {@macro news_repository}
-  const NewsRepository({
-    required FlutterNewsExampleApiClient apiClient,
-  }) : _apiClient = apiClient;
+  const NewsRepository({required FlutterNewsExampleApiClient apiClient})
+    : _apiClient = apiClient;
 
   final FlutterNewsExampleApiClient _apiClient;
 

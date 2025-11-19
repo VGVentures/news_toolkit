@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - name: 📚 Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: ⚙️ Setup Node
         uses: actions/setup-node@v4
@@ -57,7 +57,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    if: ${{ github.repository == 'flutter/news_toolkit' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.repository == 'VGVentures/news_toolkit' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
     defaults:
       run:
@@ -65,7 +65,7 @@ jobs:
 
     steps:
       - name: 📚 Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: ⚙️ Setup Node
         uses: actions/setup-node@v4

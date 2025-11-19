@@ -12,15 +12,11 @@ part 'feed_event.dart';
 part 'feed_state.dart';
 
 class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
-  FeedBloc({
-    required NewsRepository newsRepository,
-  })  : _newsRepository = newsRepository,
-        super(const FeedState.initial()) {
+  FeedBloc({required NewsRepository newsRepository})
+    : _newsRepository = newsRepository,
+      super(const FeedState.initial()) {
     on<FeedRequested>(_onFeedRequested, transformer: sequential());
-    on<FeedRefreshRequested>(
-      _onFeedRefreshRequested,
-      transformer: droppable(),
-    );
+    on<FeedRefreshRequested>(_onFeedRefreshRequested, transformer: droppable());
     on<FeedResumed>(_onFeedResumed, transformer: droppable());
   }
 
@@ -71,7 +67,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
             ..addAll({categoryId: hasMoreNewsForCategory}),
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: FeedStatus.failure));
       addError(error, stackTrace);
     }
@@ -110,7 +106,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
             ..addAll({category.id: hasMoreNewsForCategory}),
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: FeedStatus.failure));
       addError(error, stackTrace);
     }

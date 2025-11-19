@@ -51,26 +51,23 @@ class PostGrid extends StatelessWidget {
           crossAxisSpacing: AppSpacing.md,
           childAspectRatio: 3 / 2,
         ),
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            final block = gridGroupBlock.tiles[index];
-            if (index == 0) {
-              return PostLarge(
-                block: block.toPostLargeBlock(),
-                categoryName: categoryName,
-                premiumText: premiumText,
-                isLocked: isLocked,
-                onPressed: onPressed,
-              );
-            }
-
-            return PostMedium(
-              block: block.toPostMediumBlock(),
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          final block = gridGroupBlock.tiles[index];
+          if (index == 0) {
+            return PostLarge(
+              block: block.toPostLargeBlock(),
+              categoryName: categoryName,
+              premiumText: premiumText,
+              isLocked: isLocked,
               onPressed: onPressed,
             );
-          },
-          childCount: gridGroupBlock.tiles.length,
-        ),
+          }
+
+          return PostMedium(
+            block: block.toPostMediumBlock(),
+            onPressed: onPressed,
+          );
+        }, childCount: gridGroupBlock.tiles.length),
       ),
     );
   }

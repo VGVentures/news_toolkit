@@ -30,8 +30,9 @@ void main() {
       when(() => userRepository.user).thenAnswer((_) => Stream.empty());
       when(() => user.isNewUser).thenReturn(User.anonymous.isNewUser);
       when(() => user.id).thenReturn(User.anonymous.id);
-      when(() => user.subscriptionPlan)
-          .thenReturn(User.anonymous.subscriptionPlan);
+      when(
+        () => user.subscriptionPlan,
+      ).thenReturn(User.anonymous.subscriptionPlan);
     });
 
     test('initial state is unauthenticated when user is anonymous', () {
@@ -54,8 +55,9 @@ void main() {
         newUser = MockUser();
         when(() => returningUser.isNewUser).thenReturn(false);
         when(() => returningUser.id).thenReturn('id');
-        when(() => returningUser.subscriptionPlan)
-            .thenReturn(SubscriptionPlan.none);
+        when(
+          () => returningUser.subscriptionPlan,
+        ).thenReturn(SubscriptionPlan.none);
         when(() => newUser.isNewUser).thenReturn(true);
         when(() => newUser.id).thenReturn('id');
         when(() => newUser.subscriptionPlan).thenReturn(SubscriptionPlan.none);
@@ -65,9 +67,9 @@ void main() {
         'emits nothing when '
         'state is unauthenticated and user is anonymous',
         setUp: () {
-          when(() => userRepository.user).thenAnswer(
-            (_) => Stream.value(User.anonymous),
-          );
+          when(
+            () => userRepository.user,
+          ).thenAnswer((_) => Stream.value(User.anonymous));
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -82,9 +84,9 @@ void main() {
         'emits unauthenticated when '
         'state is onboardingRequired and user is anonymous',
         setUp: () {
-          when(() => userRepository.user).thenAnswer(
-            (_) => Stream.value(User.anonymous),
-          );
+          when(
+            () => userRepository.user,
+          ).thenAnswer((_) => Stream.value(User.anonymous));
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -98,9 +100,9 @@ void main() {
       blocTest<AppBloc, AppState>(
         'emits onboardingRequired when user is new and not anonymous',
         setUp: () {
-          when(() => userRepository.user).thenAnswer(
-            (_) => Stream.value(newUser),
-          );
+          when(
+            () => userRepository.user,
+          ).thenAnswer((_) => Stream.value(newUser));
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -113,9 +115,9 @@ void main() {
       blocTest<AppBloc, AppState>(
         'emits authenticated when user is returning and not anonymous',
         setUp: () {
-          when(() => userRepository.user).thenAnswer(
-            (_) => Stream.value(returningUser),
-          );
+          when(
+            () => userRepository.user,
+          ).thenAnswer((_) => Stream.value(returningUser));
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -129,9 +131,9 @@ void main() {
         'emits authenticated '
         'when authenticated user changes',
         setUp: () {
-          when(() => userRepository.user).thenAnswer(
-            (_) => Stream.value(returningUser),
-          );
+          when(
+            () => userRepository.user,
+          ).thenAnswer((_) => Stream.value(returningUser));
         },
         seed: () => AppState.authenticated(user),
         build: () => AppBloc(
@@ -171,9 +173,9 @@ void main() {
       blocTest<AppBloc, AppState>(
         'emits unauthenticated when user is anonymous',
         setUp: () {
-          when(() => userRepository.user).thenAnswer(
-            (_) => Stream.value(User.anonymous),
-          );
+          when(
+            () => userRepository.user,
+          ).thenAnswer((_) => Stream.value(User.anonymous));
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -187,9 +189,9 @@ void main() {
         'emits nothing when '
         'state is unauthenticated and user is anonymous',
         setUp: () {
-          when(() => userRepository.user).thenAnswer(
-            (_) => Stream.value(User.anonymous),
-          );
+          when(
+            () => userRepository.user,
+          ).thenAnswer((_) => Stream.value(User.anonymous));
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -305,8 +307,9 @@ void main() {
       setUp(() {
         userController = StreamController<User>();
 
-        when(() => userRepository.user)
-            .thenAnswer((_) => userController.stream);
+        when(
+          () => userRepository.user,
+        ).thenAnswer((_) => userController.stream);
       });
 
       blocTest<AppBloc, AppState>(
@@ -327,10 +330,12 @@ void main() {
         'when fetchAppOpenedCount returns a count value of 4 '
         'and user is anonymous',
         setUp: () {
-          when(() => userRepository.fetchAppOpenedCount())
-              .thenAnswer((_) async => 4);
-          when(() => userRepository.incrementAppOpenedCount())
-              .thenAnswer((_) async {});
+          when(
+            () => userRepository.fetchAppOpenedCount(),
+          ).thenAnswer((_) async => 4);
+          when(
+            () => userRepository.incrementAppOpenedCount(),
+          ).thenAnswer((_) async {});
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -340,15 +345,10 @@ void main() {
         act: (bloc) => bloc.add(AppOpened()),
         seed: AppState.unauthenticated,
         expect: () => <AppState>[
-          AppState(
-            showLoginOverlay: true,
-            status: AppStatus.unauthenticated,
-          ),
+          AppState(showLoginOverlay: true, status: AppStatus.unauthenticated),
         ],
         verify: (_) {
-          verify(
-            () => userRepository.incrementAppOpenedCount(),
-          ).called(1);
+          verify(() => userRepository.incrementAppOpenedCount()).called(1);
         },
       );
 
@@ -357,10 +357,12 @@ void main() {
         'when fetchAppOpenedCount returns a count value of 3 '
         'and user is anonymous',
         setUp: () {
-          when(() => userRepository.fetchAppOpenedCount())
-              .thenAnswer((_) async => 3);
-          when(() => userRepository.incrementAppOpenedCount())
-              .thenAnswer((_) async {});
+          when(
+            () => userRepository.fetchAppOpenedCount(),
+          ).thenAnswer((_) async => 3);
+          when(
+            () => userRepository.incrementAppOpenedCount(),
+          ).thenAnswer((_) async {});
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -371,9 +373,7 @@ void main() {
         seed: AppState.unauthenticated,
         expect: () => <AppState>[],
         verify: (_) {
-          verify(
-            () => userRepository.incrementAppOpenedCount(),
-          ).called(1);
+          verify(() => userRepository.incrementAppOpenedCount()).called(1);
         },
       );
 
@@ -382,8 +382,9 @@ void main() {
         'when fetchAppOpenedCount returns a count value of 6 '
         'and user is anonymous',
         setUp: () {
-          when(() => userRepository.fetchAppOpenedCount())
-              .thenAnswer((_) async => 6);
+          when(
+            () => userRepository.fetchAppOpenedCount(),
+          ).thenAnswer((_) async => 6);
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -394,9 +395,7 @@ void main() {
         seed: AppState.unauthenticated,
         expect: () => <AppState>[],
         verify: (_) {
-          verifyNever(
-            () => userRepository.incrementAppOpenedCount(),
-          );
+          verifyNever(() => userRepository.incrementAppOpenedCount());
         },
       );
     });

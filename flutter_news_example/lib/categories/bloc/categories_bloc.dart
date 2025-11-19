@@ -9,10 +9,9 @@ part 'categories_event.dart';
 part 'categories_state.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
-  CategoriesBloc({
-    required NewsRepository newsRepository,
-  })  : _newsRepository = newsRepository,
-        super(const CategoriesState.initial()) {
+  CategoriesBloc({required NewsRepository newsRepository})
+    : _newsRepository = newsRepository,
+      super(const CategoriesState.initial()) {
     on<CategoriesRequested>(_onCategoriesRequested);
     on<CategorySelected>(_onCategorySelected);
   }
@@ -34,7 +33,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
           selectedCategory: response.categories.firstOrNull,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: CategoriesStatus.failure));
       addError(error, stackTrace);
     }
@@ -43,6 +42,5 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   void _onCategorySelected(
     CategorySelected event,
     Emitter<CategoriesState> emit,
-  ) =>
-      emit(state.copyWith(selectedCategory: event.category));
+  ) => emit(state.copyWith(selectedCategory: event.category));
 }

@@ -76,24 +76,24 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
-        aboutIcon,
-        apple,
-        backIcon,
-        bestValue,
-        closeCircle,
-        closeCircleFilled,
-        emailOutline,
-        envelopeOpen,
-        facebook,
-        google,
-        logInIcon,
-        logOutIcon,
-        notificationsIcon,
-        profileIcon,
-        termsOfUseIcon,
-        twitter,
-        video
-      ];
+    aboutIcon,
+    apple,
+    backIcon,
+    bestValue,
+    closeCircle,
+    closeCircleFilled,
+    emailOutline,
+    envelopeOpen,
+    facebook,
+    google,
+    logInIcon,
+    logOutIcon,
+    notificationsIcon,
+    profileIcon,
+    termsOfUseIcon,
+    twitter,
+    video,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -125,13 +125,13 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
-        continueWithApple,
-        continueWithFacebook,
-        continueWithGoogle,
-        continueWithTwitter,
-        logoDark,
-        logoLight
-      ];
+    continueWithApple,
+    continueWithFacebook,
+    continueWithGoogle,
+    continueWithTwitter,
+    logoDark,
+    logoLight,
+  ];
 }
 
 class Assets {
@@ -199,15 +199,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package = 'app_ui',
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package = 'app_ui'}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;

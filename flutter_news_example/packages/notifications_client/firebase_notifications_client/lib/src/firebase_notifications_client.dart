@@ -18,10 +18,7 @@ class FirebaseNotificationsClient implements NotificationsClient {
     try {
       await _firebaseMessaging.subscribeToTopic(category);
     } catch (error, stackTrace) {
-      Error.throwWithStackTrace(
-        SubscribeToCategoryFailure(error),
-        stackTrace,
-      );
+      Error.throwWithStackTrace(SubscribeToCategoryFailure(error), stackTrace);
     }
   }
 

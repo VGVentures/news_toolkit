@@ -62,8 +62,7 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws TrackEventFailure '
+      test('throws TrackEventFailure '
           'when logEvent throws exception', () async {
         when(
           () => firebaseAnalytics.logEvent(
@@ -93,13 +92,10 @@ void main() {
 
         analyticsRepository.setUserId(userId);
 
-        verify(
-          () => firebaseAnalytics.setUserId(id: userId),
-        ).called(1);
+        verify(() => firebaseAnalytics.setUserId(id: userId)).called(1);
       });
 
-      test(
-          'throws SetUserIdFailure '
+      test('throws SetUserIdFailure '
           'when setUserId throws exception', () async {
         when(
           () => firebaseAnalytics.setUserId(id: any(named: 'id')),

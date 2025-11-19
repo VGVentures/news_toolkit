@@ -6,9 +6,7 @@ class ManageSubscriptionPage extends StatelessWidget {
   const ManageSubscriptionPage({super.key});
 
   static MaterialPageRoute<void> route() {
-    return MaterialPageRoute(
-      builder: (_) => const ManageSubscriptionPage(),
-    );
+    return MaterialPageRoute(builder: (_) => const ManageSubscriptionPage());
   }
 
   @override
@@ -26,9 +24,7 @@ class ManageSubscriptionView extends StatelessWidget {
     final l10n = context.l10n;
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        leading: const AppBackButton(),
-      ),
+      appBar: AppBar(leading: const AppBackButton()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
@@ -57,8 +53,9 @@ class ManageSubscriptionView extends StatelessWidget {
                 ),
                 title: Text(
                   l10n.manageSubscriptionLinkText,
-                  style: theme.textTheme.titleSmall
-                      ?.copyWith(color: AppColors.darkAqua),
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    color: AppColors.darkAqua,
+                  ),
                 ),
                 onTap: () {
                   // No possibility to revoke subscriptions from the app.

@@ -7,15 +7,12 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('SearchTextField', () {
-    testWidgets('changes controller.value when text input changes',
-        (tester) async {
+    testWidgets('changes controller.value when text input changes', (
+      tester,
+    ) async {
       final controller = TextEditingController();
 
-      await tester.pumpApp(
-        SearchTextField(
-          controller: controller,
-        ),
-      );
+      await tester.pumpApp(SearchTextField(controller: controller));
 
       await tester.enterText(find.byType(AppTextField), 'text');
 
@@ -25,11 +22,7 @@ void main() {
     testWidgets('clears controller on IconButton pressed', (tester) async {
       final controller = TextEditingController(text: 'text');
 
-      await tester.pumpApp(
-        SearchTextField(
-          controller: controller,
-        ),
-      );
+      await tester.pumpApp(SearchTextField(controller: controller));
       await tester.tap(find.byType(IconButton));
 
       expect(controller.value.text, equals(''));

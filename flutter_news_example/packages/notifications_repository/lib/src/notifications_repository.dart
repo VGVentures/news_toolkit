@@ -80,10 +80,10 @@ class NotificationsRepository {
     required NotificationsStorage storage,
     required NotificationsClient notificationsClient,
     required FlutterNewsExampleApiClient apiClient,
-  })  : _permissionClient = permissionClient,
-        _storage = storage,
-        _notificationsClient = notificationsClient,
-        _apiClient = apiClient {
+  }) : _permissionClient = permissionClient,
+       _storage = storage,
+       _notificationsClient = notificationsClient,
+       _apiClient = apiClient {
     unawaited(_initializeCategoriesPreferences());
   }
 
@@ -118,8 +118,8 @@ class NotificationsRepository {
 
         // Request the permission if the permission status is denied.
         if (permissionStatus.isDenied) {
-          final updatedPermissionStatus =
-              await _permissionClient.requestNotifications();
+          final updatedPermissionStatus = await _permissionClient
+              .requestNotifications();
           if (!updatedPermissionStatus.isGranted) {
             return;
           }
