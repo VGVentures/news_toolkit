@@ -3,8 +3,8 @@ import { configs } from '@docusaurus/eslint-plugin';
 import babelParser from '@babel/eslint-parser';
 
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: configs.recommended,
+  baseDirectory: __dirname,
+  recommendedConfig: configs.recommended,
 });
 
 export default [
