@@ -57,7 +57,7 @@ class RootPage extends StatelessWidget {
       body: ListView.separated(
         itemCount: pages.length,
         itemBuilder: (_, index) => pages[index],
-        separatorBuilder: (_, __) => const Divider(),
+        separatorBuilder: (_, _) => const Divider(),
       ),
     );
   }

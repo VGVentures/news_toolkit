@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_const, prefer_const_constructors
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';

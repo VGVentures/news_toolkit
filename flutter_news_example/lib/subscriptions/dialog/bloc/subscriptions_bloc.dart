@@ -74,8 +74,8 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
   }
 
   @override
-  Future<void> close() {
-    _subscriptionPurchaseUpdateSubscription.cancel();
+  Future<void> close() async {
+    await _subscriptionPurchaseUpdateSubscription.cancel();
     return super.close();
   }
 }

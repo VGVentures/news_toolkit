@@ -1435,7 +1435,7 @@ const _technologyCategory = Category(id: 'technology', name: 'Technology');
 const _healthCategory = Category(id: 'health', name: 'Health');
 const _scienceCategory = Category(id: 'science', name: 'Science');
 
-const _categories = [
+const List<Category> _categories = [
   _topCategory,
   _sportsCategory,
   _technologyCategory,

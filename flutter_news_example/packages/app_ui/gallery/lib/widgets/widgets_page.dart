@@ -49,7 +49,7 @@ class WidgetsPage extends StatelessWidget {
       body: ListView.separated(
         itemCount: widgets.length,
         itemBuilder: (_, index) => widgets[index],
-        separatorBuilder: (_, __) => const Divider(),
+        separatorBuilder: (_, _) => const Divider(),
       ),
     );
   }

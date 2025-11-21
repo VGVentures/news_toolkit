@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_test/flutter_test.dart';
 

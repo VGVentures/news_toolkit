@@ -70,8 +70,8 @@ class LoginWithEmailLinkBloc
   }
 
   @override
-  Future<void> close() {
-    _incomingEmailLinksSub.cancel();
+  Future<void> close() async {
+    await _incomingEmailLinksSub.cancel();
     return super.close();
   }
 }

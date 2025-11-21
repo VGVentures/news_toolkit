@@ -91,7 +91,7 @@ class ArticleView extends StatelessWidget {
     );
 
     return PopScope(
-      onPopInvokedWithResult: (_, __) => _onPop(context),
+      onPopInvokedWithResult: (_, _) => _onPop(context),
       child: HasToShowInterstitialAdListener(
         interstitialAdBehavior: interstitialAdBehavior,
         child: HasReachedArticleLimitListener(

@@ -46,8 +46,8 @@ class ShowAppModalPage extends StatelessWidget {
     );
   }
 
-  void _showModal({required BuildContext context}) {
-    showAppModal<void>(
+  Future<void> _showModal({required BuildContext context}) async {
+    await showAppModal<void>(
       context: context,
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,

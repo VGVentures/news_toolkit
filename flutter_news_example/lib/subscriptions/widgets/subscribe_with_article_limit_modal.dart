@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart'
     show AppButton, AppColors, AppSpacing, Assets, showAppModal;
 import 'package:flutter/material.dart';
@@ -92,7 +94,7 @@ class _SubscribeWithArticleLimitModalState
                   ),
                   child: Text(l10n.subscribeButtonText),
                   onPressed: () {
-                    showPurchaseSubscriptionDialog(context: context);
+                    unawaited(showPurchaseSubscriptionDialog(context: context));
                     context.read<AnalyticsBloc>().add(
                       TrackAnalyticsEvent(
                         PaywallPromptEvent.click(

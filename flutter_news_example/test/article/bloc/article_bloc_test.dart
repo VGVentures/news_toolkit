@@ -367,8 +367,8 @@ void main() {
         final resetAt = DateTime(2022, 6, 7);
         final now = DateTime(2022, 6, 7, 12, 0, 0);
 
-        withClock(Clock.fixed(now), () {
-          testBloc<ArticleBloc, ArticleState>(
+        await withClock(Clock.fixed(now), () async {
+          await testBloc<ArticleBloc, ArticleState>(
             seed: () => ArticleState(status: ArticleStatus.populated),
             setUp: () => when(
               articleRepository.fetchArticleViews,

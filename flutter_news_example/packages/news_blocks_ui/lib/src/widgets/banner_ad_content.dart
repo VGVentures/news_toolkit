@@ -138,7 +138,7 @@ class _BannerAdContentState extends State<BannerAdContent>
 
   @override
   void dispose() {
-    _ad?.dispose();
+    unawaited(_ad?.dispose());
     super.dispose();
   }
 
@@ -190,8 +190,8 @@ class _BannerAdContentState extends State<BannerAdContent>
     try {
       final adCompleter = Completer<Ad>();
 
-      setState(
-        () => _ad = widget.adBuilder(
+      setState(() {
+        _ad = widget.adBuilder(
           adUnitId:
               widget.adUnitId ??
               (widget.currentPlatform.isAndroid
@@ -205,8 +205,9 @@ class _BannerAdContentState extends State<BannerAdContent>
               adCompleter.completeError(error);
             },
           ),
-        )..load(),
-      );
+        );
+        unawaited(_ad!.load());
+      });
 
       _onAdLoaded(await adCompleter.future);
     } on Object catch (error, stackTrace) {

@@ -22,8 +22,8 @@ void main() {
           body: Builder(
             builder: (context) {
               return ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push<void>(NetworkError.route());
+                onPressed: () async {
+                  await Navigator.of(context).push<void>(NetworkError.route());
                 },
                 child: const Text(tapMeText),
               );

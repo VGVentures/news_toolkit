@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,10 +29,12 @@ class _OnboardingViewState extends State<OnboardingView> {
         if ((state is EnablingAdTrackingSucceeded ||
                 state is EnablingAdTrackingFailed) &&
             _controller.page != _onboardingPageTwo) {
-          _controller.animateToPage(
-            _onboardingPageTwo,
-            duration: _onboardingItemSwitchDuration,
-            curve: Curves.easeInOut,
+          unawaited(
+            _controller.animateToPage(
+              _onboardingPageTwo,
+              duration: _onboardingItemSwitchDuration,
+              curve: Curves.easeInOut,
+            ),
           );
         } else if (state is EnablingNotificationsSucceeded) {
           context.read<AppBloc>().add(const AppOnboardingCompleted());

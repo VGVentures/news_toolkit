@@ -45,7 +45,7 @@ void main() {
           (widget) =>
               widget is TabBar &&
               widget.controller == tabController &&
-              widget.isScrollable == true,
+              widget.isScrollable,
         ),
         findsOneWidget,
       );
