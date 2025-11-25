@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +19,11 @@ class LoginWithEmailForm extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
-          Navigator.of(
-            context,
-          ).push<void>(MagicLinkPromptPage.route(email: email));
+          unawaited(
+            Navigator.of(
+              context,
+            ).push<void>(MagicLinkPromptPage.route(email: email)),
+          );
         } else if (state.status.isFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()

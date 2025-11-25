@@ -15,7 +15,7 @@ class NetworkError extends StatelessWidget {
   /// Route constructor to display the widget inside a [Scaffold].
   static Route<void> route({VoidCallback? onRetry}) {
     return PageRouteBuilder<void>(
-      pageBuilder: (_, __, ___) => Scaffold(
+      pageBuilder: (_, _, _) => Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(leading: const AppBackButton()),
         body: Center(child: NetworkError(onRetry: onRetry)),

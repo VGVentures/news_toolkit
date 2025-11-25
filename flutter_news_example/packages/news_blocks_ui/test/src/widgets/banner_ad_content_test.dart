@@ -17,8 +17,6 @@ class MockBannerAd extends Mock implements BannerAd {}
 
 class MockPlatform extends Mock implements Platform {}
 
-class MockLoadAdError extends Mock implements LoadAdError {}
-
 void main() {
   group('BannerAdContent', () {
     late AdSize capturedSize;
@@ -278,10 +276,12 @@ void main() {
             required BannerAdListener listener,
             required AdRequest request,
           }) {
-            Future.microtask(
-              () => listener.onAdFailedToLoad!(
-                ad,
-                LoadAdError(0, 'domain', 'message', null),
+            unawaited(
+              Future.microtask(
+                () => listener.onAdFailedToLoad!(
+                  ad,
+                  LoadAdError(0, 'domain', 'message', null),
+                ),
               ),
             );
             return ad;

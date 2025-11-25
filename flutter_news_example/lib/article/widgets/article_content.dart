@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,12 +39,14 @@ class ArticleContent extends StatelessWidget {
       child: BlocListener<ArticleBloc, ArticleState>(
         listener: (context, state) {
           if (state.status == ArticleStatus.failure && state.content.isEmpty) {
-            Navigator.of(context).push<void>(
-              NetworkError.route(
-                onRetry: () {
-                  context.read<ArticleBloc>().add(const ArticleRequested());
-                  Navigator.of(context).pop();
-                },
+            unawaited(
+              Navigator.of(context).push<void>(
+                NetworkError.route(
+                  onRetry: () {
+                    context.read<ArticleBloc>().add(const ArticleRequested());
+                    Navigator.of(context).pop();
+                  },
+                ),
               ),
             );
           } else if (state.status == ArticleStatus.shareFailure) {

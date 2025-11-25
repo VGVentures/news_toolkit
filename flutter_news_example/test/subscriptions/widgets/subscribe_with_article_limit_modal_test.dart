@@ -10,7 +10,6 @@ import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_news_example/subscriptions/subscriptions.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
@@ -24,10 +23,6 @@ class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
     implements ArticleBloc {}
 
 class MockUser extends Mock implements User {}
-
-class MockAdWithoutView extends Mock implements ads.AdWithoutView {}
-
-class MockRewardItem extends Mock implements ads.RewardItem {}
 
 class MockAnalyticsBloc extends MockBloc<AnalyticsEvent, AnalyticsState>
     implements AnalyticsBloc {}

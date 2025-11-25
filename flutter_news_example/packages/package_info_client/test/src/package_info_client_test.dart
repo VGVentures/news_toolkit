@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:package_info_client/package_info_client.dart';
 import 'package:test/test.dart';
 

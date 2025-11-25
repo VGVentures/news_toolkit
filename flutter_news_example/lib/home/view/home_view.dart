@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,10 +26,12 @@ class HomeView extends StatelessWidget {
               previous.showLoginOverlay != current.showLoginOverlay,
           listener: (context, state) {
             if (state.showLoginOverlay) {
-              showAppModal<void>(
-                context: context,
-                builder: (context) => const LoginModal(),
-                routeSettings: const RouteSettings(name: LoginModal.name),
+              unawaited(
+                showAppModal<void>(
+                  context: context,
+                  builder: (context) => const LoginModal(),
+                  routeSettings: const RouteSettings(name: LoginModal.name),
+                ),
               );
             }
           },

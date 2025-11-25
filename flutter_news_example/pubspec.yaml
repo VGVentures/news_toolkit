@@ -46,15 +46,15 @@ dependencies:
     sdk: flutter
   flutter_news_example_api:
     path: api
-  flutter_svg: ^2.2.0
-  font_awesome_flutter: ^10.9.1
+  flutter_svg: ^2.2.1
+  font_awesome_flutter: ^10.11.0
   form_inputs:
     path: packages/form_inputs
   google_mobile_ads: ^5.3.1
   hydrated_bloc: ^10.1.1
   in_app_purchase_repository:
     path: packages/in_app_purchase_repository
-  intl: ^0.19.0
+  intl: ^0.20.2
   json_annotation: ^4.9.0
   mockingjay: ^0.6.0
   news_blocks:
@@ -86,8 +86,8 @@ dependencies:
   url_launcher: ^6.3.2
   user_repository:
     path: packages/user_repository
-  very_good_analysis: ^7.0.0
-  video_player_platform_interface: ^6.4.0
+  very_good_analysis: ^10.0.0
+  video_player_platform_interface: ^6.5.0
   visibility_detector: ^0.4.0+2
 
 dev_dependencies:
@@ -103,7 +103,6 @@ dev_dependencies:
   mocktail_image_network: ^1.2.0
 
 dependency_overrides:
-  intl: ^0.19.0
   win32: ^5.5.4
 
 flutter:

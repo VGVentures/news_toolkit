@@ -44,8 +44,8 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
   }
 
   @override
-  Future<void> close() {
-    _userSubscription.cancel();
+  Future<void> close() async {
+    await _userSubscription.cancel();
     return super.close();
   }
 }
