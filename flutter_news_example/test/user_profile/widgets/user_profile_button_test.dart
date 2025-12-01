@@ -14,10 +14,6 @@ import '../../helpers/helpers.dart';
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
-class MockUser extends Mock implements User {}
-
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}
-
 class MockRoute extends Mock implements Route<dynamic> {}
 
 void main() {

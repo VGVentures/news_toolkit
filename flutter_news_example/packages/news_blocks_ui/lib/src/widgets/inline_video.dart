@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:news_blocks_ui/src/generated/generated.dart';
 import 'package:video_player/video_player.dart';
@@ -19,7 +21,7 @@ class InlineVideo extends StatefulWidget {
   });
 
   /// The aspect ratio of this video.
-  static const _aspectRatio = 3 / 2;
+  static const double _aspectRatio = 3 / 2;
 
   /// The url of this video.
   final String videoUrl;
@@ -41,22 +43,24 @@ class _InlineVideoState extends State<InlineVideo> {
   @override
   void initState() {
     super.initState();
-    _controller =
-        widget.videoPlayerControllerBuilder(Uri.parse(widget.videoUrl))
-          ..addListener(_onVideoUpdated)
-          ..initialize().then((_) {
-            // Ensure the first frame of the video is shown
-            // after the video is initialized.
-            if (mounted) setState(() {});
-          });
+    _controller = widget.videoPlayerControllerBuilder(
+      Uri.parse(widget.videoUrl),
+    );
+    _controller.addListener(_onVideoUpdated);
+    unawaited(
+      _controller.initialize().then((_) {
+        // Ensure the first frame of the video is shown
+        // after the video is initialized.
+        if (mounted) setState(() {});
+      }),
+    );
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     super.dispose();
-    _controller
-      ..removeListener(_onVideoUpdated)
-      ..dispose();
+    _controller.removeListener(_onVideoUpdated);
+    await _controller.dispose();
   }
 
   void _onVideoUpdated() {

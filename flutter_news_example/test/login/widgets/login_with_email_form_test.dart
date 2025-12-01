@@ -11,16 +11,11 @@ import 'package:flutter_news_example/terms_of_service/terms_of_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:mockingjay/mockingjay.dart';
-import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockUserRepository extends Mock implements UserRepository {}
-
 class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
     implements LoginBloc {}
-
-class MockEmail extends Mock implements Email {}
 
 void main() {
   const nextButtonKey = Key('loginWithEmailForm_nextButton');

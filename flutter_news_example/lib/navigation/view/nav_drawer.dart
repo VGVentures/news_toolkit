@@ -7,7 +7,7 @@ import 'package:flutter_news_example/navigation/navigation.dart';
 class NavDrawer extends StatelessWidget {
   const NavDrawer({super.key});
 
-  static const _contentPadding = AppSpacing.lg;
+  static const double _contentPadding = AppSpacing.lg;
 
   @override
   Widget build(BuildContext context) {
