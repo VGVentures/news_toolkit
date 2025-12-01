@@ -16,7 +16,7 @@ class ShareFailure with EquatableMixin implements Exception {
 }
 
 /// ShareProvider is a function type that provides the ability to share content.
-typedef ShareProvider = Future<void> Function(String);
+typedef ShareProvider = Future<ShareResult> Function(ShareParams);
 
 /// {@template share_launcher}
 /// A class allowing opening native share bottom sheet.
@@ -24,16 +24,16 @@ typedef ShareProvider = Future<void> Function(String);
 class ShareLauncher {
   /// {@macro share_launcher}
 
-  const ShareLauncher({ShareProvider? shareProvider})
-    : _shareProvider = shareProvider ?? Share.share;
+  ShareLauncher({ShareProvider? shareProvider})
+    : _shareProvider = shareProvider ?? SharePlus.instance.share;
 
   final ShareProvider _shareProvider;
 
   /// Method for opening native share bottom sheet.
   Future<void> share({required String text}) async {
     try {
-      return _shareProvider(text);
-    } catch (error, stackTrace) {
+      await _shareProvider(ShareParams(text: text));
+    } on Exception catch (error, stackTrace) {
       Error.throwWithStackTrace(ShareFailure(error), stackTrace);
     }
   }
