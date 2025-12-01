@@ -56,7 +56,7 @@ class ArticlePage extends StatelessWidget {
     return BlocProvider<ArticleBloc>(
       create: (_) => ArticleBloc(
         articleId: id,
-        shareLauncher: const ShareLauncher(),
+        shareLauncher: ShareLauncher(),
         articleRepository: context.read<ArticleRepository>(),
       )..add(const ArticleRequested()),
       child: ArticleView(
