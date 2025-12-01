@@ -163,22 +163,28 @@ Remove the noted snippets from the files below:
   adsConsentClient: adsConsentClient,
   ```
 - `flutter_news_example/lib/onboarding/bloc/onboarding_bloc.dart`
+
   ```dart
   required AdsConsentClient adsConsentClient,
   ```
+
   ```dart
   _adsConsentClient = adsConsentClient,
   ```
+
   ```dart
   on<EnableAdTrackingRequested>(
     _onEnableAdTrackingRequested,
     transformer: droppable(),
   );
   ```
+
   ```dart
   final AdsConsentClient _adsConsentClient;
   ```
+
   - the `_onEnableAdTrackingRequested()` function
+
 - `flutter_news_example/lib/onboarding/view/onboarding_page.dart`
   ```dart
   adsConsentClient: context.read<AdsConsentClient>(),
