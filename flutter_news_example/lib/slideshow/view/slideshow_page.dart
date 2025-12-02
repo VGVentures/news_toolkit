@@ -30,7 +30,7 @@ class SlideshowPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ArticleBloc(
         articleId: articleId,
-        shareLauncher: const ShareLauncher(),
+        shareLauncher: ShareLauncher(),
         articleRepository: context.read<ArticleRepository>(),
       ),
       child: SlideshowView(block: slideshow),
