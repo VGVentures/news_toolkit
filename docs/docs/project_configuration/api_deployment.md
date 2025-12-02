@@ -16,13 +16,11 @@ You can deploy your Dart Frog API to [Cloud Run](https://cloud.google.com/run/do
 If you've created a development and production flavor for your application, you'll want two corresponding Google Cloud Projects where the API must be deployed:
 
 - **Development:**
-
   - project_id: example-name-dev
 
   - service_name : example-name-api-dev
 
 - **Production:**
-
   - project_id: example-name-prod
 
   - service_name : example-name-api-prod
