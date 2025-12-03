@@ -21,36 +21,41 @@ typedef AppBuilder =
     );
 
 Future<void> bootstrap(AppBuilder builder) async {
-  await runZonedGuarded<Future<void>>(() async {
-    WidgetsFlutterBinding.ensureInitialized();
+  await runZonedGuarded<Future<void>>(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
 
-    await Firebase.initializeApp();
-    final analyticsRepository = AnalyticsRepository(FirebaseAnalytics.instance);
-    final blocObserver = AppBlocObserver(
-      analyticsRepository: analyticsRepository,
-    );
-    Bloc.observer = blocObserver;
-    final storageDirectory = await getApplicationSupportDirectory();
-    HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: HydratedStorageDirectory(storageDirectory.path),
-    );
+      await Firebase.initializeApp();
+      final analyticsRepository = AnalyticsRepository(
+        FirebaseAnalytics.instance,
+      );
+      final blocObserver = AppBlocObserver(
+        analyticsRepository: analyticsRepository,
+      );
+      Bloc.observer = blocObserver;
+      final storageDirectory = await getApplicationSupportDirectory();
+      HydratedBloc.storage = await HydratedStorage.build(
+        storageDirectory: HydratedStorageDirectory(storageDirectory.path),
+      );
 
-    if (kDebugMode) {
-      await HydratedBloc.storage.clear();
-    }
+      if (kDebugMode) {
+        await HydratedBloc.storage.clear();
+      }
 
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
-    final sharedPreferences = await SharedPreferences.getInstance();
+      final sharedPreferences = await SharedPreferences.getInstance();
 
-    unawaited(MobileAds.instance.initialize());
-    runApp(
-      await builder(
-        FirebaseMessaging.instance,
-        sharedPreferences,
-        analyticsRepository,
-      ),
-    );
-  }, (_, st) {},);
+      unawaited(MobileAds.instance.initialize());
+      runApp(
+        await builder(
+          FirebaseMessaging.instance,
+          sharedPreferences,
+          analyticsRepository,
+        ),
+      );
+    },
+    (_, st) {},
+  );
 }

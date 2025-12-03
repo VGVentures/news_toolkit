@@ -23,6 +23,9 @@ void main() {
   });
 
   group('AppLinksDeepLinkClient', () {
+    test('can be instantiated without parameters', () {
+      expect(AppLinksDeepLinkClient.new, returnsNormally);
+    });
     group('getInitialLink', () {
       test('retrieves the latest link if present', () async {
         final expectedUri = Uri.https('ham.app.test', '/test/path');

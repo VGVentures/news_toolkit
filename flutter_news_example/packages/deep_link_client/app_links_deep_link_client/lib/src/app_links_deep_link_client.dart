@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:app_links/app_links.dart';
 import 'package:deep_link_client/deep_link_client.dart';
 
-/// {@template firebase_deep_link_client}
+/// {@template app_links_deep_link_client}
 /// An AppLinks implementation of [DeepLinkClient].
 /// {@endtemplate}
 class AppLinksDeepLinkClient implements DeepLinkClient {
