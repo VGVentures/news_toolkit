@@ -1,0 +1,21 @@
+name: app_links_deep_link_client
+description: A Dart package which provides a deep link stream using app_links
+publish_to: none
+
+environment:
+  sdk: ">=3.9.2 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  app_links: ^6.3.3
+  deep_link_client:
+    path: ../deep_link_client
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.2
+  very_good_analysis: ^10.0.0
+  
