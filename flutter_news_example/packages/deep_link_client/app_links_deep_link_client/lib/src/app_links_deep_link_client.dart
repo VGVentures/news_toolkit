@@ -14,8 +14,7 @@ class AppLinksDeepLinkClient implements DeepLinkClient {
   final AppLinks _appLinks;
 
   @override
-  Stream<Uri> get deepLinkStream =>
-      _appLinks.uriLinkStream;
+  Stream<Uri> get deepLinkStream => _appLinks.uriLinkStream;
 
   @override
   Future<Uri?> getInitialLink() => _appLinks.getInitialLink();
