@@ -3,7 +3,7 @@ description: A Dart package which provides a deep link stream
 publish_to: none
 
 environment:
-  sdk: ">=3.9.2 <4.0.0"
+  sdk: ">=3.10.0 <4.0.0"
 
 dependencies:
   deep_link_client:
