@@ -19,7 +19,7 @@ The package depends on the third-party packages that expose authentication metho
 
 To enable authentication, configure each authentication method:
 
-- For email login, enable the **Email/password sign-in provider** in the Firebase Console of your project. In the same section, enable the **Email link sign-in method**. On the dynamic links page, set up a new dynamic link URL prefix (for example, `yourApplicationName.page.link`) with a dynamic link URL of "/email_login".
+- For email login, enable the **Email/password sign-in provider** in the Firebase Console of your project. In the same section, enable the **Email link sign-in method**. You will also need to configure deep links for your app - see the [deep link configuration](/project_configuration/social_authentication#deep-link-configuration) section for details.
 - For Google login, enable the **Google sign-in provider** in the Firebase Console of your project. You might need to generate a `SHA1` key for use with Android.
 - For Apple login, [configure sign-in with Apple](https://firebase.google.com/docs/auth/ios/apple#configure-sign-in-with-apple) in the Apple's developer portal and [enable the **Apple sign-in provider**](https://firebase.google.com/docs/auth/ios/apple#enable-apple-as-a-sign-in-provider) in the Firebase Console of your project.
 - For Twitter login, register an app in the Twitter developer portal and enable the **Twitter sign-in provider** in the Firebase Console of your project.
