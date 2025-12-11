@@ -21,11 +21,23 @@ Passwordless authentication with an email link requires additional configuration
 
 :::
 
-Once the email authentication method is set up, go to **Firebase -> Engage -> Dynamic links**. Set up a new dynamic link URL prefix (for example, yourApplicationName.page.link) with a dynamic link URL of "/email_login".
+### Deep link configuration
 
-Once the dynamic link is set up, replace the placeholder value for **FLAVOR_DEEP_LINK_DOMAIN** inside the `launch.json` file with the **dynamic link URL prefix** you just created. This enviroment variable will be used inside `firebase_authentication_client.dart` to generate the dynamic link URL that will be sent to the user.
+The toolkit uses [App Links](https://developer.android.com/training/app-links) (Android) and [Universal Links](https://developer.apple.com/ios/universal-links/) (iOS) for deep linking. To set up deep links for your app:
 
-In addition, replace the placeholder value for every **FLAVOR_DEEP_LINK_DOMAIN** key within your `project.pbxproj` file with the dynamic link URL prefix you just created.
+1. **Choose a domain you control** (e.g., `links.yourapp.com`) where you can host verification files.
+
+2. **Host the verification files** on your domain:
+   - **Android**: Host `/.well-known/assetlinks.json` - see [Android App Links documentation](https://developer.android.com/training/app-links/verify-android-applinks)
+   - **iOS**: Host `/.well-known/apple-app-site-association` - see [Universal Links documentation](https://developer.apple.com/documentation/xcode/supporting-universal-links-in-your-app)
+
+3. **Update the configuration** by replacing the placeholder value `your-domain.com` for **FLAVOR_DEEP_LINK_DOMAIN** in the following files:
+   - `launch.json` (VS Code)
+   - `.idea/runConfigurations/development.xml` and `production.xml` (IntelliJ/Android Studio)
+   - `android/app/src/development/res/values/strings.xml`
+   - `ios/Runner.xcodeproj/project.pbxproj`
+
+For more details on setting up deep links in Flutter, see the [Flutter deep linking documentation](https://docs.flutter.dev/ui/navigation/deep-linking).
 
 ## Google
 

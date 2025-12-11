@@ -47,6 +47,45 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.1"
+  app_links:
+    dependency: transitive
+    description:
+      name: app_links
+      sha256: "5f88447519add627fe1cbcab4fd1da3d4fed15b9baf29f28b22535c95ecee3e8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.4.1"
+  app_links_deep_link_client:
+    dependency: "direct main"
+    description:
+      path: "packages/deep_link_client/app_links_deep_link_client"
+      relative: true
+    source: path
+    version: "0.0.0"
+  app_links_linux:
+    dependency: transitive
+    description:
+      name: app_links_linux
+      sha256: f5f7173a78609f3dfd4c2ff2c95bd559ab43c80a87dc6a095921d96c05688c81
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
+  app_links_platform_interface:
+    dependency: transitive
+    description:
+      name: app_links_platform_interface
+      sha256: "05f5379577c513b534a29ddea68176a4d4802c46180ee8e2e966257158772a3f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
+  app_links_web:
+    dependency: transitive
+    description:
+      name: app_links_web
+      sha256: af060ed76183f9e2b87510a9480e56a5352b6c249778d07bd2c95fc35632a555
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
   app_ui:
     dependency: "direct main"
     description:
@@ -473,29 +512,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.8.8"
-  firebase_deep_link_client:
-    dependency: "direct main"
-    description:
-      path: "packages/deep_link_client/firebase_deep_link_client"
-      relative: true
-    source: path
-    version: "0.0.0"
-  firebase_dynamic_links:
-    dependency: "direct main"
-    description:
-      name: firebase_dynamic_links
-      sha256: "2ae34cfa21395ee02fd6f1587a8096996073ec7fce507f6aa7d50b0b26fafae5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.1.8"
-  firebase_dynamic_links_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_dynamic_links_platform_interface
-      sha256: "81948a2259a39a29ea54c935a518c277eb0829854cf3fb7732e1ed98982ece0e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.7+8"
   firebase_messaging:
     dependency: "direct main"
     description:
@@ -777,6 +793,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
+  gtk:
+    dependency: transitive
+    description:
+      name: gtk
+      sha256: e8ce9ca4b1df106e4d72dad201d345ea1a036cc12c360f1a7d5a758f78ffa42c
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   hive_ce:
     dependency: transitive
     description:
