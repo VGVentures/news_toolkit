@@ -3,7 +3,7 @@ import 'package:formz/formz.dart';
 /// Email Form Input Validation Error
 enum EmailValidationError {
   /// Email is invalid (generic validation error)
-  invalid
+  invalid,
 }
 
 /// {@template email}

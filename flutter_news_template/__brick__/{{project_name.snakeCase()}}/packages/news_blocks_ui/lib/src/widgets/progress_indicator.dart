@@ -24,9 +24,7 @@ class ProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return ColoredBox(
       color: color,
-      child: Center(
-        child: CircularProgressIndicator(value: progress),
-      ),
+      child: Center(child: CircularProgressIndicator(value: progress)),
     );
   }
 }

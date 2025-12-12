@@ -23,10 +23,7 @@ void main() {
     });
 
     testWidgets('renders cancel and delete account buttons', (tester) async {
-      await tester.pumpApp(
-        UserProfileDeleteAccountDialog(),
-        appBloc: appBloc,
-      );
+      await tester.pumpApp(UserProfileDeleteAccountDialog(), appBloc: appBloc);
 
       expect(cancelButton, findsOneWidget);
       expect(deleteAccountButton, findsOneWidget);
@@ -50,8 +47,7 @@ void main() {
       verify(navigator.pop).called(1);
     });
 
-    testWidgets(
-        'adds AppDeleteAccountRequested to AppBloc and closes dialog '
+    testWidgets('adds AppDeleteAccountRequested to AppBloc and closes dialog '
         'when delete account button is pressed', (tester) async {
       final navigator = MockNavigator();
       when(navigator.canPop).thenAnswer((_) => true);

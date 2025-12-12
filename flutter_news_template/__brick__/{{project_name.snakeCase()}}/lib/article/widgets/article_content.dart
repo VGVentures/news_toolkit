@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
+import 'package:{{project_name.snakeCase()}}/categories/categories.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 import 'package:{{project_name.snakeCase()}}/network_error/network_error.dart';
 import 'package:{{project_name.snakeCase()}}_api/client.dart';
@@ -15,11 +18,18 @@ class ArticleContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final status = context.select((ArticleBloc bloc) => bloc.state.status);
+    final categoriesStatus = context.select(
+      (CategoriesBloc bloc) => bloc.state.status,
+    );
 
-    final hasMoreContent =
-        context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
+    final hasMoreContent = context.select(
+      (ArticleBloc bloc) => bloc.state.hasMoreContent,
+    );
 
-    if (status == ArticleStatus.initial) {
+    /// Show loader while categories are loading as articles may need to consume
+    /// them
+    if (status == ArticleStatus.initial ||
+        categoriesStatus == CategoriesStatus.initial) {
       return const ArticleContentLoaderItem(
         key: Key('articleContent_empty_loaderItem'),
       );
@@ -29,12 +39,14 @@ class ArticleContent extends StatelessWidget {
       child: BlocListener<ArticleBloc, ArticleState>(
         listener: (context, state) {
           if (state.status == ArticleStatus.failure && state.content.isEmpty) {
-            Navigator.of(context).push<void>(
-              NetworkError.route(
-                onRetry: () {
-                  context.read<ArticleBloc>().add(const ArticleRequested());
-                  Navigator.of(context).pop();
-                },
+            unawaited(
+              Navigator.of(context).push<void>(
+                NetworkError.route(
+                  onRetry: () {
+                    context.read<ArticleBloc>().add(const ArticleRequested());
+                    Navigator.of(context).pop();
+                  },
+                ),
               ),
             );
           } else if (state.status == ArticleStatus.shareFailure) {
@@ -65,19 +77,14 @@ class ArticleContent extends StatelessWidget {
       ..showSnackBar(
         SnackBar(
           key: const Key('articleContent_shareFailure_snackBar'),
-          content: Text(
-            context.l10n.shareFailure,
-          ),
+          content: Text(context.l10n.shareFailure),
         ),
       );
   }
 }
 
 class ArticleContentSeenListener extends StatelessWidget {
-  const ArticleContentSeenListener({
-    required this.child,
-    super.key,
-  });
+  const ArticleContentSeenListener({required this.child, super.key});
 
   final Widget child;
 
@@ -85,13 +92,13 @@ class ArticleContentSeenListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<ArticleBloc, ArticleState>(
       listener: (context, state) => context.read<AnalyticsBloc>().add(
-            TrackAnalyticsEvent(
-              ArticleMilestoneEvent(
-                milestonePercentage: state.contentMilestone,
-                articleTitle: state.title!,
-              ),
-            ),
+        TrackAnalyticsEvent(
+          ArticleMilestoneEvent(
+            milestonePercentage: state.contentMilestone,
+            articleTitle: state.title!,
           ),
+        ),
+      ),
       listenWhen: (previous, current) =>
           previous.contentMilestone != current.contentMilestone,
       child: child,
@@ -107,57 +114,54 @@ class ArticleContentItemList extends StatelessWidget {
     final isFailure = context.select(
       (ArticleBloc bloc) => bloc.state.status == ArticleStatus.failure,
     );
-    final hasMoreContent =
-        context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
+    final hasMoreContent = context.select(
+      (ArticleBloc bloc) => bloc.state.hasMoreContent,
+    );
 
     final status = context.select((ArticleBloc bloc) => bloc.state.status);
     final content = context.select((ArticleBloc bloc) => bloc.state.content);
     final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
-    final isArticlePreview =
-        context.select((ArticleBloc bloc) => bloc.state.isPreview);
+    final isArticlePreview = context.select(
+      (ArticleBloc bloc) => bloc.state.isPreview,
+    );
 
     return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) {
-          if (index == content.length) {
-            if (isFailure) {
-              return NetworkError(
-                onRetry: () {
-                  context.read<ArticleBloc>().add(const ArticleRequested());
-                },
-              );
-            }
-            return hasMoreContent
-                ? Padding(
-                    padding: EdgeInsets.only(
-                      top: content.isEmpty ? AppSpacing.xxxlg : 0,
-                    ),
-                    child: ArticleContentLoaderItem(
-                      key: const Key(
-                        'articleContent_moreContent_loaderItem',
-                      ),
-                      onPresented: () {
-                        if (status != ArticleStatus.loading) {
-                          context
-                              .read<ArticleBloc>()
-                              .add(const ArticleRequested());
-                        }
-                      },
-                    ),
-                  )
-                : const SizedBox();
+      delegate: SliverChildBuilderDelegate((context, index) {
+        if (index == content.length) {
+          if (isFailure) {
+            return NetworkError(
+              onRetry: () {
+                context.read<ArticleBloc>().add(const ArticleRequested());
+              },
+            );
           }
+          return hasMoreContent
+              ? Padding(
+                  padding: EdgeInsets.only(
+                    top: content.isEmpty ? AppSpacing.xxxlg : 0,
+                  ),
+                  child: ArticleContentLoaderItem(
+                    key: const Key('articleContent_moreContent_loaderItem'),
+                    onPresented: () {
+                      if (status != ArticleStatus.loading) {
+                        context.read<ArticleBloc>().add(
+                          const ArticleRequested(),
+                        );
+                      }
+                    },
+                  ),
+                )
+              : const SizedBox();
+        }
 
-          return _buildArticleItem(
-            context,
-            index,
-            content,
-            uri,
-            isArticlePreview,
-          );
-        },
-        childCount: content.length + 1,
-      ),
+        return _buildArticleItem(
+          context,
+          index,
+          content,
+          uri,
+          isArticlePreview,
+        );
+      }, childCount: content.length + 1),
     );
   }
 
@@ -175,17 +179,15 @@ class ArticleContentItemList extends StatelessWidget {
       key: ValueKey(block),
       onVisibilityChanged: (visibility) {
         if (!visibility.visibleBounds.isEmpty) {
-          context
-              .read<ArticleBloc>()
-              .add(ArticleContentSeen(contentIndex: index));
+          context.read<ArticleBloc>().add(
+            ArticleContentSeen(contentIndex: index),
+          );
         }
       },
       child: ArticleContentItem(
         block: block,
         onSharePressed: uri != null && uri.toString().isNotEmpty
-            ? () => context.read<ArticleBloc>().add(
-                  ShareRequested(uri: uri),
-                )
+            ? () => context.read<ArticleBloc>().add(ShareRequested(uri: uri))
             : null,
       ),
     );

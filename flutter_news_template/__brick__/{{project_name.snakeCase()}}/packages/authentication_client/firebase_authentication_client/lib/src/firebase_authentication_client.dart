@@ -7,12 +7,13 @@ import 'package:token_storage/token_storage.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 /// Signature for [SignInWithApple.getAppleIDCredential].
-typedef GetAppleCredentials = Future<AuthorizationCredentialAppleID> Function({
-  required List<AppleIDAuthorizationScopes> scopes,
-  WebAuthenticationOptions webAuthenticationOptions,
-  String nonce,
-  String state,
-});
+typedef GetAppleCredentials =
+    Future<AuthorizationCredentialAppleID> Function({
+      required List<AppleIDAuthorizationScopes> scopes,
+      WebAuthenticationOptions webAuthenticationOptions,
+      String nonce,
+      String state,
+    });
 
 /// {@template firebase_authentication_client}
 /// A Firebase implementation of the [AuthenticationClient] interface.
@@ -26,18 +27,19 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     GetAppleCredentials? getAppleCredentials,
     FacebookAuth? facebookAuth,
     TwitterLogin? twitterLogin,
-  })  : _tokenStorage = tokenStorage,
-        _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
-        _getAppleCredentials =
-            getAppleCredentials ?? SignInWithApple.getAppleIDCredential,
-        _facebookAuth = facebookAuth ?? FacebookAuth.instance,
-        _twitterLogin = twitterLogin ??
-            TwitterLogin(
-              apiKey: const String.fromEnvironment('TWITTER_API_KEY'),
-              apiSecretKey: const String.fromEnvironment('TWITTER_API_SECRET'),
-              redirectURI: const String.fromEnvironment('TWITTER_REDIRECT_URI'),
-            ) {
+  }) : _tokenStorage = tokenStorage,
+       _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
+       _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
+       _getAppleCredentials =
+           getAppleCredentials ?? SignInWithApple.getAppleIDCredential,
+       _facebookAuth = facebookAuth ?? FacebookAuth.instance,
+       _twitterLogin =
+           twitterLogin ??
+           TwitterLogin(
+             apiKey: const String.fromEnvironment('TWITTER_API_KEY'),
+             apiSecretKey: const String.fromEnvironment('TWITTER_API_SECRET'),
+             redirectURI: const String.fromEnvironment('TWITTER_REDIRECT_URI'),
+           ) {
     user.listen(_onUserChanged);
   }
 
@@ -123,9 +125,7 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
           Exception('Sign in with Facebook canceled'),
         );
       } else if (loginResult.status == LoginStatus.failed) {
-        throw LogInWithFacebookFailure(
-          Exception(loginResult.message),
-        );
+        throw LogInWithFacebookFailure(Exception(loginResult.message));
       }
 
       final accessToken = loginResult.accessToken?.tokenString;
@@ -137,8 +137,9 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
         );
       }
 
-      final credential =
-          firebase_auth.FacebookAuthProvider.credential(accessToken);
+      final credential = firebase_auth.FacebookAuthProvider.credential(
+        accessToken,
+      );
 
       await _firebaseAuth.signInWithCredential(credential);
     } on LogInWithFacebookCanceled {
@@ -161,9 +162,7 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
           Exception('Sign in with Twitter canceled'),
         );
       } else if (loginResult.status == TwitterLoginStatus.error) {
-        throw LogInWithTwitterFailure(
-          Exception(loginResult.errorMessage),
-        );
+        throw LogInWithTwitterFailure(Exception(loginResult.errorMessage));
       }
 
       final authToken = loginResult.authToken;
@@ -262,10 +261,7 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
   @override
   Future<void> logOut() async {
     try {
-      await Future.wait([
-        _firebaseAuth.signOut(),
-        _googleSignIn.signOut(),
-      ]);
+      await Future.wait([_firebaseAuth.signOut(), _googleSignIn.signOut()]);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(LogOutFailure(error), stackTrace);
     }
@@ -277,9 +273,7 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     try {
       final user = _firebaseAuth.currentUser;
       if (user == null) {
-        throw DeleteAccountFailure(
-          Exception('User is not authenticated'),
-        );
+        throw DeleteAccountFailure(Exception('User is not authenticated'));
       }
 
       await user.delete();

@@ -14,9 +14,7 @@ class LoginModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => LoginBloc(
-        userRepository: context.read<UserRepository>(),
-      ),
+      create: (_) => LoginBloc(userRepository: context.read<UserRepository>()),
       child: const LoginForm(),
     );
   }

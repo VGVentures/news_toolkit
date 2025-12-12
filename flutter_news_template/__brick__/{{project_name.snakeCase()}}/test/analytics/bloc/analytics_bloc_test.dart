@@ -36,15 +36,17 @@ void main() {
       setUp(() {
         user = MockUser();
         when(() => user.id).thenReturn('id');
-        when(() => analyticsRepository.setUserId(any()))
-            .thenAnswer((_) async {});
+        when(
+          () => analyticsRepository.setUserId(any()),
+        ).thenAnswer((_) async {});
       });
 
       blocTest<AnalyticsBloc, AnalyticsState>(
         'calls AnalyticsRepository.setUserId '
         'with null when user is anonymous',
-        setUp: () => when(() => userRepository.user)
-            .thenAnswer((_) => Stream.value(User.anonymous)),
+        setUp: () => when(
+          () => userRepository.user,
+        ).thenAnswer((_) => Stream.value(User.anonymous)),
         build: () => AnalyticsBloc(
           analyticsRepository: analyticsRepository,
           userRepository: userRepository,
@@ -57,8 +59,9 @@ void main() {
       blocTest<AnalyticsBloc, AnalyticsState>(
         'calls AnalyticsRepository.setUserId '
         'with user id when user is not anonymous',
-        setUp: () => when(() => userRepository.user)
-            .thenAnswer((_) => Stream.value(user)),
+        setUp: () => when(
+          () => userRepository.user,
+        ).thenAnswer((_) => Stream.value(user)),
         build: () => AnalyticsBloc(
           analyticsRepository: analyticsRepository,
           userRepository: userRepository,
@@ -73,8 +76,9 @@ void main() {
         'when AnalyticsRepository.setUserId throws',
         setUp: () {
           when(() => userRepository.user).thenAnswer((_) => Stream.value(user));
-          when(() => analyticsRepository.setUserId(any()))
-              .thenThrow(Exception());
+          when(
+            () => analyticsRepository.setUserId(any()),
+          ).thenThrow(Exception());
         },
         build: () => AnalyticsBloc(
           analyticsRepository: analyticsRepository,
@@ -126,8 +130,9 @@ void main() {
 
       setUp(() {
         userController = StreamController<User>();
-        when(() => userRepository.user)
-            .thenAnswer((_) => userController.stream);
+        when(
+          () => userRepository.user,
+        ).thenAnswer((_) => userController.stream);
       });
 
       blocTest<AnalyticsBloc, AnalyticsState>(

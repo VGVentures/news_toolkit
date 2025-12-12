@@ -17,8 +17,7 @@ void main() {
         BuildContext context,
         String url,
         DownloadProgress progress,
-      ) =>
-          ProgressIndicator();
+      ) => ProgressIndicator();
 
       await mockNetworkImages(
         () async => tester.pumpApp(

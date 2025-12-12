@@ -94,9 +94,9 @@ class InAppPurchaseRepository {
     required AuthenticationClient authenticationClient,
     required {{project_name.pascalCase()}}ApiClient apiClient,
     required InAppPurchase inAppPurchase,
-  })  : _apiClient = apiClient,
-        _authenticationClient = authenticationClient,
-        _inAppPurchase = inAppPurchase {
+  }) : _apiClient = apiClient,
+       _authenticationClient = authenticationClient,
+       _inAppPurchase = inAppPurchase {
     _inAppPurchase.purchaseStream
         .expand((value) => value)
         .listen(_onPurchaseUpdated);
@@ -131,10 +131,7 @@ class InAppPurchaseRepository {
       _cachedSubscriptions = response.subscriptions;
       return _cachedSubscriptions ?? [];
     } catch (error, stackTrace) {
-      Error.throwWithStackTrace(
-        FetchSubscriptionsFailure(error),
-        stackTrace,
-      );
+      Error.throwWithStackTrace(FetchSubscriptionsFailure(error), stackTrace);
     }
   }
 
@@ -143,11 +140,10 @@ class InAppPurchaseRepository {
   /// When the payment is successfully completed, the app informs
   /// the server about the purchased subscription. The server then verifies
   /// if the purchase was correct and updates user's subscription.
-  Future<void> purchase({
-    required Subscription subscription,
-  }) async {
-    final productDetailsResponse =
-        await _inAppPurchase.queryProductDetails({subscription.id});
+  Future<void> purchase({required Subscription subscription}) async {
+    final productDetailsResponse = await _inAppPurchase.queryProductDetails({
+      subscription.id,
+    });
 
     if (productDetailsResponse.error != null) {
       Error.throwWithStackTrace(
@@ -186,8 +182,9 @@ class InAppPurchaseRepository {
       applicationUserName: user.id,
     );
 
-    final isPurchaseRequestSuccessful =
-        await _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
+    final isPurchaseRequestSuccessful = await _inAppPurchase.buyNonConsumable(
+      purchaseParam: purchaseParam,
+    );
 
     if (!isPurchaseRequestSuccessful) {
       Error.throwWithStackTrace(
@@ -221,9 +218,7 @@ class InAppPurchaseRepository {
     if (purchase.status == PurchaseStatus.error) {
       _purchaseUpdateStreamController.add(
         PurchaseFailed(
-          failure: InternalInAppPurchaseFailure(
-            purchase.error.toString(),
-          ),
+          failure: InternalInAppPurchaseFailure(purchase.error.toString()),
         ),
       );
     }
@@ -231,8 +226,9 @@ class InAppPurchaseRepository {
     try {
       if (purchase.status == PurchaseStatus.purchased ||
           purchase.status == PurchaseStatus.restored) {
-        final purchasedProduct = (await fetchSubscriptions())
-            .firstWhere((product) => product.id == purchase.productID);
+        final purchasedProduct = (await fetchSubscriptions()).firstWhere(
+          (product) => product.id == purchase.productID,
+        );
 
         _purchaseUpdateStreamController.add(
           PurchasePurchased(subscription: purchasedProduct),
@@ -246,13 +242,9 @@ class InAppPurchaseRepository {
           PurchaseDelivered(subscription: purchasedProduct),
         );
       }
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       _purchaseUpdateStreamController.addError(
-        PurchaseFailed(
-          failure: DeliverInAppPurchaseFailure(
-            error,
-          ),
-        ),
+        PurchaseFailed(failure: DeliverInAppPurchaseFailure(error)),
         stackTrace,
       );
     }
@@ -266,18 +258,12 @@ class InAppPurchaseRepository {
         await _inAppPurchase.completePurchase(purchase);
 
         _purchaseUpdateStreamController.add(
-          PurchaseCompleted(
-            subscription: purchasedSubscription,
-          ),
+          PurchaseCompleted(subscription: purchasedSubscription),
         );
       }
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       _purchaseUpdateStreamController.addError(
-        PurchaseFailed(
-          failure: CompleteInAppPurchaseFailure(
-            error,
-          ),
-        ),
+        PurchaseFailed(failure: CompleteInAppPurchaseFailure(error)),
         stackTrace,
       );
     }
@@ -297,9 +283,7 @@ abstract class PurchaseUpdate extends Equatable {
 /// {@endtemplate}
 class PurchaseDelivered extends PurchaseUpdate {
   /// {@macro purchase_delivered}
-  const PurchaseDelivered({
-    required this.subscription,
-  }) : super();
+  const PurchaseDelivered({required this.subscription}) : super();
 
   /// A subscription associated with a purchase that was delivered.
   final Subscription subscription;
@@ -313,9 +297,7 @@ class PurchaseDelivered extends PurchaseUpdate {
 /// {@endtemplate}
 class PurchaseCompleted extends PurchaseUpdate {
   /// {@macro purchase_completed}
-  const PurchaseCompleted({
-    required this.subscription,
-  }) : super();
+  const PurchaseCompleted({required this.subscription}) : super();
 
   /// A subscription that was successfully purchased.
   final Subscription subscription;
@@ -329,9 +311,7 @@ class PurchaseCompleted extends PurchaseUpdate {
 /// {@endtemplate}
 class PurchasePurchased extends PurchaseUpdate {
   /// {@macro purchase_purchased}
-  const PurchasePurchased({
-    required this.subscription,
-  }) : super();
+  const PurchasePurchased({required this.subscription}) : super();
 
   /// A subscription that was successfully purchased.
   final Subscription subscription;
@@ -356,9 +336,7 @@ class PurchaseCanceled extends PurchaseUpdate {
 /// {@endtemplate}
 class PurchaseFailed extends PurchaseUpdate {
   /// {@macro purchase_failed}
-  const PurchaseFailed({
-    required this.failure,
-  }) : super();
+  const PurchaseFailed({required this.failure}) : super();
 
   /// A failure which occurred when purchasing a subscription.
   final InAppPurchaseFailure failure;

@@ -8,19 +8,20 @@ part of 'spacer_block.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SpacerBlock _$SpacerBlockFromJson(Map<String, dynamic> json) => $checkedCreate(
-      'SpacerBlock',
-      json,
-      ($checkedConvert) {
-        final val = SpacerBlock(
-          spacing: $checkedConvert(
-              'spacing', (v) => $enumDecode(_$SpacingEnumMap, v)),
-          type: $checkedConvert(
-              'type', (v) => v as String? ?? SpacerBlock.identifier),
-        );
-        return val;
-      },
-    );
+SpacerBlock _$SpacerBlockFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('SpacerBlock', json, ($checkedConvert) {
+      final val = SpacerBlock(
+        spacing: $checkedConvert(
+          'spacing',
+          (v) => $enumDecode(_$SpacingEnumMap, v),
+        ),
+        type: $checkedConvert(
+          'type',
+          (v) => v as String? ?? SpacerBlock.identifier,
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$SpacerBlockToJson(SpacerBlock instance) =>
     <String, dynamic>{

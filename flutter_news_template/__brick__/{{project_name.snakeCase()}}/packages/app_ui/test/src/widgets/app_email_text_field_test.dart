@@ -12,18 +12,14 @@ void main() {
 
     group('email', () {
       testWidgets('has keyboardType set to emailAddress', (tester) async {
-        await tester.pumpApp(
-          AppEmailTextField(),
-        );
+        await tester.pumpApp(AppEmailTextField());
 
         final field = tester.widget<AppTextField>(find.byType(AppTextField));
         expect(field.keyboardType, TextInputType.emailAddress);
       });
 
       testWidgets('has autocorrect set to false', (tester) async {
-        await tester.pumpApp(
-          AppEmailTextField(),
-        );
+        await tester.pumpApp(AppEmailTextField());
 
         final field = tester.widget<AppTextField>(find.byType(AppTextField));
         expect(field.autocorrect, false);
@@ -32,11 +28,7 @@ void main() {
 
     group('renders', () {
       testWidgets('hint text', (tester) async {
-        await tester.pumpApp(
-          AppEmailTextField(
-            hintText: hintText,
-          ),
-        );
+        await tester.pumpApp(AppEmailTextField(hintText: hintText));
         expect(find.text(hintText), findsOneWidget);
       });
     });

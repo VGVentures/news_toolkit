@@ -6,10 +6,7 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class NewsletterContainer extends StatelessWidget {
   /// {@macro newsletter_container}
-  const NewsletterContainer({
-    super.key,
-    this.child,
-  });
+  const NewsletterContainer({super.key, this.child});
 
   /// The widget displayed in newsletter container.
   final Widget? child;

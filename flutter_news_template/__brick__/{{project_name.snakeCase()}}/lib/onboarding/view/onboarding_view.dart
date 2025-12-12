@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,10 +29,12 @@ class _OnboardingViewState extends State<OnboardingView> {
         if ((state is EnablingAdTrackingSucceeded ||
                 state is EnablingAdTrackingFailed) &&
             _controller.page != _onboardingPageTwo) {
-          _controller.animateToPage(
-            _onboardingPageTwo,
-            duration: _onboardingItemSwitchDuration,
-            curve: Curves.easeInOut,
+          unawaited(
+            _controller.animateToPage(
+              _onboardingPageTwo,
+              duration: _onboardingItemSwitchDuration,
+              curve: Curves.easeInOut,
+            ),
           );
         } else if (state is EnablingNotificationsSucceeded) {
           context.read<AppBloc>().add(const AppOnboardingCompleted());
@@ -58,11 +62,12 @@ class _OnboardingViewState extends State<OnboardingView> {
                         title: l10n.onboardingItemFirstTitle,
                         subtitle: l10n.onboardingItemFirstSubtitleTitle,
                         primaryButton: AppButton.darkAqua(
-                          key:
-                              const Key('onboardingItem_primaryButton_pageOne'),
-                          onPressed: () => context
-                              .read<OnboardingBloc>()
-                              .add(const EnableAdTrackingRequested()),
+                          key: const Key(
+                            'onboardingItem_primaryButton_pageOne',
+                          ),
+                          onPressed: () => context.read<OnboardingBloc>().add(
+                            const EnableAdTrackingRequested(),
+                          ),
                           child: Text(l10n.onboardingItemFirstButtonTitle),
                         ),
                         secondaryButton: AppButton.smallTransparent(
@@ -85,20 +90,21 @@ class _OnboardingViewState extends State<OnboardingView> {
                         title: l10n.onboardingItemSecondTitle,
                         subtitle: l10n.onboardingItemSecondSubtitleTitle,
                         primaryButton: AppButton.darkAqua(
-                          key:
-                              const Key('onboardingItem_primaryButton_pageTwo'),
-                          onPressed: () => context
-                              .read<OnboardingBloc>()
-                              .add(const EnableNotificationsRequested()),
+                          key: const Key(
+                            'onboardingItem_primaryButton_pageTwo',
+                          ),
+                          onPressed: () => context.read<OnboardingBloc>().add(
+                            const EnableNotificationsRequested(),
+                          ),
                           child: Text(l10n.onboardingItemSecondButtonTitle),
                         ),
                         secondaryButton: AppButton.smallTransparent(
                           key: const Key(
                             'onboardingItem_secondaryButton_pageTwo',
                           ),
-                          onPressed: () => context
-                              .read<AppBloc>()
-                              .add(const AppOnboardingCompleted()),
+                          onPressed: () => context.read<AppBloc>().add(
+                            const AppOnboardingCompleted(),
+                          ),
                           child: Text(
                             context.l10n.onboardingItemSecondaryButtonTitle,
                           ),
@@ -137,9 +143,7 @@ class _OnboardingTitle extends StatelessWidget {
       ),
       child: Text(
         context.l10n.onboardingWelcomeTitle,
-        style: theme.textTheme.displayLarge?.apply(
-          color: AppColors.white,
-        ),
+        style: theme.textTheme.displayLarge?.apply(color: AppColors.white),
         textAlign: TextAlign.center,
       ),
     );
@@ -155,14 +159,10 @@ class _OnboardingSubtitle extends StatelessWidget {
 
     return Padding(
       key: const Key('onboardingView_onboardingSubtitle'),
-      padding: const EdgeInsets.only(
-        top: AppSpacing.xlg,
-      ),
+      padding: const EdgeInsets.only(top: AppSpacing.xlg),
       child: Text(
         context.l10n.onboardingSubtitle,
-        style: theme.textTheme.titleMedium?.apply(
-          color: AppColors.white,
-        ),
+        style: theme.textTheme.titleMedium?.apply(color: AppColors.white),
         textAlign: TextAlign.center,
       ),
     );

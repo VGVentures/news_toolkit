@@ -17,8 +17,6 @@ class MockBannerAd extends Mock implements BannerAd {}
 
 class MockPlatform extends Mock implements Platform {}
 
-class MockLoadAdError extends Mock implements LoadAdError {}
-
 void main() {
   group('BannerAdContent', () {
     late AdSize capturedSize;
@@ -39,21 +37,21 @@ void main() {
       when(() => ad.size).thenReturn(AdSize.banner);
       when(ad.dispose).thenAnswer((_) async {});
 
-      adBuilder = ({
-        required AdSize size,
-        required String adUnitId,
-        required BannerAdListener listener,
-        required AdRequest request,
-      }) {
-        capturedSize = size;
-        capturedAdUnitId = adUnitId;
-        capturedListener = listener;
-        return ad;
-      };
+      adBuilder =
+          ({
+            required AdSize size,
+            required String adUnitId,
+            required BannerAdListener listener,
+            required AdRequest request,
+          }) {
+            capturedSize = size;
+            capturedAdUnitId = adUnitId;
+            capturedListener = listener;
+            return ad;
+          };
     });
 
-    testWidgets(
-        'loads ad object correctly '
+    testWidgets('loads ad object correctly '
         'on Android', (tester) async {
       await tester.pumpApp(
         BannerAdContent(
@@ -68,8 +66,7 @@ void main() {
       verify(ad.load).called(1);
     });
 
-    testWidgets(
-        'loads ad object correctly '
+    testWidgets('loads ad object correctly '
         'on iOS', (tester) async {
       when(() => platform.isIOS).thenReturn(true);
       when(() => platform.isAndroid).thenReturn(false);
@@ -81,10 +78,10 @@ void main() {
           currentPlatform: platform,
           anchoredAdaptiveAdSizeProvider: (orientation, width) async =>
               AnchoredAdaptiveBannerAdSize(
-            Orientation.portrait,
-            width: 100,
-            height: 100,
-          ),
+                Orientation.portrait,
+                width: 100,
+                height: 100,
+              ),
         ),
       );
 
@@ -93,8 +90,7 @@ void main() {
       verify(ad.load).called(1);
     });
 
-    testWidgets(
-        'loads ad object correctly '
+    testWidgets('loads ad object correctly '
         'with provided adUnitId', (tester) async {
       const adUnitId = 'adUnitId';
 
@@ -106,10 +102,10 @@ void main() {
           currentPlatform: platform,
           anchoredAdaptiveAdSizeProvider: (orientation, width) async =>
               AnchoredAdaptiveBannerAdSize(
-            Orientation.portrait,
-            width: 100,
-            height: 100,
-          ),
+                Orientation.portrait,
+                width: 100,
+                height: 100,
+              ),
         ),
       );
 
@@ -118,8 +114,7 @@ void main() {
       verify(ad.load).called(1);
     });
 
-    testWidgets(
-        'renders ProgressIndicator '
+    testWidgets('renders ProgressIndicator '
         'when ad is loading '
         'and showProgressIndicator is true', (tester) async {
       await tester.pumpApp(
@@ -134,8 +129,7 @@ void main() {
       expect(find.byType(AdWidget), findsNothing);
     });
 
-    testWidgets(
-        'does not render ProgressIndicator '
+    testWidgets('does not render ProgressIndicator '
         'when ad is loading '
         'and showProgressIndicator is false', (tester) async {
       await tester.pumpApp(
@@ -199,8 +193,9 @@ void main() {
       );
     });
 
-    testWidgets('uses AdSize.mediumRectangle for BannerAdSize.large',
-        (tester) async {
+    testWidgets('uses AdSize.mediumRectangle for BannerAdSize.large', (
+      tester,
+    ) async {
       const expectedSize = AdSize.mediumRectangle;
       when(() => ad.size).thenReturn(expectedSize);
 
@@ -225,8 +220,9 @@ void main() {
       );
     });
 
-    testWidgets('uses AdSize(300, 600) for BannerAdSize.extraLarge',
-        (tester) async {
+    testWidgets('uses AdSize(300, 600) for BannerAdSize.extraLarge', (
+      tester,
+    ) async {
       const expectedSize = AdSize(width: 300, height: 600);
       when(() => ad.size).thenReturn(expectedSize);
 
@@ -266,28 +262,30 @@ void main() {
       verify(ad.dispose).called(1);
     });
 
-    testWidgets(
-        'retries loading ad based on AdsRetryPolicy '
+    testWidgets('retries loading ad based on AdsRetryPolicy '
         'and renders placeholder '
         'when ad fails to load', (tester) async {
       final fakeAsync = FakeAsync();
       const adFailedToLoadTitle = 'adFailedToLoadTitle';
       final adsRetryPolicy = AdsRetryPolicy();
 
-      adBuilder = ({
-        required AdSize size,
-        required String adUnitId,
-        required BannerAdListener listener,
-        required AdRequest request,
-      }) {
-        Future.microtask(
-          () => listener.onAdFailedToLoad!(
-            ad,
-            LoadAdError(0, 'domain', 'message', null),
-          ),
-        );
-        return ad;
-      };
+      adBuilder =
+          ({
+            required AdSize size,
+            required String adUnitId,
+            required BannerAdListener listener,
+            required AdRequest request,
+          }) {
+            unawaited(
+              Future.microtask(
+                () => listener.onAdFailedToLoad!(
+                  ad,
+                  LoadAdError(0, 'domain', 'message', null),
+                ),
+              ),
+            );
+            return ad;
+          };
 
       final errors = <Object>[];
       FlutterError.onError = (error) => errors.add(error.exception);
@@ -333,8 +331,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'throws BannerAdFailedToGetSizeException '
+    testWidgets('throws BannerAdFailedToGetSizeException '
         'for BannerAdSize.anchoredAdaptive '
         'when ad size fails to load', (tester) async {
       await tester.pumpApp(
@@ -346,10 +343,7 @@ void main() {
         ),
       );
 
-      expect(
-        tester.takeException(),
-        isA<BannerAdFailedToGetSizeException>(),
-      );
+      expect(tester.takeException(), isA<BannerAdFailedToGetSizeException>());
     });
   });
 }

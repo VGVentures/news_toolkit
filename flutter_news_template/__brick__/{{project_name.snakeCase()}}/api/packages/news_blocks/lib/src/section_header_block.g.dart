@@ -9,27 +9,24 @@ part of 'section_header_block.dart';
 // **************************************************************************
 
 SectionHeaderBlock _$SectionHeaderBlockFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'SectionHeaderBlock',
-      json,
-      ($checkedConvert) {
-        final val = SectionHeaderBlock(
-          title: $checkedConvert('title', (v) => v as String),
-          action: $checkedConvert(
-              'action',
-              (v) => const BlockActionConverter()
-                  .fromJson(v as Map<String, dynamic>?)),
-          type: $checkedConvert(
-              'type', (v) => v as String? ?? SectionHeaderBlock.identifier),
-        );
-        return val;
-      },
-    );
+    $checkedCreate('SectionHeaderBlock', json, ($checkedConvert) {
+      final val = SectionHeaderBlock(
+        title: $checkedConvert('title', (v) => v as String),
+        action: $checkedConvert(
+          'action',
+          (v) =>
+              const BlockActionConverter().fromJson(v as Map<String, dynamic>?),
+        ),
+        type: $checkedConvert(
+          'type',
+          (v) => v as String? ?? SectionHeaderBlock.identifier,
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$SectionHeaderBlockToJson(SectionHeaderBlock instance) {
-  final val = <String, dynamic>{
-    'title': instance.title,
-  };
+  final val = <String, dynamic>{'title': instance.title};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {

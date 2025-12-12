@@ -19,13 +19,14 @@ extension PurchaseDetailsCopyWith on PurchaseDetails {
     bool? pendingCompletePurchase,
   }) =>
       PurchaseDetails(
-        purchaseID: purchaseID ?? this.purchaseID,
-        productID: productID ?? this.productID,
-        verificationData: verificationData ?? this.verificationData,
-        transactionDate: transactionDate ?? this.transactionDate,
-        status: status ?? this.status,
-      )..pendingCompletePurchase =
-          pendingCompletePurchase ?? this.pendingCompletePurchase;
+          purchaseID: purchaseID ?? this.purchaseID,
+          productID: productID ?? this.productID,
+          verificationData: verificationData ?? this.verificationData,
+          transactionDate: transactionDate ?? this.transactionDate,
+          status: status ?? this.status,
+        )
+        ..pendingCompletePurchase =
+            pendingCompletePurchase ?? this.pendingCompletePurchase;
 }
 
 /// {@template purchase_client}
@@ -52,8 +53,7 @@ class PurchaseClient implements InAppPurchase {
   Future<bool> buyConsumable({
     required PurchaseParam purchaseParam,
     bool autoConsume = true,
-  }) =>
-      throw UnimplementedError();
+  }) => throw UnimplementedError();
 
   @override
   Future<bool> buyNonConsumable({required PurchaseParam purchaseParam}) async {
@@ -120,7 +120,6 @@ class PurchaseClient implements InAppPurchase {
   }
 
   @override
-
   /// This method is not implemented as the scope of this template
   /// is limited.
   Future<String> countryCode() {

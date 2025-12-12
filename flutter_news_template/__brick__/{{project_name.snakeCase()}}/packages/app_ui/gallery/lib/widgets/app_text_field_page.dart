@@ -11,20 +11,13 @@ class AppTextFieldPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Text Field',
-        ),
-      ),
+      appBar: AppBar(title: const Text('Text Field')),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
           children: [
             const AppEmailTextField(),
-            AppTextField(
-              hintText: 'Default text field',
-              onChanged: (_) {},
-            ),
+            AppTextField(hintText: 'Default text field', onChanged: (_) {}),
           ],
         ),
       ),

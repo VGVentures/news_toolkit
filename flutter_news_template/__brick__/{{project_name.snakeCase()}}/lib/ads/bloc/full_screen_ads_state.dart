@@ -25,7 +25,7 @@ class FullScreenAdsState extends Equatable {
   });
 
   const FullScreenAdsState.initial()
-      : this(status: FullScreenAdsStatus.initial);
+    : this(status: FullScreenAdsStatus.initial);
 
   final ads.InterstitialAd? interstitialAd;
   final ads.RewardedAd? rewardedAd;
@@ -40,20 +40,16 @@ class FullScreenAdsState extends Equatable {
     ads.RewardedAd? rewardedAd,
     ads.RewardItem? earnedReward,
     FullScreenAdsStatus? status,
-  }) =>
-      FullScreenAdsState(
-        interstitialAd: interstitialAd ?? this.interstitialAd,
-        rewardedAd: rewardedAd ?? this.rewardedAd,
-        earnedReward: earnedReward ?? this.earnedReward,
-        status: status ?? this.status,
-      );
+  }) => FullScreenAdsState(
+    interstitialAd: interstitialAd ?? this.interstitialAd,
+    rewardedAd: rewardedAd ?? this.rewardedAd,
+    earnedReward: earnedReward ?? this.earnedReward,
+    status: status ?? this.status,
+  );
 }
 
 class FullScreenAdsConfig {
-  const FullScreenAdsConfig({
-    this.interstitialAdUnitId,
-    this.rewardedAdUnitId,
-  });
+  const FullScreenAdsConfig({this.interstitialAdUnitId, this.rewardedAdUnitId});
 
   /// The unit id of an interstitial ad.
   final String? interstitialAdUnitId;

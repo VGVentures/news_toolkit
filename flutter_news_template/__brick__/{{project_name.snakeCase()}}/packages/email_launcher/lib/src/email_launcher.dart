@@ -35,8 +35,8 @@ class EmailLauncher {
   EmailLauncher({
     LaunchUrlProvider? launchUrlProvider,
     CanLaunchUrlProvider? canLaunchProvider,
-  })  : _launchUrlProvider = launchUrlProvider ?? launchUrl,
-        _canLaunchUrlProvider = canLaunchProvider ?? canLaunchUrl;
+  }) : _launchUrlProvider = launchUrlProvider ?? launchUrl,
+       _canLaunchUrlProvider = canLaunchProvider ?? canLaunchUrl;
 
   final LaunchUrlProvider _launchUrlProvider;
   final CanLaunchUrlProvider _canLaunchUrlProvider;

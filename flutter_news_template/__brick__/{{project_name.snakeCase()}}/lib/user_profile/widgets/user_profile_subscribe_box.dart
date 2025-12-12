@@ -26,8 +26,9 @@ class UserProfileSubscribeBox extends StatelessWidget {
           const SizedBox(height: AppSpacing.lg),
           Text(
             l10n.userProfileSubscribeBoxMessage,
-            style: theme.textTheme.bodyMedium
-                ?.copyWith(color: AppColors.mediumEmphasisSurface),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: AppColors.mediumEmphasisSurface,
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           AppButton.smallRedWine(
@@ -35,9 +36,7 @@ class UserProfileSubscribeBox extends StatelessWidget {
             onPressed: onSubscribePressed,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(l10n.userProfileSubscribeNowButtonText),
-              ],
+              children: [Text(l10n.userProfileSubscribeNowButtonText)],
             ),
           ),
           const SizedBox(height: AppSpacing.lg),

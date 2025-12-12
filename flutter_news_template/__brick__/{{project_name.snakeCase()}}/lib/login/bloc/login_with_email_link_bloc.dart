@@ -10,10 +10,9 @@ part 'login_with_email_link_state.dart';
 
 class LoginWithEmailLinkBloc
     extends Bloc<LoginWithEmailLinkEvent, LoginWithEmailLinkState> {
-  LoginWithEmailLinkBloc({
-    required UserRepository userRepository,
-  })  : _userRepository = userRepository,
-        super(const LoginWithEmailLinkState()) {
+  LoginWithEmailLinkBloc({required UserRepository userRepository})
+    : _userRepository = userRepository,
+      super(const LoginWithEmailLinkState()) {
     on<LoginWithEmailLinkSubmitted>(_onLoginWithEmailLinkSubmitted);
 
     _incomingEmailLinksSub = _userRepository.incomingEmailLinks
@@ -35,9 +34,7 @@ class LoginWithEmailLinkBloc
       final currentUser = await _userRepository.user.first;
       if (!currentUser.isAnonymous) {
         throw LogInWithEmailLinkFailure(
-          Exception(
-            'The user is already logged in',
-          ),
+          Exception('The user is already logged in'),
         );
       }
 
@@ -50,14 +47,13 @@ class LoginWithEmailLinkBloc
         );
       }
 
-      final redirectUrl =
-          Uri.tryParse(emailLink.queryParameters['continueUrl']!);
+      final redirectUrl = Uri.tryParse(
+        emailLink.queryParameters['continueUrl']!,
+      );
 
       if (!(redirectUrl?.queryParameters.containsKey('email') ?? false)) {
         throw LogInWithEmailLinkFailure(
-          Exception(
-            'No `email` parameter found in the received email link',
-          ),
+          Exception('No `email` parameter found in the received email link'),
         );
       }
 
@@ -67,15 +63,15 @@ class LoginWithEmailLinkBloc
       );
 
       emit(state.copyWith(status: LoginWithEmailLinkStatus.success));
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(state.copyWith(status: LoginWithEmailLinkStatus.failure));
       addError(error, stackTrace);
     }
   }
 
   @override
-  Future<void> close() {
-    _incomingEmailLinksSub.cancel();
+  Future<void> close() async {
+    await _incomingEmailLinksSub.cancel();
     return super.close();
   }
 }

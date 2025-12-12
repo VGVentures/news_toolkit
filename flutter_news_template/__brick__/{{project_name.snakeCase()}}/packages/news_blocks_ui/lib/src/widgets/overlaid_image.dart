@@ -14,7 +14,7 @@ class OverlaidImage extends StatelessWidget {
   });
 
   /// The aspect ratio of this image.
-  static const aspectRatio = 3 / 2;
+  static const double aspectRatio = 3 / 2;
 
   /// The url of this image.
   final String imageUrl;
@@ -42,7 +42,7 @@ class OverlaidImage extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [
                   AppColors.transparent,
-                  gradientColor.withOpacity(0.7),
+                  gradientColor.withValues(alpha: 0.7),
                 ],
               ),
             ),

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:token_storage/token_storage.dart';
@@ -15,15 +13,13 @@ void main() {
   });
 
   group('InMemoryTokenStorage', () {
-    test(
-        'readToken returns null '
+    test('readToken returns null '
         'when no token is saved', () async {
       final storage = InMemoryTokenStorage();
       expect(await storage.readToken(), isNull);
     });
 
-    test(
-        'readToken returns token '
+    test('readToken returns token '
         'when token is saved with saveToken', () async {
       const token = 'token';
       final storage = InMemoryTokenStorage();
@@ -31,8 +27,7 @@ void main() {
       expect(await storage.readToken(), equals(token));
     });
 
-    test(
-        'readToken returns updated token '
+    test('readToken returns updated token '
         'when token is overridden with saveToken', () async {
       const token = 'token';
       const updatedToken = 'updatedToken';

@@ -52,9 +52,7 @@ void main() {
     group('hyperlinks', () {
       testWidgets('does not launch the url when it is null', (tester) async {
         const String? link = null;
-        const block = HtmlBlock(
-          content: '<a href="$link">flutter.dev</a>',
-        );
+        const block = HtmlBlock(content: '<a href="$link">flutter.dev</a>');
 
         await tester.pumpApp(Html(block: block));
 
@@ -69,9 +67,7 @@ void main() {
 
       testWidgets('does not launch the url when it is invalid', (tester) async {
         const link = '::Not valid URI::';
-        const block = HtmlBlock(
-          content: '<a href="$link">flutter.dev</a>',
-        );
+        const block = HtmlBlock(content: '<a href="$link">flutter.dev</a>');
 
         await tester.pumpApp(Html(block: block));
 
@@ -86,9 +82,7 @@ void main() {
 
       testWidgets('launches the url when it is a valid url', (tester) async {
         const link = 'https://flutter.dev';
-        const block = HtmlBlock(
-          content: '<a href="$link">flutter.dev</a>',
-        );
+        const block = HtmlBlock(content: '<a href="$link">flutter.dev</a>');
 
         await tester.pumpApp(Html(block: block));
 
@@ -122,8 +116,9 @@ void main() {
             (widget) =>
                 widget is flutter_html.Html &&
                 widget.style['p']!.generateTextStyle() ==
-                    flutter_html.Style.fromTextStyle(theme.textTheme.bodyLarge!)
-                        .generateTextStyle(),
+                    flutter_html.Style.fromTextStyle(
+                      theme.textTheme.bodyLarge!,
+                    ).generateTextStyle(),
           ),
           findsOneWidget,
         );

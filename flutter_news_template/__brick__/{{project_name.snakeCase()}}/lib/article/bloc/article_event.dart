@@ -12,9 +12,7 @@ class ArticleRequested extends ArticleEvent {
 }
 
 class ArticleContentSeen extends ArticleEvent {
-  const ArticleContentSeen({
-    required this.contentIndex,
-  });
+  const ArticleContentSeen({required this.contentIndex});
 
   final int contentIndex;
 

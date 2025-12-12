@@ -25,9 +25,9 @@ void main() {
         articles: popularArticles.map((item) => item.post).toList(),
         topics: popularTopics,
       );
-      when(() => newsDataSource.getPopularArticles()).thenAnswer(
-        (_) async => expected.articles,
-      );
+      when(
+        () => newsDataSource.getPopularArticles(),
+      ).thenAnswer((_) async => expected.articles);
       when(
         () => newsDataSource.getPopularTopics(),
       ).thenAnswer((_) async => expected.topics);

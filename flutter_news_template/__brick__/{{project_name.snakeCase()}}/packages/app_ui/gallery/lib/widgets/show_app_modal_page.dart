@@ -22,8 +22,10 @@ class ShowAppModalPage extends StatelessWidget {
               horizontal: AppSpacing.xxlg + contentSpace,
               vertical: AppSpacing.xlg,
             ),
-            textStyle:
-                const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            textStyle: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           child: const Text('Show app modal'),
         ),
@@ -31,9 +33,7 @@ class ShowAppModalPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Modal App'),
-      ),
+      appBar: AppBar(title: const Text('Modal App')),
       body: ColoredBox(
         color: AppColors.white,
         child: Align(
@@ -46,10 +46,8 @@ class ShowAppModalPage extends StatelessWidget {
     );
   }
 
-  void _showModal({
-    required BuildContext context,
-  }) {
-    showAppModal<void>(
+  Future<void> _showModal({required BuildContext context}) async {
+    await showAppModal<void>(
       context: context,
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,

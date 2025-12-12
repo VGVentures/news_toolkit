@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_field_initializers_in_const_classes
-
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -26,12 +24,7 @@ class AppSwitchPage extends StatelessWidget {
   }
 }
 
-enum SwitchType {
-  on,
-  off,
-  noLabelOn,
-  noLabelOff,
-}
+enum SwitchType { on, off, noLabelOn, noLabelOff }
 
 class _AppSwitch extends StatelessWidget {
   const _AppSwitch({required this.switchType});
@@ -39,28 +32,14 @@ class _AppSwitch extends StatelessWidget {
   AppSwitch get appSwitch {
     switch (switchType) {
       case SwitchType.on:
-        return AppSwitch(
-          onChanged: (_) {},
-          onText: 'On',
-          value: true,
-        );
+        return AppSwitch(onChanged: (_) {}, onText: 'On', value: true);
       case SwitchType.off:
-        return AppSwitch(
-          onChanged: (_) {},
-          onText: 'Off',
-          value: false,
-        );
+        return AppSwitch(onChanged: (_) {}, onText: 'Off', value: false);
 
       case SwitchType.noLabelOn:
-        return AppSwitch(
-          onChanged: (_) {},
-          value: true,
-        );
+        return AppSwitch(onChanged: (_) {}, value: true);
       case SwitchType.noLabelOff:
-        return AppSwitch(
-          onChanged: (_) {},
-          value: false,
-        );
+        return AppSwitch(onChanged: (_) {}, value: false);
     }
   }
 

@@ -21,24 +21,15 @@ void main() {
 
     group('validator', () {
       test('returns invalid error when email is empty', () {
-        expect(
-          Email.dirty().error,
-          EmailValidationError.invalid,
-        );
+        expect(Email.dirty().error, EmailValidationError.invalid);
       });
 
       test('returns invalid error when email is malformed', () {
-        expect(
-          Email.dirty('test').error,
-          EmailValidationError.invalid,
-        );
+        expect(Email.dirty('test').error, EmailValidationError.invalid);
       });
 
       test('is valid when email is valid', () {
-        expect(
-          Email.dirty(emailString).error,
-          isNull,
-        );
+        expect(Email.dirty(emailString).error, isNull);
       });
     });
   });

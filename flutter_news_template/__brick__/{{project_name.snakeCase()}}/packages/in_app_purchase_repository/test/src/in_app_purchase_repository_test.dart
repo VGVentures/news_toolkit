@@ -25,9 +25,7 @@ void main() {
   test('InAppPurchaseFailure supports value comparisons', () {
     expect(
       InAppPurchaseException('error'),
-      equals(
-        InAppPurchaseException('error'),
-      ),
+      equals(InAppPurchaseException('error')),
     );
   });
 
@@ -45,10 +43,7 @@ void main() {
       currencyCode: 'USD',
     );
 
-    final user = AuthenticationUser(
-      id: '123',
-      name: 'name',
-    );
+    final user = AuthenticationUser(id: '123', name: 'name');
 
     final subscription = Subscription(
       id: product.id,
@@ -58,19 +53,13 @@ void main() {
     );
 
     final apiUserResponse = CurrentUserResponse(
-      user: api.User(
-        id: user.id,
-        subscription: subscription.name,
-      ),
+      user: api.User(id: user.id, subscription: subscription.name),
     );
 
     setUpAll(() {
       registerFallbackValue(SubscriptionPlan.none);
       registerFallbackValue(
-        PurchaseParam(
-          productDetails: product,
-          applicationUserName: user.name,
-        ),
+        PurchaseParam(productDetails: product, applicationUserName: user.name),
       );
       registerFallbackValue(FakePurchaseDetails());
     });
@@ -86,13 +75,11 @@ void main() {
         ),
       ).thenAnswer((_) async {});
 
-      when(
-        apiClient.getCurrentUser,
-      ).thenAnswer((_) async => apiUserResponse);
+      when(apiClient.getCurrentUser).thenAnswer((_) async => apiUserResponse);
 
-      when(() => authenticationClient.user).thenAnswer(
-        (_) => Stream.fromIterable([user]),
-      );
+      when(
+        () => authenticationClient.user,
+      ).thenAnswer((_) => Stream.fromIterable([user]));
 
       when(() => inAppPurchase.purchaseStream).thenAnswer(
         (_) => Stream.value([
@@ -121,15 +108,12 @@ void main() {
         );
 
         when(apiClient.getSubscriptions).thenAnswer(
-          (_) async => SubscriptionsResponse(
-            subscriptions: [subscription],
-          ),
+          (_) async => SubscriptionsResponse(subscriptions: [subscription]),
         );
       });
 
       group('calls apiClient.getSubscriptions ', () {
-        test(
-            'which returns cachedProducts list '
+        test('which returns cachedProducts list '
             'and calls getSubscriptions only once '
             'when cachedProducts is not empty', () async {
           final result = await repository.fetchSubscriptions();
@@ -137,25 +121,17 @@ void main() {
 
           verify(apiClient.getSubscriptions).called(1);
 
-          expect(
-            result,
-            equals(nextResult),
-          );
+          expect(result, equals(nextResult));
         });
 
-        test(
-            'and returns server products list '
+        test('and returns server products list '
             'when cachedProducts is empty', () async {
           final result = await repository.fetchSubscriptions();
 
-          expect(
-            result,
-            equals([subscription]),
-          );
+          expect(result, equals([subscription]));
         });
 
-        test(
-            'and throws FetchSubscriptionsFailure '
+        test('and throws FetchSubscriptionsFailure '
             'when getSubscriptions fails', () async {
           when(apiClient.getSubscriptions).thenThrow(Exception());
 
@@ -207,8 +183,7 @@ void main() {
           ).called(1);
         });
 
-        test(
-            'and throws InAppPurchaseBuyNonConsumableFailure '
+        test('and throws InAppPurchaseBuyNonConsumableFailure '
             'when buyNonConsumable fails', () async {
           when(
             () => inAppPurchase.buyNonConsumable(
@@ -253,10 +228,8 @@ void main() {
               any(that: isA<Set<String>>()),
             ),
           ).thenAnswer(
-            (_) async => ProductDetailsResponse(
-              productDetails: [],
-              notFoundIDs: [],
-            ),
+            (_) async =>
+                ProductDetailsResponse(productDetails: [], notFoundIDs: []),
           );
 
           expect(
@@ -301,8 +274,7 @@ void main() {
         ).thenAnswer((_) async => true);
       });
 
-      test(
-          'calls InAppPurchase.restorePurchases '
+      test('calls InAppPurchase.restorePurchases '
           'when user is not anonymous', () async {
         when(
           () => inAppPurchase.restorePurchases(
@@ -310,23 +282,20 @@ void main() {
           ),
         ).thenAnswer((_) async {});
 
-        when(() => authenticationClient.user).thenAnswer(
-          (_) => Stream.fromIterable([user]),
-        );
+        when(
+          () => authenticationClient.user,
+        ).thenAnswer((_) => Stream.fromIterable([user]));
 
         await repository.restorePurchases();
 
         verify(
           () => inAppPurchase.restorePurchases(
-            applicationUserName: any(
-              named: 'applicationUserName',
-            ),
+            applicationUserName: any(named: 'applicationUserName'),
           ),
         ).called(1);
       });
 
-      test(
-          'does not call InAppPurchase.restorePurchases '
+      test('does not call InAppPurchase.restorePurchases '
           'when user is anonymous', () async {
         when(
           () => inAppPurchase.restorePurchases(
@@ -342,9 +311,7 @@ void main() {
 
         verifyNever(
           () => inAppPurchase.restorePurchases(
-            applicationUserName: any(
-              named: 'applicationUserName',
-            ),
+            applicationUserName: any(named: 'applicationUserName'),
           ),
         );
       });
@@ -364,15 +331,12 @@ void main() {
 
       setUp(() {
         when(apiClient.getSubscriptions).thenAnswer(
-          (_) async => SubscriptionsResponse(
-            subscriptions: [subscription],
-          ),
+          (_) async => SubscriptionsResponse(subscriptions: [subscription]),
         );
       });
 
-      test(
-          'adds PurchaseCanceled event '
-          'when PurchaseDetails status is canceled', () {
+      test('adds PurchaseCanceled event '
+          'when PurchaseDetails status is canceled', () async {
         when(() => inAppPurchase.purchaseStream).thenAnswer(
           (_) => Stream.fromIterable([
             [purchaseDetails.copyWith(status: PurchaseStatus.canceled)],
@@ -385,15 +349,14 @@ void main() {
           inAppPurchase: inAppPurchase,
         );
 
-        expectLater(
+        await expectLater(
           repository.purchaseUpdate,
           emits(isA<PurchaseCanceled>()),
         );
       });
 
-      test(
-          'adds PurchaseFailed event '
-          'when PurchaseDetails status is error', () {
+      test('adds PurchaseFailed event '
+          'when PurchaseDetails status is error', () async {
         when(() => inAppPurchase.purchaseStream).thenAnswer(
           (_) => Stream.fromIterable([
             [purchaseDetails.copyWith(status: PurchaseStatus.error)],
@@ -406,7 +369,7 @@ void main() {
           inAppPurchase: inAppPurchase,
         );
 
-        expectLater(
+        await expectLater(
           repository.purchaseUpdate,
           emits(isA<PurchaseFailed>()),
         );
@@ -422,36 +385,34 @@ void main() {
         });
 
         test(
-            'adds PurchasePurchased event '
-            'calls apiClient.createSubscription '
-            'adds PurchaseDelivered event '
-            'adds purchased subscription to currentSubscriptionPlanStream',
-            () async {
-          final repository = InAppPurchaseRepository(
-            authenticationClient: authenticationClient,
-            apiClient: apiClient,
-            inAppPurchase: inAppPurchase,
-          );
+          'adds PurchasePurchased event '
+          'calls apiClient.createSubscription '
+          'adds PurchaseDelivered event '
+          'adds purchased subscription to currentSubscriptionPlanStream',
+          () async {
+            final repository = InAppPurchaseRepository(
+              authenticationClient: authenticationClient,
+              apiClient: apiClient,
+              inAppPurchase: inAppPurchase,
+            );
 
-          await expectLater(
-            repository.purchaseUpdate,
-            emitsInOrder(
-              <Matcher>[
+            await expectLater(
+              repository.purchaseUpdate,
+              emitsInOrder(<Matcher>[
                 isA<PurchasePurchased>(),
                 isA<PurchaseDelivered>(),
-              ],
-            ),
-          );
+              ]),
+            );
 
-          verify(
-            () => apiClient.createSubscription(
-              subscriptionId: any(named: 'subscriptionId'),
-            ),
-          ).called(1);
-        });
+            verify(
+              () => apiClient.createSubscription(
+                subscriptionId: any(named: 'subscriptionId'),
+              ),
+            ).called(1);
+          },
+        );
 
-        test(
-            'adds PurchasePurchased event '
+        test('adds PurchasePurchased event '
             'and throws PurchaseFailed '
             'when apiClient.createSubscription throws', () async {
           when(
@@ -468,12 +429,10 @@ void main() {
 
           expect(
             repository.purchaseUpdate,
-            emitsInOrder(
-              <Matcher>[
-                isA<PurchasePurchased>(),
-                emitsError(isA<PurchaseFailed>()),
-              ],
-            ),
+            emitsInOrder(<Matcher>[
+              isA<PurchasePurchased>(),
+              emitsError(isA<PurchaseFailed>()),
+            ]),
           );
         });
       });
@@ -488,36 +447,34 @@ void main() {
         });
 
         test(
-            'adds PurchasePurchased event '
-            'calls apiClient.createSubscription '
-            'adds PurchaseDelivered event '
-            'adds purchased subscription to currentSubscriptionPlanStream',
-            () async {
-          final repository = InAppPurchaseRepository(
-            authenticationClient: authenticationClient,
-            apiClient: apiClient,
-            inAppPurchase: inAppPurchase,
-          );
+          'adds PurchasePurchased event '
+          'calls apiClient.createSubscription '
+          'adds PurchaseDelivered event '
+          'adds purchased subscription to currentSubscriptionPlanStream',
+          () async {
+            final repository = InAppPurchaseRepository(
+              authenticationClient: authenticationClient,
+              apiClient: apiClient,
+              inAppPurchase: inAppPurchase,
+            );
 
-          await expectLater(
-            repository.purchaseUpdate,
-            emitsInOrder(
-              <Matcher>[
+            await expectLater(
+              repository.purchaseUpdate,
+              emitsInOrder(<Matcher>[
                 isA<PurchasePurchased>(),
                 isA<PurchaseDelivered>(),
-              ],
-            ),
-          );
+              ]),
+            );
 
-          verify(
-            () => apiClient.createSubscription(
-              subscriptionId: any(named: 'subscriptionId'),
-            ),
-          ).called(1);
-        });
+            verify(
+              () => apiClient.createSubscription(
+                subscriptionId: any(named: 'subscriptionId'),
+              ),
+            ).called(1);
+          },
+        );
 
-        test(
-            'adds PurchasePurchased event '
+        test('adds PurchasePurchased event '
             'and throws PurchaseFailed '
             'when apiClient.createSubscription throws', () async {
           when(
@@ -556,8 +513,7 @@ void main() {
           );
         });
 
-        test(
-            'emits PurchaseCompleted '
+        test('emits PurchaseCompleted '
             'when inAppPurchase.completePurchase succeeds', () async {
           when(
             () => inAppPurchase.completePurchase(any()),
@@ -575,8 +531,7 @@ void main() {
           );
         });
 
-        test(
-            'throws PurchaseFailed '
+        test('throws PurchaseFailed '
             'when inAppPurchase.completePurchase fails', () async {
           when(
             () => inAppPurchase.completePurchase(any()),
@@ -590,14 +545,11 @@ void main() {
 
           await expectLater(
             repository.purchaseUpdate,
-            emitsError(
-              isA<PurchaseFailed>(),
-            ),
+            emitsError(isA<PurchaseFailed>()),
           );
         });
 
-        test(
-            'calls apiClient.getSubscriptions once '
+        test('calls apiClient.getSubscriptions once '
             'and returns cachedProducts on next '
             'apiClient.getSubscriptions call', () async {
           when(
@@ -626,41 +578,36 @@ void main() {
 
           await expectLater(
             repository.purchaseUpdate,
-            emitsInOrder(
-              <Matcher>[
-                isA<PurchaseCompleted>(),
-                isA<PurchaseCompleted>(),
-              ],
-            ),
+            emitsInOrder(<Matcher>[
+              isA<PurchaseCompleted>(),
+              isA<PurchaseCompleted>(),
+            ]),
           );
         });
       });
     });
 
     group('fetchSubscriptions', () {
-      test('returns subscription list from apiClient.getSubscriptions',
-          () async {
-        when(apiClient.getSubscriptions).thenAnswer(
-          (_) async => SubscriptionsResponse(
-            subscriptions: [subscription],
-          ),
-        );
-        final repository = InAppPurchaseRepository(
-          authenticationClient: authenticationClient,
-          apiClient: apiClient,
-          inAppPurchase: inAppPurchase,
-        );
-
-        final result = await repository.fetchSubscriptions();
-
-        expect(result, equals([subscription]));
-        verify(
-          apiClient.getSubscriptions,
-        ).called(1);
-      });
-
       test(
-          'throws FetchSubscriptionsFailure '
+        'returns subscription list from apiClient.getSubscriptions',
+        () async {
+          when(apiClient.getSubscriptions).thenAnswer(
+            (_) async => SubscriptionsResponse(subscriptions: [subscription]),
+          );
+          final repository = InAppPurchaseRepository(
+            authenticationClient: authenticationClient,
+            apiClient: apiClient,
+            inAppPurchase: inAppPurchase,
+          );
+
+          final result = await repository.fetchSubscriptions();
+
+          expect(result, equals([subscription]));
+          verify(apiClient.getSubscriptions).called(1);
+        },
+      );
+
+      test('throws FetchSubscriptionsFailure '
           'when apiClient.getSubscriptions throws', () async {
         when(apiClient.getSubscriptions).thenThrow(Exception());
 
@@ -684,10 +631,7 @@ void main() {
         final event1 = PurchaseDelivered(
           subscription: Subscription(
             benefits: const [],
-            cost: SubscriptionCost(
-              annual: 0,
-              monthly: 0,
-            ),
+            cost: SubscriptionCost(annual: 0, monthly: 0),
             id: '1',
             name: SubscriptionPlan.none,
           ),
@@ -695,10 +639,7 @@ void main() {
         final event2 = PurchaseDelivered(
           subscription: Subscription(
             benefits: const [],
-            cost: SubscriptionCost(
-              annual: 0,
-              monthly: 0,
-            ),
+            cost: SubscriptionCost(annual: 0, monthly: 0),
             id: '1',
             name: SubscriptionPlan.none,
           ),
@@ -713,10 +654,7 @@ void main() {
         final event1 = PurchaseCompleted(
           subscription: Subscription(
             benefits: const [],
-            cost: SubscriptionCost(
-              annual: 0,
-              monthly: 0,
-            ),
+            cost: SubscriptionCost(annual: 0, monthly: 0),
             id: '1',
             name: SubscriptionPlan.none,
           ),
@@ -724,10 +662,7 @@ void main() {
         final event2 = PurchaseCompleted(
           subscription: Subscription(
             benefits: const [],
-            cost: SubscriptionCost(
-              annual: 0,
-              monthly: 0,
-            ),
+            cost: SubscriptionCost(annual: 0, monthly: 0),
             id: '1',
             name: SubscriptionPlan.none,
           ),
@@ -742,10 +677,7 @@ void main() {
         final event1 = PurchasePurchased(
           subscription: Subscription(
             benefits: const [],
-            cost: SubscriptionCost(
-              annual: 0,
-              monthly: 0,
-            ),
+            cost: SubscriptionCost(annual: 0, monthly: 0),
             id: '1',
             name: SubscriptionPlan.none,
           ),
@@ -753,10 +685,7 @@ void main() {
         final event2 = PurchasePurchased(
           subscription: Subscription(
             benefits: const [],
-            cost: SubscriptionCost(
-              annual: 0,
-              monthly: 0,
-            ),
+            cost: SubscriptionCost(annual: 0, monthly: 0),
             id: '1',
             name: SubscriptionPlan.none,
           ),
@@ -802,11 +731,12 @@ extension _PurchaseDetailsCopyWith on PurchaseDetails {
     bool? pendingCompletePurchase,
   }) =>
       PurchaseDetails(
-        purchaseID: purchaseID ?? this.purchaseID,
-        productID: productID ?? this.productID,
-        verificationData: verificationData ?? this.verificationData,
-        transactionDate: transactionDate ?? this.transactionDate,
-        status: status ?? this.status,
-      )..pendingCompletePurchase =
-          pendingCompletePurchase ?? this.pendingCompletePurchase;
+          purchaseID: purchaseID ?? this.purchaseID,
+          productID: productID ?? this.productID,
+          verificationData: verificationData ?? this.verificationData,
+          transactionDate: transactionDate ?? this.transactionDate,
+          status: status ?? this.status,
+        )
+        ..pendingCompletePurchase =
+            pendingCompletePurchase ?? this.pendingCompletePurchase;
 }

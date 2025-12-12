@@ -8,8 +8,9 @@ import 'package:mockingjay/mockingjay.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  const termsOfServiceModalCloseButtonKey =
-      Key('termsOfServiceModal_closeModal_iconButton');
+  const termsOfServiceModalCloseButtonKey = Key(
+    'termsOfServiceModal_closeModal_iconButton',
+  );
 
   group('TermsOfServiceModal', () {
     group('renders', () {
@@ -35,10 +36,7 @@ void main() {
         final navigator = MockNavigator();
         when(navigator.canPop).thenAnswer((_) => true);
         when(navigator.pop).thenAnswer((_) async {});
-        await tester.pumpApp(
-          TermsOfServiceModal(),
-          navigator: navigator,
-        );
+        await tester.pumpApp(TermsOfServiceModal(), navigator: navigator);
         await tester.tap(find.byKey(termsOfServiceModalCloseButtonKey));
         await tester.pumpAndSettle();
         verify(navigator.pop).called(1);

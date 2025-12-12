@@ -76,7 +76,7 @@ class StickyAdContainer extends StatelessWidget {
           boxShadow: [
             if (shadowEnabled)
               BoxShadow(
-                color: AppColors.black.withOpacity(0.3),
+                color: AppColors.black.withValues(alpha: 0.3),
                 blurRadius: 3,
                 spreadRadius: 1,
                 offset: const Offset(0, 1),
@@ -87,10 +87,7 @@ class StickyAdContainer extends StatelessWidget {
           left: false,
           top: false,
           right: false,
-          child: Padding(
-            padding: StickyAd.padding,
-            child: child,
-          ),
+          child: Padding(padding: StickyAd.padding, child: child),
         ),
       ),
     );
@@ -98,10 +95,7 @@ class StickyAdContainer extends StatelessWidget {
 }
 
 class StickyAdCloseIcon extends StatelessWidget {
-  const StickyAdCloseIcon({
-    required this.onAdClosed,
-    super.key,
-  });
+  const StickyAdCloseIcon({required this.onAdClosed, super.key});
 
   final VoidCallback onAdClosed;
 
@@ -128,9 +122,7 @@ class StickyAdCloseIcon extends StatelessWidget {
 
 @visibleForTesting
 class StickyAdCloseIconBackground extends StatelessWidget {
-  const StickyAdCloseIconBackground({
-    super.key,
-  });
+  const StickyAdCloseIconBackground({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +133,7 @@ class StickyAdCloseIconBackground extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withOpacity(0.3),
+              color: AppColors.black.withValues(alpha: 0.3),
               blurRadius: 3,
               spreadRadius: 1,
               offset: const Offset(0, 1),

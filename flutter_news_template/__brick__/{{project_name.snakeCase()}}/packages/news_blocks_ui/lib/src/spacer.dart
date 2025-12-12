@@ -27,9 +27,6 @@ class Spacer extends StatelessWidget {
         ? _spacingValues[block.spacing]
         : 0.0;
 
-    return SizedBox(
-      width: double.infinity,
-      height: spacing,
-    );
+    return SizedBox(width: double.infinity, height: spacing);
   }
 }

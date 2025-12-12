@@ -8,24 +8,12 @@ import 'package:flutter/material.dart';
 
 class AppBackButton extends StatelessWidget {
   /// Creates a default instance of [AppBackButton].
-  const AppBackButton({
-    Key? key,
-    VoidCallback? onPressed,
-  }) : this._(
-          key: key,
-          isLight: false,
-          onPressed: onPressed,
-        );
+  const AppBackButton({Key? key, VoidCallback? onPressed})
+    : this._(key: key, isLight: false, onPressed: onPressed);
 
   /// Creates a light instance of [AppBackButton].
-  const AppBackButton.light({
-    Key? key,
-    VoidCallback? onPressed,
-  }) : this._(
-          key: key,
-          isLight: true,
-          onPressed: onPressed,
-        );
+  const AppBackButton.light({Key? key, VoidCallback? onPressed})
+    : this._(key: key, isLight: true, onPressed: onPressed);
 
   /// {@macro app_back_button}
   const AppBackButton._({required this.isLight, this.onPressed, super.key});

@@ -25,10 +25,13 @@ void main() {
     late CategoriesBloc categoriesBloc;
     late FeedBloc feedBloc;
 
-    const categories = [Category.top, Category.technology];
+    final topCategory = Category(id: 'top', name: 'Top');
+    final technologyCategory = Category(id: 'technology', name: 'Technology');
 
-    final feed = <Category, List<NewsBlock>>{
-      Category.top: [
+    final categories = [topCategory, technologyCategory];
+
+    final feed = <String, List<NewsBlock>>{
+      topCategory.id: [
         SectionHeaderBlock(title: 'Top'),
         SpacerBlock(spacing: Spacing.medium),
         SpacerBlock(spacing: Spacing.extraLarge),
@@ -44,7 +47,7 @@ void main() {
         SpacerBlock(spacing: Spacing.extraLarge),
         DividerHorizontalBlock(),
       ],
-      Category.technology: [
+      technologyCategory.id: [
         SectionHeaderBlock(title: 'Technology'),
         DividerHorizontalBlock(),
         SpacerBlock(spacing: Spacing.medium),
@@ -62,16 +65,12 @@ void main() {
         ),
       );
 
-      when(() => feedBloc.state).thenReturn(
-        FeedState(
-          feed: feed,
-          status: FeedStatus.populated,
-        ),
-      );
+      when(
+        () => feedBloc.state,
+      ).thenReturn(FeedState(feed: feed, status: FeedStatus.populated));
     });
 
-    testWidgets(
-        'renders empty feed '
+    testWidgets('renders empty feed '
         'when categories are empty', (tester) async {
       when(() => categoriesBloc.state).thenReturn(
         CategoriesState(
@@ -94,8 +93,7 @@ void main() {
       expect(find.byType(FeedViewPopulated), findsNothing);
     });
 
-    testWidgets(
-        'renders FeedViewPopulated '
+    testWidgets('renders FeedViewPopulated '
         'when categories are available', (tester) async {
       await tester.pumpApp(
         MultiBlocProvider(
@@ -117,32 +115,26 @@ void main() {
       expect(find.byKey(Key('feedView_empty')), findsNothing);
     });
 
-    testWidgets(
-      'adds FeedResumed when the app is resumed',
-      (tester) async {
-        await tester.pumpApp(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: categoriesBloc),
-              BlocProvider.value(value: feedBloc),
-            ],
-            child: FeedView(),
-          ),
-        );
+    testWidgets('adds FeedResumed when the app is resumed', (tester) async {
+      await tester.pumpApp(
+        MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: categoriesBloc),
+            BlocProvider.value(value: feedBloc),
+          ],
+          child: FeedView(),
+        ),
+      );
 
-        tester.binding.handleAppLifecycleStateChanged(
-          AppLifecycleState.resumed,
-        );
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
 
-        verify(
-          () => feedBloc.add(FeedResumed()),
-        ).called(1);
-      },
-    );
+      verify(() => feedBloc.add(FeedResumed())).called(1);
+    });
 
     group('FeedViewPopulated', () {
-      testWidgets('renders CategoryTabBar with CategoryTab for each category',
-          (tester) async {
+      testWidgets('renders CategoryTabBar with CategoryTab for each category', (
+        tester,
+      ) async {
         await tester.pumpApp(
           MultiBlocProvider(
             providers: [
@@ -185,8 +177,7 @@ void main() {
         expect(find.byType(CategoryFeed), findsOneWidget);
       });
 
-      testWidgets(
-          'adds CategorySelected to CategoriesBloc '
+      testWidgets('adds CategorySelected to CategoriesBloc '
           'when CategoryTab is tapped', (tester) async {
         final selectedCategory = categories[1];
 
@@ -211,14 +202,12 @@ void main() {
         await tester.pump(kTabScrollDuration);
 
         verify(
-          () => categoriesBloc.add(
-            CategorySelected(category: selectedCategory),
-          ),
+          () =>
+              categoriesBloc.add(CategorySelected(category: selectedCategory)),
         ).called(1);
       });
 
-      testWidgets(
-          'animates to CategoryFeed in TabBarView '
+      testWidgets('animates to CategoryFeed in TabBarView '
           'when selectedCategory changes', (tester) async {
         final categoriesStateController =
             StreamController<CategoriesState>.broadcast();
@@ -248,8 +237,8 @@ void main() {
         );
 
         Finder findCategoryFeed(Category category) => find.byWidgetPredicate(
-              (widget) => widget is CategoryFeed && widget.category == category,
-            );
+          (widget) => widget is CategoryFeed && widget.category == category,
+        );
 
         expect(findCategoryFeed(defaultCategory), findsOneWidget);
         expect(findCategoryFeed(selectedCategory), findsNothing);
@@ -278,14 +267,8 @@ void main() {
             ),
           );
 
-          expect(
-            find.byType(DividerHorizontal),
-            findsNothing,
-          );
-          expect(
-            find.text('Top'),
-            findsOneWidget,
-          );
+          expect(find.byType(DividerHorizontal), findsNothing);
+          expect(find.text('Top'), findsOneWidget);
 
           await tester.dragUntilVisible(
             find.byType(DividerHorizontal),
@@ -294,10 +277,7 @@ void main() {
             duration: Duration.zero,
           );
 
-          expect(
-            find.byType(DividerHorizontal),
-            findsOneWidget,
-          );
+          expect(find.byType(DividerHorizontal), findsOneWidget);
 
           final tab = find.widgetWithText(
             CategoryTab,
@@ -311,14 +291,8 @@ void main() {
           await tester.pump(Duration(milliseconds: 300));
           await tester.pump(Duration(milliseconds: 300));
 
-          expect(
-            find.byType(DividerHorizontal),
-            findsNothing,
-          );
-          expect(
-            find.text('Top'),
-            findsOneWidget,
-          );
+          expect(find.byType(DividerHorizontal), findsNothing);
+          expect(find.text('Top'), findsOneWidget);
         },
       );
     });

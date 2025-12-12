@@ -22,14 +22,8 @@ void main() {
     final subscription = Subscription(
       id: 'dd339fda-33e9-49d0-9eb5-0ccb77eb760f',
       name: SubscriptionPlan.none,
-      cost: SubscriptionCost(
-        annual: 16200,
-        monthly: 1499,
-      ),
-      benefits: const [
-        'test benefits',
-        'another test benefits',
-      ],
+      cost: SubscriptionCost(annual: 16200, monthly: 1499),
+      benefits: const ['test benefits', 'another test benefits'],
     );
 
     setUp(() {
@@ -47,18 +41,14 @@ void main() {
         'and emits state with fetched subscriptions',
         setUp: () => when(
           inAppPurchaseRepository.fetchSubscriptions,
-        ).thenAnswer(
-          (_) async => [subscription],
-        ),
+        ).thenAnswer((_) async => [subscription]),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
           userRepository: userRepository,
         ),
         act: (bloc) => bloc.add(SubscriptionsRequested()),
         expect: () => <SubscriptionsState>[
-          SubscriptionsState.initial().copyWith(
-            subscriptions: [subscription],
-          ),
+          SubscriptionsState.initial().copyWith(subscriptions: [subscription]),
         ],
       );
 
@@ -82,12 +72,8 @@ void main() {
         'calls InAppPurchaseRepository.purchase '
         'and emits pending state',
         setUp: () => when(
-          () => inAppPurchaseRepository.purchase(
-            subscription: subscription,
-          ),
-        ).thenAnswer(
-          (_) async {},
-        ),
+          () => inAppPurchaseRepository.purchase(subscription: subscription),
+        ).thenAnswer((_) async {}),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
           userRepository: userRepository,
@@ -104,9 +90,7 @@ void main() {
       blocTest<SubscriptionsBloc, SubscriptionsState>(
         'adds error to state if fetchSubscriptions throws',
         setUp: () => when(
-          () => inAppPurchaseRepository.purchase(
-            subscription: subscription,
-          ),
+          () => inAppPurchaseRepository.purchase(subscription: subscription),
         ).thenThrow(Exception()),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
@@ -130,15 +114,11 @@ void main() {
         seed: () => SubscriptionsState.initial().copyWith(
           purchaseStatus: PurchaseStatus.none,
         ),
-        setUp: () => when(
-          () => inAppPurchaseRepository.purchaseUpdate,
-        ).thenAnswer(
-          (_) => Stream.value(
-            PurchasePurchased(
-              subscription: subscription,
+        setUp: () =>
+            when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
+              (_) =>
+                  Stream.value(PurchasePurchased(subscription: subscription)),
             ),
-          ),
-        ),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
           userRepository: userRepository,
@@ -157,18 +137,10 @@ void main() {
           purchaseStatus: PurchaseStatus.pending,
         ),
         setUp: () {
-          when(
-            () => inAppPurchaseRepository.purchaseUpdate,
-          ).thenAnswer(
-            (_) => Stream.value(
-              PurchaseDelivered(
-                subscription: subscription,
-              ),
-            ),
+          when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
+            (_) => Stream.value(PurchaseDelivered(subscription: subscription)),
           );
-          when(
-            userRepository.updateSubscriptionPlan,
-          ).thenAnswer((_) async {});
+          when(userRepository.updateSubscriptionPlan).thenAnswer((_) async {});
         },
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
@@ -188,15 +160,14 @@ void main() {
         seed: () => SubscriptionsState.initial().copyWith(
           purchaseStatus: PurchaseStatus.pending,
         ),
-        setUp: () => when(
-          () => inAppPurchaseRepository.purchaseUpdate,
-        ).thenAnswer(
-          (_) => Stream.value(
-            PurchaseFailed(
-              failure: InternalInAppPurchaseFailure(subscription),
+        setUp: () =>
+            when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
+              (_) => Stream.value(
+                PurchaseFailed(
+                  failure: InternalInAppPurchaseFailure(subscription),
+                ),
+              ),
             ),
-          ),
-        ),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
           userRepository: userRepository,
@@ -216,11 +187,7 @@ void main() {
         ),
         setUp: () => when(
           () => inAppPurchaseRepository.purchaseUpdate,
-        ).thenAnswer(
-          (_) => Stream.value(
-            PurchaseCanceled(),
-          ),
-        ),
+        ).thenAnswer((_) => Stream.value(PurchaseCanceled())),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
           userRepository: userRepository,
@@ -236,7 +203,7 @@ void main() {
     group('close', () {
       late StreamController<SubscriptionPlan> currentSubscriptionPlanController;
       late StreamController<PurchaseUpdate>
-          subscriptionPurchaseUpdateController;
+      subscriptionPurchaseUpdateController;
 
       setUp(() {
         currentSubscriptionPlanController =
@@ -244,8 +211,9 @@ void main() {
         subscriptionPurchaseUpdateController =
             StreamController<PurchaseUpdate>();
 
-        when(() => inAppPurchaseRepository.purchaseUpdate)
-            .thenAnswer((_) => subscriptionPurchaseUpdateController.stream);
+        when(
+          () => inAppPurchaseRepository.purchaseUpdate,
+        ).thenAnswer((_) => subscriptionPurchaseUpdateController.stream);
       });
 
       blocTest<SubscriptionsBloc, SubscriptionsState>(

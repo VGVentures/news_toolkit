@@ -36,15 +36,9 @@ extension on WidgetTester {
     await pumpApp(
       MultiBlocProvider(
         providers: [
-          BlocProvider.value(
-            value: categoriesBloc,
-          ),
-          BlocProvider.value(
-            value: appBloc,
-          ),
-          BlocProvider.value(
-            value: homeCubit,
-          ),
+          BlocProvider.value(value: categoriesBloc),
+          BlocProvider.value(value: appBloc),
+          BlocProvider.value(value: homeCubit),
         ],
         child: Scaffold(
           key: _scaffoldKey,
@@ -66,7 +60,13 @@ void main() {
     late HomeCubit homeCubit;
     late User user;
 
-    const categories = [Category.top, Category.health];
+    final entertainmentCategory = Category(
+      id: 'entertainment',
+      name: 'Entertainment',
+    );
+    final healthCategory = Category(id: 'health', name: 'Health');
+
+    final categories = [entertainmentCategory, healthCategory];
 
     setUp(() {
       categoriesBloc = MockCategoriesBloc();
@@ -74,9 +74,9 @@ void main() {
       homeCubit = MockHomeCubit();
       user = MockUser();
 
-      when(() => categoriesBloc.state).thenReturn(
-        CategoriesState.initial().copyWith(categories: categories),
-      );
+      when(
+        () => categoriesBloc.state,
+      ).thenReturn(CategoriesState.initial().copyWith(categories: categories));
 
       when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.none);
       when(() => appBloc.state).thenReturn(AppState.authenticated(user));
@@ -109,14 +109,11 @@ void main() {
       expect(find.byType(NavDrawerSections), findsOneWidget);
     });
 
-    testWidgets(
-        'renders NavDrawerSubscribe '
+    testWidgets('renders NavDrawerSubscribe '
         'when user is not subscribed', (tester) async {
       final user = MockUser();
       when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.none);
-      when(() => appBloc.state).thenReturn(
-        AppState.authenticated(user),
-      );
+      when(() => appBloc.state).thenReturn(AppState.authenticated(user));
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
         appBloc: appBloc,
@@ -125,14 +122,11 @@ void main() {
       expect(find.byType(NavDrawerSubscribe), findsOneWidget);
     });
 
-    testWidgets(
-        'does not render NavDrawerSubscribe '
+    testWidgets('does not render NavDrawerSubscribe '
         'when user is subscribed', (tester) async {
       final user = MockUser();
       when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
-      when(() => appBloc.state).thenReturn(
-        AppState.authenticated(user),
-      );
+      when(() => appBloc.state).thenReturn(AppState.authenticated(user));
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
         appBloc: appBloc,
@@ -159,8 +153,9 @@ void main() {
 
         await tester.pump(kThemeAnimationDuration);
 
-        final scaffoldState =
-            tester.firstState<ScaffoldState>(find.byKey(_scaffoldKey));
+        final scaffoldState = tester.firstState<ScaffoldState>(
+          find.byKey(_scaffoldKey),
+        );
 
         expect(scaffoldState.isDrawerOpen, isFalse);
       });
@@ -184,34 +179,34 @@ void main() {
 
         await tester.pump(kThemeAnimationDuration);
 
-        verify(() => categoriesBloc.add(CategorySelected(category: category)))
-            .called(1);
+        verify(
+          () => categoriesBloc.add(CategorySelected(category: category)),
+        ).called(1);
       });
 
-      testWidgets(
-        'sets tab to zero when NavDrawerSectionItem is tapped ',
-        (tester) async {
-          final category = categories.first;
+      testWidgets('sets tab to zero when NavDrawerSectionItem is tapped ', (
+        tester,
+      ) async {
+        final category = categories.first;
 
-          await tester.pumpDrawer(
-            categoriesBloc: categoriesBloc,
-            appBloc: appBloc,
-            homeCubit: homeCubit,
-          );
+        await tester.pumpDrawer(
+          categoriesBloc: categoriesBloc,
+          appBloc: appBloc,
+          homeCubit: homeCubit,
+        );
 
-          await tester.tap(
-            find.byWidgetPredicate(
-              (widget) =>
-                  widget is NavDrawerSectionItem &&
-                  widget.key == ValueKey(category),
-            ),
-          );
+        await tester.tap(
+          find.byWidgetPredicate(
+            (widget) =>
+                widget is NavDrawerSectionItem &&
+                widget.key == ValueKey(category),
+          ),
+        );
 
-          await tester.pump(kThemeAnimationDuration);
+        await tester.pump(kThemeAnimationDuration);
 
-          verify(() => homeCubit.setTab(0)).called(1);
-        },
-      );
+        verify(() => homeCubit.setTab(0)).called(1);
+      });
     });
   });
 }

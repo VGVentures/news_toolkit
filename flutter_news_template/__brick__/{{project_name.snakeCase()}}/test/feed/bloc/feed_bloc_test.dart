@@ -19,6 +19,12 @@ void main() {
     late NewsRepository newsRepository;
     late FeedBloc feedBloc;
 
+    final entertainmentCategory = Category(
+      id: 'entertainment',
+      name: 'Entertainment',
+    );
+    final healthCategory = Category(id: 'health', name: 'Health');
+
     final feedResponse = FeedResponse(
       feed: [
         SectionHeaderBlock(title: 'title'),
@@ -30,18 +36,13 @@ void main() {
     final feedStatePopulated = FeedState(
       status: FeedStatus.populated,
       feed: {
-        Category.entertainment: [
+        entertainmentCategory.id: [
           SpacerBlock(spacing: Spacing.medium),
           DividerHorizontalBlock(),
         ],
-        Category.health: [
-          DividerHorizontalBlock(),
-        ],
+        healthCategory.id: [DividerHorizontalBlock()],
       },
-      hasMoreNews: {
-        Category.entertainment: true,
-        Category.health: false,
-      },
+      hasMoreNews: {entertainmentCategory.id: true, healthCategory.id: false},
     );
 
     setUp(() async {
@@ -63,25 +64,19 @@ void main() {
         'and there are more news to fetch',
         setUp: () => when(
           () => newsRepository.getFeed(
-            category: any(named: 'category'),
+            categoryId: any(named: 'categoryId'),
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
           ),
         ).thenAnswer((_) async => feedResponse),
         build: () => feedBloc,
-        act: (bloc) => bloc.add(
-          FeedRequested(category: Category.entertainment),
-        ),
+        act: (bloc) => bloc.add(FeedRequested(category: entertainmentCategory)),
         expect: () => <FeedState>[
           FeedState(status: FeedStatus.loading),
           FeedState(
             status: FeedStatus.populated,
-            feed: {
-              Category.entertainment: feedResponse.feed,
-            },
-            hasMoreNews: {
-              Category.entertainment: true,
-            },
+            feed: {entertainmentCategory.id: feedResponse.feed},
+            hasMoreNews: {entertainmentCategory.id: true},
           ),
         ],
       );
@@ -94,30 +89,26 @@ void main() {
         seed: () => feedStatePopulated,
         setUp: () => when(
           () => newsRepository.getFeed(
-            category: any(named: 'category'),
+            categoryId: any(named: 'categoryId'),
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
           ),
         ).thenAnswer((_) async => feedResponse),
         build: () => feedBloc,
-        act: (bloc) => bloc.add(
-          FeedRequested(category: Category.entertainment),
-        ),
+        act: (bloc) => bloc.add(FeedRequested(category: entertainmentCategory)),
         expect: () => <FeedState>[
           feedStatePopulated.copyWith(status: FeedStatus.loading),
           feedStatePopulated.copyWith(
             status: FeedStatus.populated,
             feed: feedStatePopulated.feed
               ..addAll({
-                Category.entertainment: [
-                  ...feedStatePopulated.feed[Category.entertainment]!,
+                entertainmentCategory.id: [
+                  ...feedStatePopulated.feed[entertainmentCategory.id]!,
                   ...feedResponse.feed,
                 ],
               }),
             hasMoreNews: feedStatePopulated.hasMoreNews
-              ..addAll({
-                Category.entertainment: false,
-              }),
+              ..addAll({entertainmentCategory.id: false}),
           ),
         ],
       );
@@ -127,15 +118,13 @@ void main() {
         'when getFeed fails',
         setUp: () => when(
           () => newsRepository.getFeed(
-            category: any(named: 'category'),
+            categoryId: any(named: 'categoryId'),
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
           ),
         ).thenThrow(Exception()),
         build: () => feedBloc,
-        act: (bloc) => bloc.add(
-          FeedRequested(category: Category.entertainment),
-        ),
+        act: (bloc) => bloc.add(FeedRequested(category: entertainmentCategory)),
         expect: () => <FeedState>[
           FeedState(status: FeedStatus.loading),
           FeedState(status: FeedStatus.failure),
@@ -150,24 +139,19 @@ void main() {
         'and there is more news to fetch',
         setUp: () => when(
           () => newsRepository.getFeed(
-            category: any(named: 'category'),
+            categoryId: any(named: 'categoryId'),
             offset: any(named: 'offset'),
           ),
         ).thenAnswer((_) async => feedResponse),
         build: () => feedBloc,
-        act: (bloc) => bloc.add(
-          FeedRefreshRequested(category: Category.entertainment),
-        ),
+        act: (bloc) =>
+            bloc.add(FeedRefreshRequested(category: entertainmentCategory)),
         expect: () => <FeedState>[
           FeedState(status: FeedStatus.loading),
           FeedState(
             status: FeedStatus.populated,
-            feed: {
-              Category.entertainment: feedResponse.feed,
-            },
-            hasMoreNews: {
-              Category.entertainment: true,
-            },
+            feed: {entertainmentCategory.id: feedResponse.feed},
+            hasMoreNews: {entertainmentCategory.id: true},
           ),
         ],
       );
@@ -177,14 +161,13 @@ void main() {
         'when getFeed fails',
         setUp: () => when(
           () => newsRepository.getFeed(
-            category: any(named: 'category'),
+            categoryId: any(named: 'categoryId'),
             offset: any(named: 'offset'),
           ),
         ).thenThrow(Exception()),
         build: () => feedBloc,
-        act: (bloc) => bloc.add(
-          FeedRefreshRequested(category: Category.entertainment),
-        ),
+        act: (bloc) =>
+            bloc.add(FeedRefreshRequested(category: entertainmentCategory)),
         expect: () => <FeedState>[
           FeedState(status: FeedStatus.loading),
           FeedState(status: FeedStatus.failure),
@@ -199,7 +182,7 @@ void main() {
         'and there are more news to fetch for a single category',
         setUp: () => when(
           () => newsRepository.getFeed(
-            category: any(named: 'category'),
+            categoryId: any(named: 'categoryId'),
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
           ),
@@ -207,24 +190,20 @@ void main() {
         build: () => feedBloc,
         seed: () => FeedState(
           status: FeedStatus.populated,
-          feed: {Category.top: []},
+          feed: {entertainmentCategory.id: []},
         ),
         act: (bloc) => bloc.add(FeedResumed()),
         expect: () => <FeedState>[
           FeedState(
             status: FeedStatus.populated,
-            feed: {
-              Category.top: feedResponse.feed,
-            },
-            hasMoreNews: {
-              Category.top: true,
-            },
+            feed: {entertainmentCategory.id: feedResponse.feed},
+            hasMoreNews: {entertainmentCategory.id: true},
           ),
         ],
         verify: (_) {
           verify(
             () => newsRepository.getFeed(
-              category: Category.top,
+              categoryId: entertainmentCategory.id,
               offset: 0,
             ),
           ).called(1);
@@ -237,7 +216,7 @@ void main() {
         'and there are more news to fetch for multiple category',
         setUp: () => when(
           () => newsRepository.getFeed(
-            category: any(named: 'category'),
+            categoryId: any(named: 'categoryId'),
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
           ),
@@ -245,39 +224,40 @@ void main() {
         build: () => feedBloc,
         seed: () => FeedState(
           status: FeedStatus.populated,
-          feed: {Category.top: [], Category.technology: []},
+          feed: {entertainmentCategory.id: [], healthCategory.id: []},
         ),
         act: (bloc) => bloc.add(FeedResumed()),
         expect: () => <FeedState>[
           FeedState(
             status: FeedStatus.populated,
             feed: {
-              Category.top: feedResponse.feed,
-              Category.technology: [],
+              entertainmentCategory.id: feedResponse.feed,
+              healthCategory.id: [],
             },
-            hasMoreNews: {
-              Category.top: true,
-            },
+            hasMoreNews: {entertainmentCategory.id: true},
           ),
           FeedState(
             status: FeedStatus.populated,
             feed: {
-              Category.top: feedResponse.feed,
-              Category.technology: feedResponse.feed,
+              entertainmentCategory.id: feedResponse.feed,
+              healthCategory.id: feedResponse.feed,
             },
             hasMoreNews: {
-              Category.top: true,
-              Category.technology: true,
+              entertainmentCategory.id: true,
+              healthCategory.id: true,
             },
           ),
         ],
         verify: (_) {
           verify(
-            () => newsRepository.getFeed(category: Category.top, offset: 0),
+            () => newsRepository.getFeed(
+              categoryId: entertainmentCategory.id,
+              offset: 0,
+            ),
           ).called(1);
           verify(
             () => newsRepository.getFeed(
-              category: Category.technology,
+              categoryId: healthCategory.id,
               offset: 0,
             ),
           ).called(1);

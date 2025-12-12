@@ -1,11 +1,6 @@
 part of 'newsletter_bloc.dart';
 
-enum NewsletterStatus {
-  initial,
-  loading,
-  success,
-  failure,
-}
+enum NewsletterStatus { initial, loading, success, failure }
 
 class NewsletterState extends Equatable {
   const NewsletterState({
@@ -25,10 +20,9 @@ class NewsletterState extends Equatable {
     NewsletterStatus? status,
     Email? email,
     bool? isValid,
-  }) =>
-      NewsletterState(
-        status: status ?? this.status,
-        email: email ?? this.email,
-        isValid: isValid ?? this.isValid,
-      );
+  }) => NewsletterState(
+    status: status ?? this.status,
+    email: email ?? this.email,
+    isValid: isValid ?? this.isValid,
+  );
 }

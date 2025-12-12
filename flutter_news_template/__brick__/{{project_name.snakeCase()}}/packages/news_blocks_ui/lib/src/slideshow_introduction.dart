@@ -51,9 +51,7 @@ class SlideshowIntroduction extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SlideshowCategory(slideshowText: slideshowText),
-                  const SizedBox(
-                    height: AppSpacing.xs,
-                  ),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     block.title,
                     style: textTheme.displayMedium?.copyWith(
