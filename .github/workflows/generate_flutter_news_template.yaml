@@ -56,5 +56,4 @@ jobs:
           title: "chore: generate flutter_news_template"
           body: Please squash and merge me!
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          reviewers: felangel
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
