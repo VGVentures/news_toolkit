@@ -18,22 +18,19 @@ void main() {
     });
 
     group('getFeed', () {
-      test(
-          'returns FeedResponse '
+      test('returns FeedResponse '
           'from ApiClient.getFeed', () {
+        const category = Category(id: 'sports', name: 'Sports');
         final feed = <NewsBlock>[
           SpacerBlock(spacing: Spacing.extraLarge),
           DividerHorizontalBlock(),
         ];
 
-        final feedResponse = FeedResponse(
-          feed: feed,
-          totalCount: feed.length,
-        );
+        final feedResponse = FeedResponse(feed: feed, totalCount: feed.length);
 
         when(
           () => apiClient.getFeed(
-            category: any(named: 'category'),
+            categoryId: any(named: 'categoryId'),
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
           ),
@@ -41,7 +38,7 @@ void main() {
 
         expect(
           newsRepository.getFeed(
-            category: Category.entertainment,
+            categoryId: category.id,
             offset: 10,
             limit: 20,
           ),
@@ -49,45 +46,38 @@ void main() {
         );
 
         verify(
-          () => apiClient.getFeed(
-            category: Category.entertainment,
-            offset: 10,
-            limit: 20,
-          ),
+          () =>
+              apiClient.getFeed(categoryId: category.id, offset: 10, limit: 20),
         ).called(1);
       });
 
-      test(
-          'throws GetFeedFailure '
+      test('throws GetFeedFailure '
           'if ApiClient.getFeed fails', () async {
         when(
           () => apiClient.getFeed(
-            category: any(named: 'category'),
+            categoryId: any(named: 'categoryId'),
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
           ),
         ).thenThrow(Exception);
 
-        expect(
-          newsRepository.getFeed,
-          throwsA(isA<GetFeedFailure>()),
-        );
+        expect(newsRepository.getFeed, throwsA(isA<GetFeedFailure>()));
       });
     });
 
     group('getCategories', () {
-      test(
-          'returns CategoriesResponse '
+      test('returns CategoriesResponse '
           'from ApiClient.getCategories', () {
+        const sportsCategory = Category(id: 'sports', name: 'Sports');
+        const topCategory = Category(id: 'top', name: 'Top');
+
         const categoriesResponse = CategoriesResponse(
-          categories: [
-            Category.top,
-            Category.health,
-          ],
+          categories: [topCategory, sportsCategory],
         );
 
-        when(apiClient.getCategories)
-            .thenAnswer((_) async => categoriesResponse);
+        when(
+          apiClient.getCategories,
+        ).thenAnswer((_) async => categoriesResponse);
 
         expect(
           newsRepository.getCategories(),
@@ -97,8 +87,7 @@ void main() {
         verify(apiClient.getCategories).called(1);
       });
 
-      test(
-          'throws GetCategoriesFailure '
+      test('throws GetCategoriesFailure '
           'if ApiClient.getCategories fails', () async {
         when(apiClient.getCategories).thenThrow(Exception);
 
@@ -112,27 +101,19 @@ void main() {
     group('subscribeToNewsletter', () {
       test('completes from ApiClient.subscribeToNewsletter', () {
         when(
-          () => apiClient.subscribeToNewsletter(
-            email: any(named: 'email'),
-          ),
+          () => apiClient.subscribeToNewsletter(email: any(named: 'email')),
         ).thenAnswer((_) async {});
 
         final response = newsRepository.subscribeToNewsletter(email: 'email');
 
         expect(response, completes);
 
-        verify(
-          () => apiClient.subscribeToNewsletter(
-            email: 'email',
-          ),
-        ).called(1);
+        verify(() => apiClient.subscribeToNewsletter(email: 'email')).called(1);
       });
 
       test('throws GetFeedFailure if ApiClient.subscribeToNewsletter', () {
         when(
-          () => apiClient.subscribeToNewsletter(
-            email: any(named: 'email'),
-          ),
+          () => apiClient.subscribeToNewsletter(email: any(named: 'email')),
         ).thenThrow(Exception);
 
         final response = newsRepository.subscribeToNewsletter(email: 'email');
@@ -142,8 +123,7 @@ void main() {
     });
 
     group('popularSearch', () {
-      test(
-          'returns PopularSearchResponse '
+      test('returns PopularSearchResponse '
           'from ApiClient.popularSearch', () {
         const popularResponse = PopularSearchResponse(
           articles: [
@@ -163,8 +143,7 @@ void main() {
         verify(apiClient.popularSearch).called(1);
       });
 
-      test(
-          'throws PopularSearchFailure '
+      test('throws PopularSearchFailure '
           'if ApiClient.popularSearch fails', () async {
         when(apiClient.popularSearch).thenThrow(Exception);
 
@@ -176,8 +155,7 @@ void main() {
     });
 
     group('relevantSearch', () {
-      test(
-          'returns RelevantSearchResponse '
+      test('returns RelevantSearchResponse '
           'from ApiClient.relevantSearch', () {
         const relevantResponse = RelevantSearchResponse(
           articles: [
@@ -187,23 +165,25 @@ void main() {
           topics: ['Topic'],
         );
 
-        when(() => apiClient.relevantSearch(term: ''))
-            .thenAnswer((_) async => relevantResponse);
+        when(
+          () => apiClient.relevantSearch(term: ''),
+        ).thenAnswer((_) async => relevantResponse);
 
         expect(
           newsRepository.relevantSearch(term: ''),
           completion(equals(relevantResponse)),
         );
 
-        verify(() => apiClient.relevantSearch(term: any(named: 'term')))
-            .called(1);
+        verify(
+          () => apiClient.relevantSearch(term: any(named: 'term')),
+        ).called(1);
       });
 
-      test(
-          'throws RelevantSearchFailure '
+      test('throws RelevantSearchFailure '
           'if ApiClient.relevantSearch fails', () async {
-        when(() => apiClient.relevantSearch(term: any(named: 'term')))
-            .thenThrow(Exception);
+        when(
+          () => apiClient.relevantSearch(term: any(named: 'term')),
+        ).thenThrow(Exception);
 
         expect(
           newsRepository.relevantSearch(term: 'term'),

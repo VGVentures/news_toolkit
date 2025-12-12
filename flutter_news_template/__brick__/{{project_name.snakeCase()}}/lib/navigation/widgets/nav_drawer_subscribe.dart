@@ -35,8 +35,8 @@ class NavDrawerSubscribeTitle extends StatelessWidget {
         child: Text(
           context.l10n.navigationDrawerSubscribeTitle,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: AppColors.highEmphasisPrimary,
-              ),
+            color: AppColors.highEmphasisPrimary,
+          ),
         ),
       ),
     );
@@ -50,14 +50,12 @@ class NavDrawerSubscribeSubtitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Text(
         context.l10n.navigationDrawerSubscribeSubtitle,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.mediumEmphasisPrimary,
-            ),
+          color: AppColors.mediumEmphasisPrimary,
+        ),
       ),
     );
   }

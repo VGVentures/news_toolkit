@@ -12,9 +12,9 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SearchBloc>(
-      create: (context) => SearchBloc(
-        newsRepository: context.read<NewsRepository>(),
-      )..add(const SearchTermChanged()),
+      create: (context) =>
+          SearchBloc(newsRepository: context.read<NewsRepository>())
+            ..add(const SearchTermChanged()),
       child: const SearchView(),
     );
   }
@@ -34,9 +34,9 @@ class _SearchViewState extends State<SearchView> {
   void initState() {
     super.initState();
     _controller.addListener(
-      () => context
-          .read<SearchBloc>()
-          .add(SearchTermChanged(searchTerm: _controller.text)),
+      () => context.read<SearchBloc>().add(
+        SearchTermChanged(searchTerm: _controller.text),
+      ),
     );
   }
 
@@ -64,44 +64,42 @@ class _SearchViewState extends State<SearchView> {
         return CustomScrollView(
           slivers: [
             SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  SearchTextField(
-                    key: const Key('searchPage_searchTextField'),
-                    controller: _controller,
+              delegate: SliverChildListDelegate([
+                SearchTextField(
+                  key: const Key('searchPage_searchTextField'),
+                  controller: _controller,
+                ),
+                SearchHeadlineText(
+                  headerText: state.searchType == SearchType.popular
+                      ? l10n.searchPopularSearches
+                      : l10n.searchRelevantTopics,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpacing.lg,
+                    0,
+                    AppSpacing.lg,
+                    AppSpacing.lg,
                   ),
-                  SearchHeadlineText(
-                    headerText: state.searchType == SearchType.popular
-                        ? l10n.searchPopularSearches
-                        : l10n.searchRelevantTopics,
+                  child: Wrap(
+                    spacing: AppSpacing.sm,
+                    children: state.topics
+                        .map<Widget>(
+                          (topic) => SearchFilterChip(
+                            key: Key('searchFilterChip_$topic'),
+                            chipText: topic,
+                            onSelected: (text) => _controller.text = text,
+                          ),
+                        )
+                        .toList(),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      AppSpacing.lg,
-                      0,
-                      AppSpacing.lg,
-                      AppSpacing.lg,
-                    ),
-                    child: Wrap(
-                      spacing: AppSpacing.sm,
-                      children: state.topics
-                          .map<Widget>(
-                            (topic) => SearchFilterChip(
-                              key: Key('searchFilterChip_$topic'),
-                              chipText: topic,
-                              onSelected: (text) => _controller.text = text,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                  SearchHeadlineText(
-                    headerText: state.searchType == SearchType.popular
-                        ? l10n.searchPopularArticles
-                        : l10n.searchRelevantArticles,
-                  ),
-                ],
-              ),
+                ),
+                SearchHeadlineText(
+                  headerText: state.searchType == SearchType.popular
+                      ? l10n.searchPopularArticles
+                      : l10n.searchRelevantArticles,
+                ),
+              ]),
             ),
             ...state.articles.map<Widget>(
               (newsBlock) => CategoryFeedItem(block: newsBlock),

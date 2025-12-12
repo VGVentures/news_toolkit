@@ -67,8 +67,9 @@ class _UserProfileViewState extends State<UserProfileView>
   @override
   Widget build(BuildContext context) {
     final user = context.select((UserProfileBloc bloc) => bloc.state.user);
-    final notificationsEnabled = context
-        .select((UserProfileBloc bloc) => bloc.state.notificationsEnabled);
+    final notificationsEnabled = context.select(
+      (UserProfileBloc bloc) => bloc.state.notificationsEnabled,
+    );
     final isUserSubscribed = context.select<AppBloc, bool>(
       (bloc) => bloc.state.isUserSubscribed,
     );
@@ -79,9 +80,9 @@ class _UserProfileViewState extends State<UserProfileView>
       listener: (context, state) {
         if (state.status == UserProfileStatus.togglingNotificationsSucceeded &&
             state.notificationsEnabled) {
-          context
-              .read<AnalyticsBloc>()
-              .add(TrackAnalyticsEvent(PushNotificationSubscriptionEvent()));
+          context.read<AnalyticsBloc>().add(
+            TrackAnalyticsEvent(PushNotificationSubscriptionEvent()),
+          );
         }
       },
       child: BlocListener<AppBloc, AppState>(
@@ -91,9 +92,7 @@ class _UserProfileViewState extends State<UserProfileView>
           }
         },
         child: Scaffold(
-          appBar: AppBar(
-            leading: const AppBackButton(),
-          ),
+          appBar: AppBar(leading: const AppBackButton()),
           body: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
@@ -120,9 +119,9 @@ class _UserProfileViewState extends State<UserProfileView>
                         key: const Key('userProfilePage_subscriptionItem'),
                         title: l10n.manageSubscriptionTile,
                         trailing: const Icon(Icons.chevron_right),
-                        onTap: () => Navigator.of(context).push(
-                          ManageSubscriptionPage.route(),
-                        ),
+                        onTap: () => Navigator.of(
+                          context,
+                        ).push(ManageSubscriptionPage.route()),
                       )
                     else
                       UserProfileSubscribeBox(
@@ -141,9 +140,9 @@ class _UserProfileViewState extends State<UserProfileView>
                         onText: l10n.checkboxOnTitle,
                         offText: l10n.userProfileCheckboxOffTitle,
                         value: notificationsEnabled,
-                        onChanged: (_) => context
-                            .read<UserProfileBloc>()
-                            .add(const ToggleNotifications()),
+                        onChanged: (_) => context.read<UserProfileBloc>().add(
+                          const ToggleNotifications(),
+                        ),
                       ),
                     ),
                     UserProfileItem(
@@ -152,9 +151,9 @@ class _UserProfileViewState extends State<UserProfileView>
                       ),
                       title: l10n.notificationPreferencesTitle,
                       trailing: const Icon(Icons.chevron_right),
-                      onTap: () => Navigator.of(context).push(
-                        NotificationPreferencesPage.route(),
-                      ),
+                      onTap: () => Navigator.of(
+                        context,
+                      ).push(NotificationPreferencesPage.route()),
                     ),
                     const _UserProfileDivider(),
                     UserProfileSubtitle(
@@ -165,8 +164,9 @@ class _UserProfileViewState extends State<UserProfileView>
                       leading: Assets.icons.termsOfUseIcon.svg(),
                       title:
                           l10n.userProfileLegalTermsOfUseAndPrivacyPolicyTitle,
-                      onTap: () => Navigator.of(context)
-                          .push<void>(TermsOfServicePage.route()),
+                      onTap: () => Navigator.of(
+                        context,
+                      ).push<void>(TermsOfServicePage.route()),
                     ),
                     UserProfileItem(
                       key: const Key('userProfilePage_aboutItem'),
@@ -176,16 +176,14 @@ class _UserProfileViewState extends State<UserProfileView>
                     Align(
                       child: AppButton.smallTransparent(
                         key: const Key('userProfilePage_deleteAccountButton'),
-                        onPressed: () {
-                          showDialog<void>(
+                        onPressed: () async {
+                          await showDialog<void>(
                             context: context,
                             builder: (_) =>
                                 const UserProfileDeleteAccountDialog(),
                           );
                         },
-                        child: Text(
-                          l10n.userProfileDeleteAccountButton,
-                        ),
+                        child: Text(l10n.userProfileDeleteAccountButton),
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
@@ -233,10 +231,7 @@ class UserProfileSubtitle extends StatelessWidget {
         AppSpacing.lg,
         AppSpacing.md,
       ),
-      child: Text(
-        subtitle,
-        style: theme.textTheme.titleSmall,
-      ),
+      child: Text(subtitle, style: theme.textTheme.titleSmall),
     );
   }
 }
@@ -251,7 +246,7 @@ class UserProfileItem extends StatelessWidget {
     super.key,
   });
 
-  static const _leadingWidth = AppSpacing.xxxlg + AppSpacing.sm;
+  static const double _leadingWidth = AppSpacing.xxxlg + AppSpacing.sm;
 
   final String title;
   final Widget? leading;
@@ -264,10 +259,7 @@ class UserProfileItem extends StatelessWidget {
 
     return ListTile(
       dense: true,
-      leading: SizedBox(
-        width: hasLeading ? _leadingWidth : 0,
-        child: leading,
-      ),
+      leading: SizedBox(width: hasLeading ? _leadingWidth : 0, child: leading),
       trailing: trailing,
       visualDensity: const VisualDensity(
         vertical: VisualDensity.minimumDensity,
@@ -283,9 +275,9 @@ class UserProfileItem extends StatelessWidget {
       onTap: onTap,
       title: Text(
         title,
-        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: AppColors.highEmphasisSurface,
-            ),
+        style: Theme.of(
+          context,
+        ).textTheme.titleMedium?.copyWith(color: AppColors.highEmphasisSurface),
       ),
     );
   }
@@ -324,11 +316,7 @@ class _UserProfileDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-      child: Divider(
-        color: AppColors.borderOutline,
-        indent: 0,
-        endIndent: 0,
-      ),
+      child: Divider(color: AppColors.borderOutline, indent: 0, endIndent: 0),
     );
   }
 }

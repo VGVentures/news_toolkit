@@ -93,9 +93,9 @@ class AppTextField extends StatelessWidget {
             readOnly: readOnly,
             autofillHints: autoFillHints,
             cursorColor: AppColors.darkAqua,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
             onFieldSubmitted: onSubmitted,
             decoration: InputDecoration(
               hintText: hintText,
@@ -106,9 +106,7 @@ class AppTextField extends StatelessWidget {
                 width: 32,
                 height: 32,
               ),
-              prefixIconConstraints: const BoxConstraints.tightFor(
-                width: 48,
-              ),
+              prefixIconConstraints: const BoxConstraints.tightFor(width: 48),
             ),
             onChanged: onChanged,
             onTap: onTap,

@@ -41,9 +41,9 @@ void main() {
     analyticsBloc = MockAnalyticsBloc();
     articleBloc = MockArticleBloc();
 
-    when(() => articleBloc.state).thenReturn(
-      ArticleState(status: ArticleStatus.initial, title: 'title'),
-    );
+    when(
+      () => articleBloc.state,
+    ).thenReturn(ArticleState(status: ArticleStatus.initial, title: 'title'));
     when(() => appBloc.state).thenReturn(AppState.unauthenticated());
 
     VisibilityDetectorController.instance.updateInterval = Duration.zero;
@@ -51,28 +51,24 @@ void main() {
 
   group('SubscribeModal', () {
     group('renders', () {
-      testWidgets('subscribe button when user is authenticated',
-          (tester) async {
+      testWidgets('subscribe button when user is authenticated', (
+        tester,
+      ) async {
         when(() => appBloc.state).thenReturn(AppState.authenticated(user));
         await tester.pumpApp(
-          BlocProvider.value(
-            value: articleBloc,
-            child: SubscribeModal(),
-          ),
+          BlocProvider.value(value: articleBloc, child: SubscribeModal()),
           appBloc: appBloc,
         );
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
         expect(find.byKey(logInButtonKey), findsNothing);
       });
 
-      testWidgets('subscribe and log in buttons when user is unauthenticated',
-          (tester) async {
+      testWidgets('subscribe and log in buttons when user is unauthenticated', (
+        tester,
+      ) async {
         when(() => appBloc.state).thenReturn(AppState.unauthenticated());
         await tester.pumpApp(
-          BlocProvider.value(
-            value: articleBloc,
-            child: SubscribeModal(),
-          ),
+          BlocProvider.value(value: articleBloc, child: SubscribeModal()),
           appBloc: appBloc,
         );
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
@@ -88,29 +84,25 @@ void main() {
         inAppPurchaseRepository = MockInAppPurchaseRepository();
         articleBloc = MockArticleBloc();
 
-        when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
-          (_) => const Stream.empty(),
-        );
+        when(
+          () => inAppPurchaseRepository.purchaseUpdate,
+        ).thenAnswer((_) => const Stream.empty());
 
-        when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
-          (_) async => [],
-        );
+        when(
+          inAppPurchaseRepository.fetchSubscriptions,
+        ).thenAnswer((_) async => []);
 
         when(() => articleBloc.state).thenReturn(
           ArticleState(status: ArticleStatus.initial, title: 'title'),
         );
       });
 
-      testWidgets(
-          'when tapped on subscribe button '
+      testWidgets('when tapped on subscribe button '
           'adding PaywallPromptEvent.click to AnalyticsBloc', (tester) async {
         final analyticsBloc = MockAnalyticsBloc();
 
         await tester.pumpApp(
-          BlocProvider.value(
-            value: articleBloc,
-            child: SubscribeModal(),
-          ),
+          BlocProvider.value(value: articleBloc, child: SubscribeModal()),
           inAppPurchaseRepository: inAppPurchaseRepository,
           analyticsBloc: analyticsBloc,
         );
@@ -128,8 +120,7 @@ void main() {
       });
     });
 
-    testWidgets(
-        'shows LoginModal '
+    testWidgets('shows LoginModal '
         'when tapped on log in button', (tester) async {
       whenListen(
         appBloc,
@@ -138,10 +129,7 @@ void main() {
       );
 
       await tester.pumpApp(
-        BlocProvider.value(
-          value: articleBloc,
-          child: SubscribeModal(),
-        ),
+        BlocProvider.value(value: articleBloc, child: SubscribeModal()),
         appBloc: appBloc,
       );
 
@@ -151,15 +139,11 @@ void main() {
       expect(find.byType(LoginModal), findsOneWidget);
     });
 
-    testWidgets(
-        'adds TrackAnalyticsEvent to AnalyticsBloc '
+    testWidgets('adds TrackAnalyticsEvent to AnalyticsBloc '
         'with PaywallPromptEvent.impression subscription '
         'when shown', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: articleBloc,
-          child: SubscribeModal(),
-        ),
+        BlocProvider.value(value: articleBloc, child: SubscribeModal()),
         analyticsBloc: analyticsBloc,
         appBloc: appBloc,
       );

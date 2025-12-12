@@ -9,8 +9,7 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('PostLargeImage', () {
-    testWidgets(
-        'renders InlineImage '
+    testWidgets('renders InlineImage '
         'when isContentOverlaid is false', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
@@ -25,8 +24,7 @@ void main() {
       expect(find.byType(InlineImage), findsOneWidget);
     });
 
-    testWidgets(
-        'renders OverlaidImage '
+    testWidgets('renders OverlaidImage '
         'when isContentOverlaid is true', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
@@ -41,8 +39,7 @@ void main() {
       expect(find.byType(OverlaidImage), findsOneWidget);
     });
 
-    testWidgets(
-        'renders LockIcon '
+    testWidgets('renders LockIcon '
         'when isLocked is true and '
         'when isContentOverlaid is true', (tester) async {
       final postLargeImage = PostLargeImage(
@@ -58,8 +55,7 @@ void main() {
       expect(find.byType(LockIcon), findsOneWidget);
     });
 
-    testWidgets(
-        'renders LockIcon '
+    testWidgets('renders LockIcon '
         'when isLocked is true and '
         'when isContentOverlaid is false', (tester) async {
       final postLargeImage = PostLargeImage(
@@ -75,8 +71,7 @@ void main() {
       expect(find.byType(LockIcon), findsOneWidget);
     });
 
-    testWidgets(
-        'does not render LockIcon '
+    testWidgets('does not render LockIcon '
         'when isLocked is false and '
         'when isContentOverlaid is true', (tester) async {
       final postLargeImage = PostLargeImage(
@@ -92,8 +87,7 @@ void main() {
       expect(find.byType(LockIcon), findsNothing);
     });
 
-    testWidgets(
-        'does not render LockIcon '
+    testWidgets('does not render LockIcon '
         'when isLocked is false and '
         'when isContentOverlaid is false', (tester) async {
       final postLargeImage = PostLargeImage(

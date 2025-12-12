@@ -12,18 +12,17 @@ void main() {
     test('provides NewsDataSource instance.', () async {
       final context = _MockRequestContext();
 
-      final handler = middleware(
-        (_) {
-          expect(context.read<NewsDataSource>(), isNotNull);
-          return Response();
-        },
-      );
+      final handler = middleware((_) {
+        expect(context.read<NewsDataSource>(), isNotNull);
+        return Response();
+      });
       final request = Request('GET', Uri.parse('http://127.0.0.1/'));
 
       when(() => context.request).thenReturn(request);
 
-      when(() => context.read<NewsDataSource>())
-          .thenReturn(InMemoryNewsDataSource());
+      when(
+        () => context.read<NewsDataSource>(),
+      ).thenReturn(InMemoryNewsDataSource());
 
       when(() => context.provide<NewsDataSource>(any())).thenReturn(context);
       when(() => context.provide<RequestUser>(any())).thenReturn(context);

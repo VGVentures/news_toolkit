@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_const, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
 
@@ -18,10 +18,7 @@ void main() {
 
       await tester.pumpContentThemedApp(testPostContent);
 
-      expect(
-        find.text('title'),
-        findsOneWidget,
-      );
+      expect(find.text('title'), findsOneWidget);
     });
 
     testWidgets('renders category when isPremium is false', (tester) async {
@@ -33,18 +30,11 @@ void main() {
 
       await tester.pumpContentThemedApp(testPostContent);
 
-      expect(
-        find.byType(PostContentCategory),
-        findsOneWidget,
-      );
-      expect(
-        find.byType(PostContentPremiumCategory),
-        findsNothing,
-      );
+      expect(find.byType(PostContentCategory), findsOneWidget);
+      expect(find.byType(PostContentPremiumCategory), findsNothing);
     });
 
-    testWidgets(
-        'renders category and premium '
+    testWidgets('renders category and premium '
         'when isPremium is true', (tester) async {
       final testPostContent = PostContent(
         title: 'title',
@@ -55,18 +45,11 @@ void main() {
 
       await tester.pumpContentThemedApp(testPostContent);
 
-      expect(
-        find.byType(PostContentCategory),
-        findsOneWidget,
-      );
-      expect(
-        find.byType(PostContentPremiumCategory),
-        findsOneWidget,
-      );
+      expect(find.byType(PostContentCategory), findsOneWidget);
+      expect(find.byType(PostContentPremiumCategory), findsOneWidget);
     });
 
-    testWidgets(
-        'renders premium without category '
+    testWidgets('renders premium without category '
         'when isPremium is true and categoryName is empty', (tester) async {
       final testPostContent = PostContent(
         title: 'title',
@@ -77,14 +60,8 @@ void main() {
 
       await tester.pumpContentThemedApp(testPostContent);
 
-      expect(
-        find.byType(PostContentCategory),
-        findsNothing,
-      );
-      expect(
-        find.byType(PostContentPremiumCategory),
-        findsOneWidget,
-      );
+      expect(find.byType(PostContentCategory), findsNothing);
+      expect(find.byType(PostContentPremiumCategory), findsOneWidget);
     });
 
     group('renders PostFooter', () {
@@ -97,10 +74,7 @@ void main() {
 
         await tester.pumpContentThemedApp(testPostContent);
 
-        expect(
-          find.byType(PostFooter),
-          findsOneWidget,
-        );
+        expect(find.byType(PostFooter), findsOneWidget);
       });
 
       testWidgets('when publishedAt provided', (tester) async {
@@ -112,10 +86,7 @@ void main() {
 
         await tester.pumpContentThemedApp(testPostContent);
 
-        expect(
-          find.byType(PostFooter),
-          findsOneWidget,
-        );
+        expect(find.byType(PostFooter), findsOneWidget);
       });
 
       testWidgets('when onShare provided', (tester) async {
@@ -128,10 +99,7 @@ void main() {
 
         await tester.pumpContentThemedApp(testPostContent);
 
-        expect(
-          find.byType(PostFooter),
-          findsOneWidget,
-        );
+        expect(find.byType(PostFooter), findsOneWidget);
       });
 
       testWidgets('calls onShare when clicked on share icon', (tester) async {

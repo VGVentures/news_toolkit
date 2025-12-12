@@ -34,21 +34,18 @@ void main() {
     });
 
     group('opens default email app', () {
-      testWidgets(
-        'when MagicLinkPromptOpenEmailButton is pressed',
-        (tester) async {
-          when(emailLauncher.launchEmailApp).thenAnswer((_) async {});
-          await tester.pumpApp(
-            MagicLinkPromptOpenEmailButton(
-              emailLauncher: emailLauncher,
-            ),
-          );
+      testWidgets('when MagicLinkPromptOpenEmailButton is pressed', (
+        tester,
+      ) async {
+        when(emailLauncher.launchEmailApp).thenAnswer((_) async {});
+        await tester.pumpApp(
+          MagicLinkPromptOpenEmailButton(emailLauncher: emailLauncher),
+        );
 
-          await tester.tap(find.byType(MagicLinkPromptOpenEmailButton));
-          await tester.pumpAndSettle();
-          verify(emailLauncher.launchEmailApp).called(1);
-        },
-      );
+        await tester.tap(find.byType(MagicLinkPromptOpenEmailButton));
+        await tester.pumpAndSettle();
+        verify(emailLauncher.launchEmailApp).called(1);
+      });
     });
   });
 }

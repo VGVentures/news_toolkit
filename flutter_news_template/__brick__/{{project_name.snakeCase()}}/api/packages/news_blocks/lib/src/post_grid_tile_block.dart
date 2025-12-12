@@ -14,7 +14,7 @@ class PostGridTileBlock extends PostBlock {
   /// {@macro post_grid_tile_block}
   const PostGridTileBlock({
     required super.id,
-    required super.category,
+    required super.categoryId,
     required super.author,
     required super.publishedAt,
     required String super.imageUrl,
@@ -42,27 +42,27 @@ class PostGridTileBlock extends PostBlock {
 extension PostGridTileBlockExt on PostGridTileBlock {
   /// Converts [PostGridTileBlock] into a [PostLargeBlock] instance.
   PostLargeBlock toPostLargeBlock() => PostLargeBlock(
-        id: id,
-        category: category,
-        author: author,
-        publishedAt: publishedAt,
-        imageUrl: imageUrl!,
-        title: title,
-        isContentOverlaid: true,
-        description: description,
-        action: action,
-      );
+    id: id,
+    categoryId: categoryId,
+    author: author,
+    publishedAt: publishedAt,
+    imageUrl: imageUrl!,
+    title: title,
+    isContentOverlaid: true,
+    description: description,
+    action: action,
+  );
 
   /// Converts [PostGridTileBlock] into a [PostMediumBlock] instance.
   PostMediumBlock toPostMediumBlock() => PostMediumBlock(
-        id: id,
-        category: category,
-        author: author,
-        publishedAt: publishedAt,
-        imageUrl: imageUrl!,
-        title: title,
-        isContentOverlaid: true,
-        description: description,
-        action: action,
-      );
+    id: id,
+    categoryId: categoryId,
+    author: author,
+    publishedAt: publishedAt,
+    imageUrl: imageUrl!,
+    title: title,
+    isContentOverlaid: true,
+    description: description,
+    action: action,
+  );
 }

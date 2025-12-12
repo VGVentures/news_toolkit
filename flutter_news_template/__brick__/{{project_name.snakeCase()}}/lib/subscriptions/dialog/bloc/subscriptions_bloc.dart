@@ -12,27 +12,26 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
   SubscriptionsBloc({
     required InAppPurchaseRepository inAppPurchaseRepository,
     required UserRepository userRepository,
-  })  : _inAppPurchaseRepository = inAppPurchaseRepository,
-        _userRepository = userRepository,
-        super(
-          SubscriptionsState.initial(),
-        ) {
+  }) : _inAppPurchaseRepository = inAppPurchaseRepository,
+       _userRepository = userRepository,
+       super(SubscriptionsState.initial()) {
     on<SubscriptionsRequested>(_onSubscriptionsRequested);
     on<SubscriptionPurchaseRequested>(_onSubscriptionPurchaseRequested);
     on<SubscriptionPurchaseUpdated>(_onSubscriptionPurchaseUpdated);
 
-    _subscriptionPurchaseUpdateSubscription =
-        _inAppPurchaseRepository.purchaseUpdate.listen(
-      (purchase) => add(SubscriptionPurchaseUpdated(purchase: purchase)),
-      onError: addError,
-    );
+    _subscriptionPurchaseUpdateSubscription = _inAppPurchaseRepository
+        .purchaseUpdate
+        .listen(
+          (purchase) => add(SubscriptionPurchaseUpdated(purchase: purchase)),
+          onError: addError,
+        );
   }
 
   final InAppPurchaseRepository _inAppPurchaseRepository;
   final UserRepository _userRepository;
 
   late StreamSubscription<PurchaseUpdate>
-      _subscriptionPurchaseUpdateSubscription;
+  _subscriptionPurchaseUpdateSubscription;
 
   FutureOr<void> _onSubscriptionsRequested(
     SubscriptionsRequested event,
@@ -41,7 +40,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
     try {
       final subscriptions = await _inAppPurchaseRepository.fetchSubscriptions();
       emit(state.copyWith(subscriptions: subscriptions));
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       addError(error, stackTrace);
     }
   }
@@ -53,7 +52,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
     try {
       emit(state.copyWith(purchaseStatus: PurchaseStatus.pending));
       await _inAppPurchaseRepository.purchase(subscription: event.subscription);
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       addError(error, stackTrace);
     }
   }
@@ -65,30 +64,18 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
     final purchase = event.purchase;
 
     if (purchase is PurchasePurchased) {
-      emit(
-        state.copyWith(
-          purchaseStatus: PurchaseStatus.pending,
-        ),
-      );
+      emit(state.copyWith(purchaseStatus: PurchaseStatus.pending));
     } else if (purchase is PurchaseDelivered) {
       await _userRepository.updateSubscriptionPlan();
-      emit(
-        state.copyWith(
-          purchaseStatus: PurchaseStatus.completed,
-        ),
-      );
+      emit(state.copyWith(purchaseStatus: PurchaseStatus.completed));
     } else if (purchase is PurchaseFailed || purchase is PurchaseCanceled) {
-      emit(
-        state.copyWith(
-          purchaseStatus: PurchaseStatus.failed,
-        ),
-      );
+      emit(state.copyWith(purchaseStatus: PurchaseStatus.failed));
     }
   }
 
   @override
-  Future<void> close() {
-    _subscriptionPurchaseUpdateSubscription.cancel();
+  Future<void> close() async {
+    await _subscriptionPurchaseUpdateSubscription.cancel();
     return super.close();
   }
 }

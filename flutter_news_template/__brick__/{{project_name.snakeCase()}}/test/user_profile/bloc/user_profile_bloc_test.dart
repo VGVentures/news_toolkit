@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:authentication_client/authentication_client.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:{{project_name.snakeCase()}}/user_profile/user_profile.dart';
 import 'package:{{project_name.snakeCase()}}_api/client.dart' hide User;
@@ -15,8 +14,6 @@ class MockUserRepository extends Mock implements UserRepository {}
 
 class MockNotificationsRepository extends Mock
     implements NotificationsRepository {}
-
-class MockAuthenticationClient extends Mock implements AuthenticationClient {}
 
 void main() {
   group('UserProfileBloc', () {
@@ -107,8 +104,9 @@ void main() {
         'emits '
         '[fetchingNotificationsEnabled, fetchingNotificationsEnabledSucceeded] '
         'when fetchNotificationsEnabled succeeds',
-        setUp: () => when(notificationsRepository.fetchNotificationsEnabled)
-            .thenAnswer((_) async => true),
+        setUp: () => when(
+          notificationsRepository.fetchNotificationsEnabled,
+        ).thenAnswer((_) async => true),
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
@@ -129,8 +127,9 @@ void main() {
         'emits '
         '[fetchingNotificationsEnabled, fetchingNotificationsEnabledFailed] '
         'when fetchNotificationsEnabled fails',
-        setUp: () => when(notificationsRepository.fetchNotificationsEnabled)
-            .thenThrow(Exception()),
+        setUp: () => when(
+          notificationsRepository.fetchNotificationsEnabled,
+        ).thenThrow(Exception()),
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
@@ -161,9 +160,8 @@ void main() {
         '[togglingNotifications, togglingNotificationsSucceeded] '
         'when notifications are enabled '
         'and toggleNotifications succeeds',
-        seed: () => UserProfileState.initial().copyWith(
-          notificationsEnabled: true,
-        ),
+        seed: () =>
+            UserProfileState.initial().copyWith(notificationsEnabled: true),
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
@@ -189,9 +187,8 @@ void main() {
         '[togglingNotifications, togglingNotificationsSucceeded] '
         'when notifications are disabled '
         'and toggleNotifications succeeds',
-        seed: () => UserProfileState.initial().copyWith(
-          notificationsEnabled: false,
-        ),
+        seed: () =>
+            UserProfileState.initial().copyWith(notificationsEnabled: false),
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,

@@ -9,23 +9,22 @@ part of 'slideshow_block.dart';
 // **************************************************************************
 
 SlideshowBlock _$SlideshowBlockFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'SlideshowBlock',
-      json,
-      ($checkedConvert) {
-        final val = SlideshowBlock(
-          title: $checkedConvert('title', (v) => v as String),
-          slides: $checkedConvert(
-              'slides',
-              (v) => (v as List<dynamic>)
-                  .map((e) => SlideBlock.fromJson(e as Map<String, dynamic>))
-                  .toList()),
-          type: $checkedConvert(
-              'type', (v) => v as String? ?? SlideshowBlock.identifier),
-        );
-        return val;
-      },
-    );
+    $checkedCreate('SlideshowBlock', json, ($checkedConvert) {
+      final val = SlideshowBlock(
+        title: $checkedConvert('title', (v) => v as String),
+        slides: $checkedConvert(
+          'slides',
+          (v) => (v as List<dynamic>)
+              .map((e) => SlideBlock.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        ),
+        type: $checkedConvert(
+          'type',
+          (v) => v as String? ?? SlideshowBlock.identifier,
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$SlideshowBlockToJson(SlideshowBlock instance) =>
     <String, dynamic>{

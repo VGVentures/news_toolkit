@@ -34,11 +34,8 @@ class TestRequestContext implements RequestContext {
   }
 
   @override
-  Request get request => Request(
-        method.name.toUpperCase(),
-        Uri.parse(path),
-        headers: headers,
-      );
+  Request get request =>
+      Request(method.name.toUpperCase(), Uri.parse(path), headers: headers);
 
   @override
   Map<String, String> get mountedParams => {};

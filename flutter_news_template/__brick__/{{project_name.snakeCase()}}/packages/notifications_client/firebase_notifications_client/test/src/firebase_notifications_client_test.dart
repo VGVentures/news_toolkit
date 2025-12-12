@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_notifications_client/firebase_notifications_client.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -32,8 +31,7 @@ void main() {
         verify(() => firebaseMessaging.subscribeToTopic(category)).called(1);
       });
 
-      test(
-          'throws SubscribeToCategoryFailure '
+      test('throws SubscribeToCategoryFailure '
           'when FirebaseMessaging.subscribeToTopic fails', () async {
         when(
           () => firebaseMessaging.subscribeToTopic(category),
@@ -54,12 +52,12 @@ void main() {
 
         await firebaseNotificationsClient.unsubscribeFromCategory(category);
 
-        verify(() => firebaseMessaging.unsubscribeFromTopic(category))
-            .called(1);
+        verify(
+          () => firebaseMessaging.unsubscribeFromTopic(category),
+        ).called(1);
       });
 
-      test(
-          'throws UnsubscribeFromCategoryFailure '
+      test('throws UnsubscribeFromCategoryFailure '
           'when FirebaseMessaging.unsubscribeFromTopic fails', () async {
         when(
           () => firebaseMessaging.unsubscribeFromTopic(category),

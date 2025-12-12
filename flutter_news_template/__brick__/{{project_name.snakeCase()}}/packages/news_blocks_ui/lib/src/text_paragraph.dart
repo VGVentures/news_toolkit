@@ -16,10 +16,7 @@ class TextParagraph extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-      child: Text(
-        block.text,
-        style: Theme.of(context).textTheme.bodyLarge,
-      ),
+      child: Text(block.text, style: Theme.of(context).textTheme.bodyLarge),
     );
   }
 }

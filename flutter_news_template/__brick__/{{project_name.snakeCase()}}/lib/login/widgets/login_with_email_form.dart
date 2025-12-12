@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +19,10 @@ class LoginWithEmailForm extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
-          Navigator.of(context).push<void>(
-            MagicLinkPromptPage.route(email: email),
+          unawaited(
+            Navigator.of(
+              context,
+            ).push<void>(MagicLinkPromptPage.route(email: email)),
           );
         } else if (state.status.isFailure) {
           ScaffoldMessenger.of(context)
@@ -135,14 +139,11 @@ class _TermsAndPrivacyPolicyLinkTexts extends StatelessWidget {
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () => showAppModal<void>(
-                      context: context,
-                      builder: (context) => const TermsOfServiceModal(),
-                    ),
+                  context: context,
+                  builder: (context) => const TermsOfServiceModal(),
+                ),
             ),
-            TextSpan(
-              text: '.',
-              style: theme.textTheme.bodyLarge,
-            ),
+            TextSpan(text: '.', style: theme.textTheme.bodyLarge),
           ],
         ),
       ),
@@ -175,17 +176,15 @@ class _NextButton extends StatelessWidget {
 
 @visibleForTesting
 class ClearIconButton extends StatelessWidget {
-  const ClearIconButton({
-    required this.onPressed,
-    super.key,
-  });
+  const ClearIconButton({required this.onPressed, super.key});
 
   final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final suffixVisible =
-        context.select((LoginBloc bloc) => bloc.state.email.value.isNotEmpty);
+    final suffixVisible = context.select(
+      (LoginBloc bloc) => bloc.state.email.value.isNotEmpty,
+    );
 
     return Padding(
       key: const Key('loginWithEmailForm_clearIconButton'),

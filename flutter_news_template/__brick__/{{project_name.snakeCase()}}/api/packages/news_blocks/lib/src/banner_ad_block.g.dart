@@ -9,19 +9,19 @@ part of 'banner_ad_block.dart';
 // **************************************************************************
 
 BannerAdBlock _$BannerAdBlockFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'BannerAdBlock',
-      json,
-      ($checkedConvert) {
-        final val = BannerAdBlock(
-          size: $checkedConvert(
-              'size', (v) => $enumDecode(_$BannerAdSizeEnumMap, v)),
-          type: $checkedConvert(
-              'type', (v) => v as String? ?? BannerAdBlock.identifier),
-        );
-        return val;
-      },
-    );
+    $checkedCreate('BannerAdBlock', json, ($checkedConvert) {
+      final val = BannerAdBlock(
+        size: $checkedConvert(
+          'size',
+          (v) => $enumDecode(_$BannerAdSizeEnumMap, v),
+        ),
+        type: $checkedConvert(
+          'type',
+          (v) => v as String? ?? BannerAdBlock.identifier,
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$BannerAdBlockToJson(BannerAdBlock instance) =>
     <String, dynamic>{

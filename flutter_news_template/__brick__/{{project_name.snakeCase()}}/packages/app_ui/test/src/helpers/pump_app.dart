@@ -12,14 +12,10 @@ extension AppTester on WidgetTester {
       MaterialApp(
         theme: theme,
         home: navigator == null
-            ? Scaffold(
-                body: widgetUnderTest,
-              )
+            ? Scaffold(body: widgetUnderTest)
             : MockNavigatorProvider(
                 navigator: navigator,
-                child: Scaffold(
-                  body: widgetUnderTest,
-                ),
+                child: Scaffold(body: widgetUnderTest),
               ),
       ),
     );

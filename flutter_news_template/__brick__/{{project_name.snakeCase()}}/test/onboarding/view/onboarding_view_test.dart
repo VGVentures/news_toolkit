@@ -23,15 +23,19 @@ void main() {
   const onboardingViewTitleKey = Key('onboardingView_onboardingTitle');
   const onboardingViewSubtitleKey = Key('onboardingView_onboardingSubtitle');
   const onboardingViewPageTwoKey = Key('onboarding_pageTwo');
-  const onboardingViewPageOnePrimaryButtonKey =
-      Key('onboardingItem_primaryButton_pageOne');
-  const onboardingViewPageOneSecondaryButtonKey =
-      Key('onboardingItem_secondaryButton_pageOne');
+  const onboardingViewPageOnePrimaryButtonKey = Key(
+    'onboardingItem_primaryButton_pageOne',
+  );
+  const onboardingViewPageOneSecondaryButtonKey = Key(
+    'onboardingItem_secondaryButton_pageOne',
+  );
 
-  const onboardingViewPageTwoPrimaryButtonKey =
-      Key('onboardingItem_primaryButton_pageTwo');
-  const onboardingViewPageTwoSecondaryButtonKey =
-      Key('onboardingItem_secondaryButton_pageTwo');
+  const onboardingViewPageTwoPrimaryButtonKey = Key(
+    'onboardingItem_primaryButton_pageTwo',
+  );
+  const onboardingViewPageTwoSecondaryButtonKey = Key(
+    'onboardingItem_secondaryButton_pageTwo',
+  );
 
   setUp(() {
     appBloc = MockAppBloc();
@@ -47,43 +51,32 @@ void main() {
   group('renders', () {
     testWidgets('Onboarding title', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: onboardingBloc,
-          child: OnboardingView(),
-        ),
+        BlocProvider.value(value: onboardingBloc, child: OnboardingView()),
       );
       expect(find.byKey(onboardingViewTitleKey), findsOneWidget);
     });
 
     testWidgets('Onboarding subtitle', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: onboardingBloc,
-          child: OnboardingView(),
-        ),
+        BlocProvider.value(value: onboardingBloc, child: OnboardingView()),
       );
       expect(find.byKey(onboardingViewSubtitleKey), findsOneWidget);
     });
 
     testWidgets('Onboarding PageView', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: onboardingBloc,
-          child: OnboardingView(),
-        ),
+        BlocProvider.value(value: onboardingBloc, child: OnboardingView()),
       );
       expect(find.byType(PageView), findsOneWidget);
     });
   });
 
   group('navigates', () {
-    testWidgets('to onboarding page two when button page one is tapped',
-        (tester) async {
+    testWidgets('to onboarding page two when button page one is tapped', (
+      tester,
+    ) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: onboardingBloc,
-          child: OnboardingView(),
-        ),
+        BlocProvider.value(value: onboardingBloc, child: OnboardingView()),
       );
 
       final button = find.byKey(onboardingViewPageOneSecondaryButtonKey);
@@ -101,8 +94,7 @@ void main() {
       expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
     });
 
-    testWidgets(
-        'to onboarding page two '
+    testWidgets('to onboarding page two '
         'when state is EnablingAdTrackingSucceeded', (tester) async {
       whenListen(
         onboardingBloc,
@@ -114,10 +106,7 @@ void main() {
       );
 
       await tester.pumpApp(
-        BlocProvider.value(
-          value: onboardingBloc,
-          child: OnboardingView(),
-        ),
+        BlocProvider.value(value: onboardingBloc, child: OnboardingView()),
       );
 
       await tester.pumpAndSettle();
@@ -125,23 +114,16 @@ void main() {
       expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
     });
 
-    testWidgets(
-        'to onboarding page two '
+    testWidgets('to onboarding page two '
         'when state is EnablingAdTrackingFailed', (tester) async {
       whenListen(
         onboardingBloc,
-        Stream.fromIterable([
-          OnboardingInitial(),
-          EnablingAdTrackingFailed(),
-        ]),
+        Stream.fromIterable([OnboardingInitial(), EnablingAdTrackingFailed()]),
         initialState: OnboardingInitial(),
       );
 
       await tester.pumpApp(
-        BlocProvider.value(
-          value: onboardingBloc,
-          child: OnboardingView(),
-        ),
+        BlocProvider.value(value: onboardingBloc, child: OnboardingView()),
       );
 
       await tester.pumpAndSettle();
@@ -151,10 +133,7 @@ void main() {
 
     testWidgets('to home when onboarding is complete', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: onboardingBloc,
-          child: OnboardingView(),
-        ),
+        BlocProvider.value(value: onboardingBloc, child: OnboardingView()),
         appBloc: appBloc,
       );
 
@@ -186,14 +165,10 @@ void main() {
     });
   });
 
-  testWidgets(
-      'adds EnableNotificationsRequested to OnboardingBloc '
+  testWidgets('adds EnableNotificationsRequested to OnboardingBloc '
       'when subscribe to notifications now button is pressed', (tester) async {
     await tester.pumpApp(
-      BlocProvider.value(
-        value: onboardingBloc,
-        child: OnboardingView(),
-      ),
+      BlocProvider.value(value: onboardingBloc, child: OnboardingView()),
     );
 
     final buttonOne = find.byKey(onboardingViewPageOneSecondaryButtonKey);
@@ -222,16 +197,12 @@ void main() {
     await tester.tap(button);
     await tester.pumpAndSettle();
 
-    expect(
-      find.byKey(onboardingViewPageTwoPrimaryButtonKey),
-      findsOneWidget,
-    );
+    expect(find.byKey(onboardingViewPageTwoPrimaryButtonKey), findsOneWidget);
 
     verify(() => onboardingBloc.add(EnableNotificationsRequested())).called(1);
   });
 
-  testWidgets(
-      'adds AppOnboardingCompleted to AppBloc '
+  testWidgets('adds AppOnboardingCompleted to AppBloc '
       'when OnboardingState is EnablingNotificationsSucceeded', (tester) async {
     final onboardingStateController = StreamController<OnboardingState>();
 
@@ -242,10 +213,7 @@ void main() {
     );
 
     await tester.pumpApp(
-      BlocProvider.value(
-        value: onboardingBloc,
-        child: OnboardingView(),
-      ),
+      BlocProvider.value(value: onboardingBloc, child: OnboardingView()),
       appBloc: appBloc,
     );
 
@@ -260,10 +228,7 @@ void main() {
   group('does nothing', () {
     testWidgets('when personalized my ads button is pressed', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: onboardingBloc,
-          child: OnboardingView(),
-        ),
+        BlocProvider.value(value: onboardingBloc, child: OnboardingView()),
       );
 
       final button = find.byKey(onboardingViewPageOnePrimaryButtonKey);
@@ -278,10 +243,7 @@ void main() {
       await tester.tap(button);
       await tester.pumpAndSettle();
 
-      expect(
-        find.byKey(onboardingViewPageOnePrimaryButtonKey),
-        findsOneWidget,
-      );
+      expect(find.byKey(onboardingViewPageOnePrimaryButtonKey), findsOneWidget);
     });
   });
 }

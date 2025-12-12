@@ -44,14 +44,18 @@ class InMemoryNewsDataSource implements NewsDataSource {
     final result = _newsItems.where((item) => item.post.id == id);
     if (result.isEmpty) return null;
     final articleNewsItem = result.first;
-    final article = (preview
-            ? articleNewsItem.contentPreview
-            : articleNewsItem.content)
-        .toArticle(title: articleNewsItem.post.title, url: articleNewsItem.url);
+    final article =
+        (preview ? articleNewsItem.contentPreview : articleNewsItem.content)
+            .toArticle(
+              title: articleNewsItem.post.title,
+              url: articleNewsItem.url,
+            );
     final totalBlocks = article.totalBlocks;
     final normalizedOffset = math.min(offset, totalBlocks);
-    final blocks =
-        article.blocks.sublist(normalizedOffset).take(limit).toList();
+    final blocks = article.blocks
+        .sublist(normalizedOffset)
+        .take(limit)
+        .toList();
     return Article(
       title: article.title,
       blocks: blocks,
@@ -102,12 +106,12 @@ class InMemoryNewsDataSource implements NewsDataSource {
 
   @override
   Future<Feed> getFeed({
-    Category category = Category.top,
+    required String categoryId,
     int limit = 20,
     int offset = 0,
   }) async {
     final feed =
-        _newsFeedData[category] ?? const Feed(blocks: [], totalBlocks: 0);
+        _newsFeedData[categoryId] ?? const Feed(blocks: [], totalBlocks: 0);
     final totalBlocks = feed.totalBlocks;
     final normalizedOffset = math.min(offset, totalBlocks);
     final blocks = feed.blocks.sublist(normalizedOffset).take(limit).toList();
@@ -115,7 +119,7 @@ class InMemoryNewsDataSource implements NewsDataSource {
   }
 
   @override
-  Future<List<Category>> getCategories() async => _newsFeedData.keys.toList();
+  Future<List<Category>> getCategories() async => _categories;
 
   @override
   Future<User> getUser({required String userId}) async {

@@ -19,9 +19,9 @@ Future<Response> _onPostRequest(RequestContext context) async {
   }
 
   await context.read<NewsDataSource>().createSubscription(
-        userId: user.id,
-        subscriptionId: subscriptionId,
-      );
+    userId: user.id,
+    subscriptionId: subscriptionId,
+  );
 
   return Response(statusCode: HttpStatus.created);
 }

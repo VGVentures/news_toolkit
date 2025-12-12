@@ -7,9 +7,9 @@ part of 'feed_response.dart';
 // **************************************************************************
 
 FeedResponse _$FeedResponseFromJson(Map<String, dynamic> json) => FeedResponse(
-      feed: const NewsBlocksConverter().fromJson(json['feed'] as List),
-      totalCount: (json['totalCount'] as num).toInt(),
-    );
+  feed: const NewsBlocksConverter().fromJson(json['feed'] as List),
+  totalCount: (json['totalCount'] as num).toInt(),
+);
 
 Map<String, dynamic> _$FeedResponseToJson(FeedResponse instance) =>
     <String, dynamic>{

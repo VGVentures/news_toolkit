@@ -131,7 +131,9 @@
     "xcworkspace",
     "xxlg",
     "xxxlg",
-    "xxxs"
+    "xxxs",
+    "ARGB",
+    "canonicalized"
   ],
   "ignorePaths": [
     ".github/workflows/**",

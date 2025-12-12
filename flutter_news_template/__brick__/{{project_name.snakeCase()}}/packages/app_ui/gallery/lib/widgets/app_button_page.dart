@@ -73,10 +73,7 @@ class AppButtonPage extends StatelessWidget {
           ],
         ),
       ),
-      const _AppButtonItem(
-        buttonType: ButtonType.login,
-        child: Text('Log in'),
-      ),
+      const _AppButtonItem(buttonType: ButtonType.login, child: Text('Log in')),
       const _AppButtonItem(
         buttonType: ButtonType.subscribe,
         child: Text('Subscribe'),
@@ -190,7 +187,7 @@ enum ButtonType {
   cancel,
   watchVideo,
   watchVideoDark,
-  logInSubscribe
+  logInSubscribe,
 }
 
 class _AppButtonItem extends StatelessWidget {
@@ -199,25 +196,13 @@ class _AppButtonItem extends StatelessWidget {
   AppButton get appButton {
     switch (buttonType) {
       case ButtonType.google:
-        return AppButton.outlinedWhite(
-          onPressed: () {},
-          child: child,
-        );
+        return AppButton.outlinedWhite(onPressed: () {}, child: child);
       case ButtonType.apple:
-        return AppButton.black(
-          child: child,
-          onPressed: () {},
-        );
+        return AppButton.black(child: child, onPressed: () {});
       case ButtonType.facebook:
-        return AppButton.blueDress(
-          child: child,
-          onPressed: () {},
-        );
+        return AppButton.blueDress(child: child, onPressed: () {});
       case ButtonType.twitter:
-        return AppButton.crystalBlue(
-          onPressed: () {},
-          child: child,
-        );
+        return AppButton.crystalBlue(onPressed: () {}, child: child);
       case ButtonType.email:
         return AppButton.outlinedTransparentDarkAqua(
           onPressed: () {},
@@ -229,45 +214,24 @@ class _AppButtonItem extends StatelessWidget {
           child: child,
         );
       case ButtonType.subscribe:
-        return AppButton.redWine(
-          child: child,
-          onPressed: () {},
-        );
+        return AppButton.redWine(child: child, onPressed: () {});
       case ButtonType.information:
-        return AppButton.darkAqua(
-          onPressed: () {},
-          child: child,
-        );
+        return AppButton.darkAqua(onPressed: () {}, child: child);
       case ButtonType.trial:
-        return AppButton.smallRedWine(
-          onPressed: () {},
-          child: child,
-        );
+        return AppButton.smallRedWine(onPressed: () {}, child: child);
       case ButtonType.logout:
-        return AppButton.smallDarkAqua(
-          onPressed: () {},
-          child: child,
-        );
+        return AppButton.smallDarkAqua(onPressed: () {}, child: child);
       case ButtonType.details:
         return AppButton.smallOutlineTransparent(
           onPressed: () {},
           child: child,
         );
       case ButtonType.cancel:
-        return AppButton.smallTransparent(
-          onPressed: () {},
-          child: child,
-        );
+        return AppButton.smallTransparent(onPressed: () {}, child: child);
       case ButtonType.watchVideo:
-        return AppButton.transparentDarkAqua(
-          onPressed: () {},
-          child: child,
-        );
+        return AppButton.transparentDarkAqua(onPressed: () {}, child: child);
       case ButtonType.watchVideoDark:
-        return AppButton.transparentWhite(
-          onPressed: () {},
-          child: child,
-        );
+        return AppButton.transparentWhite(onPressed: () {}, child: child);
       case ButtonType.logInSubscribe:
         return AppButton.outlinedTransparentWhite(
           onPressed: () {},

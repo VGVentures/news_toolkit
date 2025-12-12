@@ -39,10 +39,9 @@ class PostContentPremiumCategory extends StatelessWidget {
               ),
               child: Text(
                 premiumText.toUpperCase(),
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall
-                    ?.copyWith(color: textColor),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelSmall?.copyWith(color: textColor),
               ),
             ),
           ),

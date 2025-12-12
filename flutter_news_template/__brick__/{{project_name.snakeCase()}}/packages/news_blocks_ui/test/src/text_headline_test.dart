@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_const, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,15 +9,11 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('TextHeadline', () {
-    setUpAll(
-      () => setUpTolerantComparator('test/src/text_headline_test.dart'),
-    );
+    setUpAll(() => setUpTolerantComparator('test/src/text_headline_test.dart'));
 
     testWidgets('renders correctly', (tester) async {
       final widget = Center(
-        child: TextHeadline(
-          block: TextHeadlineBlock(text: 'Title text'),
-        ),
+        child: TextHeadline(block: TextHeadlineBlock(text: 'Title text')),
       );
 
       await tester.pumpApp(widget);

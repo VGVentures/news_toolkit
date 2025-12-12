@@ -35,12 +35,12 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
-        arrowLeftDisable,
-        arrowLeftEnable,
-        arrowRightDisable,
-        arrowRightEnable,
-        playIcon
-      ];
+    arrowLeftDisable,
+    arrowLeftEnable,
+    arrowRightDisable,
+    arrowRightEnable,
+    playIcon,
+  ];
 }
 
 class Assets {
@@ -111,11 +111,7 @@ class AssetGenImage {
     AssetBundle? bundle,
     String? package = 'news_blocks_ui',
   }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;

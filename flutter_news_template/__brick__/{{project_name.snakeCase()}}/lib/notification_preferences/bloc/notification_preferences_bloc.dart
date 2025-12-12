@@ -13,14 +13,10 @@ class NotificationPreferencesBloc
   NotificationPreferencesBloc({
     required NewsRepository newsRepository,
     required NotificationsRepository notificationsRepository,
-  })  : _notificationsRepository = notificationsRepository,
-        _newsRepository = newsRepository,
-        super(
-          NotificationPreferencesState.initial(),
-        ) {
-    on<CategoriesPreferenceToggled>(
-      _onCategoriesPreferenceToggled,
-    );
+  }) : _notificationsRepository = notificationsRepository,
+       _newsRepository = newsRepository,
+       super(NotificationPreferencesState.initial()) {
+    on<CategoriesPreferenceToggled>(_onCategoriesPreferenceToggled);
     on<InitialCategoriesPreferencesRequested>(
       _onInitialCategoriesPreferencesRequested,
     );
@@ -42,8 +38,9 @@ class NotificationPreferencesBloc
         : updatedCategories.add(event.category);
 
     try {
-      await _notificationsRepository
-          .setCategoriesPreferences(updatedCategories);
+      await _notificationsRepository.setCategoriesPreferences(
+        updatedCategories,
+      );
 
       emit(
         state.copyWith(
@@ -51,10 +48,8 @@ class NotificationPreferencesBloc
           selectedCategories: updatedCategories,
         ),
       );
-    } catch (error, stackTrace) {
-      emit(
-        state.copyWith(status: NotificationPreferencesStatus.failure),
-      );
+    } on Exception catch (error, stackTrace) {
+      emit(state.copyWith(status: NotificationPreferencesStatus.failure));
       addError(error, stackTrace);
     }
   }
@@ -69,15 +64,13 @@ class NotificationPreferencesBloc
       late Set<Category> selectedCategories;
       late CategoriesResponse categoriesResponse;
 
-      await Future.wait(
-        [
-          (() async => selectedCategories =
-              await _notificationsRepository.fetchCategoriesPreferences() ??
-                  {})(),
-          (() async =>
-              categoriesResponse = await _newsRepository.getCategories())(),
-        ],
-      );
+      await Future.wait([
+        (() async => selectedCategories =
+            await _notificationsRepository.fetchCategoriesPreferences() ??
+            {})(),
+        (() async =>
+            categoriesResponse = await _newsRepository.getCategories())(),
+      ]);
 
       emit(
         state.copyWith(
@@ -86,10 +79,8 @@ class NotificationPreferencesBloc
           categories: categoriesResponse.categories.toSet(),
         ),
       );
-    } catch (error, stackTrace) {
-      emit(
-        state.copyWith(status: NotificationPreferencesStatus.failure),
-      );
+    } on Exception catch (error, stackTrace) {
+      emit(state.copyWith(status: NotificationPreferencesStatus.failure));
       addError(error, stackTrace);
     }
   }

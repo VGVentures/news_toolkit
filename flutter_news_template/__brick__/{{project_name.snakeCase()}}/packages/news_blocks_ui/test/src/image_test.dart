@@ -12,9 +12,7 @@ void main() {
     testWidgets('renders InlineImage with correct image', (tester) async {
       const block = ImageBlock(imageUrl: 'imageUrl');
 
-      await tester.pumpApp(
-        Image(block: block),
-      );
+      await tester.pumpApp(Image(block: block));
 
       expect(
         find.byWidgetPredicate(
@@ -28,9 +26,7 @@ void main() {
     testWidgets('renders ProgressIndicator when loading', (tester) async {
       const block = ImageBlock(imageUrl: 'imageUrl');
 
-      await tester.pumpApp(
-        Image(block: block),
-      );
+      await tester.pumpApp(Image(block: block));
 
       expect(find.byType(ProgressIndicator), findsOneWidget);
     });

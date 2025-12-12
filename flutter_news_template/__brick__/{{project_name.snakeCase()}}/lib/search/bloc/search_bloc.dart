@@ -23,10 +23,9 @@ EventTransformer<Event> restartableDebounce<Event>(
 }
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  SearchBloc({
-    required NewsRepository newsRepository,
-  })  : _newsRepository = newsRepository,
-        super(const SearchState.initial()) {
+  SearchBloc({required NewsRepository newsRepository})
+    : _newsRepository = newsRepository,
+      super(const SearchState.initial()) {
     on<SearchTermChanged>(
       (event, emit) async {
         event.searchTerm.isEmpty
@@ -61,7 +60,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           status: SearchStatus.populated,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Object catch (error, stackTrace) {
       emit(state.copyWith(status: SearchStatus.failure));
       addError(error, stackTrace);
     }
@@ -88,7 +87,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           status: SearchStatus.populated,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Object catch (error, stackTrace) {
       emit(state.copyWith(status: SearchStatus.failure));
       addError(error, stackTrace);
     }

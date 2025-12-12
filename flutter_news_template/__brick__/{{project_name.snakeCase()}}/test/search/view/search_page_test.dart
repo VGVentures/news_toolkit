@@ -41,10 +41,7 @@ void main() {
   group('SearchView', () {
     testWidgets('renders filter chips', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: searchBloc,
-          child: const SearchView(),
-        ),
+        BlocProvider.value(value: searchBloc, child: const SearchView()),
       );
 
       await tester.pump();
@@ -53,34 +50,31 @@ void main() {
     });
 
     testWidgets(
-        'when SearchFilterChip clicked adds SearchTermChanged to SearchBloc',
-        (tester) async {
-      await tester.pumpApp(
-        BlocProvider.value(
-          value: searchBloc,
-          child: const SearchView(),
-        ),
-      );
+      'when SearchFilterChip clicked adds SearchTermChanged to SearchBloc',
+      (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: searchBloc, child: const SearchView()),
+        );
 
-      await tester.tap(find.byKey(Key('searchFilterChip_topic')));
+        await tester.tap(find.byKey(Key('searchFilterChip_topic')));
 
-      verify(() => searchBloc.add(SearchTermChanged(searchTerm: 'topic')))
-          .called(1);
-    });
+        verify(
+          () => searchBloc.add(SearchTermChanged(searchTerm: 'topic')),
+        ).called(1);
+      },
+    );
 
     testWidgets('renders articles', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: searchBloc,
-          child: const SearchView(),
-        ),
+        BlocProvider.value(value: searchBloc, child: const SearchView()),
       );
 
       expect(find.byType(CategoryFeedItem), findsOneWidget);
     });
 
-    testWidgets('in SearchType.relevant renders two headline titles',
-        (tester) async {
+    testWidgets('in SearchType.relevant renders two headline titles', (
+      tester,
+    ) async {
       when(() => searchBloc.state).thenReturn(
         const SearchState(
           articles: [],
@@ -91,23 +85,16 @@ void main() {
       );
 
       await tester.pumpApp(
-        BlocProvider.value(
-          value: searchBloc,
-          child: const SearchView(),
-        ),
+        BlocProvider.value(value: searchBloc, child: const SearchView()),
       );
 
       expect(find.byType(SearchHeadlineText), findsNWidgets(2));
     });
 
-    testWidgets(
-        'when SearchTextField changes to non-empty value '
+    testWidgets('when SearchTextField changes to non-empty value '
         'adds SearchTermChanged to SearchBloc', (tester) async {
       await tester.pumpApp(
-        BlocProvider.value(
-          value: searchBloc,
-          child: const SearchView(),
-        ),
+        BlocProvider.value(value: searchBloc, child: const SearchView()),
       );
 
       await tester.enterText(
@@ -115,12 +102,12 @@ void main() {
         'test',
       );
 
-      verify(() => searchBloc.add(SearchTermChanged(searchTerm: 'test')))
-          .called(1);
+      verify(
+        () => searchBloc.add(SearchTermChanged(searchTerm: 'test')),
+      ).called(1);
     });
 
-    testWidgets(
-        'when SearchTextField changes to an empty value '
+    testWidgets('when SearchTextField changes to an empty value '
         'adds empty SearchTermChanged to SearchBloc', (tester) async {
       when(() => searchBloc.state).thenReturn(
         const SearchState(
@@ -132,36 +119,26 @@ void main() {
       );
 
       await tester.pumpApp(
-        BlocProvider.value(
-          value: searchBloc,
-          child: const SearchView(),
-        ),
+        BlocProvider.value(value: searchBloc, child: const SearchView()),
       );
 
-      await tester.enterText(
-        find.byKey(Key('searchPage_searchTextField')),
-        '',
-      );
+      await tester.enterText(find.byKey(Key('searchPage_searchTextField')), '');
 
       verify(() => searchBloc.add(SearchTermChanged())).called(1);
     });
 
-    testWidgets('shows snackbar when SearchBloc SearchStatus is failure',
-        (tester) async {
+    testWidgets('shows snackbar when SearchBloc SearchStatus is failure', (
+      tester,
+    ) async {
       final expectedStates = [
         SearchState.initial(),
-        SearchState.initial().copyWith(
-          status: SearchStatus.failure,
-        ),
+        SearchState.initial().copyWith(status: SearchStatus.failure),
       ];
 
       whenListen(searchBloc, Stream.fromIterable(expectedStates));
 
       await tester.pumpApp(
-        BlocProvider.value(
-          value: searchBloc,
-          child: const SearchView(),
-        ),
+        BlocProvider.value(value: searchBloc, child: const SearchView()),
       );
 
       expect(find.byType(SnackBar), findsOneWidget);

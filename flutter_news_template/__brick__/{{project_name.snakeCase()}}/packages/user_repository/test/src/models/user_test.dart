@@ -17,12 +17,7 @@ void main() {
             authenticationUser: authenticationUser,
             subscriptionPlan: subscriptionPlan,
           ),
-          equals(
-            User(
-              id: 'id',
-              subscriptionPlan: subscriptionPlan,
-            ),
-          ),
+          equals(User(id: 'id', subscriptionPlan: subscriptionPlan)),
         );
       });
     });

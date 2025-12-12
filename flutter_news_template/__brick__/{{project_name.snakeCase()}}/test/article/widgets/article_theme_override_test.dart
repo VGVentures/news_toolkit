@@ -11,10 +11,7 @@ void main() {
   group('ArticleThemeOverride', () {
     testWidgets('renders ContentThemeOverrideBuilder', (tester) async {
       await tester.pumpApp(
-        ArticleThemeOverride(
-          isVideoArticle: false,
-          child: SizedBox(),
-        ),
+        ArticleThemeOverride(isVideoArticle: false, child: SizedBox()),
       );
 
       expect(find.byType(ContentThemeOverrideBuilder), findsOneWidget);
@@ -68,8 +65,7 @@ void main() {
     });
 
     group('copyWith', () {
-      test(
-          'returns same object '
+      test('returns same object '
           'when no properties are passed', () {
         expect(
           ArticleThemeColors(
@@ -85,8 +81,7 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated captionNormal '
+      test('returns object with updated captionNormal '
           'when captionNormal is passed', () {
         expect(
           ArticleThemeColors(
@@ -102,8 +97,7 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated captionLight '
+      test('returns object with updated captionLight '
           'when captionLight is passed', () {
         expect(
           ArticleThemeColors(
@@ -121,8 +115,7 @@ void main() {
     });
 
     group('lerp', () {
-      test(
-          'returns same object '
+      test('returns same object '
           'when other is null', () {
         expect(
           ArticleThemeColors(
@@ -138,8 +131,7 @@ void main() {
         );
       });
 
-      test(
-          'returns object '
+      test('returns object '
           'with interpolated colors '
           'when other is passed', () {
         const colorA = Colors.black;
@@ -147,14 +139,8 @@ void main() {
         const t = 0.5;
 
         expect(
-          ArticleThemeColors(
-            captionNormal: colorA,
-            captionLight: colorA,
-          ).lerp(
-            ArticleThemeColors(
-              captionNormal: colorB,
-              captionLight: colorB,
-            ),
+          ArticleThemeColors(captionNormal: colorA, captionLight: colorA).lerp(
+            ArticleThemeColors(captionNormal: colorB, captionLight: colorB),
             t,
           ),
           equals(

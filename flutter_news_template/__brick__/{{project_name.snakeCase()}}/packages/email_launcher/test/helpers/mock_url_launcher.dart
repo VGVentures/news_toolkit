@@ -65,10 +65,7 @@ class MockUrlLauncher extends Fake
   }
 
   /// Sets needed variables to use the `launchUrl` method.
-  void setLaunchUrlExpectations({
-    required String url,
-    LaunchOptions? options,
-  }) {
+  void setLaunchUrlExpectations({required String url, LaunchOptions? options}) {
     canLaunchUrl = url;
     this.options = options;
   }

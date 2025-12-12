@@ -1,12 +1,12 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:analytics_repository/analytics_repository.dart';
 import 'package:bloc/bloc.dart';
 
 class AppBlocObserver extends BlocObserver {
-  AppBlocObserver({
-    required AnalyticsRepository analyticsRepository,
-  }) : _analyticsRepository = analyticsRepository;
+  AppBlocObserver({required AnalyticsRepository analyticsRepository})
+    : _analyticsRepository = analyticsRepository;
 
   final AnalyticsRepository _analyticsRepository;
 
@@ -29,12 +29,16 @@ class AppBlocObserver extends BlocObserver {
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
     super.onChange(bloc, change);
     final dynamic state = change.nextState;
-    if (state is AnalyticsEventMixin) _analyticsRepository.track(state.event);
+    if (state is AnalyticsEventMixin) {
+      unawaited(_analyticsRepository.track(state.event));
+    }
   }
 
   @override
   void onEvent(Bloc<dynamic, dynamic> bloc, Object? event) {
     super.onEvent(bloc, event);
-    if (event is AnalyticsEventMixin) _analyticsRepository.track(event.event);
+    if (event is AnalyticsEventMixin) {
+      unawaited(_analyticsRepository.track(event.event));
+    }
   }
 }
