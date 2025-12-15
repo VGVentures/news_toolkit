@@ -3,7 +3,8 @@ part of 'app_bloc.dart';
 enum AppStatus {
   onboardingRequired(),
   authenticated(),
-  unauthenticated();
+  unauthenticated()
+  ;
 
   bool get isLoggedIn =>
       this == AppStatus.authenticated || this == AppStatus.onboardingRequired;
