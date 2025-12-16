@@ -7,11 +7,11 @@ part of 'feed.dart';
 // **************************************************************************
 
 Feed _$FeedFromJson(Map<String, dynamic> json) => Feed(
-      blocks: const NewsBlocksConverter().fromJson(json['blocks'] as List),
-      totalBlocks: (json['totalBlocks'] as num).toInt(),
-    );
+  blocks: const NewsBlocksConverter().fromJson(json['blocks'] as List),
+  totalBlocks: (json['totalBlocks'] as num).toInt(),
+);
 
 Map<String, dynamic> _$FeedToJson(Feed instance) => <String, dynamic>{
-      'blocks': const NewsBlocksConverter().toJson(instance.blocks),
-      'totalBlocks': instance.totalBlocks,
-    };
+  'blocks': const NewsBlocksConverter().toJson(instance.blocks),
+  'totalBlocks': instance.totalBlocks,
+};

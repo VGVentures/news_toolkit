@@ -6,8 +6,7 @@ import 'package:news_blocks_ui/src/sliver_grid_custom_delegate.dart';
 
 void main() {
   group('HeaderGridTileLayout', () {
-    testWidgets(
-        'getMinChildIndexForScrollOffset when '
+    testWidgets('getMinChildIndexForScrollOffset when '
         'super.getMinChildIndexForScrollOffset is 0', (tester) async {
       final headerTileLayout = HeaderGridTileLayout(
         crossAxisCount: 1,
@@ -23,10 +22,10 @@ void main() {
       expect(result, 0);
     });
 
-    testWidgets(
-        'getMinChildIndexForScrollOffset when '
-        'super.getMinChildIndexForScrollOffset is greater than 0',
-        (tester) async {
+    testWidgets('getMinChildIndexForScrollOffset when '
+        'super.getMinChildIndexForScrollOffset is greater than 0', (
+      tester,
+    ) async {
       final headerTileLayout = HeaderGridTileLayout(
         crossAxisCount: 1,
         mainAxisStride: 14,
@@ -42,34 +41,36 @@ void main() {
     });
 
     testWidgets(
-        'getGeometryForChildIndex when index is equal to 0 (first element) ',
-        (tester) async {
-      final headerTileLayout = HeaderGridTileLayout(
-        crossAxisCount: 1,
-        mainAxisStride: 14,
-        crossAxisStride: 15,
-        childMainAxisExtent: 2,
-        childCrossAxisExtent: 3,
-        reverseCrossAxis: false,
-      );
+      'getGeometryForChildIndex when index is equal to 0 (first element) ',
+      (tester) async {
+        final headerTileLayout = HeaderGridTileLayout(
+          crossAxisCount: 1,
+          mainAxisStride: 14,
+          crossAxisStride: 15,
+          childMainAxisExtent: 2,
+          childCrossAxisExtent: 3,
+          reverseCrossAxis: false,
+        );
 
-      final geometry = headerTileLayout.getGeometryForChildIndex(0);
+        final geometry = headerTileLayout.getGeometryForChildIndex(0);
 
-      final expectedGeometry = SliverGridGeometry(
-        scrollOffset: 0,
-        crossAxisOffset: 0,
-        mainAxisExtent: 16,
-        crossAxisExtent: 18,
-      );
+        final expectedGeometry = SliverGridGeometry(
+          scrollOffset: 0,
+          crossAxisOffset: 0,
+          mainAxisExtent: 16,
+          crossAxisExtent: 18,
+        );
 
-      expect(geometry.crossAxisExtent, expectedGeometry.crossAxisExtent);
-      expect(geometry.scrollOffset, expectedGeometry.scrollOffset);
-      expect(geometry.mainAxisExtent, expectedGeometry.mainAxisExtent);
-      expect(geometry.crossAxisExtent, expectedGeometry.crossAxisExtent);
-    });
+        expect(geometry.crossAxisExtent, expectedGeometry.crossAxisExtent);
+        expect(geometry.scrollOffset, expectedGeometry.scrollOffset);
+        expect(geometry.mainAxisExtent, expectedGeometry.mainAxisExtent);
+        expect(geometry.crossAxisExtent, expectedGeometry.crossAxisExtent);
+      },
+    );
 
-    testWidgets('getGeometryForChildIndex when index is not equal to 0',
-        (tester) async {
+    testWidgets('getGeometryForChildIndex when index is not equal to 0', (
+      tester,
+    ) async {
       final headerTileLayout = HeaderGridTileLayout(
         crossAxisCount: 1,
         mainAxisStride: 14,

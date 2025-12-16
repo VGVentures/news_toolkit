@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:{{project_name.snakeCase()}}/magic_link_prompt/magic_link_prompt.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -20,9 +18,7 @@ void main() {
     });
 
     testWidgets('renders a MagicLinkPromptView', (tester) async {
-      await tester.pumpApp(
-        const MagicLinkPromptPage(email: testEmail),
-      );
+      await tester.pumpApp(const MagicLinkPromptPage(email: testEmail));
       expect(find.byType(MagicLinkPromptView), findsOneWidget);
     });
 
@@ -32,9 +28,10 @@ void main() {
           body: Builder(
             builder: (context) {
               return ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .push<void>(MagicLinkPromptPage.route(email: testEmail));
+                onPressed: () async {
+                  await Navigator.of(
+                    context,
+                  ).push<void>(MagicLinkPromptPage.route(email: testEmail));
                 },
                 child: const Text('Tap me'),
               );

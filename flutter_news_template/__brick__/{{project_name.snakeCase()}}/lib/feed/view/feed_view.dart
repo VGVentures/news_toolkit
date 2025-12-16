@@ -22,10 +22,7 @@ class FeedView extends StatelessWidget {
 
 @visibleForTesting
 class FeedViewPopulated extends StatefulWidget {
-  const FeedViewPopulated({
-    required this.categories,
-    super.key,
-  });
+  const FeedViewPopulated({required this.categories, super.key});
 
   final List<Category> categories;
 
@@ -72,9 +69,9 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
     super.dispose();
   }
 
-  void _onTabChanged() => context
-      .read<CategoriesBloc>()
-      .add(CategorySelected(category: widget.categories[_tabController.index]));
+  void _onTabChanged() => context.read<CategoriesBloc>().add(
+    CategorySelected(category: widget.categories[_tabController.index]),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +79,14 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
       listener: (context, state) {
         final selectedCategory = state.selectedCategory;
         if (selectedCategory != null) {
-          final selectedCategoryIndex =
-              widget.categories.indexOf(selectedCategory);
+          final selectedCategoryIndex = widget.categories.indexOf(
+            selectedCategory,
+          );
           if (selectedCategoryIndex != -1 &&
               selectedCategoryIndex != _tabController.index) {
-            _tabController
-                .animateTo(widget.categories.indexOf(selectedCategory));
+            _tabController.animateTo(
+              widget.categories.indexOf(selectedCategory),
+            );
           }
         }
       },
@@ -101,8 +100,8 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
                 .map(
                   (category) => CategoryTab(
                     categoryName: category.name,
-                    onDoubleTap: () {
-                      _controllers[category]?.animateTo(
+                    onDoubleTap: () async {
+                      await _controllers[category]?.animateTo(
                         0,
                         duration: _categoryScrollToTopDuration,
                         curve: Curves.ease,

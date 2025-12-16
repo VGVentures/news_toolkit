@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_const, prefer_const_constructors
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -21,13 +19,14 @@ void main() {
     });
 
     testWidgets('renders correctly', (tester) async {
+      const category = Category(id: 'technology', name: 'Technology');
       await mockNetworkImages(() async {
         final widget = TrendingStory(
           title: 'TRENDING',
           block: TrendingStoryBlock(
             content: PostSmallBlock(
               id: 'id',
-              category: PostCategory.technology,
+              categoryId: category.id,
               author: 'author',
               publishedAt: DateTime(2022, 3, 11),
               imageUrl: 'imageUrl',

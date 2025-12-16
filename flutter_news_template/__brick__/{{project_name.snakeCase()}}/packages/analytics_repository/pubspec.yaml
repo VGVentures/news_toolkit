@@ -3,11 +3,11 @@ description: Package which manages the analytics domain.
 publish_to: none
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.10.0 <4.0.0"
 
 dependencies:
   equatable: ^2.0.0
-  firebase_analytics: ^11.3.1
+  firebase_analytics: ^11.3.6
   flutter:
     sdk: flutter
 
@@ -15,4 +15,4 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.2
-  very_good_analysis: ^6.0.0
+  very_good_analysis: ^10.0.0

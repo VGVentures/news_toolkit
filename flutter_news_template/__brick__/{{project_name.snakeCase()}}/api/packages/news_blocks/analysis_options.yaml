@@ -1,4 +1,6 @@
-include: package:very_good_analysis/analysis_options.6.0.0.yaml
+include: package:very_good_analysis/analysis_options.10.0.0.yaml
 analyzer:
+  errors:
+    document_ignores: ignore
   exclude:
     - lib/**/*.g.dart

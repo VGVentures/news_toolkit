@@ -22,8 +22,7 @@ void main() {
   }
 
   group('ArticleContentItem', () {
-    testWidgets(
-        'renders DividerHorizontal '
+    testWidgets('renders DividerHorizontal '
         'for DividerHorizontalBlock', (tester) async {
       const block = DividerHorizontalBlock();
       await tester.pumpApp(ArticleContentItem(block: block));
@@ -35,8 +34,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders Spacer '
+    testWidgets('renders Spacer '
         'for SpacerBlock', (tester) async {
       const block = SpacerBlock(spacing: Spacing.large);
       await tester.pumpApp(ArticleContentItem(block: block));
@@ -48,8 +46,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders Image '
+    testWidgets('renders Image '
         'for ImageBlock', (tester) async {
       const block = ImageBlock(imageUrl: 'imageUrl');
       await tester.pumpApp(ArticleContentItem(block: block));
@@ -61,8 +58,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders TextCaption '
+    testWidgets('renders TextCaption '
         'with colorValues from ArticleThemeColors '
         'for TextCaptionBlock', (tester) async {
       const block = TextCaptionBlock(
@@ -96,8 +92,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders TextHeadline '
+    testWidgets('renders TextHeadline '
         'for TextHeadlineBlock', (tester) async {
       const block = TextHeadlineBlock(text: 'text');
       await tester.pumpApp(ArticleContentItem(block: block));
@@ -109,8 +104,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders TextLeadParagraph '
+    testWidgets('renders TextLeadParagraph '
         'for TextLeadParagraphBlock', (tester) async {
       const block = TextLeadParagraphBlock(text: 'text');
       await tester.pumpApp(ArticleContentItem(block: block));
@@ -122,8 +116,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders TextParagraph '
+    testWidgets('renders TextParagraph '
         'for TextParagraphBlock', (tester) async {
       const block = TextParagraphBlock(text: 'text');
       await tester.pumpApp(ArticleContentItem(block: block));
@@ -135,8 +128,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders Video '
+    testWidgets('renders Video '
         'for VideoBlock', (tester) async {
       setUpVideoPlayerPlatform();
       const block = VideoBlock(videoUrl: 'videoUrl');
@@ -149,22 +141,18 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders ArticleIntroduction '
+    testWidgets('renders ArticleIntroduction '
         'for ArticleIntroductionBlock', (tester) async {
+      const category = Category(id: 'technology', name: 'Technology');
       final block = ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: category.id,
         author: 'author',
         publishedAt: DateTime(2022, 3, 9),
         imageUrl: 'imageUrl',
         title: 'title',
       );
       await tester.pumpApp(
-        ListView(
-          children: [
-            ArticleContentItem(block: block),
-          ],
-        ),
+        ListView(children: [ArticleContentItem(block: block)]),
       );
       expect(
         find.byWidgetPredicate(
@@ -174,22 +162,17 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders VideoIntroduction '
+    testWidgets('renders VideoIntroduction '
         'for VideoIntroductionBlock', (tester) async {
       setUpVideoPlayerPlatform();
-
+      const category = Category(id: 'technology', name: 'Technology');
       final block = VideoIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: category.id,
         title: 'title',
         videoUrl: 'videoUrl',
       );
       await tester.pumpApp(
-        ListView(
-          children: [
-            ArticleContentItem(block: block),
-          ],
-        ),
+        ListView(children: [ArticleContentItem(block: block)]),
       );
       expect(
         find.byWidgetPredicate(
@@ -199,16 +182,14 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders BannerAd '
+    testWidgets('renders BannerAd '
         'for BannerAdBlock', (tester) async {
       final block = BannerAdBlock(size: BannerAdSize.normal);
       await tester.pumpApp(ArticleContentItem(block: block));
       expect(find.byType(BannerAd), findsOneWidget);
     });
 
-    testWidgets(
-        'renders Newsletter '
+    testWidgets('renders Newsletter '
         'for NewsletterBlock', (tester) async {
       VisibilityDetectorController.instance.updateInterval = Duration.zero;
       final block = NewsletterBlock();
@@ -216,60 +197,47 @@ void main() {
       expect(find.byType(Newsletter), findsOneWidget);
     });
 
-    testWidgets(
-        'renders Html '
+    testWidgets('renders Html '
         'for HtmlBlock', (tester) async {
       final block = HtmlBlock(content: '<p>Lorem</p>');
       await tester.pumpApp(ArticleContentItem(block: block));
       expect(find.byType(Html), findsOneWidget);
     });
 
-    testWidgets(
-        'renders SlideshowIntroduction '
+    testWidgets('renders SlideshowIntroduction '
         'for SlideshowIntroductionBlock', (tester) async {
       final block = SlideshowIntroductionBlock(
         title: 'title',
         coverImageUrl: 'coverImageUrl',
         action: NavigateToSlideshowAction(
-          slideshow: SlideshowBlock(
-            slides: [],
-            title: 'title',
-          ),
+          slideshow: SlideshowBlock(slides: [], title: 'title'),
           articleId: 'articleId',
         ),
       );
       await tester.pumpApp(
-        ListView(
-          children: [
-            ArticleContentItem(block: block),
-          ],
-        ),
+        ListView(children: [ArticleContentItem(block: block)]),
       );
 
       await tester.ensureVisible(find.byType(SlideshowIntroduction));
       await tester.tap(find.byType(SlideshowIntroduction));
       await tester.pumpAndSettle();
-      expect(
-        find.byType(SlideshowPage),
-        findsOneWidget,
-      );
+      expect(find.byType(SlideshowPage), findsOneWidget);
     });
   });
 
-  testWidgets(
-      'renders SizedBox '
+  testWidgets('renders SizedBox '
       'for unsupported block', (tester) async {
     final block = UnknownBlock();
     await tester.pumpApp(ArticleContentItem(block: block));
     expect(find.byType(SizedBox), findsOneWidget);
   });
 
-  testWidgets(
-      'renders TrendingStory '
+  testWidgets('renders TrendingStory '
       'for TrendingStoryBlock', (tester) async {
+    const category = Category(id: 'health', name: 'Health');
     final content = PostSmallBlock(
       id: 'id',
-      category: PostCategory.health,
+      categoryId: category.id,
       author: 'author',
       publishedAt: DateTime(2022, 3, 11),
       imageUrl: 'imageUrl',

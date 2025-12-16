@@ -47,11 +47,11 @@ class ArticleResponse extends Equatable {
 
   @override
   List<Object> get props => [
-        title,
-        content,
-        totalCount,
-        url,
-        isPremium,
-        isPreview,
-      ];
+    title,
+    content,
+    totalCount,
+    url,
+    isPremium,
+    isPreview,
+  ];
 }

@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
+import 'package:{{project_name.snakeCase()}}/categories/categories.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 import 'package:{{project_name.snakeCase()}}/login/login.dart' hide LoginEvent;
 import 'package:{{project_name.snakeCase()}}/theme_selector/theme_selector.dart';
@@ -30,14 +31,14 @@ class App extends StatelessWidget {
     required AdsConsentClient adsConsentClient,
     required User user,
     super.key,
-  })  : _userRepository = userRepository,
-        _newsRepository = newsRepository,
-        _notificationsRepository = notificationsRepository,
-        _articleRepository = articleRepository,
-        _inAppPurchaseRepository = inAppPurchaseRepository,
-        _analyticsRepository = analyticsRepository,
-        _adsConsentClient = adsConsentClient,
-        _user = user;
+  }) : _userRepository = userRepository,
+       _newsRepository = newsRepository,
+       _notificationsRepository = notificationsRepository,
+       _articleRepository = articleRepository,
+       _inAppPurchaseRepository = inAppPurchaseRepository,
+       _analyticsRepository = analyticsRepository,
+       _adsConsentClient = adsConsentClient,
+       _user = user;
 
   final UserRepository _userRepository;
   final NewsRepository _newsRepository;
@@ -71,9 +72,8 @@ class App extends StatelessWidget {
           ),
           BlocProvider(create: (_) => ThemeModeBloc()),
           BlocProvider(
-            create: (_) => LoginWithEmailLinkBloc(
-              userRepository: _userRepository,
-            ),
+            create: (_) =>
+                LoginWithEmailLinkBloc(userRepository: _userRepository),
             lazy: false,
           ),
           BlocProvider(
@@ -84,15 +84,21 @@ class App extends StatelessWidget {
             lazy: false,
           ),
           BlocProvider(
-            create: (context) => FullScreenAdsBloc(
-              interstitialAdLoader: ads.InterstitialAd.load,
-              rewardedAdLoader: ads.RewardedAd.load,
-              adsRetryPolicy: const AdsRetryPolicy(),
-              localPlatform: const LocalPlatform(),
-            )
-              ..add(const LoadInterstitialAdRequested())
-              ..add(const LoadRewardedAdRequested()),
+            create: (context) =>
+                FullScreenAdsBloc(
+                    interstitialAdLoader: ads.InterstitialAd.load,
+                    rewardedAdLoader: ads.RewardedAd.load,
+                    adsRetryPolicy: const AdsRetryPolicy(),
+                    localPlatform: const LocalPlatform(),
+                  )
+                  ..add(const LoadInterstitialAdRequested())
+                  ..add(const LoadRewardedAdRequested()),
             lazy: false,
+          ),
+          BlocProvider(
+            create: (context) =>
+                CategoriesBloc(newsRepository: context.read<NewsRepository>())
+                  ..add(const CategoriesRequested()),
           ),
         ],
         child: const AppView(),

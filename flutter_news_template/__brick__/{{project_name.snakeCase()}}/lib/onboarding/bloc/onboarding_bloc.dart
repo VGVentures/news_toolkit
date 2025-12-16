@@ -14,9 +14,9 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   OnboardingBloc({
     required NotificationsRepository notificationsRepository,
     required AdsConsentClient adsConsentClient,
-  })  : _notificationsRepository = notificationsRepository,
-        _adsConsentClient = adsConsentClient,
-        super(const OnboardingInitial()) {
+  }) : _notificationsRepository = notificationsRepository,
+       _adsConsentClient = adsConsentClient,
+       super(const OnboardingInitial()) {
     on<EnableAdTrackingRequested>(
       _onEnableAdTrackingRequested,
       transformer: droppable(),
@@ -39,7 +39,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
             ? const EnablingAdTrackingSucceeded()
             : const EnablingAdTrackingFailed(),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(const EnablingAdTrackingFailed());
       addError(error, stackTrace);
     }
@@ -53,7 +53,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
       emit(const EnablingNotifications());
       await _notificationsRepository.toggleNotifications(enable: true);
       emit(const EnablingNotificationsSucceeded());
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(const EnablingNotificationsFailed());
       addError(error, stackTrace);
     }
