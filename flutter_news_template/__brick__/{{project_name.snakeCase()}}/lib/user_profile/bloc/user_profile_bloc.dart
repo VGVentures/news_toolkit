@@ -12,8 +12,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   UserProfileBloc({
     required UserRepository userRepository,
     required NotificationsRepository notificationsRepository,
-  })  : _notificationsRepository = notificationsRepository,
-        super(const UserProfileState.initial()) {
+  }) : _notificationsRepository = notificationsRepository,
+       super(const UserProfileState.initial()) {
     on<UserProfileUpdated>(_onUserProfileUpdated);
     on<FetchNotificationsEnabled>(_onFetchNotificationsEnabled);
     on<ToggleNotifications>(_onToggleNotifications);
@@ -31,10 +31,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     Emitter<UserProfileState> emit,
   ) {
     emit(
-      state.copyWith(
-        user: event.user,
-        status: UserProfileStatus.userUpdated,
-      ),
+      state.copyWith(user: event.user, status: UserProfileStatus.userUpdated),
     );
   }
 
@@ -44,13 +41,11 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   ) async {
     try {
       emit(
-        state.copyWith(
-          status: UserProfileStatus.fetchingNotificationsEnabled,
-        ),
+        state.copyWith(status: UserProfileStatus.fetchingNotificationsEnabled),
       );
 
-      final notificationsEnabled =
-          await _notificationsRepository.fetchNotificationsEnabled();
+      final notificationsEnabled = await _notificationsRepository
+          .fetchNotificationsEnabled();
 
       emit(
         state.copyWith(
@@ -58,7 +53,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
           notificationsEnabled: notificationsEnabled,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(
         state.copyWith(
           status: UserProfileStatus.fetchingNotificationsEnabledFailed,
@@ -92,7 +87,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
           status: UserProfileStatus.togglingNotificationsSucceeded,
         ),
       );
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       emit(
         state.copyWith(
           status: UserProfileStatus.togglingNotificationsFailed,
@@ -104,8 +99,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   }
 
   @override
-  Future<void> close() {
-    _userSubscription.cancel();
+  Future<void> close() async {
+    await _userSubscription.cancel();
     return super.close();
   }
 }

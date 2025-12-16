@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,13 +39,13 @@ class _SubscribeModalState extends State<SubscribeModal> {
           : (visibility) {
               if (!visibility.visibleBounds.isEmpty) {
                 context.read<AnalyticsBloc>().add(
-                      TrackAnalyticsEvent(
-                        PaywallPromptEvent.impression(
-                          impression: PaywallPromptImpression.subscription,
-                          articleTitle: articleTitle ?? '',
-                        ),
-                      ),
-                    );
+                  TrackAnalyticsEvent(
+                    PaywallPromptEvent.impression(
+                      impression: PaywallPromptImpression.subscription,
+                      articleTitle: articleTitle ?? '',
+                    ),
+                  ),
+                );
                 setState(() => _modalShown = true);
               }
             },
@@ -59,8 +61,9 @@ class _SubscribeModalState extends State<SubscribeModal> {
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xlg),
                 child: Text(
                   l10n.subscribeModalTitle,
-                  style: theme.textTheme.displaySmall
-                      ?.apply(color: AppColors.white),
+                  style: theme.textTheme.displaySmall?.apply(
+                    color: AppColors.white,
+                  ),
                 ),
               ),
               const SizedBox(height: AppSpacing.sm + AppSpacing.xxs),
@@ -68,8 +71,9 @@ class _SubscribeModalState extends State<SubscribeModal> {
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xlg),
                 child: Text(
                   l10n.subscribeModalSubtitle,
-                  style: theme.textTheme.titleMedium
-                      ?.apply(color: AppColors.mediumEmphasisPrimary),
+                  style: theme.textTheme.titleMedium?.apply(
+                    color: AppColors.mediumEmphasisPrimary,
+                  ),
                 ),
               ),
               const SizedBox(height: AppSpacing.lg + AppSpacing.lg),
@@ -82,13 +86,13 @@ class _SubscribeModalState extends State<SubscribeModal> {
                   child: Text(l10n.subscribeButtonText),
                   onPressed: () {
                     context.read<AnalyticsBloc>().add(
-                          TrackAnalyticsEvent(
-                            PaywallPromptEvent.click(
-                              articleTitle: articleTitle ?? '',
-                            ),
-                          ),
-                        );
-                    showPurchaseSubscriptionDialog(context: context);
+                      TrackAnalyticsEvent(
+                        PaywallPromptEvent.click(
+                          articleTitle: articleTitle ?? '',
+                        ),
+                      ),
+                    );
+                    unawaited(showPurchaseSubscriptionDialog(context: context));
                   },
                 ),
               ),

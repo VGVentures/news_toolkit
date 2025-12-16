@@ -5,7 +5,6 @@ import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
 import 'package:{{project_name.snakeCase()}}/slideshow/slideshow.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -18,8 +17,6 @@ import '../../helpers/helpers.dart';
 
 class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
     implements ArticleBloc {}
-
-class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
   late ArticleBloc articleBloc;
@@ -48,9 +45,7 @@ void main() {
         () async => tester.pumpApp(
           BlocProvider.value(
             value: articleBloc,
-            child: SlideshowView(
-              block: slideshow,
-            ),
+            child: SlideshowView(block: slideshow),
           ),
         ),
       );
@@ -59,17 +54,13 @@ void main() {
 
     testWidgets('that adds ShareRequested on ShareButton tap', (tester) async {
       when(() => articleBloc.state).thenReturn(
-        ArticleState.initial().copyWith(
-          uri: Uri(path: 'notEmptyUrl'),
-        ),
+        ArticleState.initial().copyWith(uri: Uri(path: 'notEmptyUrl')),
       );
       await mockNetworkImages(
         () async => tester.pumpApp(
           BlocProvider.value(
             value: articleBloc,
-            child: SlideshowView(
-              block: slideshow,
-            ),
+            child: SlideshowView(block: slideshow),
           ),
         ),
       );
@@ -77,11 +68,7 @@ void main() {
       await tester.tap(find.byType(ShareButton));
 
       verify(
-        () => articleBloc.add(
-          ShareRequested(
-            uri: Uri(path: 'notEmptyUrl'),
-          ),
-        ),
+        () => articleBloc.add(ShareRequested(uri: Uri(path: 'notEmptyUrl'))),
       ).called(1);
     });
   });
@@ -92,9 +79,7 @@ void main() {
         () async => tester.pumpApp(
           BlocProvider.value(
             value: articleBloc,
-            child: SlideshowView(
-              block: slideshow,
-            ),
+            child: SlideshowView(block: slideshow),
           ),
         ),
       );
@@ -107,9 +92,7 @@ void main() {
       () async => tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
-          child: SlideshowView(
-            block: slideshow,
-          ),
+          child: SlideshowView(block: slideshow),
         ),
       ),
     );
@@ -118,11 +101,7 @@ void main() {
 
   group('ArticleSubscribeButton', () {
     testWidgets('renders AppButton', (tester) async {
-      await tester.pumpApp(
-        Row(
-          children: [ArticleSubscribeButton()],
-        ),
-      );
+      await tester.pumpApp(Row(children: [ArticleSubscribeButton()]));
       expect(find.byType(AppButton), findsOneWidget);
     });
   });

@@ -41,30 +41,19 @@ class PostFooter extends StatelessWidget {
           text: TextSpan(
             style: textTheme.bodySmall?.copyWith(color: textColor),
             children: <InlineSpan>[
-              if (author != null)
-                TextSpan(
-                  text: author,
-                ),
+              if (author != null) TextSpan(text: author),
               if (author != null && publishedAt != null) ...[
                 const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
-                const TextSpan(
-                  text: '•',
-                ),
+                const TextSpan(text: '•'),
                 const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
               ],
-              if (publishedAt != null)
-                TextSpan(
-                  text: publishedAt!.mDY,
-                ),
+              if (publishedAt != null) TextSpan(text: publishedAt!.mDY),
             ],
           ),
         ),
         if (onShare != null)
           IconButton(
-            icon: Icon(
-              Icons.share,
-              color: textColor,
-            ),
+            icon: Icon(Icons.share, color: textColor),
             onPressed: onShare,
           ),
       ],

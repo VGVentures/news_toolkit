@@ -1,14 +1,11 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, lines_longer_than_80_chars, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors
 
 import 'package:news_blocks/news_blocks.dart';
 import 'package:test/test.dart';
 
 class CustomBlockAction extends BlockAction {
   CustomBlockAction()
-      : super(
-          type: '__custom_block__',
-          actionType: BlockActionType.navigation,
-        );
+    : super(type: '__custom_block__', actionType: BlockActionType.navigation);
 
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{'type': type};
@@ -46,7 +43,9 @@ void main() {
       });
 
       test('returns NavigateToFeedCategoryAction', () {
-        final action = NavigateToFeedCategoryAction(category: Category.top);
+        const category = Category(id: 'sports', name: 'Sports');
+
+        final action = NavigateToFeedCategoryAction(category: category);
         expect(BlockAction.fromJson(action.toJson()), equals(action));
       });
 
@@ -62,10 +61,7 @@ void main() {
     group('UnknownBlockAction', () {
       test('can be (de)serialized', () {
         final action = UnknownBlockAction();
-        expect(
-          UnknownBlockAction.fromJson(action.toJson()),
-          equals(action),
-        );
+        expect(UnknownBlockAction.fromJson(action.toJson()), equals(action));
       });
     });
 
@@ -91,7 +87,9 @@ void main() {
 
     group('NavigateToFeedCategoryAction', () {
       test('can be (de)serialized', () {
-        final action = NavigateToFeedCategoryAction(category: Category.top);
+        const category = Category(id: 'sports', name: 'Sports');
+
+        final action = NavigateToFeedCategoryAction(category: category);
         expect(
           NavigateToFeedCategoryAction.fromJson(action.toJson()),
           equals(action),

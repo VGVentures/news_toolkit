@@ -87,12 +87,15 @@ void main() {
       setUp(() {
         when(articleRepository.incrementArticleViews).thenAnswer((_) async {});
         when(articleRepository.resetArticleViews).thenAnswer((_) async {});
-        when(articleRepository.fetchArticleViews)
-            .thenAnswer((_) async => ArticleViews(3, DateTime(2022, 6, 7)));
-        when(() => articleRepository.incrementTotalArticleViews())
-            .thenAnswer((_) async => {});
-        when(() => articleRepository.fetchTotalArticleViews())
-            .thenAnswer((_) async => 0);
+        when(
+          articleRepository.fetchArticleViews,
+        ).thenAnswer((_) async => ArticleViews(3, DateTime(2022, 6, 7)));
+        when(
+          () => articleRepository.incrementTotalArticleViews(),
+        ).thenAnswer((_) async => {});
+        when(
+          () => articleRepository.fetchTotalArticleViews(),
+        ).thenAnswer((_) async => 0);
 
         when(
           () => articleRepository.getArticle(
@@ -200,8 +203,9 @@ void main() {
         'and ArticleRepository.incrementArticleViews '
         'and emits hasReachedArticleViewsLimit as false '
         'when the number of article views was never reset',
-        setUp: () => when(articleRepository.fetchArticleViews)
-            .thenAnswer((_) async => ArticleViews(0, null)),
+        setUp: () => when(
+          articleRepository.fetchArticleViews,
+        ).thenAnswer((_) async => ArticleViews(0, null)),
         build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
@@ -259,8 +263,7 @@ void main() {
         ],
       );
 
-      test(
-          'calls ArticleRepository.resetArticleViews '
+      test('calls ArticleRepository.resetArticleViews '
           'and ArticleRepository.incrementArticleViews '
           'and emits hasReachedArticleViewsLimit as false '
           'when the number of article views was last reset '
@@ -269,8 +272,9 @@ void main() {
         final now = DateTime(2022, 6, 8, 0, 0, 1);
         await withClock(Clock.fixed(now), () async {
           await testBloc<ArticleBloc, ArticleState>(
-            setUp: () => when(articleRepository.fetchArticleViews)
-                .thenAnswer((_) async => ArticleViews(3, resetAt)),
+            setUp: () => when(
+              articleRepository.fetchArticleViews,
+            ).thenAnswer((_) async => ArticleViews(3, resetAt)),
             build: () => ArticleBloc(
               articleId: articleId,
               articleRepository: articleRepository,
@@ -307,8 +311,7 @@ void main() {
         });
       });
 
-      test(
-          'calls ArticleRepository.incrementArticleViews '
+      test('calls ArticleRepository.incrementArticleViews '
           'and emits hasReachedArticleViewsLimit as false '
           'when the article views limit of 4 was not reached '
           'and the the number of article views was last reset '
@@ -317,8 +320,9 @@ void main() {
         final now = DateTime(2022, 6, 7, 12, 0, 0);
         await withClock(Clock.fixed(now), () async {
           await testBloc<ArticleBloc, ArticleState>(
-            setUp: () => when(articleRepository.fetchArticleViews)
-                .thenAnswer((_) async => ArticleViews(2, resetAt)),
+            setUp: () => when(
+              articleRepository.fetchArticleViews,
+            ).thenAnswer((_) async => ArticleViews(2, resetAt)),
             build: () => ArticleBloc(
               articleId: articleId,
               shareLauncher: shareLauncher,
@@ -355,8 +359,7 @@ void main() {
         });
       });
 
-      test(
-          'does not call ArticleRepository.incrementArticleViews '
+      test('does not call ArticleRepository.incrementArticleViews '
           'and emits hasReachedArticleViewsLimit as true '
           'when the article views limit of 4 was reached '
           'and the the number of article views was last reset '
@@ -364,11 +367,12 @@ void main() {
         final resetAt = DateTime(2022, 6, 7);
         final now = DateTime(2022, 6, 7, 12, 0, 0);
 
-        withClock(Clock.fixed(now), () {
-          testBloc<ArticleBloc, ArticleState>(
+        await withClock(Clock.fixed(now), () async {
+          await testBloc<ArticleBloc, ArticleState>(
             seed: () => ArticleState(status: ArticleStatus.populated),
-            setUp: () => when(articleRepository.fetchArticleViews)
-                .thenAnswer((_) async => ArticleViews(4, resetAt)),
+            setUp: () => when(
+              articleRepository.fetchArticleViews,
+            ).thenAnswer((_) async => ArticleViews(4, resetAt)),
             build: () => ArticleBloc(
               articleId: articleId,
               articleRepository: articleRepository,
@@ -409,8 +413,9 @@ void main() {
         'emits showInterstitialAd true '
         'when fetchTotalArticleViews returns 4 ',
         setUp: () {
-          when(() => articleRepository.fetchTotalArticleViews())
-              .thenAnswer((_) async => 4);
+          when(
+            () => articleRepository.fetchTotalArticleViews(),
+          ).thenAnswer((_) async => 4);
         },
         build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRequested()),
@@ -439,13 +444,9 @@ void main() {
         'when new count (contentIndex + 1) is higher than current',
         build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleContentSeen(contentIndex: 15)),
-        seed: () => articleStatePopulated.copyWith(
-          contentSeenCount: 10,
-        ),
+        seed: () => articleStatePopulated.copyWith(contentSeenCount: 10),
         expect: () => <ArticleState>[
-          articleStatePopulated.copyWith(
-            contentSeenCount: 16,
-          ),
+          articleStatePopulated.copyWith(contentSeenCount: 16),
         ],
       );
 
@@ -455,9 +456,7 @@ void main() {
         'or equal to current',
         build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleContentSeen(contentIndex: 9)),
-        seed: () => articleStatePopulated.copyWith(
-          contentSeenCount: 10,
-        ),
+        seed: () => articleStatePopulated.copyWith(contentSeenCount: 10),
         expect: () => <ArticleState>[],
       );
     });
@@ -472,17 +471,15 @@ void main() {
         'and emits hasReachedArticleViewsLimit as false '
         'when the number of article views is less than '
         'the article views limit of 4',
-        setUp: () => when(articleRepository.fetchArticleViews)
-            .thenAnswer((_) async => ArticleViews(3, null)),
+        setUp: () => when(
+          articleRepository.fetchArticleViews,
+        ).thenAnswer((_) async => ArticleViews(3, null)),
         build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
-        seed: () => articleStatePopulated.copyWith(
-          hasReachedArticleViewsLimit: true,
-        ),
+        seed: () =>
+            articleStatePopulated.copyWith(hasReachedArticleViewsLimit: true),
         expect: () => <ArticleState>[
-          articleStatePopulated.copyWith(
-            hasReachedArticleViewsLimit: false,
-          ),
+          articleStatePopulated.copyWith(hasReachedArticleViewsLimit: false),
         ],
         verify: (bloc) =>
             verify(articleRepository.decrementArticleViews).called(1),
@@ -493,17 +490,15 @@ void main() {
         'and emits hasReachedArticleViewsLimit as true '
         'when the number of article views is equal to '
         'the article views limit of 4',
-        setUp: () => when(articleRepository.fetchArticleViews)
-            .thenAnswer((_) async => ArticleViews(4, null)),
+        setUp: () => when(
+          articleRepository.fetchArticleViews,
+        ).thenAnswer((_) async => ArticleViews(4, null)),
         build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
-        seed: () => articleStatePopulated.copyWith(
-          hasReachedArticleViewsLimit: false,
-        ),
+        seed: () =>
+            articleStatePopulated.copyWith(hasReachedArticleViewsLimit: false),
         expect: () => <ArticleState>[
-          articleStatePopulated.copyWith(
-            hasReachedArticleViewsLimit: true,
-          ),
+          articleStatePopulated.copyWith(hasReachedArticleViewsLimit: true),
         ],
         verify: (bloc) =>
             verify(articleRepository.decrementArticleViews).called(1),
@@ -512,13 +507,15 @@ void main() {
       blocTest<ArticleBloc, ArticleState>(
         'emits [rewardedAdWatchedFailure] '
         'when decrementArticleViews throws',
-        setUp: () => when(articleRepository.decrementArticleViews)
-            .thenThrow(Exception()),
+        setUp: () => when(
+          articleRepository.decrementArticleViews,
+        ).thenThrow(Exception()),
         build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
         expect: () => <ArticleState>[
-          ArticleState.initial()
-              .copyWith(status: ArticleStatus.rewardedAdWatchedFailure),
+          ArticleState.initial().copyWith(
+            status: ArticleStatus.rewardedAdWatchedFailure,
+          ),
         ],
       );
 
@@ -530,8 +527,9 @@ void main() {
         build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
         expect: () => <ArticleState>[
-          ArticleState.initial()
-              .copyWith(status: ArticleStatus.rewardedAdWatchedFailure),
+          ArticleState.initial().copyWith(
+            status: ArticleStatus.rewardedAdWatchedFailure,
+          ),
         ],
       );
     });

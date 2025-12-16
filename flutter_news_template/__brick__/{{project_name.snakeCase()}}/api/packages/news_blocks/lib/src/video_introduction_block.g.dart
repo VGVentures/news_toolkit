@@ -9,38 +9,30 @@ part of 'video_introduction_block.dart';
 // **************************************************************************
 
 VideoIntroductionBlock _$VideoIntroductionBlockFromJson(
-        Map<String, dynamic> json) =>
-    $checkedCreate(
-      'VideoIntroductionBlock',
-      json,
-      ($checkedConvert) {
-        final val = VideoIntroductionBlock(
-          category: $checkedConvert(
-              'category', (v) => $enumDecode(_$PostCategoryEnumMap, v)),
-          title: $checkedConvert('title', (v) => v as String),
-          videoUrl: $checkedConvert('video_url', (v) => v as String),
-          type: $checkedConvert(
-              'type', (v) => v as String? ?? VideoIntroductionBlock.identifier),
-        );
-        return val;
-      },
-      fieldKeyMap: const {'videoUrl': 'video_url'},
+  Map<String, dynamic> json,
+) => $checkedCreate(
+  'VideoIntroductionBlock',
+  json,
+  ($checkedConvert) {
+    final val = VideoIntroductionBlock(
+      categoryId: $checkedConvert('category_id', (v) => v as String),
+      title: $checkedConvert('title', (v) => v as String),
+      videoUrl: $checkedConvert('video_url', (v) => v as String),
+      type: $checkedConvert(
+        'type',
+        (v) => v as String? ?? VideoIntroductionBlock.identifier,
+      ),
     );
+    return val;
+  },
+  fieldKeyMap: const {'categoryId': 'category_id', 'videoUrl': 'video_url'},
+);
 
 Map<String, dynamic> _$VideoIntroductionBlockToJson(
-        VideoIntroductionBlock instance) =>
-    <String, dynamic>{
-      'category': _$PostCategoryEnumMap[instance.category]!,
-      'title': instance.title,
-      'video_url': instance.videoUrl,
-      'type': instance.type,
-    };
-
-const _$PostCategoryEnumMap = {
-  PostCategory.business: 'business',
-  PostCategory.entertainment: 'entertainment',
-  PostCategory.health: 'health',
-  PostCategory.science: 'science',
-  PostCategory.sports: 'sports',
-  PostCategory.technology: 'technology',
+  VideoIntroductionBlock instance,
+) => <String, dynamic>{
+  'category_id': instance.categoryId,
+  'title': instance.title,
+  'video_url': instance.videoUrl,
+  'type': instance.type,
 };

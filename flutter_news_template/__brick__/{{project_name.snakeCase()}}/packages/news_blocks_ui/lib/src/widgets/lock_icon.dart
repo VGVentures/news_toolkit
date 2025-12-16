@@ -20,12 +20,12 @@ class LockIcon extends StatelessWidget {
           color: AppColors.white,
           shadows: [
             Shadow(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha: 0.3),
               offset: const Offset(0, 1),
               blurRadius: 2,
             ),
             Shadow(
-              color: Colors.black.withOpacity(0.15),
+              color: Colors.black.withValues(alpha: 0.15),
               offset: const Offset(0, 1),
               blurRadius: 3,
             ),

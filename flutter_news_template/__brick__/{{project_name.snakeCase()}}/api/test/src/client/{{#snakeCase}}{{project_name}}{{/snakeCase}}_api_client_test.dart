@@ -67,8 +67,9 @@ void main() {
       });
 
       test('has correct baseUrl', () async {
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(
             jsonEncode(const FeedResponse(feed: [], totalCount: 0)),
             HttpStatus.ok,
@@ -99,8 +100,9 @@ void main() {
       });
 
       test('has correct baseUrl.', () async {
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(
             jsonEncode(const FeedResponse(feed: [], totalCount: 0)),
             HttpStatus.ok,
@@ -114,11 +116,7 @@ void main() {
         await apiClient.getFeed();
         verify(
           () => httpClient.get(
-            any(
-              that: isAUriHaving(
-                authority: '{{api_url}}',
-              ),
-            ),
+            any(that: isAUriHaving(authority: '{{api_url}}')),
             headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
@@ -140,8 +138,9 @@ void main() {
         const path = '/api/v1/articles/$articleId';
         const query = 'preview=false';
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(articleResponse), HttpStatus.ok),
         );
@@ -150,7 +149,9 @@ void main() {
 
         verify(
           () => httpClient.get(
-            any(that: isAUriHaving(path: path, query: query)),
+            any(
+              that: isAUriHaving(path: path, query: query),
+            ),
             headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
@@ -163,8 +164,9 @@ void main() {
         const path = '/api/v1/articles/$articleId';
         const query = 'limit=$limit&offset=$offset&preview=true';
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(articleResponse), HttpStatus.ok),
         );
@@ -178,7 +180,9 @@ void main() {
 
         verify(
           () => httpClient.get(
-            any(that: isAUriHaving(path: path, query: query)),
+            any(
+              that: isAUriHaving(path: path, query: query),
+            ),
             headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
@@ -191,8 +195,9 @@ void main() {
 
         tokenProvider = () async => token;
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(articleResponse), HttpStatus.ok),
         );
@@ -204,7 +209,9 @@ void main() {
 
         verify(
           () => httpClient.get(
-            any(that: isAUriHaving(path: path, query: query)),
+            any(
+              that: isAUriHaving(path: path, query: query),
+            ),
             headers: any(
               named: 'headers',
               that: areJsonHeaders(authorizationToken: token),
@@ -213,14 +220,12 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiMalformedResponse '
+      test('throws {{project_name.pascalCase()}}ApiMalformedResponse '
           'when response body is malformed.', () {
         const articleId = '__article_id__';
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response('', HttpStatus.ok));
 
         expect(
           () => apiClient.getArticle(id: articleId),
@@ -228,16 +233,14 @@ void main() {
         );
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiRequestFailure '
+      test('throws {{project_name.pascalCase()}}ApiRequestFailure '
           'when response has a non-200 status code.', () {
         const articleId = '__article_id__';
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response(json.encode(body), statusCode),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response(json.encode(body), statusCode));
 
         expect(
           () => apiClient.getArticle(id: articleId),
@@ -259,8 +262,9 @@ void main() {
           isPremium: false,
           isPreview: false,
         );
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -285,8 +289,9 @@ void main() {
         const path = '/api/v1/articles/$articleId/related';
         const query = '';
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(relatedArticlesResponse), HttpStatus.ok),
         );
@@ -295,7 +300,9 @@ void main() {
 
         verify(
           () => httpClient.get(
-            any(that: isAUriHaving(path: path, query: query)),
+            any(
+              that: isAUriHaving(path: path, query: query),
+            ),
             headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
@@ -308,8 +315,9 @@ void main() {
         const path = '/api/v1/articles/$articleId/related';
         const query = 'limit=$limit&offset=$offset';
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(relatedArticlesResponse), HttpStatus.ok),
         );
@@ -322,7 +330,9 @@ void main() {
 
         verify(
           () => httpClient.get(
-            any(that: isAUriHaving(path: path, query: query)),
+            any(
+              that: isAUriHaving(path: path, query: query),
+            ),
             headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
@@ -335,8 +345,9 @@ void main() {
 
         tokenProvider = () async => token;
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(relatedArticlesResponse), HttpStatus.ok),
         );
@@ -348,7 +359,9 @@ void main() {
 
         verify(
           () => httpClient.get(
-            any(that: isAUriHaving(path: path, query: query)),
+            any(
+              that: isAUriHaving(path: path, query: query),
+            ),
             headers: any(
               named: 'headers',
               that: areJsonHeaders(authorizationToken: token),
@@ -357,14 +370,12 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiMalformedResponse '
+      test('throws {{project_name.pascalCase()}}ApiMalformedResponse '
           'when response body is malformed.', () {
         const articleId = '__article_id__';
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response('', HttpStatus.ok));
 
         expect(
           () => apiClient.getRelatedArticles(id: articleId),
@@ -372,16 +383,14 @@ void main() {
         );
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiRequestFailure '
+      test('throws {{project_name.pascalCase()}}ApiRequestFailure '
           'when response has a non-200 status code.', () {
         const articleId = '__article_id__';
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response(json.encode(body), statusCode),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response(json.encode(body), statusCode));
 
         expect(
           () => apiClient.getRelatedArticles(id: articleId),
@@ -399,8 +408,9 @@ void main() {
           relatedArticles: [],
           totalCount: 0,
         );
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -415,17 +425,15 @@ void main() {
     });
 
     group('getFeed', () {
-      const feedResponse = FeedResponse(
-        feed: [],
-        totalCount: 0,
-      );
+      const feedResponse = FeedResponse(feed: [], totalCount: 0);
 
       test('makes correct http request (no query params).', () async {
         const path = '/api/v1/feed';
         const query = '';
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(jsonEncode(feedResponse), HttpStatus.ok),
         );
 
@@ -433,33 +441,38 @@ void main() {
 
         verify(
           () => httpClient.get(
-            any(that: isAUriHaving(path: path, query: query)),
+            any(
+              that: isAUriHaving(path: path, query: query),
+            ),
             headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
       });
 
       test('makes correct http request (with query params).', () async {
-        const category = Category.science;
+        const category = Category(id: 'sports', name: 'Sports');
         const limit = 42;
         const offset = 7;
         const path = '/api/v1/feed';
-        final query = 'category=${category.name}&limit=$limit&offset=$offset';
+        final query = 'category=${category.id}&limit=$limit&offset=$offset';
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(jsonEncode(feedResponse), HttpStatus.ok),
         );
 
         await apiClient.getFeed(
-          category: category,
+          categoryId: category.id,
           limit: limit,
           offset: offset,
         );
 
         verify(
           () => httpClient.get(
-            any(that: isAUriHaving(path: path, query: query)),
+            any(
+              that: isAUriHaving(path: path, query: query),
+            ),
             headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
@@ -471,8 +484,9 @@ void main() {
 
         tokenProvider = () async => token;
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(jsonEncode(feedResponse), HttpStatus.ok),
         );
 
@@ -483,7 +497,9 @@ void main() {
 
         verify(
           () => httpClient.get(
-            any(that: isAUriHaving(path: path, query: query)),
+            any(
+              that: isAUriHaving(path: path, query: query),
+            ),
             headers: any(
               named: 'headers',
               that: areJsonHeaders(authorizationToken: token),
@@ -492,13 +508,11 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiMalformedResponse '
+      test('throws {{project_name.pascalCase()}}ApiMalformedResponse '
           'when response body is malformed.', () {
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response('', HttpStatus.ok));
 
         expect(
           apiClient.getFeed,
@@ -506,15 +520,13 @@ void main() {
         );
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiRequestFailure '
+      test('throws {{project_name.pascalCase()}}ApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response(json.encode(body), statusCode),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response(json.encode(body), statusCode));
 
         expect(
           apiClient.getFeed,
@@ -528,8 +540,9 @@ void main() {
 
       test('returns a FeedResponse on a 200 response.', () {
         const expectedResponse = FeedResponse(feed: [], totalCount: 0);
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -544,8 +557,9 @@ void main() {
       const categoriesResponse = CategoriesResponse(categories: []);
 
       test('makes correct http request.', () async {
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(categoriesResponse), HttpStatus.ok),
         );
@@ -563,8 +577,9 @@ void main() {
       test('makes correct http request (with authorization token).', () async {
         tokenProvider = () async => token;
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(categoriesResponse), HttpStatus.ok),
         );
@@ -585,13 +600,11 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiMalformedResponse '
+      test('throws {{project_name.pascalCase()}}ApiMalformedResponse '
           'when response body is malformed.', () {
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response('', HttpStatus.ok));
 
         expect(
           apiClient.getCategories,
@@ -599,15 +612,13 @@ void main() {
         );
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiRequestFailure '
+      test('throws {{project_name.pascalCase()}}ApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response(json.encode(body), statusCode),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response(json.encode(body), statusCode));
 
         expect(
           apiClient.getCategories,
@@ -620,11 +631,15 @@ void main() {
       });
 
       test('returns a CategoriesResponse on a 200 response.', () {
+        const sportsCategory = Category(id: 'sports', name: 'Sports');
+        const topCategory = Category(id: 'top', name: 'Top');
+
         const expectedResponse = CategoriesResponse(
-          categories: [Category.business, Category.top],
+          categories: [sportsCategory, topCategory],
         );
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -644,10 +659,8 @@ void main() {
         when(
           () => httpClient.get(any(), headers: any(named: 'headers')),
         ).thenAnswer(
-          (_) async => http.Response(
-            jsonEncode(currentUserResponse),
-            HttpStatus.ok,
-          ),
+          (_) async =>
+              http.Response(jsonEncode(currentUserResponse), HttpStatus.ok),
         );
 
         await apiClient.getCurrentUser();
@@ -666,10 +679,8 @@ void main() {
         when(
           () => httpClient.get(any(), headers: any(named: 'headers')),
         ).thenAnswer(
-          (_) async => http.Response(
-            jsonEncode(currentUserResponse),
-            HttpStatus.ok,
-          ),
+          (_) async =>
+              http.Response(jsonEncode(currentUserResponse), HttpStatus.ok),
         );
 
         await {{project_name.pascalCase()}}ApiClient(
@@ -688,13 +699,11 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiMalformedResponse '
+      test('throws {{project_name.pascalCase()}}ApiMalformedResponse '
           'when response body is malformed.', () {
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response('', HttpStatus.ok));
 
         expect(
           apiClient.getCurrentUser,
@@ -702,15 +711,13 @@ void main() {
         );
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiRequestFailure '
+      test('throws {{project_name.pascalCase()}}ApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response(json.encode(body), statusCode),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response(json.encode(body), statusCode));
 
         expect(
           apiClient.getCurrentUser,
@@ -726,8 +733,9 @@ void main() {
         const expectedResponse = CurrentUserResponse(
           user: User(id: 'id', subscription: SubscriptionPlan.basic),
         );
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -746,10 +754,8 @@ void main() {
 
       test('makes correct http request.', () async {
         when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response(
-            jsonEncode(subscriptionsResponse),
-            HttpStatus.ok,
-          ),
+          (_) async =>
+              http.Response(jsonEncode(subscriptionsResponse), HttpStatus.ok),
         );
 
         await apiClient.getSubscriptions();
@@ -761,12 +767,11 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiMalformedResponse '
+      test('throws {{project_name.pascalCase()}}ApiMalformedResponse '
           'when response body is malformed.', () {
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
-        );
+        when(
+          () => httpClient.get(any()),
+        ).thenAnswer((_) async => http.Response('', HttpStatus.ok));
 
         expect(
           apiClient.getSubscriptions,
@@ -774,14 +779,13 @@ void main() {
         );
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiRequestFailure '
+      test('throws {{project_name.pascalCase()}}ApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response(json.encode(body), statusCode),
-        );
+        when(
+          () => httpClient.get(any()),
+        ).thenAnswer((_) async => http.Response(json.encode(body), statusCode));
 
         expect(
           apiClient.getSubscriptions,
@@ -825,8 +829,9 @@ void main() {
       );
 
       test('makes correct http request.', () async {
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(popularSearchResponse), HttpStatus.ok),
         );
@@ -844,8 +849,9 @@ void main() {
       test('makes correct http request (with authorization token).', () async {
         tokenProvider = () async => token;
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(popularSearchResponse), HttpStatus.ok),
         );
@@ -866,13 +872,11 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiMalformedResponse '
+      test('throws {{project_name.pascalCase()}}ApiMalformedResponse '
           'when response body is malformed.', () {
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response('', HttpStatus.ok));
 
         expect(
           apiClient.popularSearch,
@@ -880,15 +884,13 @@ void main() {
         );
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiRequestFailure '
+      test('throws {{project_name.pascalCase()}}ApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response(json.encode(body), statusCode),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response(json.encode(body), statusCode));
 
         expect(
           apiClient.popularSearch,
@@ -905,8 +907,9 @@ void main() {
           articles: [],
           topics: [],
         );
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -926,8 +929,9 @@ void main() {
       );
 
       test('makes correct http request.', () async {
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(relevantSearchResponse), HttpStatus.ok),
         );
@@ -950,8 +954,9 @@ void main() {
       test('makes correct http request (with authorization token).', () async {
         tokenProvider = () async => token;
 
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async =>
               http.Response(jsonEncode(relevantSearchResponse), HttpStatus.ok),
         );
@@ -977,13 +982,11 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiMalformedResponse '
+      test('throws {{project_name.pascalCase()}}ApiMalformedResponse '
           'when response body is malformed.', () {
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response('', HttpStatus.ok));
 
         expect(
           () => apiClient.relevantSearch(term: term),
@@ -991,15 +994,13 @@ void main() {
         );
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiRequestFailure '
+      test('throws {{project_name.pascalCase()}}ApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response(json.encode(body), statusCode),
-        );
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response(json.encode(body), statusCode));
 
         expect(
           () => apiClient.relevantSearch(term: term),
@@ -1016,8 +1017,9 @@ void main() {
           articles: [],
           topics: [],
         );
-        when(() => httpClient.get(any(), headers: any(named: 'headers')))
-            .thenAnswer(
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -1041,9 +1043,7 @@ void main() {
             body: any(named: 'body'),
             headers: any(named: 'headers'),
           ),
-        ).thenAnswer(
-          (_) async => http.Response('', HttpStatus.created),
-        );
+        ).thenAnswer((_) async => http.Response('', HttpStatus.created));
 
         await apiClient.subscribeToNewsletter(email: email);
 
@@ -1065,9 +1065,7 @@ void main() {
             body: any(named: 'body'),
             headers: any(named: 'headers'),
           ),
-        ).thenAnswer(
-          (_) async => http.Response('', HttpStatus.created),
-        );
+        ).thenAnswer((_) async => http.Response('', HttpStatus.created));
 
         await {{project_name.pascalCase()}}ApiClient(
           httpClient: httpClient,
@@ -1086,8 +1084,7 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiRequestFailure '
+      test('throws {{project_name.pascalCase()}}ApiRequestFailure '
           'when response has a non-201 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         when(
@@ -1096,9 +1093,7 @@ void main() {
             body: any(named: 'body'),
             headers: any(named: 'headers'),
           ),
-        ).thenAnswer(
-          (_) async => http.Response('', statusCode),
-        );
+        ).thenAnswer((_) async => http.Response('', statusCode));
 
         expect(
           () => apiClient.subscribeToNewsletter(email: email),
@@ -1117,9 +1112,7 @@ void main() {
             body: any(named: 'body'),
             headers: any(named: 'headers'),
           ),
-        ).thenAnswer(
-          (_) async => http.Response('', HttpStatus.created),
-        );
+        ).thenAnswer((_) async => http.Response('', HttpStatus.created));
 
         expect(apiClient.subscribeToNewsletter(email: email), completes);
       });
@@ -1132,9 +1125,7 @@ void main() {
 
         when(
           () => httpClient.post(any(), headers: any(named: 'headers')),
-        ).thenAnswer(
-          (_) async => http.Response('', HttpStatus.created),
-        );
+        ).thenAnswer((_) async => http.Response('', HttpStatus.created));
 
         await apiClient.createSubscription(subscriptionId: subscriptionId);
 
@@ -1156,9 +1147,7 @@ void main() {
 
         when(
           () => httpClient.post(any(), headers: any(named: 'headers')),
-        ).thenAnswer(
-          (_) async => http.Response('', HttpStatus.created),
-        );
+        ).thenAnswer((_) async => http.Response('', HttpStatus.created));
 
         await {{project_name.pascalCase()}}ApiClient(
           httpClient: httpClient,
@@ -1178,14 +1167,12 @@ void main() {
         ).called(1);
       });
 
-      test(
-          'throws {{project_name.pascalCase()}}ApiRequestFailure '
+      test('throws {{project_name.pascalCase()}}ApiRequestFailure '
           'when response has a non-201 status code.', () {
         const statusCode = HttpStatus.internalServerError;
-        when(() => httpClient.post(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response('', statusCode),
-        );
+        when(
+          () => httpClient.post(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response('', statusCode));
 
         expect(
           () => apiClient.createSubscription(subscriptionId: 'subscriptionId'),
@@ -1198,10 +1185,9 @@ void main() {
       });
 
       test('resolves on a 201 response.', () {
-        when(() => httpClient.post(any(), headers: any(named: 'headers')))
-            .thenAnswer(
-          (_) async => http.Response('', HttpStatus.created),
-        );
+        when(
+          () => httpClient.post(any(), headers: any(named: 'headers')),
+        ).thenAnswer((_) async => http.Response('', HttpStatus.created));
 
         expect(
           apiClient.createSubscription(subscriptionId: 'subscriptionId'),

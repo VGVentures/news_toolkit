@@ -7,12 +7,13 @@ import 'package:{{project_name.snakeCase()}}/navigation/navigation.dart';
 class NavDrawer extends StatelessWidget {
   const NavDrawer({super.key});
 
-  static const _contentPadding = AppSpacing.lg;
+  static const double _contentPadding = AppSpacing.lg;
 
   @override
   Widget build(BuildContext context) {
-    final isUserSubscribed =
-        context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
+    final isUserSubscribed = context.select(
+      (AppBloc bloc) => bloc.state.isUserSubscribed,
+    );
 
     return ClipRRect(
       borderRadius: const BorderRadius.only(

@@ -47,10 +47,10 @@ class {{project_name.pascalCase()}}ApiClient {
     required TokenProvider tokenProvider,
     http.Client? httpClient,
   }) : this._(
-          baseUrl: 'https://{{api_url}}',
-          httpClient: httpClient,
-          tokenProvider: tokenProvider,
-        );
+         baseUrl: 'https://{{api_url}}',
+         httpClient: httpClient,
+         tokenProvider: tokenProvider,
+       );
 
   /// Create an instance of [{{project_name.pascalCase()}}ApiClient] that integrates
   /// with a local instance of the API (http://localhost:8080).
@@ -60,25 +60,25 @@ class {{project_name.pascalCase()}}ApiClient {
     required TokenProvider tokenProvider,
     http.Client? httpClient,
   }) : this._(
-          baseUrl: 'http://localhost:8080',
-          httpClient: httpClient,
-          tokenProvider: tokenProvider,
-        );
+         baseUrl: 'http://localhost:8080',
+         httpClient: httpClient,
+         tokenProvider: tokenProvider,
+       );
 
   /// {@macro {{project_name.snakeCase()}}_api_client}
   {{project_name.pascalCase()}}ApiClient._({
     required String baseUrl,
     required TokenProvider tokenProvider,
     http.Client? httpClient,
-  })  : _baseUrl = baseUrl,
-        _httpClient = httpClient ?? http.Client(),
-        _tokenProvider = tokenProvider;
+  }) : _baseUrl = baseUrl,
+       _httpClient = httpClient ?? http.Client(),
+       _tokenProvider = tokenProvider;
 
   final String _baseUrl;
   final http.Client _httpClient;
   final TokenProvider _tokenProvider;
 
-  /// GET /api/v1/articles/<id>
+  /// GET /api/v1/articles/&lt;id&gt;
   /// Requests article content metadata.
   ///
   /// Supported parameters:
@@ -116,7 +116,7 @@ class {{project_name.pascalCase()}}ApiClient {
     return ArticleResponse.fromJson(body);
   }
 
-  /// GET /api/v1/articles/<id>/related
+  /// GET /api/v1/articles/&lt;id&gt;/related
   /// Requests related articles.
   ///
   /// Supported parameters:
@@ -155,18 +155,18 @@ class {{project_name.pascalCase()}}ApiClient {
   /// Requests news feed metadata.
   ///
   /// Supported parameters:
-  /// * [category] - The desired news [Category].
+  /// * [categoryId] - The desired id of news category.
   /// * [limit] - The number of results to return.
   /// * [offset] - The (zero-based) offset of the first item
   /// in the collection to return.
   Future<FeedResponse> getFeed({
-    Category? category,
+    String? categoryId,
     int? limit,
     int? offset,
   }) async {
     final uri = Uri.parse('$_baseUrl/api/v1/feed').replace(
       queryParameters: <String, String>{
-        if (category != null) 'category': category.name,
+        'category': ?categoryId,
         if (limit != null) 'limit': '$limit',
         if (offset != null) 'offset': '$offset',
       },
@@ -250,9 +250,9 @@ class {{project_name.pascalCase()}}ApiClient {
   /// GET /api/v1/search/relevant?q=term
   /// Requests relevant content based on the provided search [term].
   Future<RelevantSearchResponse> relevantSearch({required String term}) async {
-    final uri = Uri.parse('$_baseUrl/api/v1/search/relevant').replace(
-      queryParameters: <String, String>{'q': term},
-    );
+    final uri = Uri.parse(
+      '$_baseUrl/api/v1/search/relevant',
+    ).replace(queryParameters: <String, String>{'q': term});
     final response = await _httpClient.get(
       uri,
       headers: await _getRequestHeaders(),
@@ -289,9 +289,7 @@ class {{project_name.pascalCase()}}ApiClient {
 
   /// POST /api/v1/subscriptions
   /// Creates a new subscription for the associated user.
-  Future<void> createSubscription({
-    required String subscriptionId,
-  }) async {
+  Future<void> createSubscription({required String subscriptionId}) async {
     final uri = Uri.parse('$_baseUrl/api/v1/subscriptions').replace(
       queryParameters: <String, String>{'subscriptionId': subscriptionId},
     );

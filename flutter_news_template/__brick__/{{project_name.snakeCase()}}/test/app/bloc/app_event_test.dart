@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable
+// ignore_for_file: prefer_const_constructors
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -12,46 +12,31 @@ void main() {
       final user = MockUser();
 
       test('supports value comparisons', () {
-        expect(
-          AppUserChanged(user),
-          AppUserChanged(user),
-        );
+        expect(AppUserChanged(user), AppUserChanged(user));
       });
     });
 
     group('AppOnboardingCompleted', () {
       test('supports value comparisons', () {
-        expect(
-          AppOnboardingCompleted(),
-          AppOnboardingCompleted(),
-        );
+        expect(AppOnboardingCompleted(), AppOnboardingCompleted());
       });
     });
 
     group('AppLogoutRequested', () {
       test('supports value comparisons', () {
-        expect(
-          AppLogoutRequested(),
-          AppLogoutRequested(),
-        );
+        expect(AppLogoutRequested(), AppLogoutRequested());
       });
     });
 
     group('AppDeleteAccountRequested', () {
       test('supports value comparisons', () {
-        expect(
-          AppDeleteAccountRequested(),
-          AppDeleteAccountRequested(),
-        );
+        expect(AppDeleteAccountRequested(), AppDeleteAccountRequested());
       });
     });
 
     group('AppOpened', () {
       test('supports value comparisons', () {
-        expect(
-          AppOpened(),
-          AppOpened(),
-        );
+        expect(AppOpened(), AppOpened());
       });
     });
   });

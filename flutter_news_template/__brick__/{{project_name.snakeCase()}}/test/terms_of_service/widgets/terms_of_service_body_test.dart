@@ -12,24 +12,12 @@ void main() {
   group('TermsOfServiceBody', () {
     group('renders', () {
       testWidgets('SingleChildScrollView', (tester) async {
-        await tester.pumpApp(
-          Column(
-            children: const [
-              TermsOfServiceBody(),
-            ],
-          ),
-        );
+        await tester.pumpApp(Column(children: const [TermsOfServiceBody()]));
         expect(find.byType(SingleChildScrollView), findsOneWidget);
       });
 
       testWidgets('terms of service body text', (tester) async {
-        await tester.pumpApp(
-          Column(
-            children: const [
-              TermsOfServiceBody(),
-            ],
-          ),
-        );
+        await tester.pumpApp(Column(children: const [TermsOfServiceBody()]));
         expect(find.byKey(termsOfServiceBodyTextKey), findsOneWidget);
       });
     });

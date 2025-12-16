@@ -13,7 +13,7 @@ class InlineImage extends StatelessWidget {
   });
 
   /// The aspect ratio of this image.
-  static const _aspectRatio = 3 / 2;
+  static const double _aspectRatio = 3 / 2;
 
   /// The url of this image.
   final String imageUrl;

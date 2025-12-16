@@ -15,16 +15,16 @@ abstract class NTGEvent extends AnalyticsEvent {
     Object? value,
     String? hitType,
   }) : super(
-          name,
-          properties: <String, Object>{
-            'eventCategory': category,
-            'eventAction': action,
-            'nonInteraction': '$nonInteraction',
-            if (label != null) 'eventLabel': label,
-            if (value != null) 'eventValue': value,
-            if (hitType != null) 'hitType': hitType,
-          },
-        );
+         name,
+         properties: <String, Object>{
+           'eventCategory': category,
+           'eventAction': action,
+           'nonInteraction': '$nonInteraction',
+           'eventLabel': ?label,
+           'eventValue': ?value,
+           'hitType': ?hitType,
+         },
+       );
 }
 
 /// {@template newsletter_event}
@@ -33,23 +33,23 @@ abstract class NTGEvent extends AnalyticsEvent {
 class NewsletterEvent extends NTGEvent {
   /// An analytics event for tracking newsletter sign up.
   NewsletterEvent.signUp()
-      : super(
-          name: 'newsletter_signup',
-          category: 'NTG newsletter',
-          action: 'newsletter signup',
-          label: 'success',
-          nonInteraction: false,
-        );
+    : super(
+        name: 'newsletter_signup',
+        category: 'NTG newsletter',
+        action: 'newsletter signup',
+        label: 'success',
+        nonInteraction: false,
+      );
 
   /// An analytics event for tracking newsletter impression.
   NewsletterEvent.impression({String? articleTitle})
-      : super(
-          name: 'newsletter_impression',
-          category: 'NTG newsletter',
-          action: 'newsletter modal impression 3',
-          label: articleTitle ?? '',
-          nonInteraction: false,
-        );
+    : super(
+        name: 'newsletter_impression',
+        category: 'NTG newsletter',
+        action: 'newsletter modal impression 3',
+        label: articleTitle ?? '',
+        nonInteraction: false,
+      );
 }
 
 /// {@template login_event}
@@ -58,13 +58,13 @@ class NewsletterEvent extends NTGEvent {
 class LoginEvent extends NTGEvent {
   /// {@macro login_event}
   LoginEvent()
-      : super(
-          name: 'login',
-          category: 'NTG account',
-          action: 'login',
-          label: 'success',
-          nonInteraction: false,
-        );
+    : super(
+        name: 'login',
+        category: 'NTG account',
+        action: 'login',
+        label: 'success',
+        nonInteraction: false,
+      );
 }
 
 /// {@template registration_event}
@@ -73,13 +73,13 @@ class LoginEvent extends NTGEvent {
 class RegistrationEvent extends NTGEvent {
   /// {@macro registration_event}
   RegistrationEvent()
-      : super(
-          name: 'registration',
-          category: 'NTG account',
-          action: 'registration',
-          label: 'success',
-          nonInteraction: false,
-        );
+    : super(
+        name: 'registration',
+        category: 'NTG account',
+        action: 'registration',
+        label: 'success',
+        nonInteraction: false,
+      );
 }
 
 /// {@template article_milestone_event}
@@ -91,14 +91,14 @@ class ArticleMilestoneEvent extends NTGEvent {
     required int milestonePercentage,
     required String articleTitle,
   }) : super(
-          name: 'article_milestone',
-          category: 'NTG article milestone',
-          action: '$milestonePercentage%',
-          label: articleTitle,
-          value: milestonePercentage,
-          nonInteraction: true,
-          hitType: 'event',
-        );
+         name: 'article_milestone',
+         category: 'NTG article milestone',
+         action: '$milestonePercentage%',
+         label: articleTitle,
+         value: milestonePercentage,
+         nonInteraction: true,
+         hitType: 'event',
+       );
 }
 
 /// {@template article_comment_event}
@@ -107,13 +107,13 @@ class ArticleMilestoneEvent extends NTGEvent {
 class ArticleCommentEvent extends NTGEvent {
   /// {@macro article_comment_event}
   ArticleCommentEvent({required String articleTitle})
-      : super(
-          name: 'comment',
-          category: 'NTG user',
-          action: 'comment added',
-          label: articleTitle,
-          nonInteraction: false,
-        );
+    : super(
+        name: 'comment',
+        category: 'NTG user',
+        action: 'comment added',
+        label: articleTitle,
+        nonInteraction: false,
+      );
 }
 
 /// {@template social_share_event}
@@ -122,13 +122,13 @@ class ArticleCommentEvent extends NTGEvent {
 class SocialShareEvent extends NTGEvent {
   /// {@macro social_share_event}
   SocialShareEvent()
-      : super(
-          name: 'social_share',
-          category: 'NTG social',
-          action: 'social share',
-          label: 'OS share menu',
-          nonInteraction: false,
-        );
+    : super(
+        name: 'social_share',
+        category: 'NTG social',
+        action: 'social share',
+        label: 'OS share menu',
+        nonInteraction: false,
+      );
 }
 
 /// {@template push_notification_subscription_event}
@@ -137,12 +137,12 @@ class SocialShareEvent extends NTGEvent {
 class PushNotificationSubscriptionEvent extends NTGEvent {
   /// {@macro push_notification_subscription_event}
   PushNotificationSubscriptionEvent()
-      : super(
-          name: 'push_notification_click',
-          category: 'NTG push notification',
-          action: 'click',
-          nonInteraction: false,
-        );
+    : super(
+        name: 'push_notification_click',
+        category: 'NTG push notification',
+        action: 'click',
+        nonInteraction: false,
+      );
 }
 
 /// {@template paywall_prompt_event}
@@ -154,22 +154,22 @@ class PaywallPromptEvent extends NTGEvent {
     required PaywallPromptImpression impression,
     required String articleTitle,
   }) : super(
-          name: 'paywall_impression',
-          category: 'NTG paywall',
-          action: 'paywall modal impression $impression',
-          label: articleTitle,
-          nonInteraction: true,
-        );
+         name: 'paywall_impression',
+         category: 'NTG paywall',
+         action: 'paywall modal impression $impression',
+         label: articleTitle,
+         nonInteraction: true,
+       );
 
   /// An analytics event for tracking paywall prompt click.
   PaywallPromptEvent.click({required String articleTitle})
-      : super(
-          name: 'paywall_click',
-          category: 'NTG paywall',
-          action: 'click',
-          label: articleTitle,
-          nonInteraction: false,
-        );
+    : super(
+        name: 'paywall_click',
+        category: 'NTG paywall',
+        action: 'click',
+        label: articleTitle,
+        nonInteraction: false,
+      );
 }
 
 /// {@template paywall_prompt_impression}
@@ -196,11 +196,11 @@ enum PaywallPromptImpression {
 class UserSubscriptionConversionEvent extends NTGEvent {
   /// {@macro user_subscription_conversion_event}
   UserSubscriptionConversionEvent()
-      : super(
-          name: 'subscription_submit',
-          category: 'NTG subscription',
-          action: 'submit',
-          label: 'success',
-          nonInteraction: false,
-        );
+    : super(
+        name: 'subscription_submit',
+        category: 'NTG subscription',
+        action: 'submit',
+        label: 'success',
+        nonInteraction: false,
+      );
 }

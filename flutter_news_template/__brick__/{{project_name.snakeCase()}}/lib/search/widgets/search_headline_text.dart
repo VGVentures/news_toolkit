@@ -17,9 +17,9 @@ class SearchHeadlineText extends StatelessWidget {
       ),
       child: Text(
         headerText.toUpperCase(),
-        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: AppColors.secondary,
-            ),
+        style: Theme.of(
+          context,
+        ).textTheme.titleSmall?.copyWith(color: AppColors.secondary),
       ),
     );
   }

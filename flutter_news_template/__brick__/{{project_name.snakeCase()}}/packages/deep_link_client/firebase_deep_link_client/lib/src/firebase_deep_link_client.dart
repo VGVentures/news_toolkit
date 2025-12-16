@@ -11,7 +11,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 class FirebaseDeepLinkClient implements DeepLinkClient {
   /// {@macro firebase_deep_link_client}
   FirebaseDeepLinkClient({required FirebaseDynamicLinks firebaseDynamicLinks})
-      : _firebaseDynamicLinks = firebaseDynamicLinks;
+    : _firebaseDynamicLinks = firebaseDynamicLinks;
 
   final FirebaseDynamicLinks _firebaseDynamicLinks;
 

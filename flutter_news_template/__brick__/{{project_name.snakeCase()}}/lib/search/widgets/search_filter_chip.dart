@@ -18,10 +18,7 @@ class SearchFilterChip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
         vertical: AppSpacing.xs + AppSpacing.xxs,
       ),
-      label: Text(
-        chipText,
-        style: Theme.of(context).textTheme.labelLarge,
-      ),
+      label: Text(chipText, style: Theme.of(context).textTheme.labelLarge),
       onSelected: (_) => onSelected(chipText),
       backgroundColor: AppColors.transparent,
       shape: RoundedRectangleBorder(
