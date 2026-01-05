@@ -1,0 +1,11 @@
+name: storage
+description: Create a storage abstraction with interface and implementation
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev <0.1.0"
+
+vars:
+  storage_name:
+    type: string
+    description: The name of the storage (e.g., user, article, notifications)
+    prompt: What is the storage name?

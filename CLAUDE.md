@@ -36,6 +36,30 @@ news_toolkit/
 └── tool/generator/              # Template generator
 ```
 
+## Code Generation with Mason
+
+The project includes Mason CLI bricks for generating common patterns. See `bricks/README.md` for details.
+
+**Install Mason:**
+```bash
+dart pub global activate mason_cli
+mason get
+```
+
+**Available bricks:**
+- `feature_bloc` - Create BLoC-based feature
+- `repository` - Create repository package
+- `client` - Create abstract client interface
+- `client_implementation` - Create concrete client implementation
+- `storage` - Create storage abstraction
+- `package` - Create basic Flutter package
+
+**Example usage:**
+```bash
+mason make feature_bloc --feature_name settings
+mason make repository --repository_name comments
+```
+
 ## Development Commands
 
 ### Flutter App (from `flutter_news_example/`)

@@ -1,0 +1,11 @@
+name: client
+description: Create a new client package with abstract interface
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev <0.1.0"
+
+vars:
+  client_name:
+    type: string
+    description: The name of the client (e.g., authentication, notifications, deep_link)
+    prompt: What is the client name?

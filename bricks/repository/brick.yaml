@@ -1,0 +1,11 @@
+name: repository
+description: Create a new repository package following the repository pattern
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev <0.1.0"
+
+vars:
+  repository_name:
+    type: string
+    description: The name of the repository (e.g., news, user, article)
+    prompt: What is the repository name?

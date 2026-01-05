@@ -1,0 +1,14 @@
+bricks:
+  # Local bricks for Flutter News Toolkit patterns
+  feature_bloc:
+    path: bricks/feature_bloc
+  repository:
+    path: bricks/repository
+  client:
+    path: bricks/client
+  client_implementation:
+    path: bricks/client_implementation
+  storage:
+    path: bricks/storage
+  package:
+    path: bricks/package

@@ -1,0 +1,15 @@
+name: client_implementation
+description: Create a concrete implementation of a client (e.g., Firebase implementation)
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev <0.1.0"
+
+vars:
+  implementation_name:
+    type: string
+    description: The implementation name (e.g., firebase, one_signal)
+    prompt: What is the implementation name?
+  client_name:
+    type: string
+    description: The base client name (e.g., authentication, notifications)
+    prompt: What is the base client name?
