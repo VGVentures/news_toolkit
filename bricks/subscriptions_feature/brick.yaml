@@ -1,0 +1,12 @@
+name: subscriptions_feature
+description: Create subscriptions feature with in-app purchases
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev <0.1.0"
+
+vars:
+  subscription_name:
+    type: string
+    description: The name of the subscription product
+    prompt: What is the subscription product name?
+    default: Premium

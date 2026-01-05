@@ -22,7 +22,11 @@ This will register all bricks defined in `mason.yaml`.
 
 ## Available Bricks
 
-### 1. feature_bloc
+### Generic Bricks
+
+These bricks provide general-purpose scaffolding for common patterns:
+
+#### 1. feature_bloc
 
 Creates a complete feature with BLoC state management pattern.
 
@@ -168,6 +172,74 @@ mason make package --package_name video_player --package_description "Video play
 ```
 
 **Where to use:** In `flutter_news_example/packages/` for any new package.
+
+### Feature-Specific Bricks
+
+These bricks generate complete, ready-to-use features based on Flutter News Toolkit patterns:
+
+#### 7. ads_integration
+
+Creates Google Mobile Ads integration with full-screen and banner ads.
+
+**Generates:**
+- FullScreenAdsBloc for interstitial and rewarded ads
+- BannerAdContainer widget
+- Ads consent handling
+
+**Usage:**
+```bash
+mason make ads_integration
+```
+
+**Where to use:** In `flutter_news_example/lib/` for ads feature.
+
+#### 8. login_feature
+
+Creates complete login feature with social authentication.
+
+**Generates:**
+- LoginBloc with email, Google, Apple, Facebook, Twitter support
+- Login page with form validation
+- Email magic link support (optional)
+
+**Usage:**
+```bash
+mason make login_feature --enable_google true --enable_apple true
+```
+
+**Where to use:** In `flutter_news_example/lib/` for authentication.
+
+#### 9. subscriptions_feature
+
+Creates subscription management with in-app purchases.
+
+**Generates:**
+- Subscriptions page
+- Subscribe dialog
+- IAP integration structure
+
+**Usage:**
+```bash
+mason make subscriptions_feature --subscription_name Premium
+```
+
+**Where to use:** In `flutter_news_example/lib/` for subscriptions.
+
+#### 10. theme_feature
+
+Creates theme selector with dark mode using HydratedBloc.
+
+**Generates:**
+- ThemeModeBloc with persistence
+- Theme selector page with Light/Dark/System options
+- JSON serialization for theme state
+
+**Usage:**
+```bash
+mason make theme_feature
+```
+
+**Where to use:** In `flutter_news_example/lib/` for theme management.
 
 ## Common Workflows
 

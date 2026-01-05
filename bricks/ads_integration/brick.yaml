@@ -1,0 +1,12 @@
+name: ads_integration
+description: Create ads integration with Google Mobile Ads (full-screen ads bloc + widgets)
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev <0.1.0"
+
+vars:
+  app_name:
+    type: string
+    description: The app name for ads configuration
+    prompt: What is your app name?
+    default: Flutter News Example

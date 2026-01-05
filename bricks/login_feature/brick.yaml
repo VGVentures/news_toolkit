@@ -1,0 +1,22 @@
+name: login_feature
+description: Create login feature with social authentication support (Google, Apple, Facebook, Twitter)
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev <0.1.0"
+
+vars:
+  enable_email_link:
+    type: boolean
+    description: Enable email magic link authentication
+    prompt: Enable email magic link authentication?
+    default: true
+  enable_google:
+    type: boolean
+    description: Enable Google sign-in
+    prompt: Enable Google sign-in?
+    default: true
+  enable_apple:
+    type: boolean
+    description: Enable Apple sign-in
+    prompt: Enable Apple sign-in?
+    default: true

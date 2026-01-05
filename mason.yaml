@@ -1,5 +1,5 @@
 bricks:
-  # Local bricks for Flutter News Toolkit patterns
+  # Generic bricks for common patterns
   feature_bloc:
     path: bricks/feature_bloc
   repository:
@@ -12,3 +12,13 @@ bricks:
     path: bricks/storage
   package:
     path: bricks/package
+
+  # Feature-specific bricks
+  ads_integration:
+    path: bricks/ads_integration
+  login_feature:
+    path: bricks/login_feature
+  subscriptions_feature:
+    path: bricks/subscriptions_feature
+  theme_feature:
+    path: bricks/theme_feature

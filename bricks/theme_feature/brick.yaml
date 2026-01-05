@@ -1,0 +1,5 @@
+name: theme_feature
+description: Create theme selector with dark mode using HydratedBloc
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev <0.1.0"
