@@ -16,7 +16,7 @@ dependencies:
     path: packages/news_blocks
 
 dev_dependencies:
-  build_runner: ^2.10.4
+  build_runner: ^2.10.5
   json_serializable: ^6.11.3
   mocktail: ^1.0.4
   test: ^1.28.0
