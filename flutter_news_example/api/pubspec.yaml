@@ -11,7 +11,7 @@ dependencies:
   dart_frog: ^1.2.6
   equatable: ^2.0.7
   http: ^1.6.0
-  json_annotation: ^4.9.0
+  json_annotation: ^4.10.0
   news_blocks:
     path: packages/news_blocks
 
