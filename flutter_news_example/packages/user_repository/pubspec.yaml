@@ -10,16 +10,16 @@ dependencies:
     path: ../authentication_client/authentication_client
   deep_link_client:
     path: ../deep_link_client/deep_link_client
-  equatable: ^2.0.3
+  equatable: ^2.0.8
   flutter_news_example_api:
     path: ../../api
   package_info_client:
     path: ../package_info_client
-  rxdart: ^0.27.5
+  rxdart: ^0.28.0
   storage:
     path: ../storage/storage
 
 dev_dependencies:
-  mocktail: ^1.0.2
-  test: ^1.21.4
-  very_good_analysis: ^10.0.0
+  mocktail: ^1.0.4
+  test: ^1.30.0
+  very_good_analysis: ^10.2.0

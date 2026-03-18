@@ -4,37 +4,37 @@ import 'package:notifications_client/notifications_client.dart';
 import 'package:one_signal_notifications_client/one_signal_notifications_client.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-class MockOneSignal extends Mock implements OneSignal {}
+class MockOneSignalUser extends Mock implements OneSignalUser {}
 
 void main() {
   group('OneSignalNotificationsClient', () {
-    late OneSignal oneSignal;
+    late OneSignalUser oneSignalUser;
     late OneSignalNotificationsClient oneSignalNotificationsClient;
 
     const category = 'category';
 
     setUp(() {
-      oneSignal = MockOneSignal();
+      oneSignalUser = MockOneSignalUser();
       oneSignalNotificationsClient = OneSignalNotificationsClient(
-        oneSignal: oneSignal,
+        oneSignalUser: oneSignalUser,
       );
     });
 
     group('when OneSignalNotificationsClient.subscribeToCategory called', () {
-      test('calls OneSignal.sendTag', () async {
+      test('calls OneSignalUser.addTagWithKey', () async {
         when(
-          () => oneSignal.sendTag(category, true),
+          () => oneSignalUser.addTagWithKey(category, true),
         ).thenAnswer((_) async => {});
 
         await oneSignalNotificationsClient.subscribeToCategory(category);
 
-        verify(() => oneSignal.sendTag(category, true)).called(1);
+        verify(() => oneSignalUser.addTagWithKey(category, true)).called(1);
       });
 
       test('throws SubscribeToCategoryFailure '
-          'when OneSignal.deleteTag fails', () async {
+          'when OneSignalUser.addTagWithKey fails', () async {
         when(
-          () => oneSignal.sendTag(category, true),
+          () => oneSignalUser.addTagWithKey(category, true),
         ).thenAnswer((_) async => throw Exception());
 
         expect(
@@ -47,18 +47,20 @@ void main() {
     group(
       'when OneSignalNotificationsClient.unsubscribeFromCategory called',
       () {
-        test('calls OneSignal.deleteTag', () async {
-          when(() => oneSignal.deleteTag(category)).thenAnswer((_) async => {});
+        test('calls OneSignalUser.removeTag', () async {
+          when(
+            () => oneSignalUser.removeTag(category),
+          ).thenAnswer((_) async => {});
 
           await oneSignalNotificationsClient.unsubscribeFromCategory(category);
 
-          verify(() => oneSignal.deleteTag(category)).called(1);
+          verify(() => oneSignalUser.removeTag(category)).called(1);
         });
 
         test('throws UnsubscribeFromCategoryFailure '
-            'when OneSignal.deleteTag fails', () async {
+            'when OneSignalUser.removeTag fails', () async {
           when(
-            () => oneSignal.deleteTag(category),
+            () => oneSignalUser.removeTag(category),
           ).thenAnswer((_) async => throw Exception());
 
           expect(

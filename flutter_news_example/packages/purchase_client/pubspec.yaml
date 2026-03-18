@@ -7,14 +7,14 @@ environment:
   sdk: ^3.11.0
 
 dependencies:
-  clock: ^1.1.1
-  equatable: ^2.0.3
+  clock: ^1.1.2
+  equatable: ^2.0.8
   flutter:
     sdk: flutter
-  in_app_purchase: ^3.2.0
+  in_app_purchase: ^3.2.3
   in_app_purchase_platform_interface: ^1.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  very_good_analysis: ^10.0.0
+  very_good_analysis: ^10.2.0

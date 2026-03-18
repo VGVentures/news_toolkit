@@ -6,16 +6,16 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 /// {@endtemplate}
 class OneSignalNotificationsClient implements NotificationsClient {
   /// {@macro one_signal_notifications_client}
-  const OneSignalNotificationsClient({required OneSignal oneSignal})
-    : _oneSignal = oneSignal;
+  OneSignalNotificationsClient({required OneSignalUser oneSignalUser})
+    : _oneSignalUser = oneSignalUser;
 
-  /// OneSignal instance.
-  final OneSignal _oneSignal;
+  /// OneSignal user namespace instance.
+  final OneSignalUser _oneSignalUser;
 
   @override
   Future<void> subscribeToCategory(String category) async {
     try {
-      await _oneSignal.sendTag(category, true);
+      await _oneSignalUser.addTagWithKey(category, true);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(SubscribeToCategoryFailure(error), stackTrace);
     }
@@ -24,7 +24,7 @@ class OneSignalNotificationsClient implements NotificationsClient {
   @override
   Future<void> unsubscribeFromCategory(String category) async {
     try {
-      await _oneSignal.deleteTag(category);
+      await _oneSignalUser.removeTag(category);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         UnsubscribeFromCategoryFailure(error),

@@ -7,8 +7,8 @@ environment:
   sdk: ^3.11.0
 
 dependencies:
-  equatable: ^2.0.3
+  equatable: ^2.0.8
 
 dev_dependencies:
-  test: ^1.21.4
-  very_good_analysis: ^10.0.0
+  test: ^1.30.0
+  very_good_analysis: ^10.2.0

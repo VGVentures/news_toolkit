@@ -7,7 +7,7 @@ environment:
   sdk: ^3.11.0
 
 dependencies:
-  firebase_messaging: ^15.2.8
+  firebase_messaging: ^15.2.10
   flutter:
     sdk: flutter
   notifications_client:
@@ -16,5 +16,5 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mocktail: ^1.0.2
-  very_good_analysis: ^10.0.0
+  mocktail: ^1.0.4
+  very_good_analysis: ^10.2.0

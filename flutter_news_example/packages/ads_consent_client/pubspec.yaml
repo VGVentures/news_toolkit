@@ -9,10 +9,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_mobile_ads: ^5.3.1
+  google_mobile_ads: ^7.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mocktail: ^1.0.2
-  very_good_analysis: ^10.0.0
+  mocktail: ^1.0.4
+  very_good_analysis: ^10.2.0
