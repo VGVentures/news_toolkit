@@ -204,8 +204,7 @@ void main() async {
     Directory(_targetPath)
         .listSync(recursive: true)
         .whereType<File>()
-        .map((_) async {
-      var file = _;
+        .map((file) async {
       if (path.isWithin(
         path.join(_targetPath, '.github', 'workflows'),
         file.path,

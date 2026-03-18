@@ -4,7 +4,8 @@ import 'package:flutter/material.dart' hide ProgressIndicator;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import 'package:video_player/video_player.dart';
-import 'package:video_player_platform_interface/video_player_platform_interface.dart';
+import 'package:video_player_platform_interface/video_player_platform_interface.dart'
+    hide VideoAudioTrack;
 
 import '../../helpers/helpers.dart';
 
@@ -209,6 +210,15 @@ class FakeVideoPlayerController extends ValueNotifier<VideoPlayerValue>
 
   @override
   VideoViewType get viewType => VideoViewType.textureView;
+
+  @override
+  Future<List<VideoAudioTrack>> getAudioTracks() async => <VideoAudioTrack>[];
+
+  @override
+  bool isAudioTrackSupportAvailable() => true;
+
+  @override
+  Future<void> selectAudioTrack(String trackId) async {}
 }
 
 Future<ClosedCaptionFile> _loadClosedCaption() async =>
