@@ -3,14 +3,8 @@ import 'package:path/path.dart' as path;
 
 final _staticDir = path.join('tool', 'generator', 'static');
 final _sourcePath = path.join('flutter_news_example${path.separator}');
-final _templatePath = path.join(
-  'flutter_news_template',
-  '__brick__',
-);
-final _targetPath = path.join(
-  _templatePath,
-  '{{project_name.snakeCase()}}',
-);
+final _templatePath = path.join('flutter_news_template', '__brick__');
+final _targetPath = path.join(_templatePath, '{{project_name.snakeCase()}}');
 final _targetProjectWorkflow = path.join(
   _targetPath,
   '.github',
@@ -88,18 +82,8 @@ final _blackList = <String>[
     'workflows',
     'generate_flutter_news_template.yaml',
   ),
-  path.join(
-    _targetPath,
-    '.github',
-    'workflows',
-    'deploy_api.yaml',
-  ),
-  path.join(
-    _targetPath,
-    '.github',
-    'workflows',
-    'docs.yaml',
-  ),
+  path.join(_targetPath, '.github', 'workflows', 'deploy_api.yaml'),
+  path.join(_targetPath, '.github', 'workflows', 'docs.yaml'),
   path.join(_targetPath, 'lib', 'main', 'main_production.dart'),
   path.join(_targetPath, '.idea', 'runConfigurations', 'development.xml'),
   path.join(_targetPath, '.idea', 'runConfigurations', 'production.xml'),
@@ -150,20 +134,8 @@ final _blackList = <String>[
     'production',
     'google-services.json',
   ),
-  path.join(
-    _targetPath,
-    'packages',
-    'app_ui',
-    'gallery',
-    '.firebaserc',
-  ),
-  path.join(
-    _targetPath,
-    'packages',
-    'app_ui',
-    'gallery',
-    '.firebase.json',
-  ),
+  path.join(_targetPath, 'packages', 'app_ui', 'gallery', '.firebaserc'),
+  path.join(_targetPath, 'packages', 'app_ui', 'gallery', '.firebase.json'),
 ];
 
 void main() async {
@@ -188,23 +160,24 @@ void main() async {
   await Shell.cp('codemagic.yaml', _targetCodemagic);
 
   // Remove Black Listed Files
-  await Future.wait(_blackList.map((path) async {
-    final file = File(path);
-    if (file.existsSync()) {
-      return file.delete();
-    }
-    final directory = Directory(path);
-    if (directory.existsSync()) {
-      return directory.delete(recursive: true);
-    }
-  }));
+  await Future.wait(
+    _blackList.map((path) async {
+      final file = File(path);
+      if (file.existsSync()) {
+        return file.delete();
+      }
+      final directory = Directory(path);
+      if (directory.existsSync()) {
+        return directory.delete(recursive: true);
+      }
+    }),
+  );
 
   // Convert Values to Variables
   await Future.wait(
-    Directory(_targetPath)
-        .listSync(recursive: true)
-        .whereType<File>()
-        .map((file) async {
+    Directory(_targetPath).listSync(recursive: true).whereType<File>().map((
+      file,
+    ) async {
       if (path.isWithin(
         path.join(_targetPath, '.github', 'workflows'),
         file.path,
@@ -230,44 +203,55 @@ void main() async {
       }
       if (file.path == _targetProjectWorkflow) {
         file.writeAsStringSync(
-          file
-              .readAsStringSync()
-              .replaceFirst(_workflowWorkingDirectoryRegExp, ''),
+          file.readAsStringSync().replaceFirst(
+            _workflowWorkingDirectoryRegExp,
+            '',
+          ),
         );
       }
 
       if (file.path == _targetProjectDependabotConfiguration) {
         file.writeAsStringSync(
-          file.readAsStringSync().replaceFirst('''
+          file
+              .readAsStringSync()
+              .replaceFirst('''
   - package-ecosystem: "pub"
     directory: "/tool/generator"
     schedule:
       interval: "daily"
-''', '').replaceFirst('''
+''', '')
+              .replaceFirst('''
   - package-ecosystem: "npm"
     directory: "/docs"
     schedule:
       interval: "daily"
-''', '').replaceAll('/flutter_news_example/', '/'),
+''', '')
+              .replaceAll('/flutter_news_example/', '/'),
         );
       }
 
       if (file.path == _targetPubspec) {
         file.writeAsStringSync(
           file.readAsStringSync().replaceFirst(
-              _flutterVersionRegExp, 'flutter: {{flutter_version}}'),
+            _flutterVersionRegExp,
+            'flutter: {{flutter_version}}',
+          ),
         );
       }
 
       if (file.path == _targetCodemagic) {
         file.writeAsStringSync(
           file.readAsStringSync().replaceFirst(
-              _flutterVersionRegExp, 'flutter: {{flutter_version}}'),
+            _flutterVersionRegExp,
+            'flutter: {{flutter_version}}',
+          ),
         );
 
         file.writeAsStringSync(
           file.readAsStringSync().replaceAll(
-              RegExp('com.flutter.news.example'), '{{reverse_domain}}'),
+            RegExp('com.flutter.news.example'),
+            '{{reverse_domain}}',
+          ),
         );
 
         file.writeAsStringSync(
@@ -278,10 +262,10 @@ void main() async {
       if (file.path == _targetCodeOwners) {
         file.writeAsStringSync(
           file.readAsStringSync().replaceFirst(
-                // cspell:disable-next-line
-                '@felangel @AnnaPS @simpson-peter @kaiceyd @scarletteliza',
-                '{{code_owners}}',
-              ),
+            // cspell:disable-next-line
+            '@felangel @AnnaPS @simpson-peter @kaiceyd @scarletteliza',
+            '{{code_owners}}',
+          ),
         );
       }
 
@@ -315,21 +299,20 @@ void main() async {
       try {
         final contents = await file.readAsString();
 
-        await file.writeAsString(contents
-            .replaceAll(
-              'flutter_news_example',
-              '{{project_name.snakeCase()}}',
-            )
-            .replaceAll(
-              'FlutterNewsExample',
-              '{{project_name.pascalCase()}}',
-            )
-            .replaceAll(
-              'flutter-news-example',
-              '{{project_name.paramCase()}}',
-            )
-            .replaceAll('Flutter News Example', '{{app_name}}')
-            .replaceAll('com.flutter.news.example', '{{reverse_domain}}'));
+        await file.writeAsString(
+          contents
+              .replaceAll(
+                'flutter_news_example',
+                '{{project_name.snakeCase()}}',
+              )
+              .replaceAll('FlutterNewsExample', '{{project_name.pascalCase()}}')
+              .replaceAll(
+                'flutter-news-example',
+                '{{project_name.paramCase()}}',
+              )
+              .replaceAll('Flutter News Example', '{{app_name}}')
+              .replaceAll('com.flutter.news.example', '{{reverse_domain}}'),
+        );
       } on Exception {}
 
       if (path.basename(file.path).contains('flutter_news_example')) {
@@ -698,8 +681,12 @@ class _Cmd {
     bool throwOnError = true,
     String? processWorkingDir,
   }) async {
-    final result = await Process.run(cmd, args,
-        workingDirectory: processWorkingDir, runInShell: true);
+    final result = await Process.run(
+      cmd,
+      args,
+      workingDirectory: processWorkingDir,
+      runInShell: true,
+    );
 
     if (throwOnError) {
       _throwIfProcessFailed(result, cmd, args);
@@ -715,7 +702,7 @@ class _Cmd {
     if (pr.exitCode != 0) {
       final values = {
         'Standard out': pr.stdout.toString().trim(),
-        'Standard error': pr.stderr.toString().trim()
+        'Standard error': pr.stderr.toString().trim(),
       }..removeWhere((k, v) => v.isEmpty);
 
       String message;

@@ -180,7 +180,8 @@ enum PaywallPromptImpression {
   rewarded(1),
 
   /// The subscription paywall prompt impression.
-  subscription(2);
+  subscription(2)
+  ;
 
   /// {@macro paywall_prompt_impression}
   const PaywallPromptImpression(this._impressionType);
