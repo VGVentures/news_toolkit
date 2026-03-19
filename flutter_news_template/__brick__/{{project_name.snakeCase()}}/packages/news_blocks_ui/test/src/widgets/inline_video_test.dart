@@ -4,18 +4,17 @@ import 'package:flutter/material.dart' hide ProgressIndicator;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import 'package:video_player/video_player.dart';
-import 'package:video_player_platform_interface/video_player_platform_interface.dart';
+import 'package:video_player_platform_interface/video_player_platform_interface.dart'
+    hide VideoAudioTrack;
 
 import '../../helpers/helpers.dart';
 
 void main() {
   group('InlineVideo', () {
-    setUp(
-      () {
-        final fakeVideoPlayerPlatform = FakeVideoPlayerPlatform();
-        VideoPlayerPlatform.instance = fakeVideoPlayerPlatform;
-      },
-    );
+    setUp(() {
+      final fakeVideoPlayerPlatform = FakeVideoPlayerPlatform();
+      VideoPlayerPlatform.instance = fakeVideoPlayerPlatform;
+    });
 
     testWidgets('renders progressIndicator when loading', (tester) async {
       const progressIndicatorKey = Key('__progress_indicator__');
@@ -70,8 +69,7 @@ void main() {
       expect(find.byType(VideoPlayer), findsOneWidget);
     });
 
-    testWidgets(
-        'plays video when tapped '
+    testWidgets('plays video when tapped '
         'and video is not playing', (tester) async {
       final controller = FakeVideoPlayerController();
 
@@ -94,8 +92,7 @@ void main() {
       expect(controller.pauseCalled, equals(0));
     });
 
-    testWidgets(
-        'pauses video when tapped '
+    testWidgets('pauses video when tapped '
         'and video is playing', (tester) async {
       final controller = FakeVideoPlayerController();
 
@@ -112,9 +109,7 @@ void main() {
         ),
       );
 
-      controller
-        ..textureId = 123
-        ..value = controller.value.copyWith(isPlaying: true);
+      controller.value = controller.value.copyWith(isPlaying: true);
 
       await tester.pump();
 
@@ -147,7 +142,7 @@ void main() {
 class FakeVideoPlayerController extends ValueNotifier<VideoPlayerValue>
     implements VideoPlayerController {
   FakeVideoPlayerController()
-      : super(VideoPlayerValue(duration: Duration.zero));
+    : super(VideoPlayerValue(duration: Duration.zero));
 
   int playCalled = 0;
   int pauseCalled = 0;
@@ -156,9 +151,6 @@ class FakeVideoPlayerController extends ValueNotifier<VideoPlayerValue>
   Future<void> dispose() async {
     super.dispose();
   }
-
-  @override
-  int textureId = VideoPlayerController.kUninitializedTextureId;
 
   @override
   String get dataSource => '';
@@ -212,6 +204,21 @@ class FakeVideoPlayerController extends ValueNotifier<VideoPlayerValue>
   Future<void> setClosedCaptionFile(
     Future<ClosedCaptionFile>? closedCaptionFile,
   ) async {}
+
+  @override
+  int get playerId => 1;
+
+  @override
+  VideoViewType get viewType => VideoViewType.textureView;
+
+  @override
+  Future<List<VideoAudioTrack>> getAudioTracks() async => <VideoAudioTrack>[];
+
+  @override
+  bool isAudioTrackSupportAvailable() => true;
+
+  @override
+  Future<void> selectAudioTrack(String trackId) async {}
 }
 
 Future<ClosedCaptionFile> _loadClosedCaption() async =>

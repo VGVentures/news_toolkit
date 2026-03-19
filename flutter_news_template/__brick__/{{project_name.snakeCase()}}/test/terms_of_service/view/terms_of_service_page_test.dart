@@ -22,9 +22,10 @@ void main() {
             body: Builder(
               builder: (context) {
                 return ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push<void>(TermsOfServicePage.route());
+                  onPressed: () async {
+                    await Navigator.of(
+                      context,
+                    ).push<void>(TermsOfServicePage.route());
                   },
                   child: const Text(tapMeText),
                 );

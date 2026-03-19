@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
@@ -41,42 +41,33 @@ void main() {
     });
 
     group('isUserSubscribed', () {
-      test('returns true when userSubscriptionPlan is not null and not none',
-          () {
-        when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
-        expect(
-          AppState.authenticated(user).isUserSubscribed,
-          isTrue,
-        );
-      });
+      test(
+        'returns true when userSubscriptionPlan is not null and not none',
+        () {
+          when(
+            () => user.subscriptionPlan,
+          ).thenReturn(SubscriptionPlan.premium);
+          expect(AppState.authenticated(user).isUserSubscribed, isTrue);
+        },
+      );
 
       test('returns false when userSubscriptionPlan is none', () {
-        expect(
-          AppState.authenticated(user).isUserSubscribed,
-          isFalse,
-        );
+        expect(AppState.authenticated(user).isUserSubscribed, isFalse);
       });
     });
 
     group('AppStatus', () {
-      test(
-          'authenticated and onboardingRequired are the only statuses '
+      test('authenticated and onboardingRequired are the only statuses '
           'where loggedIn is true', () {
         expect(
           AppStatus.values.where((e) => e.isLoggedIn).toList(),
-          equals(
-            [
-              AppStatus.onboardingRequired,
-              AppStatus.authenticated,
-            ],
-          ),
+          equals([AppStatus.onboardingRequired, AppStatus.authenticated]),
         );
       });
     });
 
     group('copyWith', () {
-      test(
-          'returns same object '
+      test('returns same object '
           'when no properties are passed', () {
         expect(
           AppState.unauthenticated().copyWith(),
@@ -84,34 +75,21 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated status '
+      test('returns object with updated status '
           'when status is passed', () {
         expect(
           AppState.unauthenticated().copyWith(
             status: AppStatus.onboardingRequired,
           ),
-          equals(
-            AppState(
-              status: AppStatus.onboardingRequired,
-            ),
-          ),
+          equals(AppState(status: AppStatus.onboardingRequired)),
         );
       });
 
-      test(
-          'returns object with updated user '
+      test('returns object with updated user '
           'when user is passed', () {
         expect(
-          AppState.unauthenticated().copyWith(
-            user: user,
-          ),
-          equals(
-            AppState(
-              status: AppStatus.unauthenticated,
-              user: user,
-            ),
-          ),
+          AppState.unauthenticated().copyWith(user: user),
+          equals(AppState(status: AppStatus.unauthenticated, user: user)),
         );
       });
     });

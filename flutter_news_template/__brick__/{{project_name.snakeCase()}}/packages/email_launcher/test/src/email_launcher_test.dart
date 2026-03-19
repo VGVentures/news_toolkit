@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -52,9 +50,7 @@ void main() {
 
             final result = await canLaunchUrl(url);
             mock
-              ..setLaunchUrlExpectations(
-                url: url.toString(),
-              )
+              ..setLaunchUrlExpectations(url: url.toString())
               ..response = true;
             final launch = await launchUrl(url);
             await emailLauncher.launchEmailApp();
@@ -65,8 +61,7 @@ void main() {
         });
       });
 
-      test(
-          'throws LaunchEmailAppFailure '
+      test('throws LaunchEmailAppFailure '
           'on generic exception', () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
         final emailLauncher = EmailLauncher(

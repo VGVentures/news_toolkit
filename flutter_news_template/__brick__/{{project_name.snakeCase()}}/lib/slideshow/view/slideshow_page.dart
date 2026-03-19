@@ -18,10 +18,7 @@ class SlideshowPage extends StatelessWidget {
     required String articleId,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => SlideshowPage(
-        slideshow: slideshow,
-        articleId: articleId,
-      ),
+      builder: (_) => SlideshowPage(slideshow: slideshow, articleId: articleId),
     );
   }
 
@@ -33,12 +30,10 @@ class SlideshowPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ArticleBloc(
         articleId: articleId,
-        shareLauncher: const ShareLauncher(),
+        shareLauncher: ShareLauncher(),
         articleRepository: context.read<ArticleRepository>(),
       ),
-      child: SlideshowView(
-        block: slideshow,
-      ),
+      child: SlideshowView(block: slideshow),
     );
   }
 }

@@ -41,13 +41,12 @@ void main() {
           () => storage.read(key: ArticleStorageKeys.articleViews),
         ).thenAnswer((_) async => '3');
 
-        final result =
-            await ArticleStorage(storage: storage).fetchArticleViews();
+        final result = await ArticleStorage(
+          storage: storage,
+        ).fetchArticleViews();
 
         verify(
-          () => storage.read(
-            key: ArticleStorageKeys.articleViews,
-          ),
+          () => storage.read(key: ArticleStorageKeys.articleViews),
         ).called(1);
 
         expect(result, equals(3));
@@ -58,13 +57,12 @@ void main() {
           () => storage.read(key: ArticleStorageKeys.articleViews),
         ).thenAnswer((_) async => null);
 
-        final result =
-            await ArticleStorage(storage: storage).fetchArticleViews();
+        final result = await ArticleStorage(
+          storage: storage,
+        ).fetchArticleViews();
 
         verify(
-          () => storage.read(
-            key: ArticleStorageKeys.articleViews,
-          ),
+          () => storage.read(key: ArticleStorageKeys.articleViews),
         ).called(1);
 
         expect(result, isZero);
@@ -94,13 +92,12 @@ void main() {
           () => storage.read(key: ArticleStorageKeys.articleViewsResetAt),
         ).thenAnswer((_) async => date.toIso8601String());
 
-        final result =
-            await ArticleStorage(storage: storage).fetchArticleViewsResetDate();
+        final result = await ArticleStorage(
+          storage: storage,
+        ).fetchArticleViewsResetDate();
 
         verify(
-          () => storage.read(
-            key: ArticleStorageKeys.articleViewsResetAt,
-          ),
+          () => storage.read(key: ArticleStorageKeys.articleViewsResetAt),
         ).called(1);
 
         expect(result, equals(date));
@@ -111,13 +108,12 @@ void main() {
           () => storage.read(key: ArticleStorageKeys.articleViewsResetAt),
         ).thenAnswer((_) async => null);
 
-        final result =
-            await ArticleStorage(storage: storage).fetchArticleViewsResetDate();
+        final result = await ArticleStorage(
+          storage: storage,
+        ).fetchArticleViewsResetDate();
 
         verify(
-          () => storage.read(
-            key: ArticleStorageKeys.articleViewsResetAt,
-          ),
+          () => storage.read(key: ArticleStorageKeys.articleViewsResetAt),
         ).called(1);
 
         expect(result, isNull);
@@ -145,13 +141,12 @@ void main() {
           () => storage.read(key: ArticleStorageKeys.totalArticleViews),
         ).thenAnswer((_) async => '3');
 
-        final result =
-            await ArticleStorage(storage: storage).fetchTotalArticleViews();
+        final result = await ArticleStorage(
+          storage: storage,
+        ).fetchTotalArticleViews();
 
         verify(
-          () => storage.read(
-            key: ArticleStorageKeys.totalArticleViews,
-          ),
+          () => storage.read(key: ArticleStorageKeys.totalArticleViews),
         ).called(1);
 
         expect(result, equals(3));
@@ -162,13 +157,12 @@ void main() {
           () => storage.read(key: ArticleStorageKeys.totalArticleViews),
         ).thenAnswer((_) async => null);
 
-        final result =
-            await ArticleStorage(storage: storage).fetchTotalArticleViews();
+        final result = await ArticleStorage(
+          storage: storage,
+        ).fetchTotalArticleViews();
 
         verify(
-          () => storage.read(
-            key: ArticleStorageKeys.totalArticleViews,
-          ),
+          () => storage.read(key: ArticleStorageKeys.totalArticleViews),
         ).called(1);
 
         expect(result, isZero);
@@ -179,13 +173,12 @@ void main() {
           () => storage.read(key: ArticleStorageKeys.totalArticleViews),
         ).thenAnswer((_) async => 'malformed');
 
-        final result =
-            await ArticleStorage(storage: storage).fetchTotalArticleViews();
+        final result = await ArticleStorage(
+          storage: storage,
+        ).fetchTotalArticleViews();
 
         verify(
-          () => storage.read(
-            key: ArticleStorageKeys.totalArticleViews,
-          ),
+          () => storage.read(key: ArticleStorageKeys.totalArticleViews),
         ).called(1);
 
         expect(result, isZero);

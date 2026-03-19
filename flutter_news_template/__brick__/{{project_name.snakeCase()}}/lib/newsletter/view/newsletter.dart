@@ -15,9 +15,8 @@ class Newsletter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<NewsletterBloc>(
-      create: (context) => NewsletterBloc(
-        newsRepository: context.read<NewsRepository>(),
-      ),
+      create: (context) =>
+          NewsletterBloc(newsRepository: context.read<NewsRepository>()),
       child: const NewsletterView(),
     );
   }
@@ -35,8 +34,9 @@ class _NewsletterViewState extends State<NewsletterView> {
 
   @override
   Widget build(BuildContext context) {
-    final isEmailValid =
-        context.select<NewsletterBloc, bool>((bloc) => bloc.state.isValid);
+    final isEmailValid = context.select<NewsletterBloc, bool>(
+      (bloc) => bloc.state.isValid,
+    );
 
     return VisibilityDetector(
       key: const Key('newsletterView'),
@@ -44,9 +44,9 @@ class _NewsletterViewState extends State<NewsletterView> {
           ? null
           : (visibility) {
               if (!visibility.visibleBounds.isEmpty) {
-                context
-                    .read<AnalyticsBloc>()
-                    .add(TrackAnalyticsEvent(NewsletterEvent.impression()));
+                context.read<AnalyticsBloc>().add(
+                  TrackAnalyticsEvent(NewsletterEvent.impression()),
+                );
                 setState(() {
                   _newsletterShown = true;
                 });
@@ -61,9 +61,9 @@ class _NewsletterViewState extends State<NewsletterView> {
                 SnackBar(content: Text(context.l10n.subscribeErrorMessage)),
               );
           } else if (state.status == NewsletterStatus.success) {
-            context
-                .read<AnalyticsBloc>()
-                .add(TrackAnalyticsEvent(NewsletterEvent.signUp()));
+            context.read<AnalyticsBloc>().add(
+              TrackAnalyticsEvent(NewsletterEvent.signUp()),
+            );
           }
         },
         builder: (context, state) {
@@ -83,15 +83,15 @@ class _NewsletterViewState extends State<NewsletterView> {
             bodyText: context.l10n.subscribeEmailBody,
             email: AppEmailTextField(
               hintText: context.l10n.subscribeEmailHint,
-              onChanged: (email) => context
-                  .read<NewsletterBloc>()
-                  .add(EmailChanged(email: email)),
+              onChanged: (email) => context.read<NewsletterBloc>().add(
+                EmailChanged(email: email),
+              ),
             ),
             buttonText: context.l10n.subscribeEmailButtonText,
             onPressed: isEmailValid
-                ? () => context
-                    .read<NewsletterBloc>()
-                    .add(const NewsletterSubscribed())
+                ? () => context.read<NewsletterBloc>().add(
+                    const NewsletterSubscribed(),
+                  )
                 : null,
           );
         },

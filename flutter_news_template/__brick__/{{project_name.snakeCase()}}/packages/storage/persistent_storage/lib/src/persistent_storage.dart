@@ -6,9 +6,8 @@ import 'package:storage/storage.dart';
 /// {@endtemplate}
 class PersistentStorage implements Storage {
   /// {@macro persistent_storage}
-  const PersistentStorage({
-    required SharedPreferences sharedPreferences,
-  }) : _sharedPreferences = sharedPreferences;
+  const PersistentStorage({required SharedPreferences sharedPreferences})
+    : _sharedPreferences = sharedPreferences;
 
   final SharedPreferences _sharedPreferences;
 

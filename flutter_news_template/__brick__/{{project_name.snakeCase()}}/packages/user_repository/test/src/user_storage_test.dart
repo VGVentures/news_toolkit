@@ -42,13 +42,12 @@ void main() {
           () => storage.read(key: UserStorageKeys.appOpenedCount),
         ).thenAnswer((_) async => 1.toString());
 
-        final result =
-            await UserStorage(storage: storage).fetchAppOpenedCount();
+        final result = await UserStorage(
+          storage: storage,
+        ).fetchAppOpenedCount();
 
         verify(
-          () => storage.read(
-            key: UserStorageKeys.appOpenedCount,
-          ),
+          () => storage.read(key: UserStorageKeys.appOpenedCount),
         ).called(1);
 
         expect(result, value);
@@ -59,13 +58,12 @@ void main() {
           () => storage.read(key: UserStorageKeys.appOpenedCount),
         ).thenAnswer((_) async => null);
 
-        final result =
-            await UserStorage(storage: storage).fetchAppOpenedCount();
+        final result = await UserStorage(
+          storage: storage,
+        ).fetchAppOpenedCount();
 
         verify(
-          () => storage.read(
-            key: UserStorageKeys.appOpenedCount,
-          ),
+          () => storage.read(key: UserStorageKeys.appOpenedCount),
         ).called(1);
 
         expect(result, 0);

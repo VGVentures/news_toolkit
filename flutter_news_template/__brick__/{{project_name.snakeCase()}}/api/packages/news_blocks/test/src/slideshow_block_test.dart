@@ -13,10 +13,7 @@ void main() {
       );
       final block = SlideshowBlock(title: 'title', slides: [slide, slide]);
 
-      expect(
-        SlideshowBlock.fromJson(block.toJson()),
-        equals(block),
-      );
+      expect(SlideshowBlock.fromJson(block.toJson()), equals(block));
     });
   });
 }

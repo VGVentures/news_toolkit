@@ -605,7 +605,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "networkError": "A network error has occured.\nCheck your connection and try again.",
+  "networkError": "A network error has occurred.\nCheck your connection and try again.",
   "@networkError": {
     "description": "Text displayed when a network error occurs.",
     "type": "String",

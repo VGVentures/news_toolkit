@@ -11,9 +11,7 @@ part 'divider_horizontal_block.g.dart';
 @JsonSerializable()
 class DividerHorizontalBlock with EquatableMixin implements NewsBlock {
   /// {@macro divider_horizontal_block}
-  const DividerHorizontalBlock({
-    this.type = DividerHorizontalBlock.identifier,
-  });
+  const DividerHorizontalBlock({this.type = DividerHorizontalBlock.identifier});
 
   /// Converts a `Map<String, dynamic>` into
   /// a [DividerHorizontalBlock] instance.

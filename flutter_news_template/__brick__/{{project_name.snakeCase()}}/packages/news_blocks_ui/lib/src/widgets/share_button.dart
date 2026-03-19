@@ -28,16 +28,11 @@ class ShareButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return TextButton.icon(
-      icon: Icon(
-        Icons.share,
-        color: _color,
-      ),
+      icon: Icon(Icons.share, color: _color),
       onPressed: onPressed,
       label: Text(
         shareText,
-        style: theme.textTheme.labelLarge?.copyWith(
-          color: _color,
-        ),
+        style: theme.textTheme.labelLarge?.copyWith(color: _color),
       ),
     );
   }

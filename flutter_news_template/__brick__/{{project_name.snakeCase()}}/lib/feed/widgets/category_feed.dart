@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,34 +21,39 @@ class CategoryFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryFeed =
-        context.select((FeedBloc bloc) => bloc.state.feed[category]) ?? [];
+        context.select((FeedBloc bloc) => bloc.state.feed[category.id]) ?? [];
 
     final hasMoreNews =
-        context.select((FeedBloc bloc) => bloc.state.hasMoreNews[category]) ??
-            true;
+        context.select(
+          (FeedBloc bloc) => bloc.state.hasMoreNews[category.id],
+        ) ??
+        true;
 
-    final isFailure = context
-        .select((FeedBloc bloc) => bloc.state.status == FeedStatus.failure);
+    final isFailure = context.select(
+      (FeedBloc bloc) => bloc.state.status == FeedStatus.failure,
+    );
 
     return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
         if (state.status == FeedStatus.failure && state.feed.isEmpty) {
-          Navigator.of(context).push<void>(
-            NetworkError.route(
-              onRetry: () {
-                context
-                    .read<FeedBloc>()
-                    .add(FeedRefreshRequested(category: category));
-                Navigator.of(context).pop();
-              },
+          unawaited(
+            Navigator.of(context).push<void>(
+              NetworkError.route(
+                onRetry: () {
+                  context.read<FeedBloc>().add(
+                    FeedRefreshRequested(category: category),
+                  );
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
           );
         }
       },
       child: RefreshIndicator(
-        onRefresh: () async => context
-            .read<FeedBloc>()
-            .add(FeedRefreshRequested(category: category)),
+        onRefresh: () async => context.read<FeedBloc>().add(
+          FeedRefreshRequested(category: category),
+        ),
         displacement: 0,
         color: AppColors.mediumHighEmphasisSurface,
         child: SelectionArea(
@@ -78,9 +85,9 @@ class CategoryFeed extends StatelessWidget {
         if (isFailure) {
           result = NetworkError(
             onRetry: () {
-              context
-                  .read<FeedBloc>()
-                  .add(FeedRefreshRequested(category: category));
+              context.read<FeedBloc>().add(
+                FeedRefreshRequested(category: category),
+              );
             },
           );
         } else {
@@ -91,9 +98,9 @@ class CategoryFeed extends StatelessWidget {
                   ),
                   child: CategoryFeedLoaderItem(
                     key: ValueKey(index),
-                    onPresented: () => context
-                        .read<FeedBloc>()
-                        .add(FeedRequested(category: category)),
+                    onPresented: () => context.read<FeedBloc>().add(
+                      FeedRequested(category: category),
+                    ),
                   ),
                 )
               : const SizedBox();

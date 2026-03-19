@@ -31,8 +31,9 @@ void main() {
         expect(find.byType(AppButton), findsOneWidget);
       });
 
-      testWidgets('opens PurchaseSubscriptionDialog when tapped',
-          (tester) async {
+      testWidgets('opens PurchaseSubscriptionDialog when tapped', (
+        tester,
+      ) async {
         final inAppPurchaseRepository = MockInAppPurchaseRepository();
 
         when(

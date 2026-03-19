@@ -31,7 +31,7 @@ class MyNewsDataSource extends NewsDataSource {
 
   @override
   Future<Feed> getFeed({
-    Category category = Category.top,
+    required String categoryId,
     int limit = 20,
     int offset = 0,
   }) {
@@ -83,48 +83,42 @@ class MyNewsDataSource extends NewsDataSource {
 
 void main() {
   Matcher articleHaving({required List<NewsBlock> blocks, int? totalBlocks}) {
-    return predicate<Article>(
-      (article) {
-        totalBlocks ??= article.totalBlocks;
-        if (blocks.length != article.blocks.length) return false;
-        if (totalBlocks != article.totalBlocks) return false;
-        for (var i = 0; i < blocks.length; i++) {
-          if (blocks[i] != article.blocks[i]) return false;
-        }
-        return true;
-      },
-    );
+    return predicate<Article>((article) {
+      totalBlocks ??= article.totalBlocks;
+      if (blocks.length != article.blocks.length) return false;
+      if (totalBlocks != article.totalBlocks) return false;
+      for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i] != article.blocks[i]) return false;
+      }
+      return true;
+    });
   }
 
   Matcher relatedArticlesHaving({
     required List<NewsBlock> blocks,
     int? totalBlocks,
   }) {
-    return predicate<RelatedArticles>(
-      (relatedArticles) {
-        totalBlocks ??= relatedArticles.totalBlocks;
-        if (blocks.length != relatedArticles.blocks.length) return false;
-        if (totalBlocks != relatedArticles.totalBlocks) return false;
-        for (var i = 0; i < blocks.length; i++) {
-          if (blocks[i] != relatedArticles.blocks[i]) return false;
-        }
-        return true;
-      },
-    );
+    return predicate<RelatedArticles>((relatedArticles) {
+      totalBlocks ??= relatedArticles.totalBlocks;
+      if (blocks.length != relatedArticles.blocks.length) return false;
+      if (totalBlocks != relatedArticles.totalBlocks) return false;
+      for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i] != relatedArticles.blocks[i]) return false;
+      }
+      return true;
+    });
   }
 
   Matcher feedHaving({required List<NewsBlock> blocks, int? totalBlocks}) {
-    return predicate<Feed>(
-      (feed) {
-        totalBlocks ??= feed.totalBlocks;
-        if (blocks.length != feed.blocks.length) return false;
-        if (totalBlocks != feed.totalBlocks) return false;
-        for (var i = 0; i < blocks.length; i++) {
-          if (blocks[i] != feed.blocks[i]) return false;
-        }
-        return true;
-      },
-    );
+    return predicate<Feed>((feed) {
+      totalBlocks ??= feed.totalBlocks;
+      if (blocks.length != feed.blocks.length) return false;
+      if (totalBlocks != feed.totalBlocks) return false;
+      for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i] != feed.blocks[i]) return false;
+      }
+      return true;
+    });
   }
 
   Matcher isAnEmptyFeed() {
@@ -168,8 +162,7 @@ void main() {
     });
 
     group('getUser', () {
-      test(
-          'completes with empty user '
+      test('completes with empty user '
           'when subscription does not exist', () async {
         const userId = 'userId';
         expect(
@@ -187,60 +180,52 @@ void main() {
         );
         expect(
           newsDataSource.getUser(userId: userId),
-          completion(
-            equals(
-              User(id: userId, subscription: subscription.name),
-            ),
-          ),
+          completion(equals(User(id: userId, subscription: subscription.name))),
         );
       });
     });
 
     group('getFeed', () {
-      test('returns stubbed feed (default category)', () {
-        expect(
-          newsDataSource.getFeed(limit: 100),
-          completion(feedHaving(blocks: topNewsFeedBlocks)),
-        );
-      });
-
       test('returns stubbed feed (Category.technology)', () {
+        final technologyCategory = Category(
+          id: 'technology',
+          name: 'Technology',
+        );
+
         expect(
-          newsDataSource.getFeed(category: Category.technology),
+          newsDataSource.getFeed(categoryId: technologyCategory.id),
           completion(feedHaving(blocks: technologyFeedBlocks)),
         );
       });
 
       test('returns stubbed feed (Category.sports)', () {
+        final sportsCategory = Category(id: 'sports', name: 'Sports');
+
         expect(
-          newsDataSource.getFeed(category: Category.sports),
+          newsDataSource.getFeed(categoryId: sportsCategory.id),
           completion(feedHaving(blocks: sportsFeedBlocks)),
         );
       });
 
-      test('returns empty feed for remaining categories', () async {
-        final emptyCategories = [
-          Category.business,
-          Category.entertainment,
-        ];
-        for (final category in emptyCategories) {
-          await expectLater(
-            newsDataSource.getFeed(category: category),
-            completion(isAnEmptyFeed()),
-          );
-        }
+      test('returns empty feed for unknown category', () async {
+        expect(
+          newsDataSource.getFeed(categoryId: 'categoryUnknown'),
+          completion(isAnEmptyFeed()),
+        );
       });
 
       test('returns correct feed when limit is specified', () {
+        final topCategory = Category(id: 'top', name: 'Top');
+
         expect(
-          newsDataSource.getFeed(limit: 0),
+          newsDataSource.getFeed(categoryId: topCategory.id, limit: 0),
           completion(
             feedHaving(blocks: [], totalBlocks: topNewsFeedBlocks.length),
           ),
         );
 
         expect(
-          newsDataSource.getFeed(limit: 1),
+          newsDataSource.getFeed(categoryId: topCategory.id, limit: 1),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks.take(1).toList(),
@@ -250,7 +235,7 @@ void main() {
         );
 
         expect(
-          newsDataSource.getFeed(limit: 100),
+          newsDataSource.getFeed(categoryId: topCategory.id, limit: 100),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks,
@@ -261,8 +246,14 @@ void main() {
       });
 
       test('returns correct feed when offset is specified', () {
+        final topCategory = Category(id: 'top', name: 'Top');
+
         expect(
-          newsDataSource.getFeed(offset: 1, limit: 100),
+          newsDataSource.getFeed(
+            categoryId: topCategory.id,
+            offset: 1,
+            limit: 100,
+          ),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks.sublist(1),
@@ -272,7 +263,11 @@ void main() {
         );
 
         expect(
-          newsDataSource.getFeed(offset: 2, limit: 100),
+          newsDataSource.getFeed(
+            categoryId: topCategory.id,
+            offset: 2,
+            limit: 100,
+          ),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks.sublist(2),
@@ -282,12 +277,13 @@ void main() {
         );
 
         expect(
-          newsDataSource.getFeed(offset: 100, limit: 100),
+          newsDataSource.getFeed(
+            categoryId: topCategory.id,
+            offset: 100,
+            limit: 100,
+          ),
           completion(
-            feedHaving(
-              blocks: [],
-              totalBlocks: topNewsFeedBlocks.length,
-            ),
+            feedHaving(blocks: [], totalBlocks: topNewsFeedBlocks.length),
           ),
         );
       });
@@ -298,11 +294,11 @@ void main() {
         expect(
           newsDataSource.getCategories(),
           completion([
-            Category.top,
-            Category.technology,
-            Category.sports,
-            Category.health,
-            Category.science,
+            Category(id: 'top', name: 'Top'),
+            Category(id: 'sports', name: 'Sports'),
+            Category(id: 'technology', name: 'Technology'),
+            Category(id: 'health', name: 'Health'),
+            Category(id: 'science', name: 'Science'),
           ]),
         );
       });
@@ -316,8 +312,7 @@ void main() {
         );
       });
 
-      test(
-          'returns content when article exists '
+      test('returns content when article exists '
           'and preview is false', () {
         final item = healthItems.first;
         expect(
@@ -331,8 +326,7 @@ void main() {
         );
       });
 
-      test(
-          'returns content preview when article exists '
+      test('returns content preview when article exists '
           'and preview is true', () {
         final item = healthItems.first;
         expect(
@@ -381,8 +375,7 @@ void main() {
         );
       });
 
-      test(
-          'returns true when article exists '
+      test('returns true when article exists '
           'and isPremium is true', () {
         final item = technologySmallItems.last;
         expect(
@@ -391,8 +384,7 @@ void main() {
         );
       });
 
-      test(
-          'returns false when article exists '
+      test('returns false when article exists '
           'and isPremium is false', () {
         final item = healthItems.last;
         expect(

@@ -16,7 +16,7 @@ enum BannerAdSize {
   extraLarge,
 
   /// The anchored adaptive size of a banner ad.
-  anchoredAdaptive
+  anchoredAdaptive,
 }
 
 /// {@template banner_ad_block}

@@ -33,14 +33,12 @@ void main() {
         ),
       );
 
-      test(
-          'returns the same object '
+      test('returns the same object '
           'when no parameters are passed', () {
         expect(purchaseDetails.copyWith().equals(purchaseDetails), isTrue);
       });
 
-      test(
-          'sets purchaseID '
+      test('sets purchaseID '
           'when purchaseID is passed', () {
         expect(
           purchaseDetails.copyWith(purchaseID: 'newId').purchaseID,
@@ -48,22 +46,19 @@ void main() {
         );
       });
 
-      test(
-          'sets productID '
+      test('sets productID '
           'when productID is passed', () {
         expect(purchaseDetails.copyWith(productID: 'newId').productID, 'newId');
       });
 
-      test(
-          'sets status '
+      test('sets status '
           'when status is passed', () {
         expect(
           purchaseDetails.copyWith(status: PurchaseStatus.purchased).status,
           PurchaseStatus.purchased,
         );
       });
-      test(
-          'sets transactionDate '
+      test('sets transactionDate '
           'when transactionDate is passed', () {
         expect(
           purchaseDetails.copyWith(transactionDate: 'newDate').transactionDate,
@@ -71,8 +66,7 @@ void main() {
         );
       });
 
-      test(
-          'sets verificationData '
+      test('sets verificationData '
           'when verificationData is passed', () {
         final verificationData = PurchaseVerificationData(
           localVerificationData: 'newLocal',
@@ -87,8 +81,7 @@ void main() {
         );
       });
 
-      test(
-          'sets pendingCompletePurchase '
+      test('sets pendingCompletePurchase '
           'when pendingCompletePurchase is passed', () {
         expect(
           purchaseDetails
@@ -125,8 +118,7 @@ void main() {
     });
 
     group('queryProductDetails', () {
-      test(
-          'returns empty productDetails '
+      test('returns empty productDetails '
           'with an empty notFoundIDs '
           'when no identifiers are provided', () async {
         final response = await purchaseClient.queryProductDetails(<String>{});
@@ -134,29 +126,28 @@ void main() {
         expect(response.productDetails, isEmpty);
       });
 
-      test(
-          'returns found productDetails '
+      test('returns found productDetails '
           'with an empty notFoundIDs', () async {
-        final response = await purchaseClient
-            .queryProductDetails(<String>{productDetails.id});
+        final response = await purchaseClient.queryProductDetails(<String>{
+          productDetails.id,
+        });
 
         expect(response.notFoundIDs, isEmpty);
         expect(response.productDetails.length, equals(1));
         expect(response.productDetails.first.id, equals(productDetails.id));
       });
 
-      test(
-          'returns an empty productDetails '
+      test('returns an empty productDetails '
           'with provided id in notFoundIDs', () async {
-        final response =
-            await purchaseClient.queryProductDetails(<String>{'unknownId'});
+        final response = await purchaseClient.queryProductDetails(<String>{
+          'unknownId',
+        });
         expect(response.notFoundIDs, equals(['unknownId']));
         expect(response.productDetails, equals(<ProductDetails>[]));
       });
     });
 
-    test(
-        'buyNonConsumable returns true '
+    test('buyNonConsumable returns true '
         'and adds purchase '
         'with purchase status PurchaseStatus.pending '
         'to purchaseStream', () async {
@@ -175,17 +166,14 @@ void main() {
       expect(result, true);
     });
 
-    test(
-        'completePurchase adds purchaseDetails to purchaseStream '
+    test('completePurchase adds purchaseDetails to purchaseStream '
         'with pendingCompletePurchase set to false', () async {
       await Future.wait([
         expectLater(
           purchaseClient.purchaseStream,
           emitsThrough(
             (List<PurchaseDetails> purchases) => purchases.first.equals(
-              purchaseDetails.copyWith(
-                pendingCompletePurchase: false,
-              ),
+              purchaseDetails.copyWith(pendingCompletePurchase: false),
             ),
           ),
         ),

@@ -19,10 +19,7 @@ void main() {
         () async => tester.pumpContentThemedApp(overlaidImage),
       );
 
-      expect(
-        find.byKey(const Key('overlaidImage_stack')),
-        findsOneWidget,
-      );
+      expect(find.byKey(const Key('overlaidImage_stack')), findsOneWidget);
     });
   });
 }

@@ -25,10 +25,9 @@ class DeepLinkClientFailure with EquatableMixin implements Exception {
 /// {@endtemplate}
 class DeepLinkService {
   /// {@macro deep_link_service}
-  DeepLinkService({
-    required DeepLinkClient deepLinkClient,
-  })  : _deepLinkClient = deepLinkClient,
-        _deepLinkSubject = BehaviorSubject<Uri>() {
+  DeepLinkService({required DeepLinkClient deepLinkClient})
+    : _deepLinkClient = deepLinkClient,
+      _deepLinkSubject = BehaviorSubject<Uri>() {
     unawaited(_getInitialLink());
     _deepLinkClient.deepLinkStream.listen(_onAppLink).onError(_handleError);
   }

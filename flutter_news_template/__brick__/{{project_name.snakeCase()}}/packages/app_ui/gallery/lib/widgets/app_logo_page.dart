@@ -11,9 +11,7 @@ class AppLogoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Logo'),
-      ),
+      appBar: AppBar(title: const Text('Logo')),
       body: ColoredBox(
         color: AppColors.darkBackground,
         child: Center(

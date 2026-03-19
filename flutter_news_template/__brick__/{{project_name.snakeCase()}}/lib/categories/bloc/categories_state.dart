@@ -1,13 +1,7 @@
 part of 'categories_bloc.dart';
 
-enum CategoriesStatus {
-  initial,
-  loading,
-  populated,
-  failure,
-}
+enum CategoriesStatus { initial, loading, populated, failure }
 
-@JsonSerializable()
 class CategoriesState extends Equatable {
   const CategoriesState({
     required this.status,
@@ -15,24 +9,24 @@ class CategoriesState extends Equatable {
     this.selectedCategory,
   });
 
-  const CategoriesState.initial()
-      : this(
-          status: CategoriesStatus.initial,
-        );
-
-  factory CategoriesState.fromJson(Map<String, dynamic> json) =>
-      _$CategoriesStateFromJson(json);
+  const CategoriesState.initial() : this(status: CategoriesStatus.initial);
 
   final CategoriesStatus status;
   final List<Category>? categories;
   final Category? selectedCategory;
 
+  String? getCategoryName(String categoryId) {
+    try {
+      return categories
+          ?.firstWhere((category) => category.id == categoryId)
+          .name;
+    } on Object catch (_) {
+      return null;
+    }
+  }
+
   @override
-  List<Object?> get props => [
-        status,
-        categories,
-        selectedCategory,
-      ];
+  List<Object?> get props => [status, categories, selectedCategory];
 
   CategoriesState copyWith({
     CategoriesStatus? status,
@@ -45,6 +39,4 @@ class CategoriesState extends Equatable {
       selectedCategory: selectedCategory ?? this.selectedCategory,
     );
   }
-
-  Map<String, dynamic> toJson() => _$CategoriesStateToJson(this);
 }

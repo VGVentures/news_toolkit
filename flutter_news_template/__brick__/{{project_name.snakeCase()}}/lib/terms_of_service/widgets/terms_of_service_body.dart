@@ -4,10 +4,7 @@ part '../terms_of_service_mock_text.dart';
 
 @visibleForTesting
 class TermsOfServiceBody extends StatelessWidget {
-  const TermsOfServiceBody({
-    super.key,
-    this.contentPadding = EdgeInsets.zero,
-  });
+  const TermsOfServiceBody({super.key, this.contentPadding = EdgeInsets.zero});
 
   final EdgeInsets contentPadding;
 

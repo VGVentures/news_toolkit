@@ -15,8 +15,9 @@ void main() {
   setUp(() {
     deepLinkClient = MockDeepLinkClient();
     onDeepLinkStreamController = StreamController<Uri>();
-    when(() => deepLinkClient.deepLinkStream)
-        .thenAnswer((_) => onDeepLinkStreamController.stream);
+    when(
+      () => deepLinkClient.deepLinkStream,
+    ).thenAnswer((_) => onDeepLinkStreamController.stream);
   });
 
   tearDown(() {
@@ -26,9 +27,9 @@ void main() {
   group('DeepLinkService', () {
     test('retrieves and publishes latest link if present', () {
       final expectedUri = Uri.https('ham.app.test', '/test/path');
-      when(deepLinkClient.getInitialLink).thenAnswer(
-        (_) => Future.value(expectedUri),
-      );
+      when(
+        deepLinkClient.getInitialLink,
+      ).thenAnswer((_) => Future.value(expectedUri));
 
       final service = DeepLinkService(deepLinkClient: deepLinkClient);
       expect(service.deepLinkStream, emits(expectedUri));
@@ -49,8 +50,11 @@ void main() {
       expect(
         deepLinkService.deepLinkStream,
         emitsError(
-          isA<DeepLinkClientFailure>()
-              .having((failure) => failure.error, 'error', expectedError),
+          isA<DeepLinkClientFailure>().having(
+            (failure) => failure.error,
+            'error',
+            expectedError,
+          ),
         ),
       );
     });
@@ -65,9 +69,12 @@ void main() {
 
       expect(
         deepLinkService.deepLinkStream,
-        emitsInOrder(
-          <Uri>[expectedUri1, expectedUri1, expectedUri2, expectedUri1],
-        ),
+        emitsInOrder(<Uri>[
+          expectedUri1,
+          expectedUri1,
+          expectedUri2,
+          expectedUri1,
+        ]),
       );
 
       onDeepLinkStreamController
@@ -82,10 +89,7 @@ void main() {
     final error = Exception('errorMessage');
 
     test('has correct props', () {
-      expect(
-        DeepLinkClientFailure(error).props,
-        [error],
-      );
+      expect(DeepLinkClientFailure(error).props, [error]);
     });
   });
 }

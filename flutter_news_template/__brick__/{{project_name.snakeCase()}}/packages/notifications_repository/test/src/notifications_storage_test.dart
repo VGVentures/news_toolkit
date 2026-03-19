@@ -27,8 +27,9 @@ void main() {
       test('saves the value in Storage', () async {
         const enabled = true;
 
-        await NotificationsStorage(storage: storage)
-            .setNotificationsEnabled(enabled: enabled);
+        await NotificationsStorage(
+          storage: storage,
+        ).setNotificationsEnabled(enabled: enabled);
 
         verify(
           () => storage.write(
@@ -46,13 +47,13 @@ void main() {
               storage.read(key: NotificationsStorageKeys.notificationsEnabled),
         ).thenAnswer((_) async => 'true');
 
-        final result = await NotificationsStorage(storage: storage)
-            .fetchNotificationsEnabled();
+        final result = await NotificationsStorage(
+          storage: storage,
+        ).fetchNotificationsEnabled();
 
         verify(
-          () => storage.read(
-            key: NotificationsStorageKeys.notificationsEnabled,
-          ),
+          () =>
+              storage.read(key: NotificationsStorageKeys.notificationsEnabled),
         ).called(1);
 
         expect(result, isTrue);
@@ -64,13 +65,13 @@ void main() {
               storage.read(key: NotificationsStorageKeys.notificationsEnabled),
         ).thenAnswer((_) async => null);
 
-        final result = await NotificationsStorage(storage: storage)
-            .fetchNotificationsEnabled();
+        final result = await NotificationsStorage(
+          storage: storage,
+        ).fetchNotificationsEnabled();
 
         verify(
-          () => storage.read(
-            key: NotificationsStorageKeys.notificationsEnabled,
-          ),
+          () =>
+              storage.read(key: NotificationsStorageKeys.notificationsEnabled),
         ).called(1);
 
         expect(result, isFalse);
@@ -79,20 +80,20 @@ void main() {
 
     group('setCategoriesPreferences', () {
       test('saves the value in Storage', () async {
-        const preferences = {
-          Category.top,
-          Category.health,
+        final preferences = {
+          const Category(id: 'top', name: 'Top'),
+          const Category(id: 'technology', name: 'Technology'),
         };
 
-        await NotificationsStorage(storage: storage).setCategoriesPreferences(
-          categories: preferences,
-        );
+        await NotificationsStorage(
+          storage: storage,
+        ).setCategoriesPreferences(categories: preferences);
 
         verify(
           () => storage.write(
             key: NotificationsStorageKeys.categoriesPreferences,
             value: json.encode(
-              preferences.map((category) => category.name).toList(),
+              preferences.map((category) => category.toJson()).toList(),
             ),
           ),
         ).called(1);
@@ -101,9 +102,9 @@ void main() {
 
     group('fetchCategoriesPreferences', () {
       test('returns the value from Storage', () async {
-        const preferences = {
-          Category.health,
-          Category.entertainment,
+        final preferences = {
+          const Category(id: 'top', name: 'Top'),
+          const Category(id: 'technology', name: 'Technology'),
         };
 
         when(
@@ -111,17 +112,17 @@ void main() {
               storage.read(key: NotificationsStorageKeys.categoriesPreferences),
         ).thenAnswer(
           (_) async => json.encode(
-            preferences.map((preference) => preference.name).toList(),
+            preferences.map((preference) => preference.toJson()).toList(),
           ),
         );
 
-        final result = await NotificationsStorage(storage: storage)
-            .fetchCategoriesPreferences();
+        final result = await NotificationsStorage(
+          storage: storage,
+        ).fetchCategoriesPreferences();
 
         verify(
-          () => storage.read(
-            key: NotificationsStorageKeys.categoriesPreferences,
-          ),
+          () =>
+              storage.read(key: NotificationsStorageKeys.categoriesPreferences),
         ).called(1);
 
         expect(result, equals(preferences));
@@ -133,13 +134,13 @@ void main() {
               storage.read(key: NotificationsStorageKeys.categoriesPreferences),
         ).thenAnswer((_) async => null);
 
-        final result = await NotificationsStorage(storage: storage)
-            .fetchCategoriesPreferences();
+        final result = await NotificationsStorage(
+          storage: storage,
+        ).fetchCategoriesPreferences();
 
         verify(
-          () => storage.read(
-            key: NotificationsStorageKeys.categoriesPreferences,
-          ),
+          () =>
+              storage.read(key: NotificationsStorageKeys.categoriesPreferences),
         ).called(1);
 
         expect(result, isNull);

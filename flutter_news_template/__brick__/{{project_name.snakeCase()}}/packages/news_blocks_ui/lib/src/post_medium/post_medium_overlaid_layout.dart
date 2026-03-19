@@ -27,7 +27,7 @@ class PostMediumOverlaidLayout extends StatelessWidget {
       children: [
         OverlaidImage(
           imageUrl: imageUrl,
-          gradientColor: AppColors.black.withOpacity(0.7),
+          gradientColor: AppColors.black.withValues(alpha: 0.7),
         ),
         Padding(
           padding: const EdgeInsets.all(AppSpacing.sm),
@@ -35,8 +35,9 @@ class PostMediumOverlaidLayout extends StatelessWidget {
             title,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: textTheme.titleSmall
-                ?.copyWith(color: AppColors.highEmphasisPrimary),
+            style: textTheme.titleSmall?.copyWith(
+              color: AppColors.highEmphasisPrimary,
+            ),
           ),
         ),
       ],

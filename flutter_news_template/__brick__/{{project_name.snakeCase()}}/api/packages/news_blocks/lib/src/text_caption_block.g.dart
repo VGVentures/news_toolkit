@@ -9,20 +9,20 @@ part of 'text_caption_block.dart';
 // **************************************************************************
 
 TextCaptionBlock _$TextCaptionBlockFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'TextCaptionBlock',
-      json,
-      ($checkedConvert) {
-        final val = TextCaptionBlock(
-          text: $checkedConvert('text', (v) => v as String),
-          color: $checkedConvert(
-              'color', (v) => $enumDecode(_$TextCaptionColorEnumMap, v)),
-          type: $checkedConvert(
-              'type', (v) => v as String? ?? TextCaptionBlock.identifier),
-        );
-        return val;
-      },
-    );
+    $checkedCreate('TextCaptionBlock', json, ($checkedConvert) {
+      final val = TextCaptionBlock(
+        text: $checkedConvert('text', (v) => v as String),
+        color: $checkedConvert(
+          'color',
+          (v) => $enumDecode(_$TextCaptionColorEnumMap, v),
+        ),
+        type: $checkedConvert(
+          'type',
+          (v) => v as String? ?? TextCaptionBlock.identifier,
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$TextCaptionBlockToJson(TextCaptionBlock instance) =>
     <String, dynamic>{

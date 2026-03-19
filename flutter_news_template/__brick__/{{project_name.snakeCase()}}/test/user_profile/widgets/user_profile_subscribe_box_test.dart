@@ -10,8 +10,9 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('UserProfileSubscribeBox', () {
-    testWidgets('calls onSubscribePressed when AppButton tapped',
-        (tester) async {
+    testWidgets('calls onSubscribePressed when AppButton tapped', (
+      tester,
+    ) async {
       final completer = Completer<void>();
       await tester.pumpApp(
         UserProfileSubscribeBox(onSubscribePressed: completer.complete),

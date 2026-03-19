@@ -1,11 +1,6 @@
 part of 'notification_preferences_bloc.dart';
 
-enum NotificationPreferencesStatus {
-  initial,
-  loading,
-  success,
-  failure,
-}
+enum NotificationPreferencesStatus { initial, loading, success, failure }
 
 class NotificationPreferencesState extends Equatable {
   const NotificationPreferencesState({
@@ -15,11 +10,11 @@ class NotificationPreferencesState extends Equatable {
   });
 
   NotificationPreferencesState.initial()
-      : this(
-          selectedCategories: {},
-          status: NotificationPreferencesStatus.initial,
-          categories: {},
-        );
+    : this(
+        selectedCategories: {},
+        status: NotificationPreferencesStatus.initial,
+        categories: {},
+      );
 
   final NotificationPreferencesStatus status;
   final Set<Category> categories;

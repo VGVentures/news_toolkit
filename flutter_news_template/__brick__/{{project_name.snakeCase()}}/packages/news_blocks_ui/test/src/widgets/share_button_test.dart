@@ -10,10 +10,7 @@ void main() {
     testWidgets('calls onPress when tapped', (tester) async {
       final completer = Completer<void>();
       await tester.pumpContentThemedApp(
-        ShareButton(
-          shareText: 'shareText',
-          onPressed: completer.complete,
-        ),
+        ShareButton(shareText: 'shareText', onPressed: completer.complete),
       );
 
       await tester.tap(find.byType(ShareButton));

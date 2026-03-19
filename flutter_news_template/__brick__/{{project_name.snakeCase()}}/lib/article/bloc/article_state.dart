@@ -29,10 +29,7 @@ class ArticleState extends Equatable {
   factory ArticleState.fromJson(Map<String, dynamic> json) =>
       _$ArticleStateFromJson(json);
 
-  const ArticleState.initial()
-      : this(
-          status: ArticleStatus.initial,
-        );
+  const ArticleState.initial() : this(status: ArticleStatus.initial);
 
   final ArticleStatus status;
   final String? title;
@@ -53,19 +50,19 @@ class ArticleState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        title,
-        content,
-        relatedArticles,
-        hasMoreContent,
-        uri,
-        hasReachedArticleViewsLimit,
-        isPreview,
-        isPremium,
-        contentTotalCount,
-        contentSeenCount,
-        showInterstitialAd,
-      ];
+    status,
+    title,
+    content,
+    relatedArticles,
+    hasMoreContent,
+    uri,
+    hasReachedArticleViewsLimit,
+    isPreview,
+    isPremium,
+    contentTotalCount,
+    contentSeenCount,
+    showInterstitialAd,
+  ];
 
   ArticleState copyWith({
     ArticleStatus? status,

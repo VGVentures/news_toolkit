@@ -10,10 +10,7 @@ part 'html_block.g.dart';
 @JsonSerializable()
 class HtmlBlock with EquatableMixin implements NewsBlock {
   /// {@macro html_block}
-  const HtmlBlock({
-    required this.content,
-    this.type = HtmlBlock.identifier,
-  });
+  const HtmlBlock({required this.content, this.type = HtmlBlock.identifier});
 
   /// Converts a `Map<String, dynamic>` into
   /// an [HtmlBlock] instance.

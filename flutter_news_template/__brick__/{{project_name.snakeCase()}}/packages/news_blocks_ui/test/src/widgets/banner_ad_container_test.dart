@@ -11,10 +11,7 @@ void main() {
   group('BannerAdContainer', () {
     testWidgets('renders ColoredBox', (tester) async {
       await tester.pumpApp(
-        BannerAdContainer(
-          size: BannerAdSize.normal,
-          child: SizedBox(),
-        ),
+        BannerAdContainer(size: BannerAdSize.normal, child: SizedBox()),
       );
 
       expect(find.byKey(Key('bannerAdContainer_coloredBox')), findsOneWidget);

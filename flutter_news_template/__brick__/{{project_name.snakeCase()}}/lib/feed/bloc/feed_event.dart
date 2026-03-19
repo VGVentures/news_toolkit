@@ -5,9 +5,7 @@ abstract class FeedEvent extends Equatable {
 }
 
 class FeedRequested extends FeedEvent {
-  const FeedRequested({
-    required this.category,
-  });
+  const FeedRequested({required this.category});
 
   final Category category;
 

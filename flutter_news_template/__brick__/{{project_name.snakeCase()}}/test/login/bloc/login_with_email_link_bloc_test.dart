@@ -20,15 +20,14 @@ void main() {
       userRepository = MockUserRepository();
 
       incomingEmailLinksController = StreamController<Uri>();
-      when(() => userRepository.incomingEmailLinks)
-          .thenAnswer((_) => incomingEmailLinksController.stream);
+      when(
+        () => userRepository.incomingEmailLinks,
+      ).thenAnswer((_) => incomingEmailLinksController.stream);
     });
 
     test('initial state is LoginWithEmailLinkState', () {
       expect(
-        LoginWithEmailLinkBloc(
-          userRepository: userRepository,
-        ).state,
+        LoginWithEmailLinkBloc(userRepository: userRepository).state,
         LoginWithEmailLinkState(),
       );
     });
@@ -37,8 +36,9 @@ void main() {
       const email = 'email@example.com';
 
       final user = MockUser();
-      final continueUrl =
-          Uri.https('continue.link', '', <String, String>{'email': email});
+      final continueUrl = Uri.https('continue.link', '', <String, String>{
+        'email': email,
+      });
 
       final validEmailLink = Uri.https(
         'email.link',
@@ -58,8 +58,9 @@ void main() {
       );
 
       setUp(() {
-        when(() => userRepository.user)
-            .thenAnswer((invocation) => Stream.value(user));
+        when(
+          () => userRepository.user,
+        ).thenAnswer((invocation) => Stream.value(user));
 
         when(
           () => userRepository.logInWithEmailLink(
@@ -174,9 +175,7 @@ void main() {
     group('close', () {
       blocTest<LoginWithEmailLinkBloc, LoginWithEmailLinkState>(
         'cancels UserRepository.incomingEmailLinks subscription',
-        build: () => LoginWithEmailLinkBloc(
-          userRepository: userRepository,
-        ),
+        build: () => LoginWithEmailLinkBloc(userRepository: userRepository),
         tearDown: () {
           expect(incomingEmailLinksController.hasListener, isFalse);
         },
