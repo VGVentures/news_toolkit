@@ -11,10 +11,7 @@ part 'image_block.g.dart';
 @JsonSerializable()
 class ImageBlock with EquatableMixin implements NewsBlock {
   /// {@macro image_block}
-  const ImageBlock({
-    required this.imageUrl,
-    this.type = ImageBlock.identifier,
-  });
+  const ImageBlock({required this.imageUrl, this.type = ImageBlock.identifier});
 
   /// Converts a `Map<String, dynamic>` into a [ImageBlock] instance.
   factory ImageBlock.fromJson(Map<String, dynamic> json) =>

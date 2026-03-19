@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart'
     show AppButton, AppColors, AppSpacing, Assets, showAppModal;
 import 'package:flutter/material.dart';
@@ -28,8 +30,9 @@ class _SubscribeWithArticleLimitModalState
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = context.l10n;
-    final isLoggedIn =
-        context.select((AppBloc bloc) => bloc.state.status.isLoggedIn);
+    final isLoggedIn = context.select(
+      (AppBloc bloc) => bloc.state.status.isLoggedIn,
+    );
 
     final articleTitle = context.select((ArticleBloc bloc) => bloc.state.title);
 
@@ -43,13 +46,13 @@ class _SubscribeWithArticleLimitModalState
           : (visibility) {
               if (!visibility.visibleBounds.isEmpty) {
                 context.read<AnalyticsBloc>().add(
-                      TrackAnalyticsEvent(
-                        PaywallPromptEvent.impression(
-                          impression: PaywallPromptImpression.rewarded,
-                          articleTitle: articleTitle ?? '',
-                        ),
-                      ),
-                    );
+                  TrackAnalyticsEvent(
+                    PaywallPromptEvent.impression(
+                      impression: PaywallPromptImpression.rewarded,
+                      articleTitle: articleTitle ?? '',
+                    ),
+                  ),
+                );
                 setState(() => _modalShown = true);
               }
             },
@@ -65,8 +68,9 @@ class _SubscribeWithArticleLimitModalState
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xlg),
                 child: Text(
                   l10n.subscribeWithArticleLimitModalTitle,
-                  style: theme.textTheme.displaySmall
-                      ?.apply(color: AppColors.white),
+                  style: theme.textTheme.displaySmall?.apply(
+                    color: AppColors.white,
+                  ),
                 ),
               ),
               const SizedBox(height: AppSpacing.sm + AppSpacing.xxs),
@@ -74,8 +78,9 @@ class _SubscribeWithArticleLimitModalState
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xlg),
                 child: Text(
                   l10n.subscribeWithArticleLimitModalSubtitle,
-                  style: theme.textTheme.titleMedium
-                      ?.apply(color: AppColors.mediumEmphasisPrimary),
+                  style: theme.textTheme.titleMedium?.apply(
+                    color: AppColors.mediumEmphasisPrimary,
+                  ),
                 ),
               ),
               const SizedBox(height: AppSpacing.lg + AppSpacing.lg),
@@ -89,14 +94,14 @@ class _SubscribeWithArticleLimitModalState
                   ),
                   child: Text(l10n.subscribeButtonText),
                   onPressed: () {
-                    showPurchaseSubscriptionDialog(context: context);
+                    unawaited(showPurchaseSubscriptionDialog(context: context));
                     context.read<AnalyticsBloc>().add(
-                          TrackAnalyticsEvent(
-                            PaywallPromptEvent.click(
-                              articleTitle: articleTitle ?? '',
-                            ),
-                          ),
-                        );
+                      TrackAnalyticsEvent(
+                        PaywallPromptEvent.click(
+                          articleTitle: articleTitle ?? '',
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -107,8 +112,9 @@ class _SubscribeWithArticleLimitModalState
                     horizontal: AppSpacing.lg + AppSpacing.xxs,
                   ),
                   child: AppButton.outlinedTransparentWhite(
-                    key:
-                        const Key('subscribeWithArticleLimitModal_logInButton'),
+                    key: const Key(
+                      'subscribeWithArticleLimitModal_logInButton',
+                    ),
                     child: Text(l10n.subscribeWithArticleLimitModalLogInButton),
                     onPressed: () => showAppModal<void>(
                       context: context,
@@ -127,9 +133,9 @@ class _SubscribeWithArticleLimitModalState
                   key: const Key(
                     'subscribeWithArticleLimitModal_watchVideoButton',
                   ),
-                  onPressed: () => context
-                      .read<FullScreenAdsBloc>()
-                      .add(const ShowRewardedAdRequested()),
+                  onPressed: () => context.read<FullScreenAdsBloc>().add(
+                    const ShowRewardedAdRequested(),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

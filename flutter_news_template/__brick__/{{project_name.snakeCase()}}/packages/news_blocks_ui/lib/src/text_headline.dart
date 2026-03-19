@@ -16,10 +16,7 @@ class TextHeadline extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-      child: Text(
-        block.text,
-        style: Theme.of(context).textTheme.displayMedium,
-      ),
+      child: Text(block.text, style: Theme.of(context).textTheme.displayMedium),
     );
   }
 }

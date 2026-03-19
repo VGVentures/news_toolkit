@@ -23,8 +23,7 @@ void main() {
       });
 
       group('impression', () {
-        test(
-            'has correct values '
+        test('has correct values '
             'when articleTitle is empty', () {
           final event = NewsletterEvent.impression();
           expect(event.name, equals('newsletter_impression'));
@@ -37,8 +36,7 @@ void main() {
           expect(event.properties!['nonInteraction'], equals('false'));
         });
 
-        test(
-            'has correct values '
+        test('has correct values '
             'when articleTitle is not empty', () {
           const articleTitle = 'articleTitle';
           final event = NewsletterEvent.impression(articleTitle: articleTitle);
@@ -159,9 +157,7 @@ void main() {
       group('click', () {
         test('has correct values', () {
           const articleTitle = 'articleTitle';
-          final event = PaywallPromptEvent.click(
-            articleTitle: articleTitle,
-          );
+          final event = PaywallPromptEvent.click(articleTitle: articleTitle);
           expect(event.name, equals('paywall_click'));
           expect(event.properties!['eventCategory'], equals('NTG paywall'));
           expect(event.properties!['eventAction'], equals('click'));

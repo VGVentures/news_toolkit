@@ -18,8 +18,9 @@ class CategoryFeedItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final newsBlock = block;
 
-    final isUserSubscribed =
-        context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
+    final isUserSubscribed = context.select(
+      (AppBloc bloc) => bloc.state.isUserSubscribed,
+    );
 
     late Widget widget;
 
@@ -33,8 +34,12 @@ class CategoryFeedItem extends StatelessWidget {
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostLargeBlock) {
+      final categoryName = context.read<CategoriesBloc>().state.getCategoryName(
+        newsBlock.categoryId,
+      );
       widget = PostLarge(
         block: newsBlock,
+        categoryName: categoryName,
         premiumText: context.l10n.newsBlockPremiumText,
         isLocked: newsBlock.isPremium && !isUserSubscribed,
         onPressed: (action) => _onFeedItemAction(context, action),
@@ -50,8 +55,12 @@ class CategoryFeedItem extends StatelessWidget {
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostGridGroupBlock) {
+      final categoryName = context.read<CategoriesBloc>().state.getCategoryName(
+        newsBlock.categoryId,
+      );
       widget = PostGrid(
         gridGroupBlock: newsBlock,
+        categoryName: categoryName,
         premiumText: context.l10n.newsBlockPremiumText,
         onPressed: (action) => _onFeedItemAction(context, action),
       );
@@ -78,17 +87,17 @@ class CategoryFeedItem extends StatelessWidget {
     BlockAction action,
   ) async {
     if (action is NavigateToArticleAction) {
-      await Navigator.of(context).push<void>(
-        ArticlePage.route(id: action.articleId),
-      );
+      await Navigator.of(
+        context,
+      ).push<void>(ArticlePage.route(id: action.articleId));
     } else if (action is NavigateToVideoArticleAction) {
       await Navigator.of(context).push<void>(
         ArticlePage.route(id: action.articleId, isVideoArticle: true),
       );
     } else if (action is NavigateToFeedCategoryAction) {
-      context
-          .read<CategoriesBloc>()
-          .add(CategorySelected(category: action.category));
+      context.read<CategoriesBloc>().add(
+        CategorySelected(category: action.category),
+      );
     }
   }
 }

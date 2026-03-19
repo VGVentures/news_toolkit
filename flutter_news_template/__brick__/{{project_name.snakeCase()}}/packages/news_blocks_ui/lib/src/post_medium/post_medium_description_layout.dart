@@ -49,20 +49,20 @@ class PostMediumDescriptionLayout extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: textTheme.titleLarge
-                      ?.copyWith(color: AppColors.highEmphasisSurface),
+                  style: textTheme.titleLarge?.copyWith(
+                    color: AppColors.highEmphasisSurface,
+                  ),
                 ),
               ),
               const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: InlineImage(imageUrl: imageUrl),
-              ),
+              Expanded(child: InlineImage(imageUrl: imageUrl)),
             ],
           ),
           Text(
             description ?? '',
-            style: textTheme.bodyMedium
-                ?.copyWith(color: AppColors.mediumEmphasisSurface),
+            style: textTheme.bodyMedium?.copyWith(
+              color: AppColors.mediumEmphasisSurface,
+            ),
           ),
           const SizedBox(height: AppSpacing.sm),
           PostFooter(

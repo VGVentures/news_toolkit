@@ -70,29 +70,24 @@ void main() {
 
         whenListen(
           appBloc,
-          Stream.fromIterable(
-            <AppState>[AppState.unauthenticated()],
-          ),
+          Stream.fromIterable(<AppState>[AppState.unauthenticated()]),
           initialState: AppState.authenticated(user),
         );
       });
 
-      testWidgets(
-          'adds FetchNotificationsEnabled to UserProfileBloc '
+      testWidgets('adds FetchNotificationsEnabled to UserProfileBloc '
           'when initialized and each time the app is resumed', (tester) async {
         await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
+          BlocProvider.value(value: userProfileBloc, child: UserProfileView()),
         );
 
         verify(
           () => userProfileBloc.add(FetchNotificationsEnabled()),
         ).called(1);
 
-        tester.binding
-            .handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+        tester.binding.handleAppLifecycleStateChanged(
+          AppLifecycleState.resumed,
+        );
 
         verify(
           () => userProfileBloc.add(FetchNotificationsEnabled()),
@@ -107,14 +102,10 @@ void main() {
         ).called(1);
       });
 
-      testWidgets(
-          'navigates back '
+      testWidgets('navigates back '
           'when app back button is pressed', (tester) async {
         await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
+          BlocProvider.value(value: userProfileBloc, child: UserProfileView()),
         );
 
         await tester.tap(find.byType(AppBackButton));
@@ -123,14 +114,10 @@ void main() {
         expect(find.byType(UserProfileView), findsNothing);
       });
 
-      testWidgets(
-          'navigates back '
+      testWidgets('navigates back '
           'when user is unauthenticated', (tester) async {
         await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
+          BlocProvider.value(value: userProfileBloc, child: UserProfileView()),
           appBloc: appBloc,
         );
 
@@ -139,8 +126,7 @@ void main() {
         expect(find.byType(UserProfileView), findsNothing);
       });
 
-      testWidgets(
-          'adds TrackAnalyticsEvent to AnalyticsBloc '
+      testWidgets('adds TrackAnalyticsEvent to AnalyticsBloc '
           'with PushNotificationSubscriptionEvent '
           'when status is togglingNotificationsSucceeded '
           'and notificationsEnabled is true', (tester) async {
@@ -175,24 +161,15 @@ void main() {
 
       testWidgets('renders UserProfileTitle', (tester) async {
         await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
+          BlocProvider.value(value: userProfileBloc, child: UserProfileView()),
         );
 
-        expect(
-          find.byType(UserProfileTitle),
-          findsOneWidget,
-        );
+        expect(find.byType(UserProfileTitle), findsOneWidget);
       });
 
       testWidgets('renders user email', (tester) async {
         await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
+          BlocProvider.value(value: userProfileBloc, child: UserProfileView()),
         );
 
         expect(
@@ -203,14 +180,10 @@ void main() {
         );
       });
 
-      testWidgets(
-          'renders notifications item '
+      testWidgets('renders notifications item '
           'with trailing AppSwitch', (tester) async {
         await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
+          BlocProvider.value(value: userProfileBloc, child: UserProfileView()),
         );
 
         expect(
@@ -232,15 +205,12 @@ void main() {
         );
       });
 
-      group(
-          'renders UserProfileSubscribeBox '
+      group('renders UserProfileSubscribeBox '
           'when isUserSubscribed is false', () {
         testWidgets('correctly', (tester) async {
           whenListen(
             appBloc,
-            Stream.fromIterable([
-              AppState.authenticated(user),
-            ]),
+            Stream.fromIterable([AppState.authenticated(user)]),
           );
 
           await tester.pumpApp(
@@ -254,22 +224,21 @@ void main() {
           expect(find.byType(UserProfileSubscribeBox), findsOneWidget);
         });
 
-        testWidgets('opens PurchaseSubscriptionDialog when tapped',
-            (tester) async {
+        testWidgets('opens PurchaseSubscriptionDialog when tapped', (
+          tester,
+        ) async {
           whenListen(
             appBloc,
-            Stream.fromIterable([
-              AppState.authenticated(user),
-            ]),
+            Stream.fromIterable([AppState.authenticated(user)]),
           );
 
-          when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
-            (_) => const Stream.empty(),
-          );
+          when(
+            () => inAppPurchaseRepository.purchaseUpdate,
+          ).thenAnswer((_) => const Stream.empty());
 
-          when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
-            (invocation) async => [],
-          );
+          when(
+            inAppPurchaseRepository.fetchSubscriptions,
+          ).thenAnswer((invocation) async => []);
 
           await tester.pumpApp(
             inAppPurchaseRepository: inAppPurchaseRepository,
@@ -279,27 +248,21 @@ void main() {
               child: UserProfileView(),
             ),
           );
-          final subscriptionButton =
-              find.byKey(Key('userProfileSubscribeBox_appButton'));
+          final subscriptionButton = find.byKey(
+            Key('userProfileSubscribeBox_appButton'),
+          );
           await tester.scrollUntilVisible(subscriptionButton, -50);
           await tester.tap(subscriptionButton);
           await tester.pump();
 
-          expect(
-            find.byType(PurchaseSubscriptionDialog),
-            findsOneWidget,
-          );
+          expect(find.byType(PurchaseSubscriptionDialog), findsOneWidget);
         });
       });
 
-      testWidgets(
-          'renders notification preferences item '
+      testWidgets('renders notification preferences item '
           'with trailing Icon', (tester) async {
         await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
+          BlocProvider.value(value: userProfileBloc, child: UserProfileView()),
         );
         expect(
           find.byWidgetPredicate(
@@ -313,13 +276,11 @@ void main() {
         );
       });
 
-      testWidgets('renders terms of use and privacy policy item',
-          (tester) async {
+      testWidgets('renders terms of use and privacy policy item', (
+        tester,
+      ) async {
         await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
+          BlocProvider.value(value: userProfileBloc, child: UserProfileView()),
         );
         expect(
           find.byWidgetPredicate(
@@ -333,10 +294,7 @@ void main() {
 
       testWidgets('renders about item', (tester) async {
         await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
+          BlocProvider.value(value: userProfileBloc, child: UserProfileView()),
         );
         expect(
           find.byWidgetPredicate(
@@ -348,14 +306,10 @@ void main() {
         );
       });
 
-      testWidgets(
-          'adds ToggleNotifications to UserProfileBloc '
+      testWidgets('adds ToggleNotifications to UserProfileBloc '
           'when notifications item trailing is tapped', (tester) async {
         await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
+          BlocProvider.value(value: userProfileBloc, child: UserProfileView()),
         );
         await tester.tap(find.byType(AppSwitch));
         verify(() => userProfileBloc.add(ToggleNotifications())).called(1);
@@ -363,11 +317,7 @@ void main() {
 
       group('UserProfileItem', () {
         testWidgets('renders ListTile', (tester) async {
-          await tester.pumpApp(
-            UserProfileItem(
-              title: 'title',
-            ),
-          );
+          await tester.pumpApp(UserProfileItem(title: 'title'));
 
           expect(find.widgetWithText(ListTile, 'title'), findsOneWidget);
         });
@@ -401,10 +351,7 @@ void main() {
         testWidgets('calls onTap when tapped', (tester) async {
           var tapped = false;
           await tester.pumpApp(
-            UserProfileItem(
-              title: 'title',
-              onTap: () => tapped = true,
-            ),
+            UserProfileItem(title: 'title', onTap: () => tapped = true),
           );
 
           await tester.tap(find.byType(UserProfileItem));
@@ -419,13 +366,9 @@ void main() {
           expect(find.byType(AppButton), findsOneWidget);
         });
 
-        testWidgets(
-            'adds AppLogoutRequested to AppBloc '
+        testWidgets('adds AppLogoutRequested to AppBloc '
             'when tapped', (tester) async {
-          await tester.pumpApp(
-            UserProfileLogoutButton(),
-            appBloc: appBloc,
-          );
+          await tester.pumpApp(UserProfileLogoutButton(), appBloc: appBloc);
 
           await tester.tap(find.byType(UserProfileLogoutButton));
 
@@ -434,8 +377,9 @@ void main() {
       });
 
       group('navigates', () {
-        testWidgets('when tapped on Terms of User & Privacy Policy',
-            (tester) async {
+        testWidgets('when tapped on Terms of User & Privacy Policy', (
+          tester,
+        ) async {
           await tester.pumpApp(
             BlocProvider.value(
               value: userProfileBloc,
@@ -459,8 +403,7 @@ void main() {
           expect(find.byType(TermsOfServicePage), findsOneWidget);
         });
 
-        testWidgets(
-            'to ManageSubscriptionPage '
+        testWidgets('to ManageSubscriptionPage '
             'when isUserSubscribed is true and '
             'tapped on Manage Subscription', (tester) async {
           final subscribedUser = User(
@@ -481,8 +424,9 @@ void main() {
             ),
           );
 
-          final subscriptionItem =
-              find.byKey(Key('userProfilePage_subscriptionItem'));
+          final subscriptionItem = find.byKey(
+            Key('userProfilePage_subscriptionItem'),
+          );
           await tester.ensureVisible(subscriptionItem);
           await tester.tap(subscriptionItem);
           await tester.pumpAndSettle();
@@ -490,8 +434,7 @@ void main() {
           expect(find.byType(ManageSubscriptionPage), findsOneWidget);
         });
 
-        testWidgets(
-            'to NotificationPreferencesPage '
+        testWidgets('to NotificationPreferencesPage '
             'when tapped on NotificationPreferences', (tester) async {
           await tester.pumpApp(
             BlocProvider.value(
@@ -520,8 +463,7 @@ void main() {
       });
 
       group('shows', () {
-        testWidgets(
-            'UserProfileDeleteAccountDialog '
+        testWidgets('UserProfileDeleteAccountDialog '
             'when tapped on Delete account', (tester) async {
           await tester.pumpApp(
             BlocProvider.value(

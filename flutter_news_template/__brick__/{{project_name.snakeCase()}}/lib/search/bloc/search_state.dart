@@ -1,16 +1,8 @@
 part of 'search_bloc.dart';
 
-enum SearchStatus {
-  initial,
-  loading,
-  populated,
-  failure,
-}
+enum SearchStatus { initial, loading, populated, failure }
 
-enum SearchType {
-  popular,
-  relevant,
-}
+enum SearchType { popular, relevant }
 
 class SearchState extends Equatable {
   const SearchState({
@@ -21,12 +13,12 @@ class SearchState extends Equatable {
   });
 
   const SearchState.initial()
-      : this(
-          articles: const [],
-          topics: const [],
-          status: SearchStatus.initial,
-          searchType: SearchType.popular,
-        );
+    : this(
+        articles: const [],
+        topics: const [],
+        status: SearchStatus.initial,
+        searchType: SearchType.popular,
+      );
 
   final List<NewsBlock> articles;
 
@@ -44,11 +36,10 @@ class SearchState extends Equatable {
     List<String>? topics,
     SearchStatus? status,
     SearchType? searchType,
-  }) =>
-      SearchState(
-        articles: articles ?? this.articles,
-        topics: topics ?? this.topics,
-        status: status ?? this.status,
-        searchType: searchType ?? this.searchType,
-      );
+  }) => SearchState(
+    articles: articles ?? this.articles,
+    topics: topics ?? this.topics,
+    status: status ?? this.status,
+    searchType: searchType ?? this.searchType,
+  );
 }

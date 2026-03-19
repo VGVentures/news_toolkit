@@ -9,10 +9,7 @@ void main() {
   group('SearchFilterChip', () {
     testWidgets('renders chipText', (tester) async {
       await tester.pumpApp(
-        SearchFilterChip(
-          chipText: 'text',
-          onSelected: (_) {},
-        ),
+        SearchFilterChip(chipText: 'text', onSelected: (_) {}),
       );
 
       expect(find.text('text'), findsOneWidget);
@@ -22,10 +19,7 @@ void main() {
       final completer = Completer<String>();
 
       await tester.pumpApp(
-        SearchFilterChip(
-          chipText: 'text',
-          onSelected: completer.complete,
-        ),
+        SearchFilterChip(chipText: 'text', onSelected: completer.complete),
       );
 
       await tester.tap(find.byType(SearchFilterChip));

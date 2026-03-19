@@ -22,9 +22,7 @@ class NotificationCategoryTile extends StatelessWidget {
       visualDensity: const VisualDensity(
         vertical: VisualDensity.minimumDensity,
       ),
-      contentPadding: const EdgeInsets.symmetric(
-        vertical: AppSpacing.lg,
-      ),
+      contentPadding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
       horizontalTitleGap: 0,
       onTap: onTap,
       title: Text(

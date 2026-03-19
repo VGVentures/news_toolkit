@@ -10,19 +10,15 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('Video', () {
-    setUp(
-      () {
-        final fakeVideoPlayerPlatform = FakeVideoPlayerPlatform();
-        VideoPlayerPlatform.instance = fakeVideoPlayerPlatform;
-      },
-    );
+    setUp(() {
+      final fakeVideoPlayerPlatform = FakeVideoPlayerPlatform();
+      VideoPlayerPlatform.instance = fakeVideoPlayerPlatform;
+    });
 
     testWidgets('renders InlineVideo with correct video', (tester) async {
       const block = VideoBlock(videoUrl: 'videoUrl');
 
-      await tester.pumpApp(
-        Video(block: block),
-      );
+      await tester.pumpApp(Video(block: block));
 
       expect(
         find.byWidgetPredicate(
@@ -36,9 +32,7 @@ void main() {
     testWidgets('renders ProgressIndicator when loading', (tester) async {
       const block = VideoBlock(videoUrl: 'videoUrl');
 
-      await tester.pumpWidget(
-        Video(block: block),
-      );
+      await tester.pumpWidget(Video(block: block));
 
       expect(
         find.byType(ProgressIndicator, skipOffstage: false),

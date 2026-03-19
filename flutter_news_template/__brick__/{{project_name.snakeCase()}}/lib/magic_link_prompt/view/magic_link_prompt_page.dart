@@ -23,14 +23,13 @@ class MagicLinkPromptPage extends StatelessWidget {
           IconButton(
             key: const Key('magicLinkPrompt_closeIcon'),
             icon: const Icon(Icons.close),
-            onPressed: () => Navigator.of(context)
-                .popUntil((route) => route.settings.name == LoginModal.name),
+            onPressed: () => Navigator.of(
+              context,
+            ).popUntil((route) => route.settings.name == LoginModal.name),
           ),
         ],
       ),
-      body: MagicLinkPromptView(
-        email: email,
-      ),
+      body: MagicLinkPromptView(email: email),
     );
   }
 }

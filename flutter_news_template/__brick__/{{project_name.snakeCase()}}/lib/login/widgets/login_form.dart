@@ -16,8 +16,9 @@ class LoginForm extends StatelessWidget {
       listener: (context, state) {
         if (state.status.isLoggedIn) {
           // Pop all routes on top of [LoginModal], then pop the modal itself.
-          Navigator.of(context)
-              .popUntil((route) => route.settings.name == LoginModal.name);
+          Navigator.of(
+            context,
+          ).popUntil((route) => route.settings.name == LoginModal.name);
           Navigator.of(context).pop();
         }
       },
@@ -201,9 +202,8 @@ class _ContinueWithEmailLoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton.outlinedTransparentDarkAqua(
       key: const Key('loginForm_emailLogin_appButton'),
-      onPressed: () => Navigator.of(context).push<void>(
-        LoginWithEmailPage.route(),
-      ),
+      onPressed: () =>
+          Navigator.of(context).push<void>(LoginWithEmailPage.route()),
       textStyle: Theme.of(context).textTheme.titleMedium,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

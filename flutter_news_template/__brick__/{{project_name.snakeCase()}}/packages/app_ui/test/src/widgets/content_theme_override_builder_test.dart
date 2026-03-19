@@ -8,8 +8,9 @@ void main() {
   group('ContentThemeOverrideBuilder', () {
     final theme = const AppTheme().themeData;
 
-    testWidgets('overrides the text theme to AppTheme.contentTextTheme',
-        (tester) async {
+    testWidgets('overrides the text theme to AppTheme.contentTextTheme', (
+      tester,
+    ) async {
       late BuildContext capturedContext;
 
       await tester.pumpApp(

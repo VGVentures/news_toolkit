@@ -9,8 +9,7 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('StickyAd', () {
-    testWidgets(
-        'renders StickyAdContainer '
+    testWidgets('renders StickyAdContainer '
         'with anchoredAdaptive BannerAdContent', (tester) async {
       await tester.pumpApp(StickyAd());
 
@@ -21,23 +20,23 @@ void main() {
             (widget) =>
                 widget is BannerAdContent &&
                 widget.size == BannerAdSize.anchoredAdaptive &&
-                widget.showProgressIndicator == false,
+                !widget.showProgressIndicator,
           ),
         ),
         findsOneWidget,
       );
     });
 
-    testWidgets(
-        'renders StickyAdCloseIconBackground and StickyAdCloseIcon '
+    testWidgets('renders StickyAdCloseIconBackground and StickyAdCloseIcon '
         'when ad is loaded', (tester) async {
       await tester.pumpApp(StickyAd());
 
       expect(find.byType(StickyAdCloseIconBackground), findsNothing);
       expect(find.byType(StickyAdCloseIcon), findsNothing);
 
-      final bannerAdContent =
-          tester.widget<BannerAdContent>(find.byType(BannerAdContent));
+      final bannerAdContent = tester.widget<BannerAdContent>(
+        find.byType(BannerAdContent),
+      );
       bannerAdContent.onAdLoaded?.call();
       await tester.pump();
 
@@ -48,8 +47,9 @@ void main() {
     testWidgets('hides ad when closed icon is tapped', (tester) async {
       await tester.pumpApp(StickyAd());
 
-      final bannerAdContent =
-          tester.widget<BannerAdContent>(find.byType(BannerAdContent));
+      final bannerAdContent = tester.widget<BannerAdContent>(
+        find.byType(BannerAdContent),
+      );
       bannerAdContent.onAdLoaded?.call();
       await tester.pump();
 

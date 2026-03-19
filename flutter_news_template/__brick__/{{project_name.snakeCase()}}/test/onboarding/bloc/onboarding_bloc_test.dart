@@ -45,8 +45,9 @@ void main() {
         'emits '
         '[EnablingAdTracking, EnablingAdTrackingFailed] '
         'when AdsConsentClient.requestConsent returns false',
-        setUp: () => when(adsConsentClient.requestConsent)
-            .thenAnswer((_) async => false),
+        setUp: () => when(
+          adsConsentClient.requestConsent,
+        ).thenAnswer((_) async => false),
         build: () => OnboardingBloc(
           notificationsRepository: notificationsRepository,
           adsConsentClient: adsConsentClient,

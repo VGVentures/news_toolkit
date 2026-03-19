@@ -27,10 +27,7 @@ void main() {
       final subscription = Subscription(
         id: 'a',
         name: SubscriptionPlan.plus,
-        cost: SubscriptionCost(
-          annual: 4200,
-          monthly: 1200,
-        ),
+        cost: SubscriptionCost(annual: 4200, monthly: 1200),
         benefits: const ['benefitA'],
       );
 
@@ -76,9 +73,7 @@ void main() {
       final request = Request(
         'POST',
         Uri.parse('http://127.0.0.1/').replace(
-          queryParameters: <String, String>{
-            'subscriptionId': subscriptionId,
-          },
+          queryParameters: <String, String>{'subscriptionId': subscriptionId},
         ),
       );
       final user = _MockRequestUser();

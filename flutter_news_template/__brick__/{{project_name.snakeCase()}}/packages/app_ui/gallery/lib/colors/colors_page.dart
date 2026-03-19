@@ -72,14 +72,8 @@ class ColorsPage extends StatelessWidget {
         name: 'Disabled Foreground',
         color: AppColors.disabledForeground,
       ),
-      _ColorItem(
-        name: 'Disabled Button',
-        color: AppColors.disabledButton,
-      ),
-      _ColorItem(
-        name: 'Disabled Surface',
-        color: AppColors.disabledSurface,
-      ),
+      _ColorItem(name: 'Disabled Button', color: AppColors.disabledButton),
+      _ColorItem(name: 'Disabled Surface', color: AppColors.disabledSurface),
     ];
 
     return Scaffold(
@@ -162,10 +156,11 @@ class _ColorSquare extends StatelessWidget {
   }
 
   String get hexCode {
-    if (color.value.toRadixString(16).length <= 2) {
+    if (color.toARGB32().toRadixString(16).length <= 2) {
       return '--';
     } else {
-      return '#${color.value.toRadixString(16).substring(2).toUpperCase()}';
+      final c = color.toARGB32().toRadixString(16).substring(2).toUpperCase();
+      return '#$c';
     }
   }
 

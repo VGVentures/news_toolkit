@@ -18,6 +18,12 @@ void main() {
   final notificationsRepository = MockNotificationsRepository();
   final newsRepository = MockNewsRepository();
 
+  final entertainmentCategory = Category(
+    id: 'entertainment',
+    name: 'Entertainment',
+  );
+  final healthCategory = Category(id: 'health', name: 'Health');
+
   group('NotificationPreferencesBloc', () {
     group('on CategoriesPreferenceToggled ', () {
       blocTest<NotificationPreferencesBloc, NotificationPreferencesState>(
@@ -33,18 +39,16 @@ void main() {
         ),
         seed: () => initialState,
         act: (bloc) => bloc
-          ..add(CategoriesPreferenceToggled(category: Category.business))
-          ..add(CategoriesPreferenceToggled(category: Category.business)),
+          ..add(CategoriesPreferenceToggled(category: entertainmentCategory))
+          ..add(CategoriesPreferenceToggled(category: entertainmentCategory)),
         expect: () => <NotificationPreferencesState>[
+          initialState.copyWith(status: NotificationPreferencesStatus.loading),
           initialState.copyWith(
-            status: NotificationPreferencesStatus.loading,
-          ),
-          initialState.copyWith(
-            selectedCategories: {Category.business},
+            selectedCategories: {entertainmentCategory},
             status: NotificationPreferencesStatus.success,
           ),
           initialState.copyWith(
-            selectedCategories: {Category.business},
+            selectedCategories: {entertainmentCategory},
             status: NotificationPreferencesStatus.loading,
           ),
           initialState.copyWith(
@@ -66,15 +70,11 @@ void main() {
           notificationsRepository: notificationsRepository,
         ),
         seed: () => initialState,
-        act: (bloc) =>
-            bloc..add(CategoriesPreferenceToggled(category: Category.business)),
+        act: (bloc) => bloc
+          ..add(CategoriesPreferenceToggled(category: entertainmentCategory)),
         expect: () => <NotificationPreferencesState>[
-          initialState.copyWith(
-            status: NotificationPreferencesStatus.loading,
-          ),
-          initialState.copyWith(
-            status: NotificationPreferencesStatus.failure,
-          ),
+          initialState.copyWith(status: NotificationPreferencesStatus.loading),
+          initialState.copyWith(status: NotificationPreferencesStatus.failure),
         ],
       );
     });
@@ -86,13 +86,10 @@ void main() {
         setUp: () {
           when(
             notificationsRepository.fetchCategoriesPreferences,
-          ).thenAnswer((_) async => {Category.business});
+          ).thenAnswer((_) async => {entertainmentCategory});
           when(newsRepository.getCategories).thenAnswer(
             (_) async => CategoriesResponse(
-              categories: const [
-                Category.business,
-                Category.entertainment,
-              ],
+              categories: [entertainmentCategory, healthCategory],
             ),
           );
         },
@@ -103,15 +100,10 @@ void main() {
         seed: () => initialState,
         act: (bloc) => bloc..add(InitialCategoriesPreferencesRequested()),
         expect: () => <NotificationPreferencesState>[
-          initialState.copyWith(
-            status: NotificationPreferencesStatus.loading,
-          ),
+          initialState.copyWith(status: NotificationPreferencesStatus.loading),
           NotificationPreferencesState(
-            categories: const {
-              Category.business,
-              Category.entertainment,
-            },
-            selectedCategories: const {Category.business},
+            categories: {entertainmentCategory, healthCategory},
+            selectedCategories: {entertainmentCategory},
             status: NotificationPreferencesStatus.success,
           ),
         ],
@@ -130,12 +122,8 @@ void main() {
         seed: () => initialState,
         act: (bloc) => bloc..add(InitialCategoriesPreferencesRequested()),
         expect: () => <NotificationPreferencesState>[
-          initialState.copyWith(
-            status: NotificationPreferencesStatus.loading,
-          ),
-          initialState.copyWith(
-            status: NotificationPreferencesStatus.failure,
-          ),
+          initialState.copyWith(status: NotificationPreferencesStatus.loading),
+          initialState.copyWith(status: NotificationPreferencesStatus.failure),
         ],
       );
     });

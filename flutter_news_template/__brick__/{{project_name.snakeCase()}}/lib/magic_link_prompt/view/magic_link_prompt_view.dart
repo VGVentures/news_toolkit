@@ -73,9 +73,7 @@ class MagicLinkPromptSubtitle extends StatelessWidget {
         Text(
           email,
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyLarge?.apply(
-            color: AppColors.darkAqua,
-          ),
+          style: theme.textTheme.bodyLarge?.apply(color: AppColors.darkAqua),
         ),
         const SizedBox(height: AppSpacing.xxlg),
         Text(
@@ -90,10 +88,8 @@ class MagicLinkPromptSubtitle extends StatelessWidget {
 
 @visibleForTesting
 class MagicLinkPromptOpenEmailButton extends StatelessWidget {
-  MagicLinkPromptOpenEmailButton({
-    EmailLauncher? emailLauncher,
-    super.key,
-  }) : _emailLauncher = emailLauncher ?? EmailLauncher();
+  MagicLinkPromptOpenEmailButton({EmailLauncher? emailLauncher, super.key})
+    : _emailLauncher = emailLauncher ?? EmailLauncher();
 
   final EmailLauncher _emailLauncher;
 

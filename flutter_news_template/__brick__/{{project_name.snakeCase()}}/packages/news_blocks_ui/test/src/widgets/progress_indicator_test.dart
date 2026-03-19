@@ -9,12 +9,9 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('ProgressIndicator', () {
-    testWidgets(
-        'renders ColoredBox '
+    testWidgets('renders ColoredBox '
         'with gainsboro color as default', (tester) async {
-      await tester.pumpApp(
-        ProgressIndicator(progress: 0.5),
-      );
+      await tester.pumpApp(ProgressIndicator(progress: 0.5));
 
       expect(
         find.byWidgetPredicate(
@@ -25,14 +22,11 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders ColoredBox '
+    testWidgets('renders ColoredBox '
         'with provided color', (tester) async {
       const color = Colors.orange;
 
-      await tester.pumpApp(
-        ProgressIndicator(progress: 0.5, color: color),
-      );
+      await tester.pumpApp(ProgressIndicator(progress: 0.5, color: color));
 
       expect(
         find.byWidgetPredicate(
@@ -45,9 +39,7 @@ void main() {
     testWidgets('renders CircularProgressIndicator', (tester) async {
       const progress = 0.5;
 
-      await tester.pumpApp(
-        ProgressIndicator(progress: progress),
-      );
+      await tester.pumpApp(ProgressIndicator(progress: progress));
 
       expect(
         find.descendant(

@@ -60,10 +60,7 @@ class ArticleThemeColors extends ThemeExtension<ArticleThemeColors>
   final Color captionLight;
 
   @override
-  ArticleThemeColors copyWith({
-    Color? captionNormal,
-    Color? captionLight,
-  }) {
+  ArticleThemeColors copyWith({Color? captionNormal, Color? captionLight}) {
     return ArticleThemeColors(
       captionNormal: captionNormal ?? this.captionNormal,
       captionLight: captionLight ?? this.captionLight,

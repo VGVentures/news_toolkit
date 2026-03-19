@@ -24,15 +24,12 @@ void main() {
     test('supports value comparisons', () {
       expect(
         SubscriptionsState.initial(),
-        equals(
-          SubscriptionsState.initial(),
-        ),
+        equals(SubscriptionsState.initial()),
       );
     });
 
     group('copyWith', () {
-      test(
-          'returns same object '
+      test('returns same object '
           'when no parameters changed', () {
         expect(
           SubscriptionsState.initial().copyWith(),
@@ -40,8 +37,7 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated purchaseStatus '
+      test('returns object with updated purchaseStatus '
           'when status changed', () {
         expect(
           SubscriptionsState.initial().copyWith(
@@ -56,18 +52,14 @@ void main() {
         );
       });
 
-      test(
-          'returns object with updated subscriptions '
+      test('returns object with updated subscriptions '
           'when subscriptions changed', () {
         expect(
           SubscriptionsState.initial().copyWith(
             subscriptions: [
               Subscription(
                 benefits: [],
-                cost: SubscriptionCost(
-                  annual: 0,
-                  monthly: 0,
-                ),
+                cost: SubscriptionCost(annual: 0, monthly: 0),
                 id: '1',
                 name: SubscriptionPlan.none,
               ),
@@ -78,10 +70,7 @@ void main() {
               subscriptions: [
                 Subscription(
                   benefits: [],
-                  cost: SubscriptionCost(
-                    annual: 0,
-                    monthly: 0,
-                  ),
+                  cost: SubscriptionCost(annual: 0, monthly: 0),
                   id: '1',
                   name: SubscriptionPlan.none,
                 ),

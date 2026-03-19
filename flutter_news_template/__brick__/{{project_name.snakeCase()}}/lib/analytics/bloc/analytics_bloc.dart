@@ -12,8 +12,8 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
   AnalyticsBloc({
     required analytics.AnalyticsRepository analyticsRepository,
     required UserRepository userRepository,
-  })  : _analyticsRepository = analyticsRepository,
-        super(AnalyticsInitial()) {
+  }) : _analyticsRepository = analyticsRepository,
+       super(AnalyticsInitial()) {
     on<TrackAnalyticsEvent>(_onTrackAnalyticsEvent);
 
     _userSubscription = userRepository.user.listen(_onUserChanged);
@@ -24,9 +24,10 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
 
   Future<void> _onUserChanged(User user) async {
     try {
-      await _analyticsRepository
-          .setUserId(user != User.anonymous ? user.id : null);
-    } catch (error, stackTrace) {
+      await _analyticsRepository.setUserId(
+        user != User.anonymous ? user.id : null,
+      );
+    } on Exception catch (error, stackTrace) {
       addError(error, stackTrace);
     }
   }
@@ -37,14 +38,14 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
   ) async {
     try {
       await _analyticsRepository.track(event.event);
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       addError(error, stackTrace);
     }
   }
 
   @override
-  Future<void> close() {
-    _userSubscription.cancel();
+  Future<void> close() async {
+    await _userSubscription.cancel();
     return super.close();
   }
 }

@@ -7,12 +7,13 @@ part of 'subscription.dart';
 // **************************************************************************
 
 Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
-      id: json['id'] as String,
-      name: $enumDecode(_$SubscriptionPlanEnumMap, json['name']),
-      cost: SubscriptionCost.fromJson(json['cost'] as Map<String, dynamic>),
-      benefits:
-          (json['benefits'] as List<dynamic>).map((e) => e as String).toList(),
-    );
+  id: json['id'] as String,
+  name: $enumDecode(_$SubscriptionPlanEnumMap, json['name']),
+  cost: SubscriptionCost.fromJson(json['cost'] as Map<String, dynamic>),
+  benefits: (json['benefits'] as List<dynamic>)
+      .map((e) => e as String)
+      .toList(),
+);
 
 Map<String, dynamic> _$SubscriptionToJson(Subscription instance) =>
     <String, dynamic>{
@@ -36,7 +37,4 @@ SubscriptionCost _$SubscriptionCostFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$SubscriptionCostToJson(SubscriptionCost instance) =>
-    <String, dynamic>{
-      'monthly': instance.monthly,
-      'annual': instance.annual,
-    };
+    <String, dynamic>{'monthly': instance.monthly, 'annual': instance.annual};

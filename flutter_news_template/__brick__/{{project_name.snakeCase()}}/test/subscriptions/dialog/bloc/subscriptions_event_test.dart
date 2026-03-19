@@ -17,10 +17,7 @@ void main() {
         final event1 = SubscriptionPurchaseRequested(
           subscription: const Subscription(
             benefits: [],
-            cost: SubscriptionCost(
-              annual: 0,
-              monthly: 0,
-            ),
+            cost: SubscriptionCost(annual: 0, monthly: 0),
             id: '1',
             name: SubscriptionPlan.none,
           ),
@@ -28,10 +25,7 @@ void main() {
         final event2 = SubscriptionPurchaseRequested(
           subscription: const Subscription(
             benefits: [],
-            cost: SubscriptionCost(
-              annual: 0,
-              monthly: 0,
-            ),
+            cost: SubscriptionCost(annual: 0, monthly: 0),
             id: '1',
             name: SubscriptionPlan.none,
           ),
@@ -46,10 +40,7 @@ void main() {
         final event1 = SubscriptionPurchaseCompleted(
           subscription: const Subscription(
             benefits: [],
-            cost: SubscriptionCost(
-              annual: 0,
-              monthly: 0,
-            ),
+            cost: SubscriptionCost(annual: 0, monthly: 0),
             id: '1',
             name: SubscriptionPlan.none,
           ),
@@ -57,10 +48,7 @@ void main() {
         final event2 = SubscriptionPurchaseCompleted(
           subscription: const Subscription(
             benefits: [],
-            cost: SubscriptionCost(
-              annual: 0,
-              monthly: 0,
-            ),
+            cost: SubscriptionCost(annual: 0, monthly: 0),
             id: '1',
             name: SubscriptionPlan.none,
           ),

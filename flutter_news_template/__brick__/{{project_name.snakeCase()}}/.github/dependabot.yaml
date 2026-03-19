@@ -5,6 +5,11 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    # Updating patch versions for "github-actions" is too chatty.
+    # See https://github.com/flutter/flutter/issues/158350.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
   - package-ecosystem: "pub"
     directory: "/api"
     schedule:
@@ -105,3 +110,8 @@ updates:
     directory: "/packages/news_blocks_ui"
     schedule:
       interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/flutter_news_template/hooks"
+    schedule:
+      interval: "daily"
+    target-branch: "templates"

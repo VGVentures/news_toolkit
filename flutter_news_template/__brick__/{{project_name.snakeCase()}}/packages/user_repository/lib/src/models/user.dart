@@ -19,15 +19,14 @@ class User extends AuthenticationUser {
   factory User.fromAuthenticationUser({
     required AuthenticationUser authenticationUser,
     required SubscriptionPlan subscriptionPlan,
-  }) =>
-      User(
-        email: authenticationUser.email,
-        id: authenticationUser.id,
-        name: authenticationUser.name,
-        photo: authenticationUser.photo,
-        isNewUser: authenticationUser.isNewUser,
-        subscriptionPlan: subscriptionPlan,
-      );
+  }) => User(
+    email: authenticationUser.email,
+    id: authenticationUser.id,
+    name: authenticationUser.name,
+    photo: authenticationUser.photo,
+    isNewUser: authenticationUser.isNewUser,
+    subscriptionPlan: subscriptionPlan,
+  );
 
   /// Whether the current user is anonymous.
   @override

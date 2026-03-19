@@ -36,9 +36,7 @@ class NotificationPreferencesView extends StatelessWidget {
     final l10n = context.l10n;
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        leading: const AppBackButton(),
-      ),
+      appBar: AppBar(leading: const AppBackButton()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
@@ -58,8 +56,10 @@ class NotificationPreferencesView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: AppSpacing.lg),
-              BlocBuilder<NotificationPreferencesBloc,
-                  NotificationPreferencesState>(
+              BlocBuilder<
+                NotificationPreferencesBloc,
+                NotificationPreferencesState
+              >(
                 builder: (context, state) => Expanded(
                   child: ListView(
                     children: state.categories
@@ -69,8 +69,9 @@ class NotificationPreferencesView extends StatelessWidget {
                             trailing: AppSwitch(
                               onText: l10n.checkboxOnTitle,
                               offText: l10n.userProfileCheckboxOffTitle,
-                              value:
-                                  state.selectedCategories.contains(category),
+                              value: state.selectedCategories.contains(
+                                category,
+                              ),
                               onChanged: (value) => context
                                   .read<NotificationPreferencesBloc>()
                                   .add(

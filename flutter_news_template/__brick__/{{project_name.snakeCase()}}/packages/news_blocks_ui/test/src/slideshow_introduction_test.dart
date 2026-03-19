@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_const, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -63,8 +63,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) =>
-              widget is SlideshowCategory && widget.isIntroduction == true,
+          (widget) => widget is SlideshowCategory && widget.isIntroduction,
         ),
         findsOneWidget,
       );
@@ -99,40 +98,37 @@ void main() {
       );
     });
 
-    testWidgets(
-      'onPressed is called with action when tapped',
-      (tester) async {
-        final action = NavigateToArticleAction(articleId: 'articleId');
-        final actions = <BlockAction>[];
+    testWidgets('onPressed is called with action when tapped', (tester) async {
+      final action = NavigateToArticleAction(articleId: 'articleId');
+      final actions = <BlockAction>[];
 
-        final block = SlideshowIntroductionBlock(
-          title: 'title',
-          coverImageUrl: imageUrl,
-          action: action,
-        );
+      final block = SlideshowIntroductionBlock(
+        title: 'title',
+        coverImageUrl: imageUrl,
+        action: action,
+      );
 
-        await mockNetworkImages(
-          () async => tester.pumpContentThemedApp(
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  SlideshowIntroduction(
-                    block: block,
-                    slideshowText: 'slideshowText',
-                    onPressed: actions.add,
-                  ),
-                ],
-              ),
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SlideshowIntroduction(
+                  block: block,
+                  slideshowText: 'slideshowText',
+                  onPressed: actions.add,
+                ),
+              ],
             ),
           ),
-        );
+        ),
+      );
 
-        await tester.ensureVisible(find.byType(SlideshowIntroduction));
-        await tester.tap(find.byType(SlideshowIntroduction));
-        await tester.pump();
+      await tester.ensureVisible(find.byType(SlideshowIntroduction));
+      await tester.tap(find.byType(SlideshowIntroduction));
+      await tester.pump();
 
-        expect(actions, equals([action]));
-      },
-    );
+      expect(actions, equals([action]));
+    });
   });
 }

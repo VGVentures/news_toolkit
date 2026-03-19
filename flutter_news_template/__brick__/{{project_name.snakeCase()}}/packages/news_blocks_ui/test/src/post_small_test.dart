@@ -22,6 +22,7 @@ void main() {
     });
 
     testWidgets('renders correctly without image', (tester) async {
+      const category = Category(id: 'technology', name: 'Technology');
       await mockNetworkImages(() async {
         await tester.pumpApp(
           Column(
@@ -29,9 +30,10 @@ void main() {
               PostSmall(
                 block: PostSmallBlock(
                   id: 'id',
-                  category: PostCategory.technology,
+                  categoryId: category.id,
                   publishedAt: DateTime(2022, 03, 12),
-                  title: 'Nvidia and AMD GPUs are '
+                  title:
+                      'Nvidia and AMD GPUs are '
                       'returning to shelves and prices '
                       'are finally falling',
                   author: 'Sean Hollister',
@@ -48,6 +50,7 @@ void main() {
     });
 
     testWidgets('renders correctly with image', (tester) async {
+      const category = Category(id: 'technology', name: 'Technology');
       await mockNetworkImages(() async {
         await tester.pumpApp(
           Column(
@@ -55,9 +58,10 @@ void main() {
               PostSmall(
                 block: PostSmallBlock(
                   id: 'id',
-                  category: PostCategory.technology,
+                  categoryId: category.id,
                   publishedAt: DateTime(2022, 03, 12),
-                  title: 'Nvidia and AMD GPUs are '
+                  title:
+                      'Nvidia and AMD GPUs are '
                       'returning to shelves and prices '
                       'are finally falling',
                   author: 'Sean Hollister',
@@ -78,6 +82,7 @@ void main() {
     testWidgets('onPressed is called with action when tapped', (tester) async {
       final action = NavigateToArticleAction(articleId: 'id');
       final actions = <BlockAction>[];
+      const category = Category(id: 'technology', name: 'Technology');
 
       await mockNetworkImages(() async {
         await tester.pumpApp(
@@ -86,7 +91,7 @@ void main() {
               PostSmall(
                 block: PostSmallBlock(
                   id: 'id',
-                  category: PostCategory.technology,
+                  categoryId: category.id,
                   publishedAt: DateTime(2022, 03, 12),
                   title:
                       'Nvidia and AMD GPUs are returning to shelves and prices '

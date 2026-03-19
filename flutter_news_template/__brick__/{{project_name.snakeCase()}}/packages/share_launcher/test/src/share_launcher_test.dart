@@ -10,6 +10,9 @@ class MockSharePlatform extends Mock
     implements SharePlatform {}
 
 void main() {
+  setUpAll(() {
+    registerFallbackValue(ShareParams(text: 'fallback'));
+  });
   group('ShareFailure', () {
     test('supports value comparison', () {
       final shareFailure1 = ShareFailure('error');
@@ -25,9 +28,10 @@ void main() {
       var called = false;
 
       final shareLauncher = ShareLauncher(
-        shareProvider: (String text) async {
+        shareProvider: (params) async {
           called = true;
-          expect(text, equals('text'));
+          expect(params.text, equals('text'));
+          return ShareResult('raw', ShareResultStatus.success);
         },
       );
 
@@ -38,25 +42,23 @@ void main() {
 
     test('throws ShareFailure when shareLauncher throws', () async {
       final shareLauncher = ShareLauncher(
-        shareProvider: (String text) => throw Exception(),
+        shareProvider: (params) => throw Exception(),
       );
 
       expect(shareLauncher.share(text: 'text'), throwsA(isA<ShareFailure>()));
     });
 
-    test(
-        'calls default ShareProvider with text '
+    test('calls default ShareProvider with text '
         'when shareProvider not provided ', () async {
       final mock = MockSharePlatform();
       SharePlatform.instance = mock;
-      when(() => SharePlatform.instance.share(any(that: isA<String>())))
-          .thenAnswer(
-        (_) async => ShareResult('raw', ShareResultStatus.success),
-      );
+      when(
+        () => SharePlatform.instance.share(any(that: isA<ShareParams>())),
+      ).thenAnswer((_) async => ShareResult('raw', ShareResultStatus.success));
 
       await ShareLauncher().share(text: 'text');
 
-      verify(() => mock.share('text')).called(1);
+      verify(() => mock.share(any(that: isA<ShareParams>()))).called(1);
     });
   });
 }

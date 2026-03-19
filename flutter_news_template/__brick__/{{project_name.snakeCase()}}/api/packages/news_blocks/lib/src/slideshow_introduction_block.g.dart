@@ -9,28 +9,32 @@ part of 'slideshow_introduction_block.dart';
 // **************************************************************************
 
 SlideshowIntroductionBlock _$SlideshowIntroductionBlockFromJson(
-        Map<String, dynamic> json) =>
-    $checkedCreate(
-      'SlideshowIntroductionBlock',
-      json,
-      ($checkedConvert) {
-        final val = SlideshowIntroductionBlock(
-          title: $checkedConvert('title', (v) => v as String),
-          coverImageUrl: $checkedConvert('cover_image_url', (v) => v as String),
-          type: $checkedConvert('type',
-              (v) => v as String? ?? SlideshowIntroductionBlock.identifier),
-          action: $checkedConvert(
-              'action',
-              (v) => const BlockActionConverter()
-                  .fromJson(v as Map<String, dynamic>?)),
-        );
-        return val;
-      },
-      fieldKeyMap: const {'coverImageUrl': 'cover_image_url'},
+  Map<String, dynamic> json,
+) => $checkedCreate(
+  'SlideshowIntroductionBlock',
+  json,
+  ($checkedConvert) {
+    final val = SlideshowIntroductionBlock(
+      title: $checkedConvert('title', (v) => v as String),
+      coverImageUrl: $checkedConvert('cover_image_url', (v) => v as String),
+      type: $checkedConvert(
+        'type',
+        (v) => v as String? ?? SlideshowIntroductionBlock.identifier,
+      ),
+      action: $checkedConvert(
+        'action',
+        (v) =>
+            const BlockActionConverter().fromJson(v as Map<String, dynamic>?),
+      ),
     );
+    return val;
+  },
+  fieldKeyMap: const {'coverImageUrl': 'cover_image_url'},
+);
 
 Map<String, dynamic> _$SlideshowIntroductionBlockToJson(
-    SlideshowIntroductionBlock instance) {
+  SlideshowIntroductionBlock instance,
+) {
   final val = <String, dynamic>{
     'title': instance.title,
     'cover_image_url': instance.coverImageUrl,

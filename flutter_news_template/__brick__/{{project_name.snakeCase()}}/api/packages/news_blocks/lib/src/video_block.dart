@@ -11,10 +11,7 @@ part 'video_block.g.dart';
 @JsonSerializable()
 class VideoBlock with EquatableMixin implements NewsBlock {
   /// {@macro video_block}
-  const VideoBlock({
-    required this.videoUrl,
-    this.type = VideoBlock.identifier,
-  });
+  const VideoBlock({required this.videoUrl, this.type = VideoBlock.identifier});
 
   /// Converts a `Map<String, dynamic>` into a [VideoBlock] instance.
   factory VideoBlock.fromJson(Map<String, dynamic> json) =>
