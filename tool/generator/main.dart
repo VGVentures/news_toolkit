@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:path/path.dart' as path;
 
 final _staticDir = path.join('tool', 'generator', 'static');
@@ -154,8 +155,8 @@ void main() async {
     path.join(_targetPath, '.vscode', 'launch.json'),
   );
   await Shell.cp(
-    path.join(_staticDir, 'build.gradle'),
-    path.join(_targetPath, 'android', 'app', 'build.gradle'),
+    path.join(_staticDir, 'build.gradle.kts'),
+    path.join(_targetPath, 'android', 'app', 'build.gradle.kts'),
   );
   await Shell.cp('codemagic.yaml', _targetCodemagic);
 
